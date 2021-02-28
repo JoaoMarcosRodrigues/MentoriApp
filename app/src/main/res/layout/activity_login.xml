@@ -42,7 +42,9 @@
             android:id="@+id/edit_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Email" />
+            android:hint="Email"
+            android:inputType="textEmailAddress"
+            android:maxLines="1" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -63,7 +65,9 @@
             android:id="@+id/edit_senha"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Senha" />
+            android:hint="Senha"
+            android:inputType="textWebPassword"
+            android:maxLines="1" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
@@ -72,6 +76,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/input_senha"
         android:layout_marginLeft="30dp"
+        android:clickable="true"
         android:text="Esqueceu a senha?"
         android:textColor="#123DAA"
         android:textSize="14sp" />
@@ -93,17 +98,7 @@
         android:layout_alignParentBottom="true"
         android:layout_marginLeft="80dp"
         android:layout_marginBottom="70dp"
-        android:text="Ainda não possui cadastro?" />
+        android:text="Ainda não possui cadastro? Clique aqui" />
 
-    <TextView
-        android:id="@+id/txt_link_cadastro"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginLeft="10dp"
-        android:layout_marginBottom="70dp"
-        android:layout_toRightOf="@+id/txt_ainda_nao_possui_cadastro"
-        android:text="Clique aqui"
-        android:textColor="#123DAA" />
 
 </RelativeLayout>

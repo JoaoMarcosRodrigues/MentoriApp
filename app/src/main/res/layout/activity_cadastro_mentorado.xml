@@ -52,6 +52,8 @@
                     android:id="@+id/edit_email_cadastro"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:inputType="textEmailAddress"
                     android:background="@drawable/edit_round"
                     android:hint="Email" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -73,6 +75,8 @@
                     android:id="@+id/edit_nome_cadastro"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:inputType="text"
                     android:background="@drawable/edit_round"
                     android:hint="Nome" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -95,6 +99,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/edit_round"
+                    android:maxLines="1"
+                    android:inputType="phone"
                     android:hint="Telefone" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -115,6 +121,8 @@
                     android:id="@+id/edit_senha_cadastro"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:inputType="textWebPassword"
                     android:background="@drawable/edit_round"
                     android:hint="Senha" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -137,6 +145,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/edit_round"
+                    android:maxLines="1"
+                    android:inputType="textWebPassword"
                     android:hint="Confirme a senha" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -156,6 +166,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/edit_round"
+                    android:maxLines="1"
+                    android:inputType="text"
                     android:hint="Área de interesse" />
             </com.google.android.material.textfield.TextInputLayout>
 

@@ -1,16 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Fragmentos.TutorialFragment">
+    android:background="@drawable/background"
+    tools:context=".Fragmentos_side.TutorialFragment">
 
-    <TextView
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/view_pager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:text="TUTORIAL"
-        android:textSize="40sp"
-        android:textStyle="bold" />
+        android:layout_height="match_parent">
+
+
+    </androidx.viewpager.widget.ViewPager>
+
+    <LinearLayout
+        android:id="@+id/layout_navegacao"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:orientation="horizontal">
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_anterior"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="#00CCCCCC"
+        android:text="Anterior"
+        android:textColor="@color/white"
+        android:visibility="invisible" />
+
+    <Button
+        android:id="@+id/btn_proximo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:textColor="@color/white"
+        android:layout_alignParentBottom="true"
+        android:background="#00CCCCCC"
+        android:text="Próximo" />
 
 </RelativeLayout>

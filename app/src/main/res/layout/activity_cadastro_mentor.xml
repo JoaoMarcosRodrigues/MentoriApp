@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".Mentorado.CadastroMentoradoActivity">
+    tools:context=".Mentor.CadastroMentorActivity">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -54,7 +54,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/edit_round"
-                    android:hint="Email" />
+                    android:hint="Email"
+                    android:inputType="textEmailAddress"
+                    android:maxLines="1" />
             </com.google.android.material.textfield.TextInputLayout>
             <!-- Nome completo -->
             <com.google.android.material.textfield.TextInputLayout
@@ -75,7 +77,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/edit_round"
-                    android:hint="Nome completo" />
+                    android:hint="Nome completo"
+                    android:inputType="text"
+                    android:maxLines="1" />
             </com.google.android.material.textfield.TextInputLayout>
             <!-- Telefone -->
             <com.google.android.material.textfield.TextInputLayout
@@ -96,7 +100,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/edit_round"
-                    android:hint="Telefone" />
+                    android:hint="Telefone"
+                    android:inputType="phone"
+                    android:maxLines="1" />
             </com.google.android.material.textfield.TextInputLayout>
             <!-- Senha -->
             <com.google.android.material.textfield.TextInputLayout
@@ -117,7 +123,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/edit_round"
-                    android:hint="Senha" />
+                    android:hint="Senha"
+                    android:inputType="textWebPassword"
+                    android:maxLines="1" />
             </com.google.android.material.textfield.TextInputLayout>
             <!-- Confirmar senha -->
             <com.google.android.material.textfield.TextInputLayout
@@ -138,11 +146,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/edit_round"
-                    android:hint="Confirme a senha" />
+                    android:hint="Confirme a senha"
+                    android:inputType="textWebPassword"
+                    android:maxLines="1" />
             </com.google.android.material.textfield.TextInputLayout>
             <!-- Next -->
             <Button
-                android:id="@+id/btn_cadastrar"
+                android:id="@+id/btn_next"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/input_resenha_cadastro"

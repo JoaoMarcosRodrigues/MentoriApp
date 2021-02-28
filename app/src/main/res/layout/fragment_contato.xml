@@ -1,16 +1,116 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Fragmentos.ContatoFragment">
+    tools:context=".Fragmentos_side.ContatoFragment">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:background="@drawable/round_opcao"
+            android:padding="20dp">
+
+            <ImageView
+                android:id="@+id/icon_whatsapp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/whatsapp"
+                android:contentDescription="TODO" />
+
+            <TextView
+                android:id="@+id/txt_whatsapp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="20dp"
+                android:layout_toRightOf="@+id/icon_whatsapp"
+                android:text="@string/telefone_contato"
+                android:textColor="#0140FF"
+                android:textSize="16sp"
+                android:layout_marginStart="20dp"
+                android:layout_toEndOf="@+id/icon_whatsapp" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/round_opcao"
+            android:padding="20dp">
+
+            <ImageView
+                android:id="@+id/icon_email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/email"
+                android:contentDescription="TODO" />
+
+            <TextView
+                android:id="@+id/txt_email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="20dp"
+                android:layout_toRightOf="@+id/icon_email"
+                android:text="@string/email_contato"
+                android:textColor="#0140FF"
+                android:textSize="16sp"
+                android:layout_marginStart="20dp"
+                android:layout_toEndOf="@+id/icon_email" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/round_opcao"
+            android:padding="20dp">
+
+            <ImageView
+                android:id="@+id/icon_instagram"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/instagram"
+                android:contentDescription="TODO" />
+
+            <TextView
+                android:id="@+id/txt_instagram"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="20dp"
+                android:layout_toRightOf="@+id/icon_instagram"
+                android:text="'@'mentoriapp"
+                android:textColor="#0140FF"
+                android:textSize="16sp" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
 
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:textSize="40sp"
-        android:textStyle="bold"
-        android:text="CONTATO" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="100dp"
+        android:layout_marginBottom="100dp"
+        android:text="@string/entre_em_contato"
+        android:textColor="#A4000000"
+        android:textSize="15sp"
+        android:textStyle="bold" />
 
 </RelativeLayout>

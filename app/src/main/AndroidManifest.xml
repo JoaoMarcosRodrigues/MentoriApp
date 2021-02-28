@@ -9,8 +9,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MentoriApp">
-        <activity android:name=".Mentorado.CadastroMentoradoActivity"></activity>
+        <activity android:name=".RecuperarSenhaActivity" />
         <activity android:name=".LoginActivity" />
+        <activity android:name=".OpcaoCadastroActivity" />
+        <activity android:name=".Mentor.CadastroMentorActivity" />
+        <activity android:name=".Mentor.CadastroMentor2Activity" />
+        <activity android:name=".Mentorado.CadastroMentoradoActivity" />
         <activity
             android:name=".MainActivity"
             android:theme="@style/Theme.Design.Light.NoActionBar">

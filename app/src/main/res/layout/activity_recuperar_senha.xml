@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LoginActivity">
+    tools:context=".RecuperarSenhaActivity">
 
     <ImageView
         android:id="@+id/img_logo"
@@ -42,7 +42,9 @@
             android:id="@+id/edit_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Email" />
+            android:hint="Email"
+            android:inputType="textEmailAddress"
+            android:maxLines="1" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -63,7 +65,9 @@
             android:id="@+id/edit_senha"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Senha" />
+            android:hint="Senha"
+            android:inputType="textWebPassword"
+            android:maxLines="1" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -84,7 +88,9 @@
             android:id="@+id/edit_resenha"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Confirmar senha" />
+            android:hint="Confirmar senha"
+            android:inputType="textWebPassword"
+            android:maxLines="1" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
@@ -104,17 +110,7 @@
         android:layout_alignParentBottom="true"
         android:layout_marginLeft="80dp"
         android:layout_marginBottom="60dp"
-        android:text="Ainda não possui cadastro?" />
+        android:text="Ainda não possui cadastro? Clique aqui" />
 
-    <TextView
-        android:id="@+id/txt_link_cadastro"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginLeft="10dp"
-        android:layout_marginBottom="60dp"
-        android:layout_toRightOf="@+id/txt_ainda_nao_possui_cadastro"
-        android:text="Clique aqui"
-        android:textColor="#123DAA" />
 
 </RelativeLayout>

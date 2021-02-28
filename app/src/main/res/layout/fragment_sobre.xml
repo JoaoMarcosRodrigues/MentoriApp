@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Fragmentos_side.SobreFragment">
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/txt_equipe"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="50dp"
+            android:text="Equipe"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+
+        <RelativeLayout
+            android:id="@+id/layout_apresentacao_equipe"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/txt_equipe"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="25dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginRight="25dp"
+            android:background="@drawable/round_opcao"
+            android:padding="20dp">
+
+            <ImageView
+                android:id="@+id/img_pessoa1"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:src="@drawable/eu" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="25dp"
+                android:layout_toRightOf="@+id/img_pessoa1"
+                android:text="João Marcos"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/txt_formacao1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/img_pessoa1"
+                android:layout_marginTop="15dp"
+                android:drawableLeft="@drawable/ic_seta_direita"
+                android:gravity="left"
+                android:text="@string/txt_formacao1" />
+
+            <TextView
+                android:id="@+id/txt_formacao2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/txt_formacao1"
+                android:layout_marginTop="20dp"
+                android:drawableLeft="@drawable/ic_seta_direita"
+                android:gravity="left"
+                android:text="@string/txt_formacao2" />
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+</FrameLayout>
