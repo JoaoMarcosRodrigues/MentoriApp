@@ -1,5 +1,7 @@
 package com.example.mentoriapp.Fragmentos_side;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -7,6 +9,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.example.mentoriapp.R;
 
@@ -60,7 +63,32 @@ public class ContatoFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_contato, container, false);
+        View view = inflater.inflate(R.layout.fragment_contato, container, false);
+
+        TextView txtWhatsapp = view.findViewById(R.id.txt_whatsapp);
+        TextView txtInstagram = view.findViewById(R.id.txt_instagram);
+
+        txtWhatsapp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToUrl("https://api.whatsapp.com/send?phone=5579996090622");
+
+            }
+        });
+
+        txtInstagram.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToUrl("https://www.instagram.com/joaomarcosor/");
+            }
+        });
+
+        return view;
+    }
+
+    private void goToUrl(String s) {
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setData(Uri.parse(s));
+        startActivity(intent);
     }
 }

@@ -21,9 +21,9 @@ public class SliderAdapter extends PagerAdapter {
 
     // Arrays
     public int[] slide_images = {
-            R.drawable.aprendizado,
-            R.drawable.cadastrar_tarefa,
-            R.drawable.contato_mentor
+            R.drawable.passo1,
+            R.drawable.passo2,
+            R.drawable.passo3
     };
 
     public String[] slide_titulos = {
@@ -33,9 +33,9 @@ public class SliderAdapter extends PagerAdapter {
     };
 
     public String[] slide_conteudos = {
-            "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-            "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-            "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
+            "Execute uma tarefa externa ou recomendada pelo seu mentor.",
+            "Relate tudo o que ocorreu durante a execução desta tarefa, descrevendo dificuldades e aprendizados.",
+            "Evolua através dos feedbacks do seu mentor."
     };
 
     @Override

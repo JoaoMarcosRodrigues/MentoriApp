@@ -12,11 +12,14 @@ import android.text.TextPaint;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class RecuperarSenhaActivity extends AppCompatActivity {
 
     TextView link_cadastro;
+    Button btnRecuperar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,10 +44,22 @@ public class RecuperarSenhaActivity extends AppCompatActivity {
         };
 
         link_cadastro = findViewById(R.id.txt_ainda_nao_possui_cadastro);
+        btnRecuperar = findViewById(R.id.btn_recuperar);
+
+        btnRecuperar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(),"Senha alterada com sucesso!",Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(getBaseContext(),LoginActivity.class));
+            }
+        });
+
         ss.setSpan(clickableSpan1,27,38, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
         link_cadastro.setText(ss);
         link_cadastro.setMovementMethod(LinkMovementMethod.getInstance());
+
+
     }
 
 }

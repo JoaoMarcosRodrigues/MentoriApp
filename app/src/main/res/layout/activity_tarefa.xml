@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".TarefaActivity">
+
+    <TextView
+        android:id="@+id/txt_titulo_tarefa"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="140dp"
+        android:text="Tarefa"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/descricao_tarefa"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txt_titulo_tarefa"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="30dp"
+        android:text="Esta tarefa consiste em..."
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/txt_instrucao_tarefa"
+        android:layout_width="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="40dp"
+        android:layout_height="wrap_content"
+        android:text="@string/instrucao_tarefa"
+        android:textSize="15sp"
+        android:textColor="#EA2222"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:gravity="center"/>
+
+</RelativeLayout>

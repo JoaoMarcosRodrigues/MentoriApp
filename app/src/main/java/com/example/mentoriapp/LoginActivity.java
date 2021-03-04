@@ -87,6 +87,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Toast.makeText(getApplicationContext(),"Entrou!",Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(getBaseContext(),MainActivity.class));
             }
         });
     }

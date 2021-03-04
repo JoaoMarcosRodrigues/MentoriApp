@@ -7,7 +7,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.fragment.app.Fragment;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -20,10 +19,9 @@ import com.example.mentoriapp.Fragmentos_side.ConfiguracaoFragment;
 import com.example.mentoriapp.Fragmentos_side.ContatoFragment;
 import com.example.mentoriapp.Fragmentos_side.MentoradoHomeFragment;
 import com.example.mentoriapp.Fragmentos_side.PerfilFragment;
-import com.example.mentoriapp.Fragmentos_side.ReunioesFragment;
+import com.example.mentoriapp.Fragmentos_side.ListaReunioesFragment;
 import com.example.mentoriapp.Fragmentos_side.SobreFragment;
 import com.example.mentoriapp.Fragmentos_side.TutorialFragment;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -75,7 +73,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment, new ChatFragment()).commit();
                 break;
             case R.id.nav_reuniao:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment, new ReunioesFragment()).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment, new ListaReunioesFragment()).commit();
                 break;
             case R.id.nav_tutorial:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment, new TutorialFragment()).commit();
