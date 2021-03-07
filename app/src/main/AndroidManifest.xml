@@ -10,9 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MentoriApp">
         <activity android:name=".TarefaActivity"></activity>
-        <activity android:name=".ListaFeedbacksActivity" />
-        <activity android:name=".CadastroAprendizadoActivity" />
-        <activity android:name=".CadastroReuniaoActivity" />
+        <activity android:name=".Listas.ListaFeedbacksActivity" />
+        <activity android:name=".Cadastro.CadastroAprendizadoActivity" />
+        <activity android:name=".Cadastro.CadastroReuniaoActivity" />
         <activity android:name=".SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -1,8 +1,10 @@
-package com.example.mentoriapp;
+package com.example.mentoriapp.Cadastro;
 
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.mentoriapp.R;
 
 public class CadastroDuvidaActivity extends AppCompatActivity {
 

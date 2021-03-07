@@ -19,7 +19,7 @@ import com.example.mentoriapp.Fragmentos_side.ConfiguracaoFragment;
 import com.example.mentoriapp.Fragmentos_side.ContatoFragment;
 import com.example.mentoriapp.Fragmentos_side.MentoradoHomeFragment;
 import com.example.mentoriapp.Fragmentos_side.PerfilFragment;
-import com.example.mentoriapp.Fragmentos_side.ListaReunioesFragment;
+import com.example.mentoriapp.Listas.ListaReunioesFragment;
 import com.example.mentoriapp.Fragmentos_side.SobreFragment;
 import com.example.mentoriapp.Fragmentos_side.TutorialFragment;
 import com.google.android.material.navigation.NavigationView;

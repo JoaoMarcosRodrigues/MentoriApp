@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Fragmentos_side.ListaRelatosFragment">
+    tools:context=".Listas.ListaRelatosFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/listaRelatos"

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CadastroDuvidaActivity">
+    tools:context=".Cadastro.CadastroDuvidaActivity">
 
     <TextView
         android:id="@+id/txt_tag_duvida"

@@ -1,7 +1,6 @@
 package com.example.mentoriapp.Mentor;
 
 import android.os.Bundle;
-import android.widget.ArrayAdapter;
 
 import androidx.appcompat.widget.SearchView;
 
@@ -9,8 +8,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.mentoriapp.ItemMentorado;
-import com.example.mentoriapp.ItemMentoradoAdapter;
+import com.example.mentoriapp.Itens.ItemMentorado;
+import com.example.mentoriapp.Adapters.ItemMentoradoAdapter;
 import com.example.mentoriapp.R;
 
 import java.util.ArrayList;

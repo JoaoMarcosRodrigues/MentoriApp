@@ -1,4 +1,4 @@
-package com.example.mentoriapp;
+package com.example.mentoriapp.Cadastro;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,6 +18,8 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.example.mentoriapp.R;
+import com.example.mentoriapp.TimePickerFragment;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.Calendar;

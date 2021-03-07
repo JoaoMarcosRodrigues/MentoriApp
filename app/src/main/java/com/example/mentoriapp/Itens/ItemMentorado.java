@@ -1,4 +1,4 @@
-package com.example.mentoriapp;
+package com.example.mentoriapp.Itens;
 
 public class ItemMentorado {
     private String mNome;

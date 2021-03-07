@@ -1,6 +1,5 @@
-package com.example.mentoriapp;
+package com.example.mentoriapp.Adapters;
 
-import android.content.ClipData;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +10,9 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.mentoriapp.Itens.ItemMentorado;
+import com.example.mentoriapp.R;
 
 import java.util.ArrayList;
 import java.util.List;

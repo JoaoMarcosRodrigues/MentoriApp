@@ -1,6 +1,5 @@
 package com.example.mentoriapp.Fragmentos_side;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -15,7 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.mentoriapp.R;
-import com.example.mentoriapp.SliderAdapter;
+import com.example.mentoriapp.Adapters.SliderAdapter;
 
 public class TutorialFragment extends Fragment {
     private TextView[] mDots;

@@ -1,4 +1,4 @@
-package com.example.mentoriapp.Fragmentos_side;
+package com.example.mentoriapp.Listas;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,24 +8,23 @@ import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
 
-import com.example.mentoriapp.CadastroAprendizadoActivity;
-import com.example.mentoriapp.CadastroDuvidaActivity;
+import com.example.mentoriapp.Cadastro.CadastroDificuldadeActivity;
 import com.example.mentoriapp.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-public class ListaDuvidasFragment extends Fragment {
+public class ListaDificuldadesFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_lista_duvidas, container, false);
+        View view = inflater.inflate(R.layout.fragment_lista_dificuldades, container, false);
 
-        FloatingActionButton addDuvida = view.findViewById(R.id.btnAdicionarDuvida);
+        FloatingActionButton addDificuldade = view.findViewById(R.id.btnAdicionarDificuldade);
 
-        addDuvida.setOnClickListener(new View.OnClickListener() {
+        addDificuldade.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getActivity(), CadastroDuvidaActivity.class));
+                startActivity(new Intent(getActivity(), CadastroDificuldadeActivity.class));
             }
         });
 
