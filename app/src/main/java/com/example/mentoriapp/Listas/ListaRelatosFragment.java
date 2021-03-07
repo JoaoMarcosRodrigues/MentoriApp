@@ -40,8 +40,8 @@ public class ListaRelatosFragment extends Fragment {
 
         ArrayList<ExemploItemRelato> exemploListaRelato = new ArrayList<>();
         exemploListaRelato.add(new ExemploItemRelato("Relato 1","Tema 1","07/03/2021"));
-        exemploListaRelato.add(new ExemploItemRelato("Relato 1","Tema 1","07/03/2021"));
-        exemploListaRelato.add(new ExemploItemRelato("Relato 1","Tema 1","07/03/2021"));
+        exemploListaRelato.add(new ExemploItemRelato("Relato 2","Tema 2","07/03/2021"));
+        exemploListaRelato.add(new ExemploItemRelato("Relato 3","Tema 3","07/03/2021"));
 
         mRecyclerView = view.findViewById(R.id.listaRelatos);
         mRecyclerView.setHasFixedSize(true);

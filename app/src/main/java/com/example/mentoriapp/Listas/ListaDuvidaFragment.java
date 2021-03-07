@@ -1,6 +1,5 @@
 package com.example.mentoriapp.Listas;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,17 +9,16 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.mentoriapp.Adapters.ExemploDificuldadeAdapter;
 import com.example.mentoriapp.Adapters.ExemploDuvidaAdapter;
-import com.example.mentoriapp.Cadastro.CadastroDificuldadeActivity;
-import com.example.mentoriapp.Itens.ExemploItemDificuldade;
+import com.example.mentoriapp.Adapters.ExemploRelatoAdapter;
 import com.example.mentoriapp.Itens.ExemploItemDuvida;
+import com.example.mentoriapp.Itens.ExemploItemRelato;
 import com.example.mentoriapp.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 
-public class ListaDificuldadesFragment extends Fragment {
+public class ListaDuvidaFragment extends Fragment {
 
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
@@ -29,26 +27,26 @@ public class ListaDificuldadesFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_lista_dificuldades, container, false);
+        View view = inflater.inflate(R.layout.fragment_lista_duvidas, container, false);
 
-        FloatingActionButton addDificuldade = view.findViewById(R.id.btnAdicionarDificuldade);
+        FloatingActionButton addRelato = view.findViewById(R.id.btnAdicionarRelato);
 
-        addDificuldade.setOnClickListener(new View.OnClickListener() {
+        addRelato.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getActivity(), CadastroDificuldadeActivity.class));
+                //startActivity(new Intent(getActivity(), CadastroReuniaoActivity.class));
             }
         });
 
-        ArrayList<ExemploItemDificuldade> exemploListaDificuldade = new ArrayList<>();
-        exemploListaDificuldade.add(new ExemploItemDificuldade("Dificuldade 1",true));
-        exemploListaDificuldade.add(new ExemploItemDificuldade("Dificuldade 2",true));
-        exemploListaDificuldade.add(new ExemploItemDificuldade("Dificuldade 3",false));
+        ArrayList<ExemploItemDuvida> exemploListaDuvida = new ArrayList<>();
+        exemploListaDuvida.add(new ExemploItemDuvida("Dúvida 1",true));
+        exemploListaDuvida.add(new ExemploItemDuvida("Dúvida 2",true));
+        exemploListaDuvida.add(new ExemploItemDuvida("Dúvida 3",false));
 
-        mRecyclerView = view.findViewById(R.id.listaDificuldades);
+        mRecyclerView = view.findViewById(R.id.listaDuvidas);
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(getContext());
-        mAdapter = new ExemploDificuldadeAdapter(exemploListaDificuldade);
+        mAdapter = new ExemploDuvidaAdapter(exemploListaDuvida);
 
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setAdapter(mAdapter);
