@@ -11,10 +11,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mentoriapp.Adapters.ExemploAprendizadoAdapter;
-import com.example.mentoriapp.Adapters.ExemploReuniaoAdapter;
-import com.example.mentoriapp.Cadastro.CadastroAprendizadoActivity;
+import com.example.mentoriapp.Cadastro.CadastroAprendizadoFragment;
 import com.example.mentoriapp.Itens.ExemploItemAprendizado;
-import com.example.mentoriapp.Itens.ExemploItemReuniao;
 import com.example.mentoriapp.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -36,7 +34,10 @@ public class ListaAprendizadosFragment extends Fragment {
         addAprendizado.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getActivity(), CadastroAprendizadoActivity.class));
+                getActivity().getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.fragment, new CadastroAprendizadoFragment())
+                        .commit();
             }
         });
 

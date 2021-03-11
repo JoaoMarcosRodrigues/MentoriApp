@@ -1,5 +1,6 @@
 package com.example.mentoriapp.Fragmentos_side;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.cardview.widget.CardView;
@@ -11,6 +12,10 @@ import android.view.ViewGroup;
 import android.widget.GridLayout;
 import android.widget.Toast;
 
+import com.example.mentoriapp.Listas.ListaAprendizadosFragment;
+import com.example.mentoriapp.Listas.ListaRelatosFragment;
+import com.example.mentoriapp.Listas.ListaReunioesFragment;
+import com.example.mentoriapp.Listas.ListaTarefasFragment;
 import com.example.mentoriapp.R;
 
 /**
@@ -82,7 +87,36 @@ public class MentoradoHomeFragment extends Fragment {
             cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(getActivity(),"Item "+ finalI +" selecionado",Toast.LENGTH_SHORT).show();
+                    switch(finalI){
+                        case 0:
+                            getActivity().getSupportFragmentManager()
+                                    .beginTransaction()
+                                    .replace(R.id.fragment, new ListaRelatosFragment())
+                                    .commit();
+                            break;
+                        case 1:
+                            getActivity().getSupportFragmentManager()
+                                    .beginTransaction()
+                                    .replace(R.id.fragment, new ListaAprendizadosFragment())
+                                    .commit();
+                            break;
+                        case 2:
+                            //startActivity(new Intent(getActivity(), ContatoMentorFragment.class));
+                            Toast.makeText(getActivity(),"Contato Mentor em produção",Toast.LENGTH_SHORT).show();
+                            break;
+                        case 3:
+                            getActivity().getSupportFragmentManager()
+                                    .beginTransaction()
+                                    .replace(R.id.fragment, new ListaTarefasFragment())
+                                    .commit();
+                            break;
+                        case 4:
+                            getActivity().getSupportFragmentManager()
+                                    .beginTransaction()
+                                    .replace(R.id.fragment, new ListaReunioesFragment())
+                                    .commit();
+                            break;
+                    }
                 }
             });
         }

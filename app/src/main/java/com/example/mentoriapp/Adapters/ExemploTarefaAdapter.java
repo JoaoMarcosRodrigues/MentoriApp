@@ -4,6 +4,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -23,7 +24,7 @@ public class ExemploTarefaAdapter extends RecyclerView.Adapter<ExemploTarefaAdap
         public ImageView mImgTarefa;
         public TextView mTituloTarefa;
         public TextView mDescricaoTarefa;
-        public Chip mStatusTarefa;
+        public Switch mStatusTarefa;
 
         public ExemploViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -54,7 +55,7 @@ public class ExemploTarefaAdapter extends RecyclerView.Adapter<ExemploTarefaAdap
         holder.mImgTarefa.setImageResource(itemTarefaCorrente.getImgTarefa());
         holder.mTituloTarefa.setText(itemTarefaCorrente.getTituloTarefa());
         holder.mDescricaoTarefa.setText(itemTarefaCorrente.getDescricaoTarefa());
-        holder.mStatusTarefa.setCheckable(itemTarefaCorrente.getStatusTarefa());
+        holder.mStatusTarefa.setChecked(itemTarefaCorrente.getStatusTarefa());
     }
 
     @Override

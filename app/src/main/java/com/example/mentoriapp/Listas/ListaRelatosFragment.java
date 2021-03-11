@@ -1,5 +1,6 @@
 package com.example.mentoriapp.Listas;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mentoriapp.Adapters.ExemploRelatoAdapter;
 import com.example.mentoriapp.Adapters.ExemploReuniaoAdapter;
+import com.example.mentoriapp.Cadastro.RelatoFragment;
 import com.example.mentoriapp.Itens.ExemploItemRelato;
 import com.example.mentoriapp.Itens.ExemploItemReuniao;
 import com.example.mentoriapp.R;
@@ -34,7 +36,10 @@ public class ListaRelatosFragment extends Fragment {
         addRelato.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //startActivity(new Intent(getActivity(), CadastroReuniaoActivity.class));
+                getActivity().getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.fragment, new RelatoFragment())
+                        .commit();
             }
         });
 

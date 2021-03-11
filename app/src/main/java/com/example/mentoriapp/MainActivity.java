@@ -18,7 +18,7 @@ import com.example.mentoriapp.Fragmentos_side.ChatFragment;
 import com.example.mentoriapp.Fragmentos_side.ConfiguracaoFragment;
 import com.example.mentoriapp.Fragmentos_side.ContatoFragment;
 import com.example.mentoriapp.Fragmentos_side.MentoradoHomeFragment;
-import com.example.mentoriapp.Fragmentos_side.PerfilFragment;
+import com.example.mentoriapp.Fragmentos_side.PerfilMentoradoFragment;
 import com.example.mentoriapp.Listas.ListaReunioesFragment;
 import com.example.mentoriapp.Fragmentos_side.SobreFragment;
 import com.example.mentoriapp.Fragmentos_side.TutorialFragment;
@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment, new MentoradoHomeFragment()).commit();
                 break;
             case R.id.nav_perfil:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment, new PerfilFragment()).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment, new PerfilMentoradoFragment()).commit();
                 break;
             case R.id.nav_chat:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment, new ChatFragment()).commit();

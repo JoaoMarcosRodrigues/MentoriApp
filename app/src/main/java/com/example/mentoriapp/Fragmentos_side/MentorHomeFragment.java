@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridLayout;
-import android.widget.Toast;
 
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
@@ -81,7 +80,25 @@ public class MentorHomeFragment extends Fragment {
             cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(getActivity(),"Item "+ finalI +" selecionado",Toast.LENGTH_SHORT).show();
+                    /*
+                    switch(finalI){
+                        case 0:
+                            startActivity(new Intent(getActivity(), ListaRelatosFragment.class));
+                            break;
+                        case 1:
+                            startActivity(new Intent(getActivity(), ListaAprendizadosFragment.class));
+                            break;
+                        case 2:
+                            //startActivity(new Intent(getActivity(), ContatoMentorFragment.class));
+                            break;
+                        case 3:
+                            startActivity(new Intent(getActivity(), ListaTarefasActivity.class));
+                            break;
+                        case 4:
+                            startActivity(new Intent(getActivity(), ListaReunioesFragment.class));
+                            break;
+                    }
+                     */
                 }
             });
         }

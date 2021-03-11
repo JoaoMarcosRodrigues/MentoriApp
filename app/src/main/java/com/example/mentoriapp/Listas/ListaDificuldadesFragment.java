@@ -11,10 +11,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mentoriapp.Adapters.ExemploDificuldadeAdapter;
-import com.example.mentoriapp.Adapters.ExemploDuvidaAdapter;
-import com.example.mentoriapp.Cadastro.CadastroDificuldadeActivity;
+import com.example.mentoriapp.Cadastro.CadastroDificuldadeFragment;
 import com.example.mentoriapp.Itens.ExemploItemDificuldade;
-import com.example.mentoriapp.Itens.ExemploItemDuvida;
 import com.example.mentoriapp.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -36,7 +34,7 @@ public class ListaDificuldadesFragment extends Fragment {
         addDificuldade.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getActivity(), CadastroDificuldadeActivity.class));
+                startActivity(new Intent(getActivity(), CadastroDificuldadeFragment.class));
             }
         });
 
