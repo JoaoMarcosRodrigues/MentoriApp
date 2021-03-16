@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "242098954453",
+    "firebase_url": "https://mentoriapp-d594c.firebaseio.com",
+    "project_id": "mentoriapp-d594c",
+    "storage_bucket": "mentoriapp-d594c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:242098954453:android:cef2cd13be3668b5da025c",
+        "android_client_info": {
+          "package_name": "com.example.mentoriapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "242098954453-nfmjb19lpdjvt8hqqi4d0ag2pclvrml4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDkGxu4quv6Va-Dpz4-PYANlV-tQB0XpbQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "242098954453-nfmjb19lpdjvt8hqqi4d0ag2pclvrml4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -17,8 +17,6 @@ public class PerfilMentorFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_mentor_perfil, container, false);
 
-        getActivity().getActionBar().setDisplayHomeAsUpEnabled(true);
-
         return view;
     }
 }

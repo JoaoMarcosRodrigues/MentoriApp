@@ -13,59 +13,26 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#7CAEABAB">
+            android:layout_height="match_parent">
 
             <ImageView
                 android:id="@+id/img_cadastro_mentorado"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:background="@drawable/background_foto_cadastro"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="50dp"
                 android:layout_marginBottom="30dp"
-                android:src="@drawable/ic_ficha_cadastro" />
+                android:src="@drawable/foto_foreground" />
 
-            <TextView
-                android:id="@+id/txt_titulo_cadastro"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/img_cadastro_mentorado"
-                android:layout_centerHorizontal="true"
-                android:text="Seus dados"
-                android:textSize="28sp"
-                android:textStyle="bold" />
-
-            <!-- Email -->
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/input_email_cadastro"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/txt_titulo_cadastro"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="50dp"
-                android:layout_marginRight="20dp"
-                app:counterEnabled="true"
-                app:counterMaxLength="250"
-                app:errorEnabled="true"
-                app:startIconDrawable="@drawable/ic_email">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/edit_email_cadastro"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/edit_round"
-                    android:hint="Email"
-                    android:inputType="textEmailAddress"
-                    android:maxLines="1" />
-            </com.google.android.material.textfield.TextInputLayout>
             <!-- Nome completo -->
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/input_nome_cadastro"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/input_email_cadastro"
+                android:layout_below="@+id/img_cadastro_mentorado"
                 android:layout_marginLeft="20dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginRight="20dp"
                 app:counterEnabled="true"
                 app:counterMaxLength="250"
@@ -81,14 +48,39 @@
                     android:inputType="text"
                     android:maxLines="1" />
             </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Email -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/input_email_cadastro"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/input_nome_cadastro"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="20dp"
+                app:counterEnabled="true"
+                app:counterMaxLength="250"
+                app:errorEnabled="true"
+                app:startIconDrawable="@drawable/ic_email">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edit_email_cadastro"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/edit_round"
+                    android:hint="Email"
+                    android:inputType="textEmailAddress"
+                    android:maxLines="1" />
+            </com.google.android.material.textfield.TextInputLayout>
+
             <!-- Telefone -->
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/input_telefone_cadastro"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/input_nome_cadastro"
+                android:layout_below="@+id/input_email_cadastro"
                 android:layout_marginLeft="20dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginRight="20dp"
                 app:counterEnabled="true"
                 app:counterMaxLength="15"
@@ -111,7 +103,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/input_telefone_cadastro"
                 android:layout_marginLeft="20dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginRight="20dp"
                 app:counterEnabled="true"
                 app:counterMaxLength="8"
@@ -127,40 +119,17 @@
                     android:inputType="textWebPassword"
                     android:maxLines="1" />
             </com.google.android.material.textfield.TextInputLayout>
-            <!-- Confirmar senha -->
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/input_resenha_cadastro"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/input_senha_cadastro"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginRight="20dp"
-                app:counterEnabled="true"
-                app:counterMaxLength="8"
-                app:errorEnabled="true"
-                app:startIconDrawable="@drawable/ic_senha">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/edit_resenha_cadastro"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/edit_round"
-                    android:hint="Confirme a senha"
-                    android:inputType="textWebPassword"
-                    android:maxLines="1" />
-            </com.google.android.material.textfield.TextInputLayout>
             <!-- Next -->
             <Button
                 android:id="@+id/btn_next"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/input_resenha_cadastro"
+                android:layout_below="@+id/input_senha_cadastro"
                 android:layout_alignParentRight="true"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="80dp"
                 android:layout_marginRight="40dp"
                 android:layout_marginBottom="15dp"
-                android:backgroundTint="#003A3939"
+                android:backgroundTint="#2196F3"
                 android:text="Next"
                 android:textColor="@color/black" />
 

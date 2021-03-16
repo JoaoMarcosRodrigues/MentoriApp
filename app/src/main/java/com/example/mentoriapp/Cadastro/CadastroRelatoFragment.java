@@ -42,7 +42,7 @@ public class CadastroRelatoFragment extends Fragment implements AdapterView.OnIt
             public void onClick(View v) {
                 getActivity().getSupportFragmentManager()
                         .beginTransaction()
-                        .replace(R.id.fragment,new CadastroDificuldadeFragment())
+                        .replace(R.id.fragment,new CadastroAprendizadoFragment())
                         .commit();
             }
         });

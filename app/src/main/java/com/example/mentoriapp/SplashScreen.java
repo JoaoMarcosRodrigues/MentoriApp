@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.WindowManager;
 
+import com.example.mentoriapp.Mentorado.CadastroMentoradoActivity;
+
 public class SplashScreen extends AppCompatActivity {
 
     @Override
@@ -19,9 +21,9 @@ public class SplashScreen extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                startActivity(new Intent(getBaseContext(),MainActivity.class));
+                startActivity(new Intent(getBaseContext(), CadastroMentoradoActivity.class));
                 finish();
             }
-        },4000);
+        },2000);
     }
 }

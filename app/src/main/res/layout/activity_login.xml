@@ -53,7 +53,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/input_email"
         android:layout_marginLeft="30dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="10dp"
         android:layout_marginRight="30dp"
         app:counterEnabled="true"
         app:counterMaxLength="8"
@@ -70,26 +70,29 @@
             android:maxLines="1" />
     </com.google.android.material.textfield.TextInputLayout>
 
+    <Button
+        android:id="@+id/btn_entrar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/input_senha"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:backgroundTint="#80000000"
+        android:text="Entrar" />
+
     <TextView
         android:id="@+id/txt_esqueceu_senha"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/input_senha"
+        android:layout_above="@+id/txt_ainda_nao_possui_cadastro"
         android:layout_marginLeft="30dp"
         android:clickable="true"
-        android:text="Esqueceu a senha?"
-        android:textColor="#123DAA"
-        android:textSize="14sp" />
-
-    <Button
-        android:id="@+id/btn_entrar"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/txt_esqueceu_senha"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="50dp"
-        android:backgroundTint="#80000000"
-        android:text="Entrar" />
+        android:layout_marginBottom="20dp"
+        android:text="Esqueceu a senha? Clique aqui"
+        android:textSize="14sp" />
 
     <TextView
         android:id="@+id/txt_ainda_nao_possui_cadastro"
