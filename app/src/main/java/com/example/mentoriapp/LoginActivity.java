@@ -3,22 +3,32 @@ package com.example.mentoriapp;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
+import android.media.tv.TvContract;
 import android.os.Bundle;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.TextPaint;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.mentoriapp.Mentor.CadastroMentorActivity;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -26,6 +36,7 @@ public class LoginActivity extends AppCompatActivity {
     TextInputEditText edit_email,edit_senha;
     Button botao_entrar;
     TextView link_esquecer_senha,link_cadastro;
+    ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +75,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         };
 
+        progressDialog = new ProgressDialog(this);
         edit_email = findViewById(R.id.edit_email);
         edit_senha = findViewById(R.id.edit_senha);
         layout_email = findViewById(R.id.input_email);
@@ -86,8 +98,37 @@ public class LoginActivity extends AppCompatActivity {
         botao_entrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(),"Entrou!",Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(getBaseContext(),MainActivity.class));
+                String email = edit_email.getText().toString();
+                String senha = edit_senha.getText().toString();
+
+                if(email == null || email.isEmpty() || senha == null || senha.isEmpty()){
+                    Toast.makeText(LoginActivity.this,"Email e senha devem ser preenchidos!",Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                progressDialog.setMessage("Verificando os dados...");
+                progressDialog.show();
+
+                FirebaseAuth.getInstance().signInWithEmailAndPassword(email,senha)
+                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                progressDialog.dismiss();
+                                if(task.isSuccessful()){
+                                    Log.i("Teste",task.getResult().getUser().getUid());
+                                    Toast.makeText(LoginActivity.this,"Usuário logado!",Toast.LENGTH_SHORT).show();
+                                }else{
+                                    Toast.makeText(LoginActivity.this,"Email ou senha inválido(s)",Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                progressDialog.dismiss();
+                                Log.i("Teste",e.getMessage());
+                            }
+                        });
             }
         });
     }

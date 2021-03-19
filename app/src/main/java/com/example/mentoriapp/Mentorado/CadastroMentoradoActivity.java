@@ -1,9 +1,16 @@
 package com.example.mentoriapp.Mentorado;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -13,29 +20,49 @@ import android.widget.Toast;
 import com.example.mentoriapp.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+
+import java.io.IOException;
+import java.util.UUID;
 
 public class CadastroMentoradoActivity extends AppCompatActivity {
 
-    ImageView mImgagemMentorado;
-    TextInputEditText mEditNomeMentorado, mEditEmailMentorado, mEditTelefoneMentorado, mEditSenhaMentorado, mEditAreaMentorado;
-    Button mBtnCadastroMentorado;
+    private TextInputEditText mEditNomeMentorado, mEditEmailMentorado, mEditTelefoneMentorado, mEditSenhaMentorado, mEditAreaMentorado;
+    private TextInputLayout mInputNomeMentorado, mInputEmailMentorado, mInputSenhaMentorado, mInputAreaMentorado;
+    private Button mBtnCadastroMentorado, mBtnFotoMentorado;
+    private Uri mSelectedUri = null;
+    private ImageView mImgPhoto;
+    ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cadastro_mentorado);
 
-        mImgagemMentorado = findViewById(R.id.img_cadastro_mentorado);
+        progressDialog = new ProgressDialog(this);
+        mInputNomeMentorado = findViewById(R.id.input_nome_cadastro);
+        mInputEmailMentorado = findViewById(R.id.input_email_cadastro);
+        mInputSenhaMentorado = findViewById(R.id.input_senha_cadastro);
+        mInputAreaMentorado = findViewById(R.id.input_area_interesse_cadastro);
+
+        mBtnFotoMentorado = findViewById(R.id.btn_img_cadastro_mentorado);
         mEditNomeMentorado = findViewById(R.id.edit_nome_cadastro);
         mEditEmailMentorado = findViewById(R.id.edit_email_cadastro);
         mEditSenhaMentorado = findViewById(R.id.edit_senha_cadastro);
         mEditTelefoneMentorado = findViewById(R.id.edit_telefone_cadastro);
         mEditAreaMentorado = findViewById(R.id.edit_area_interesse_cadastro);
         mBtnCadastroMentorado = findViewById(R.id.btn_cadastrar);
+        mImgPhoto = findViewById(R.id.img_photo);
 
         mBtnCadastroMentorado.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -44,29 +71,123 @@ public class CadastroMentoradoActivity extends AppCompatActivity {
             }
         });
 
+        mBtnFotoMentorado.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectedPhoto();
+            }
+        });
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode == 0){
+            mSelectedUri = data.getData();
+            Bitmap bitmap = null;
+            try {
+                bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(),mSelectedUri);
+                mImgPhoto.setImageDrawable(new BitmapDrawable(bitmap));
+                mBtnFotoMentorado.setAlpha(0);
+            } catch (IOException e) {}
+        }
+    }
+
+    private void selectedPhoto() {
+        Intent  intent = new Intent(Intent.ACTION_PICK);
+        intent.setType("image/*");
+        startActivityForResult(intent,0);
     }
 
     private void criarMentorado() {
         String email = mEditEmailMentorado.getText().toString();
         String senha = mEditSenhaMentorado.getText().toString();
+        String nome = mEditNomeMentorado.getText().toString();
+        String telefone = mEditTelefoneMentorado.getText().toString();
+        String areaAtuacao = mEditAreaMentorado.getText().toString();
 
-        if(email == null || email.isEmpty() || senha.isEmpty() || senha == null){
-            Toast.makeText(this,"Email e senha devem ser preenchidos",Toast.LENGTH_SHORT).show();
+        if(nome == null || nome.isEmpty() || email == null || email.isEmpty() ||
+           senha == null || senha.isEmpty() || areaAtuacao == null || areaAtuacao.isEmpty()) {
+            Toast.makeText(this,"Nome Completo, Email, Senha e Área de atuação devem ser preenchidos!",Toast.LENGTH_SHORT).show();
             return;
         }
+        if(senha.length() < 6)
+            Toast.makeText(getApplicationContext(),"Senha deve conter no mínimo 6 caracteres!",Toast.LENGTH_SHORT).show();
+
+        progressDialog.setMessage("Cadastrando usuário...");
+        progressDialog.show();
 
         FirebaseAuth.getInstance().createUserWithEmailAndPassword(email,senha)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(task.isSuccessful())
-                            Log.i("Teste",task.getResult().getUser().getUid());
+                        progressDialog.dismiss();
+                        if(task.isSuccessful()) {
+                            Log.i("Teste", task.getResult().getUser().getUid());
+                            saveMentoradoInFirebase();
+                            Toast.makeText(getApplicationContext(),"Mentorado cadastrado com sucesso!",Toast.LENGTH_SHORT).show();
+                        }
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
+                        progressDialog.dismiss();
+                        if(e.getMessage().equals("The email address is badly formatted."))
+                            Toast.makeText(getApplicationContext(),"Email inválido! Tente novamente.",Toast.LENGTH_SHORT).show();
+
                         Log.i("Teste",e.getMessage());
+                    }
+                });
+    }
+
+    private void saveMentoradoInFirebase() {
+        String filename = UUID.randomUUID().toString();
+        final StorageReference ref = FirebaseStorage.getInstance().getReference("/images/"+filename);
+        if(mSelectedUri == null){
+            Toast.makeText(this,"Selecione uma foto de perfil",Toast.LENGTH_SHORT).show();
+            return;
+        }
+        ref.putFile(mSelectedUri)
+                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        ref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                            @Override
+                            public void onSuccess(Uri uri) {
+                                Log.i("Teste",uri.toString());
+
+                                String uid = FirebaseAuth.getInstance().getUid();
+                                String nome = mEditNomeMentorado.getText().toString();
+                                String telefone = mEditTelefoneMentorado.getText().toString();
+                                String areaAtuacao = mEditAreaMentorado.getText().toString();
+                                String profileUrl = uri.toString();
+
+                                Mentorado mentorado = new Mentorado(uid,nome,areaAtuacao,telefone,profileUrl);
+                                FirebaseFirestore.getInstance().collection("mentorados")
+                                        .add(mentorado)
+                                        .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                            @Override
+                                            public void onSuccess(DocumentReference documentReference) {
+                                                Log.i("Teste",documentReference.getId());
+                                            }
+                                        })
+                                        .addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                Log.i("Teste",e.getMessage());
+                                            }
+                                        });
+                            }
+                        });
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.i("Teste",e.getMessage(),e);
                     }
                 });
     }

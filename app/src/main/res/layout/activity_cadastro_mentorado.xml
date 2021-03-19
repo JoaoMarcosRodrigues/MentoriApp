@@ -16,21 +16,32 @@
             android:layout_height="match_parent"
             android:background="#7CAEABAB">
 
-            <ImageView
-                android:id="@+id/img_cadastro_mentorado"
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:id="@+id/img_photo"
+                app:civ_border_width="2dp"
+                app:civ_border_color="@color/black"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="50dp"/>
+
+            <Button
+                android:id="@+id/btn_img_cadastro_mentorado"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="50dp"
-                android:layout_marginBottom="30dp"
-                android:src="@drawable/foto_foreground"
-                android:background="@drawable/background_foto_cadastro"/>
+                android:text="Foto"
+                android:background="@drawable/background_foto_cadastro"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:layout_marginBottom="30dp" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/input_nome_cadastro"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/img_cadastro_mentorado"
+                android:layout_below="@+id/btn_img_cadastro_mentorado"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginRight="20dp"
