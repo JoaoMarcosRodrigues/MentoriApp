@@ -31,7 +31,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/txt_login"
         android:layout_marginLeft="30dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="50dp"
         android:layout_marginRight="30dp"
         app:counterEnabled="true"
         app:counterMaxLength="250"
@@ -47,61 +47,15 @@
             android:maxLines="1" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/input_senha"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/input_email"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginRight="30dp"
-        app:counterEnabled="true"
-        app:counterMaxLength="8"
-        app:errorEnabled="true"
-        app:passwordToggleEnabled="true"
-        app:startIconDrawable="@drawable/ic_senha">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edit_senha"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Senha"
-            android:inputType="textWebPassword"
-            android:maxLines="1" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/input_resenha"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/input_senha"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginRight="30dp"
-        app:counterEnabled="true"
-        app:counterMaxLength="8"
-        app:errorEnabled="true"
-        app:passwordToggleEnabled="true"
-        app:startIconDrawable="@drawable/ic_senha">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edit_resenha"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Confirmar senha"
-            android:inputType="textWebPassword"
-            android:maxLines="1" />
-    </com.google.android.material.textfield.TextInputLayout>
-
     <Button
         android:id="@+id/btn_recuperar"
-        android:layout_width="200dp"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/input_resenha"
+        android:layout_below="@+id/input_email"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="50dp"
         android:backgroundTint="#80000000"
-        android:text="Recuperar" />
+        android:text="Enviar email" />
 
     <TextView
         android:id="@+id/txt_ainda_nao_possui_cadastro"

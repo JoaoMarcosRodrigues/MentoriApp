@@ -7,6 +7,10 @@ public class Mentorado {
     private String telefone;
     private String profileUrl;
 
+    public Mentorado(){
+
+    }
+
     public Mentorado(String uuid, String nome, String areaAtuacao, String telefone, String profileUrl) {
         this.uuid = uuid;
         this.nome = nome;

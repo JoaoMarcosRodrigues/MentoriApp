@@ -38,7 +38,8 @@
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="instrucao_tarefa">Assim que concluir esta tarefa entre em contato com seu mentor e relate suas dificuldades, dúvidas e soluções referente a mesma.</string>
     <string name="avaliacao">lorem ipsum dolor sit amet consectetur adipiscing elit sagittis velit torquent class ornare lobortis litora a duis lectus congue porttitor cubilia turpis inceptos lacinia ex suspendisse maximus tortor enim consequat feugiat pharetra penatibus curae tristique ligula eleifend at auctor tempus</string>
-    
+    <string name="contatos">Contatos</string>
+
     <string-array name="numeros">
         <item>Nenhuma</item>
         <item>Um</item>

@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.example.mentoriapp.R;
 import com.google.android.material.textfield.TextInputEditText;
@@ -16,11 +17,18 @@ public class CadastroMentorActivity extends AppCompatActivity {
     TextInputLayout layout_email,layout_nome,layout_telefone,layout_senha,layout_resenha;
     TextInputEditText edit_email,edit_nome,edit_telefone,edit_senha,edit_resenha;
     Button botao_next;
+    private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cadastro_mentor);
+
+        toolbar = findViewById(R.id.toolbar);
+
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Cadastro do Mentor");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         botao_next = findViewById(R.id.btn_next);
 

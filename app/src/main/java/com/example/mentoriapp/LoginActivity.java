@@ -3,6 +3,7 @@ package com.example.mentoriapp;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Fragment;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
@@ -19,7 +20,11 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.mentoriapp.Fragmentos_side.MentoradoHomeFragment;
+import com.example.mentoriapp.Listas.ListaRelatosFragment;
 import com.example.mentoriapp.Mentor.CadastroMentorActivity;
+import com.example.mentoriapp.Mentorado.CadastroMentoradoActivity;
+import com.example.mentoriapp.Mentorado.Mentorado;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -32,10 +37,10 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 public class LoginActivity extends AppCompatActivity {
 
-    TextInputLayout layout_email,layout_senha;
-    TextInputEditText edit_email,edit_senha;
+    TextInputLayout layout_email, layout_senha;
+    TextInputEditText edit_email, edit_senha;
     Button botao_entrar;
-    TextView link_esquecer_senha,link_cadastro;
+    TextView link_esquecer_senha, link_cadastro;
     ProgressDialog progressDialog;
 
     @Override
@@ -44,7 +49,7 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         String text = "Ainda não possui cadastro? Clique aqui";
-        String text2 = "Esqueceu a senha?";
+        String text2 = "Esqueceu a senha? Clique aqui";
 
         SpannableString ss = new SpannableString(text);
         SpannableString ss2 = new SpannableString(text2);
@@ -52,7 +57,7 @@ public class LoginActivity extends AppCompatActivity {
         ClickableSpan clickableSpan1 = new ClickableSpan() {
             @Override
             public void onClick(@NonNull View widget) {
-                startActivity(new Intent(LoginActivity.this,OpcaoCadastroActivity.class));
+                startActivity(new Intent(LoginActivity.this, OpcaoCadastroActivity.class));
             }
 
             @Override
@@ -65,7 +70,7 @@ public class LoginActivity extends AppCompatActivity {
         ClickableSpan clickableSpan2 = new ClickableSpan() {
             @Override
             public void onClick(@NonNull View widget) {
-                startActivity(new Intent(LoginActivity.this,RecuperarSenhaActivity.class));
+                startActivity(new Intent(LoginActivity.this, RecuperarSenhaActivity.class));
             }
 
             @Override
@@ -86,8 +91,8 @@ public class LoginActivity extends AppCompatActivity {
 
         botao_entrar = findViewById(R.id.btn_entrar);
 
-        ss.setSpan(clickableSpan1,27,38, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        ss2.setSpan(clickableSpan2,0,17, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        ss.setSpan(clickableSpan1, 27, 38, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        ss2.setSpan(clickableSpan2, 18, 29, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
         link_cadastro.setText(ss);
         link_cadastro.setMovementMethod(LinkMovementMethod.getInstance());
@@ -101,24 +106,27 @@ public class LoginActivity extends AppCompatActivity {
                 String email = edit_email.getText().toString();
                 String senha = edit_senha.getText().toString();
 
-                if(email == null || email.isEmpty() || senha == null || senha.isEmpty()){
-                    Toast.makeText(LoginActivity.this,"Email e senha devem ser preenchidos!",Toast.LENGTH_SHORT).show();
+                if (email == null || email.isEmpty() || senha == null || senha.isEmpty()) {
+                    Toast.makeText(LoginActivity.this, "Email e senha devem ser preenchidos!", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
                 progressDialog.setMessage("Verificando os dados...");
                 progressDialog.show();
 
-                FirebaseAuth.getInstance().signInWithEmailAndPassword(email,senha)
+                FirebaseAuth.getInstance().signInWithEmailAndPassword(email, senha)
                         .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 progressDialog.dismiss();
-                                if(task.isSuccessful()){
-                                    Log.i("Teste",task.getResult().getUser().getUid());
-                                    Toast.makeText(LoginActivity.this,"Usuário logado!",Toast.LENGTH_SHORT).show();
-                                }else{
-                                    Toast.makeText(LoginActivity.this,"Email ou senha inválido(s)",Toast.LENGTH_SHORT).show();
+                                if (task.isSuccessful()) {
+                                    Log.i("Teste", task.getResult().getUser().getUid());
+                                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                    startActivity(intent);
+                                    Toast.makeText(LoginActivity.this, "Usuário logado!", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    Toast.makeText(LoginActivity.this, "Email ou senha inválido(s)", Toast.LENGTH_SHORT).show();
                                 }
                             }
                         })
@@ -126,7 +134,7 @@ public class LoginActivity extends AppCompatActivity {
                             @Override
                             public void onFailure(@NonNull Exception e) {
                                 progressDialog.dismiss();
-                                Log.i("Teste",e.getMessage());
+                                Log.i("Teste", e.getMessage());
                             }
                         });
             }

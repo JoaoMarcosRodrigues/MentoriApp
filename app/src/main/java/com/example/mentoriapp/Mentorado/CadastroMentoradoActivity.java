@@ -3,6 +3,7 @@ package com.example.mentoriapp.Mentorado;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -17,6 +18,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.mentoriapp.MainActivity;
 import com.example.mentoriapp.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -42,12 +44,19 @@ public class CadastroMentoradoActivity extends AppCompatActivity {
     private Button mBtnCadastroMentorado, mBtnFotoMentorado;
     private Uri mSelectedUri = null;
     private ImageView mImgPhoto;
+    private Toolbar toolbar;
     ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cadastro_mentorado);
+
+        toolbar = findViewById(R.id.toolbar);
+
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Cadastro do Mentorado");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         progressDialog = new ProgressDialog(this);
         mInputNomeMentorado = findViewById(R.id.input_nome_cadastro);
@@ -172,6 +181,9 @@ public class CadastroMentoradoActivity extends AppCompatActivity {
                                             @Override
                                             public void onSuccess(DocumentReference documentReference) {
                                                 Log.i("Teste",documentReference.getId());
+                                                Intent intent = new Intent(CadastroMentoradoActivity.this, MainActivity.class);
+                                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                                startActivity(intent);
                                             }
                                         })
                                         .addOnFailureListener(new OnFailureListener() {

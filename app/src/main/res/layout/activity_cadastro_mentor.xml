@@ -7,9 +7,17 @@
     android:orientation="vertical"
     tools:context=".Mentor.CadastroMentorActivity">
 
-    <ScrollView
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/purple_500"/>
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -21,7 +29,7 @@
                 android:layout_height="150dp"
                 android:background="@drawable/background_foto_cadastro"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="50dp"
+                android:layout_marginTop="30dp"
                 android:layout_marginBottom="30dp"
                 android:src="@drawable/foto_foreground" />
 
@@ -126,7 +134,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/input_senha_cadastro"
                 android:layout_alignParentRight="true"
-                android:layout_marginTop="80dp"
+                android:layout_marginTop="50dp"
                 android:layout_marginRight="40dp"
                 android:layout_marginBottom="15dp"
                 android:backgroundTint="#2196F3"

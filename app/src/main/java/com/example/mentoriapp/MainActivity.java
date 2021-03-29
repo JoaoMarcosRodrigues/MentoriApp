@@ -23,6 +23,7 @@ import com.example.mentoriapp.Listas.ListaReunioesFragment;
 import com.example.mentoriapp.Fragmentos_side.SobreFragment;
 import com.example.mentoriapp.Fragmentos_side.TutorialFragment;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private DrawerLayout drawer;
@@ -48,6 +49,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if(savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment, new MentoradoHomeFragment()).commit();
             navigationView.setCheckedItem(R.id.nav_home);
+        }
+
+        verifyAuthentication();
+    }
+
+    private void verifyAuthentication() {
+        if(FirebaseAuth.getInstance().getUid() == null){
+            Intent intent = new Intent(MainActivity.this,LoginActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
         }
     }
 
@@ -94,8 +105,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 alertDialog.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Intent intent_sair = new Intent(MainActivity.this,LoginActivity.class);
-                        startActivity(intent_sair);
+                        FirebaseAuth.getInstance().signOut();
+                        verifyAuthentication();
                     }
                 });
                 alertDialog.setNegativeButton("Não", new DialogInterface.OnClickListener() {
