@@ -70,6 +70,7 @@
                 app:counterEnabled="true"
                 app:counterMaxLength="250"
                 app:errorEnabled="true"
+                android:gravity="top|left"
                 app:startIconDrawable="@drawable/ic_descricao">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -78,6 +79,8 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/edit_round"
                     android:hint="Descrição"
+                    android:lines="4"
+                    android:gravity="top|left"
                     android:inputType="text|textMultiLine" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -86,9 +89,8 @@
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:text="Cadastrar"
-                android:backgroundTint="#8A000000"
                 android:layout_below="@id/input_descricao"
-                android:layout_marginTop="130dp"/>
+                android:layout_marginTop="100dp"/>
 
         </RelativeLayout>
 

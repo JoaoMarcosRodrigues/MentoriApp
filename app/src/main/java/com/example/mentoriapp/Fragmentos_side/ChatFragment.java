@@ -1,5 +1,6 @@
 package com.example.mentoriapp.Fragmentos_side;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -26,6 +27,7 @@ import com.squareup.picasso.Picasso;
 import com.xwray.groupie.GroupAdapter;
 import com.xwray.groupie.Item;
 import com.xwray.groupie.GroupieViewHolder;
+import com.xwray.groupie.OnItemClickListener;
 
 import java.util.List;
 
@@ -40,14 +42,25 @@ public class ChatFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_chat, container, false);
 
-        ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        //setHasOptionsMenu(true);
-
         RecyclerView rv = view.findViewById(R.id.recycler_contatos);
 
         adapter = new GroupAdapter();
         rv.setAdapter(adapter);
         rv.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        adapter.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(@NonNull Item item, @NonNull View view) {
+                UserItem userItem = (UserItem) item;
+                Bundle bundle = new Bundle();
+                bundle.putString("nome",userItem.mentorado.getNome());
+                getParentFragmentManager().setFragmentResult("mentorado",bundle);
+                getActivity().getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.fragment, new MessageFragment())
+                        .commit();
+            }
+        });
 
         fetchUsers();
         return view;
@@ -68,8 +81,6 @@ public class ChatFragment extends Fragment {
                             Mentorado mentorado = doc.toObject(Mentorado.class);
                             Log.d("Teste",mentorado.getNome());
                             adapter.add(new UserItem(mentorado));
-
-                            // PAROU AQUI! AULA 7
                         }
                     }
                 });

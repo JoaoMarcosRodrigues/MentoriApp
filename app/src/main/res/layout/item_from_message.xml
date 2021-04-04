@@ -6,32 +6,30 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/imgContato"
+    <ImageView
+        android:id="@+id/img_message_user"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:srcCompat="@tools:sample/avatars" />
 
     <TextView
-        android:id="@+id/txtNomeContato"
+        android:id="@+id/txt_message"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
+        android:background="@drawable/edit_round"
+        android:padding="8dp"
         android:text="TextView"
-        app:layout_constraintBottom_toBottomOf="@+id/imgContato"
+        app:layout_constraintBottom_toBottomOf="@+id/img_message_user"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imgContato"
-        app:layout_constraintTop_toTopOf="@+id/imgContato"
-        android:textSize="16sp"
-        android:textStyle="bold"/>
+        app:layout_constraintStart_toEndOf="@+id/img_message_user"
+        app:layout_constraintTop_toTopOf="@+id/img_message_user" />
 </androidx.constraintlayout.widget.ConstraintLayout>

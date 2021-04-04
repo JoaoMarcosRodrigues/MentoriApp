@@ -3,23 +3,25 @@
     android:layout_width="match_parent"
     android:layout_height="176dp"
     android:background="@color/cardview_shadow_start_color"
-    android:padding="16dp"
     android:gravity="bottom"
     android:orientation="vertical"
+    android:padding="16dp"
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/image_perfil"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@mipmap/ic_launcher_round" />
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:scaleType="centerCrop"
+        android:src="@android:drawable/star_on" />
 
     <TextView
         android:id="@+id/txt_nome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="João da Silva"
         android:paddingTop="8dp"
+        android:text="Text View"
+        android:maxLines="1"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:textColor="@color/black" />
 
@@ -27,7 +29,8 @@
         android:id="@+id/txt_email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="joaodasilva@hotmail.com"
+        android:text="Text View"
+        android:maxLines="1"
         android:textColor="@color/black" />
 
 </LinearLayout>

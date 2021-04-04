@@ -12,6 +12,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.mentoriapp.Fragmentos_side.ChatFragment;
@@ -22,16 +24,32 @@ import com.example.mentoriapp.Fragmentos_side.PerfilMentoradoFragment;
 import com.example.mentoriapp.Listas.ListaReunioesFragment;
 import com.example.mentoriapp.Fragmentos_side.SobreFragment;
 import com.example.mentoriapp.Fragmentos_side.TutorialFragment;
+import com.example.mentoriapp.Mentorado.Mentorado;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.squareup.picasso.Picasso;
+
+import android.view.View;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private DrawerLayout drawer;
+
+    FirebaseAuth mAuth;
+    FirebaseUser currentUser;
+    FirebaseFirestore firebaseFirestore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        mAuth = FirebaseAuth.getInstance();
+        currentUser = mAuth.getCurrentUser();
+        firebaseFirestore = FirebaseFirestore.getInstance();
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -52,6 +70,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
 
         verifyAuthentication();
+        atualizarHeader();
     }
 
     private void verifyAuthentication() {
@@ -121,5 +140,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    public void atualizarHeader(){
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        View headerView = navigationView.getHeaderView(0);
+
+        TextView nome = headerView.findViewById(R.id.txt_nome);
+        TextView email = headerView.findViewById(R.id.txt_email);
+        ImageView foto = headerView.findViewById(R.id.image_perfil);
+
+        nome.setText(currentUser.getDisplayName());
+        email.setText(currentUser.getEmail());
+
+        Picasso.get().load(currentUser.getPhotoUrl()).into(foto);
+
+
     }
 }
