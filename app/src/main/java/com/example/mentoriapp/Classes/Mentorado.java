@@ -1,4 +1,4 @@
-package com.example.mentoriapp.Mentorado;
+package com.example.mentoriapp.Classes;
 
 import android.os.Parcel;
 import android.os.Parcelable;

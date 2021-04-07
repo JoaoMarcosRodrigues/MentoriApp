@@ -1,13 +1,15 @@
-package com.example.mentoriapp.Relato;
+package com.example.mentoriapp.Classes;
 
 public class Relato {
+    private int id;
     private String tema;
     private String descricao;
     private String data;
     private Boolean presencial;
     private String tarefa_associada;
 
-    public Relato(String tema, String descricao, String data, Boolean presencial, String tarefa_associada) {
+    public Relato(int id, String tema, String descricao, String data, Boolean presencial, String tarefa_associada) {
+        this.id = id;
         this.tema = tema;
         this.descricao = descricao;
         this.data = data;
@@ -16,6 +18,14 @@ public class Relato {
     }
 
     public Relato() {}
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getTema() {
         return tema;
