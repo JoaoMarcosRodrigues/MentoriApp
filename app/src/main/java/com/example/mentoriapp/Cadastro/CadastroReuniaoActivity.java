@@ -1,10 +1,13 @@
 package com.example.mentoriapp.Cadastro;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.DialogFragment;
 
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -18,9 +21,14 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.example.mentoriapp.Classes.Reuniao;
 import com.example.mentoriapp.R;
 import com.example.mentoriapp.TimePickerFragment;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.Calendar;
 
@@ -31,11 +39,17 @@ public class CadastroReuniaoActivity extends AppCompatActivity implements TimePi
     TextView txtHorario,txtCalendario;
     TextInputEditText editDescricao;
     private DatePickerDialog.OnDateSetListener mDateSetListener;
+    ProgressDialog progressDialog;
+    Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cadastro_reuniao);
+        toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Cadastro de Reunião");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         imgRelogio = findViewById(R.id.img_relogio);
         imgCalendario = findViewById(R.id.img_calendario);
@@ -43,6 +57,8 @@ public class CadastroReuniaoActivity extends AppCompatActivity implements TimePi
         txtHorario = findViewById(R.id.txt_horario);
         txtCalendario = findViewById(R.id.txt_data);
         editDescricao = findViewById(R.id.edit_descricao);
+
+        progressDialog = new ProgressDialog(this);
 
         imgRelogio.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,15 +99,42 @@ public class CadastroReuniaoActivity extends AppCompatActivity implements TimePi
         btnCadastrarReuniao.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!editDescricao.getText().equals("") && !txtCalendario.getText().equals("Data") && !txtHorario.getText().equals("Horário")){
-                    cadastrarReuniao();
-                }
+                cadastrarReuniao();
             }
         });
     }
 
     private void cadastrarReuniao() {
-        Toast.makeText(this,"Reunião cadastrada",Toast.LENGTH_SHORT).show();
+        String descricao = editDescricao.getText().toString();
+        String data = txtCalendario.getText().toString();
+        String horario = txtHorario.getText().toString();
+
+        if(descricao == null || data == null || horario == null ||
+           descricao.isEmpty() || data.isEmpty() || horario.isEmpty()){
+            Toast.makeText(this,"Todos os campos são obrigatórios!",Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        progressDialog.setMessage("Cadastrando reunião...");
+        progressDialog.show();
+
+        Reuniao reuniao = new Reuniao(1,descricao,data,horario);
+        FirebaseFirestore.getInstance().collection("reunioes")
+                .add(reuniao)
+                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                    @Override
+                    public void onSuccess(DocumentReference documentReference) {
+                        progressDialog.dismiss();
+                        Toast.makeText(getApplicationContext(),"Reunião cadastrada com sucesso!",Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        progressDialog.dismiss();
+                        Toast.makeText(getApplicationContext(),"Ops, houve um erro ao cadastrar a reunião! Tente novamente.",Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 
     @Override

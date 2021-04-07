@@ -6,12 +6,20 @@
     android:layout_height="match_parent"
     tools:context=".Cadastro.CadastroReuniaoActivity">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:titleTextColor="@color/white"
+        android:background="@color/purple_500"/>
+
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/layout_descricao"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="100dp"
+        android:layout_below="@+id/toolbar"
+        android:layout_marginTop="60dp"
         android:layout_marginRight="20dp"
         android:hint="Descrição"
         app:counterEnabled="true"
@@ -67,7 +75,6 @@
         android:layout_marginLeft="15dp"
         android:layout_marginTop="43dp"
         android:layout_toRightOf="@+id/img_calendario"
-        android:text="Data"
         android:textSize="18sp" />
 
     <ImageView
@@ -87,7 +94,6 @@
         android:layout_marginLeft="15dp"
         android:layout_marginTop="40dp"
         android:layout_toRightOf="@+id/img_relogio"
-        android:text="Horário"
         android:textSize="18sp" />
 
     <Button

@@ -5,6 +5,8 @@ import android.os.Parcelable;
 
 public class Mentorado implements Parcelable {
     private String uuid;
+    private String email;
+    private String senha;
     private String nome;
     private String areaAtuacao;
     private String telefone;
@@ -14,8 +16,10 @@ public class Mentorado implements Parcelable {
 
     }
 
-    public Mentorado(String uuid, String nome, String areaAtuacao, String telefone, String profileUrl) {
+    public Mentorado(String uuid, String email, String senha, String nome, String areaAtuacao, String telefone, String profileUrl) {
         this.uuid = uuid;
+        this.email = email;
+        this.senha = senha;
         this.nome = nome;
         this.areaAtuacao = areaAtuacao;
         this.telefone = telefone;
@@ -25,6 +29,8 @@ public class Mentorado implements Parcelable {
     protected Mentorado(Parcel in) {
         uuid = in.readString();
         nome = in.readString();
+        email = in.readString();
+        senha = in.readString();
         areaAtuacao = in.readString();
         telefone = in.readString();
         profileUrl = in.readString();

@@ -11,7 +11,8 @@
         android:theme="@style/Theme.MentoriApp">
         <activity android:name=".TarefaActivity" />
         <activity android:name=".Listas.ListaFeedbacksActivity" />
-        <activity android:name=".Cadastro.CadastroReuniaoActivity" />
+        <activity android:name=".Cadastro.CadastroReuniaoActivity"
+            android:parentActivityName=".MainActivity"/>
         <activity android:name=".SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

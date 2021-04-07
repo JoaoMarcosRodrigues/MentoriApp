@@ -41,7 +41,6 @@ import java.util.UUID;
 public class CadastroMentoradoActivity extends AppCompatActivity {
 
     private TextInputEditText mEditNomeMentorado, mEditEmailMentorado, mEditTelefoneMentorado, mEditSenhaMentorado, mEditAreaMentorado;
-    private TextInputLayout mInputNomeMentorado, mInputEmailMentorado, mInputSenhaMentorado, mInputAreaMentorado;
     private Button mBtnCadastroMentorado, mBtnFotoMentorado;
     private Uri mSelectedUri = null;
     private ImageView mImgPhoto;
@@ -60,10 +59,6 @@ public class CadastroMentoradoActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         progressDialog = new ProgressDialog(this);
-        mInputNomeMentorado = findViewById(R.id.input_nome_cadastro);
-        mInputEmailMentorado = findViewById(R.id.input_email_cadastro);
-        mInputSenhaMentorado = findViewById(R.id.input_senha_cadastro);
-        mInputAreaMentorado = findViewById(R.id.input_area_interesse_cadastro);
 
         mBtnFotoMentorado = findViewById(R.id.btn_img_cadastro_mentorado);
         mEditNomeMentorado = findViewById(R.id.edit_nome_cadastro);
@@ -171,11 +166,13 @@ public class CadastroMentoradoActivity extends AppCompatActivity {
 
                                 String uid = FirebaseAuth.getInstance().getUid();
                                 String nome = mEditNomeMentorado.getText().toString();
+                                String email = mEditEmailMentorado.getText().toString();
+                                String senha = mEditSenhaMentorado.getText().toString();
                                 String telefone = mEditTelefoneMentorado.getText().toString();
                                 String areaAtuacao = mEditAreaMentorado.getText().toString();
                                 String profileUrl = uri.toString();
 
-                                Mentorado mentorado = new Mentorado(uid,nome,areaAtuacao,telefone,profileUrl);
+                                Mentorado mentorado = new Mentorado(uid,email,senha,nome,areaAtuacao,telefone,profileUrl);
                                 FirebaseFirestore.getInstance().collection("mentorados")
                                         .add(mentorado)
                                         .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
