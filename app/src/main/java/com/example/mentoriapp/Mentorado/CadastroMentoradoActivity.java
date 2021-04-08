@@ -121,7 +121,7 @@ public class CadastroMentoradoActivity extends AppCompatActivity {
         if(senha.length() < 6)
             Toast.makeText(getApplicationContext(),"Senha deve conter no mínimo 6 caracteres!",Toast.LENGTH_SHORT).show();
 
-        progressDialog.setMessage("Cadastrando usuário...");
+        progressDialog.setMessage("Cadastrando mentorado...");
         progressDialog.show();
 
         FirebaseAuth.getInstance().createUserWithEmailAndPassword(email,senha)
@@ -150,7 +150,7 @@ public class CadastroMentoradoActivity extends AppCompatActivity {
 
     private void saveMentoradoInFirebase() {
         String filename = UUID.randomUUID().toString();
-        final StorageReference ref = FirebaseStorage.getInstance().getReference("/images/"+filename);
+        final StorageReference ref = FirebaseStorage.getInstance().getReference("/images/mentorado"+filename);
         if(mSelectedUri == null){
             Toast.makeText(this,"Selecione uma foto de perfil",Toast.LENGTH_SHORT).show();
             return;
@@ -179,6 +179,7 @@ public class CadastroMentoradoActivity extends AppCompatActivity {
                                             @Override
                                             public void onSuccess(DocumentReference documentReference) {
                                                 Log.i("Teste",documentReference.getId());
+                                                Toast.makeText(getApplicationContext(),"Mentorado cadastrado com sucesso!",Toast.LENGTH_SHORT).show();
                                                 Intent intent = new Intent(CadastroMentoradoActivity.this, MainActivity.class);
                                                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                                 startActivity(intent);
@@ -187,6 +188,7 @@ public class CadastroMentoradoActivity extends AppCompatActivity {
                                         .addOnFailureListener(new OnFailureListener() {
                                             @Override
                                             public void onFailure(@NonNull Exception e) {
+                                                Toast.makeText(getApplicationContext(),"Ops, houve um erro no cadastro! Tente novamente.",Toast.LENGTH_SHORT).show();
                                                 Log.i("Teste",e.getMessage());
                                             }
                                         });

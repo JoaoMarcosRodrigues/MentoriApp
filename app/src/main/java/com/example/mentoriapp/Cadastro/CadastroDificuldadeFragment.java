@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.mentoriapp.Classes.Dificuldade;
+import com.example.mentoriapp.Listas.ListaRelatosFragment;
 import com.example.mentoriapp.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -77,6 +78,12 @@ public class CadastroDificuldadeFragment extends Fragment {
                     public void onSuccess(DocumentReference documentReference) {
                         progressDialog.dismiss();
                         Toast.makeText(getContext(),"Dificuldade cadastrada com sucesso!",Toast.LENGTH_SHORT).show();
+                        editTag.setEnabled(false);
+                        editDescricao.setEnabled(false);
+                        btnSalvar.setEnabled(false);
+                        getActivity().getSupportFragmentManager().beginTransaction()
+                                .replace(R.id.fragment,new ListaRelatosFragment())
+                                .commit();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {

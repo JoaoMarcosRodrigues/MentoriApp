@@ -52,6 +52,8 @@ public class CadastroAprendizadoFragment extends Fragment {
 
     private void cadastrarAprendizado() {
         String descricao = descricaoAprendizado.getText().toString();
+        Bundle bundle = new Bundle();
+        int id_relato = bundle.getInt("idRelato");
 
         if(descricao == null || descricao.isEmpty()){
             Toast.makeText(getContext(),"Campo descrição obrigatório!",Toast.LENGTH_SHORT).show();
@@ -61,13 +63,8 @@ public class CadastroAprendizadoFragment extends Fragment {
         progressDialog.setMessage("Cadastrando aprendizado...");
         progressDialog.show();
 
-        Bundle bundle = new Bundle();
-        int id_relato = bundle.getInt("idRelato");
 
-        Aprendizado aprendizado = new Aprendizado();
-        aprendizado.setId(1);
-        aprendizado.setDescricaoAprendizado(descricao);
-        aprendizado.setIdRelato(id_relato);
+        Aprendizado aprendizado = new Aprendizado(1,id_relato,descricao);
 
         FirebaseFirestore.getInstance().collection("aprendizados")
                 .add(aprendizado)
@@ -76,6 +73,8 @@ public class CadastroAprendizadoFragment extends Fragment {
                     public void onSuccess(DocumentReference documentReference) {
                         progressDialog.dismiss();
                         Toast.makeText(getContext(),"Aprendizado cadasrado com sucesso!",Toast.LENGTH_SHORT).show();
+                        descricaoAprendizado.setEnabled(false);
+                        btnCadastroAprendizado.setEnabled(false);
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {

@@ -11,7 +11,7 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/purple_500"/>
+        android:background="@color/purple_500" />
 
     <ScrollView
         android:id="@+id/scrollView"
@@ -23,22 +23,33 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <ImageView
-                android:id="@+id/img_cadastro_mentorado"
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/img_photo"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
-                android:background="@drawable/background_foto_cadastro"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="30dp"
+                app:civ_border_color="@color/black"
+                app:civ_border_width="2dp" />
+
+            <Button
+                android:id="@+id/btn_img_cadastro_mentor"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="30dp"
                 android:layout_marginBottom="30dp"
-                android:src="@drawable/foto_foreground" />
+                android:background="@drawable/background_foto_cadastro"
+                android:text="Foto"
+                android:textColor="@color/white"
+                android:textStyle="bold" />
 
             <!-- Nome completo -->
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/input_nome_cadastro"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/img_cadastro_mentorado"
+                android:layout_below="@+id/btn_img_cadastro_mentor"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="20dp"

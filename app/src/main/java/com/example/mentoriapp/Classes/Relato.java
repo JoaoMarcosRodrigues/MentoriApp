@@ -2,19 +2,39 @@ package com.example.mentoriapp.Classes;
 
 public class Relato {
     private int id;
+    private String titulo;
     private String tema;
     private String descricao;
     private String data;
-    private Boolean presencial;
+    private String presencial;
     private String tarefa_associada;
+    private String emailMentorado;
 
-    public Relato(int id, String tema, String descricao, String data, Boolean presencial, String tarefa_associada) {
+    public Relato(int id, String titulo, String tema, String descricao, String data, String presencial, String tarefa_associada, String emailMentorado) {
         this.id = id;
+        this.titulo = titulo;
         this.tema = tema;
         this.descricao = descricao;
         this.data = data;
         this.presencial = presencial;
         this.tarefa_associada = tarefa_associada;
+        this.emailMentorado = emailMentorado;
+    }
+
+    public String getTitulo() {
+        return titulo;
+    }
+
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
+    }
+
+    public String getEmailMentorado() {
+        return emailMentorado;
+    }
+
+    public void setEmailMentorado(String emailMentorado) {
+        this.emailMentorado = emailMentorado;
     }
 
     public Relato() {}
@@ -51,11 +71,11 @@ public class Relato {
         this.data = data;
     }
 
-    public Boolean getPresencial() {
+    public String getPresencial() {
         return presencial;
     }
 
-    public void setPresencial(Boolean presencial) {
+    public void setPresencial(String presencial) {
         this.presencial = presencial;
     }
 

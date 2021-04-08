@@ -20,6 +20,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
@@ -32,6 +33,8 @@ import com.example.mentoriapp.TimePickerFragment;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -40,18 +43,20 @@ import java.util.Calendar;
 
 public class CadastroRelatoFragment extends Fragment implements AdapterView.OnItemSelectedListener {
 
-    boolean presencial;
     String tarefa_associada;
     ProgressDialog progressDialog;
 
     Spinner spinner;
     Button botao_pronto_relato;
-    TextInputEditText editTema;
-    TextInputEditText editDescricao;
+    TextInputEditText editTema, editTitulo, editDescricao;
+    TextView txtData;
+    ImageView imgData;
     RadioGroup radioGroup;
     RadioButton radioBtn;
-    EditText editData;
     private DatePickerDialog.OnDateSetListener mDateSetListener;
+    FirebaseAuth mAuth;
+    FirebaseUser mUser;
+    String presencial;
 
     public static CadastroRelatoFragment getInstance(){
         CadastroRelatoFragment cadastroRelatoFragment = new CadastroRelatoFragment();
@@ -70,14 +75,19 @@ public class CadastroRelatoFragment extends Fragment implements AdapterView.OnIt
         progressDialog = new ProgressDialog(getActivity());
         spinner = view.findViewById(R.id.spinner_tarefas_associadas);
         botao_pronto_relato = view.findViewById(R.id.btn_relato_pronto);
+        editTitulo = view.findViewById(R.id.edit_titulo_relato);
         editTema = view.findViewById(R.id.edit_tema_relato);
         editDescricao = view.findViewById(R.id.edit_descricao_relato);
         radioGroup = view.findViewById(R.id.radio_group_presencial);
-        editData = view.findViewById(R.id.edit_data_relato);
+        imgData = view.findViewById(R.id.img_data_relato);
+        txtData = view.findViewById(R.id.txt_data_relato);
 
-        // CORRIGIR
-        //tarefa_associada = spinner.getSelectedItem().toString();
-        tarefa_associada = "Nenhuma";
+        int radioId = radioGroup.getCheckedRadioButtonId();
+        radioBtn = view.findViewById(radioId);
+        presencial = radioBtn.getText().toString();
+
+        mAuth = FirebaseAuth.getInstance();
+        mUser = mAuth.getCurrentUser();
 
         botao_pronto_relato.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -86,7 +96,7 @@ public class CadastroRelatoFragment extends Fragment implements AdapterView.OnIt
             }
         });
 
-        editData.setOnClickListener(new View.OnClickListener() {
+        imgData.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Calendar cal = Calendar.getInstance();
@@ -107,9 +117,11 @@ public class CadastroRelatoFragment extends Fragment implements AdapterView.OnIt
         mDateSetListener = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                String data = dayOfMonth+"/"+month+"/"+year;
+                int mes = month+1;
 
-                editData.setText(data);
+                String data = dayOfMonth+"/"+mes+"/"+year;
+
+                txtData.setText(data);
             }
         };
 
@@ -123,20 +135,22 @@ public class CadastroRelatoFragment extends Fragment implements AdapterView.OnIt
 
     private void criarRelato() {
         int id = 1;
+        String titulo = editTitulo.getText().toString();
         String tema = editTema.getText().toString();
         String descricao = editDescricao.getText().toString();
-        String data = editData.getText().toString();
+        String data = txtData.getText().toString();
+        String emailMentorado = mUser.getEmail();
 
-        if(tema == null || tema.equals("") || descricao == null || descricao.equals("") ||
+        if(titulo == null || titulo.isEmpty() || tema == null || tema.equals("") || descricao == null || descricao.equals("") ||
                 data == null || data.equals("")) {
-            Toast.makeText(getActivity(),"Tema, descrição e data do relato obrigatórios!",Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(),"Título, Tema, descrição e data do relato obrigatórios!",Toast.LENGTH_SHORT).show();
             return;
         }
 
         progressDialog.setMessage("Cadastrando relato...");
         progressDialog.show();
 
-        Relato relato = new Relato(id,tema,descricao,data,presencial,tarefa_associada);
+        Relato relato = new Relato(id,titulo,tema,descricao,data,presencial,tarefa_associada,emailMentorado);
         FirebaseFirestore.getInstance().collection("relatos")
                 .add(relato)
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
@@ -148,11 +162,19 @@ public class CadastroRelatoFragment extends Fragment implements AdapterView.OnIt
                         bundle.putInt("idRelato",id);
 
                         Toast.makeText(getContext(),"Relato cadastrado!",Toast.LENGTH_SHORT).show();
+                        /*
                         getActivity().getSupportFragmentManager()
                                 .beginTransaction()
                                 .replace(R.id.fragment, new CadastroAprendizadoFragment())
                                 .commit();
-
+                         */
+                        editTitulo.setEnabled(false);
+                        editTema.setEnabled(false);
+                        editDescricao.setEnabled(false);
+                        radioBtn.setEnabled(false);
+                        spinner.setEnabled(false);
+                        imgData.setClickable(false);
+                        botao_pronto_relato.setEnabled(false);
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -167,12 +189,11 @@ public class CadastroRelatoFragment extends Fragment implements AdapterView.OnIt
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        String text = parent.getItemAtPosition(position).toString();
-        Toast.makeText(parent.getContext(),text,Toast.LENGTH_SHORT).show();
+        tarefa_associada = parent.getItemAtPosition(position).toString();
     }
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
-
+        tarefa_associada = "Nenhuma";
     }
 }

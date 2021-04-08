@@ -77,10 +77,10 @@
             android:id="@+id/btn_cadastrar_dificuldade"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
+            android:layout_below="@+id/layout_dificuldade"
+            android:layout_marginTop="150dp"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="40dp"
-            android:backgroundTint="#5E5D5D"
             android:text="Salvar" />
 
     </RelativeLayout>

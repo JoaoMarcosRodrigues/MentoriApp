@@ -25,6 +25,7 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -116,6 +117,7 @@ public class LoginActivity extends AppCompatActivity {
                                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                     startActivity(intent);
                                     Toast.makeText(LoginActivity.this, "Usuário logado!", Toast.LENGTH_SHORT).show();
+
                                 } else {
                                     Toast.makeText(LoginActivity.this, "Email ou senha inválido(s)", Toast.LENGTH_SHORT).show();
                                 }
