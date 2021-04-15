@@ -3,10 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Fragmentos_side.ChatFragment">
+    tools:context=".Listas.ListaNotificacoesFragment">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_contatos"
+        android:id="@+id/listaNotificacoes"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 

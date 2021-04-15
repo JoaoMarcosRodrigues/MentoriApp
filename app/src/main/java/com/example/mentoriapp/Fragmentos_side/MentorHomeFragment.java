@@ -9,6 +9,10 @@ import android.widget.GridLayout;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
+import com.example.mentoriapp.Cadastro.CadastroTarefaFragment;
+import com.example.mentoriapp.Listas.ListaFeedbacksFragment;
+import com.example.mentoriapp.Listas.ListaReunioesFragment;
+import com.example.mentoriapp.Listas.MeusMentoradosFragment;
 import com.example.mentoriapp.R;
 
 /**
@@ -80,25 +84,44 @@ public class MentorHomeFragment extends Fragment {
             cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    /*
                     switch(finalI){
                         case 0:
-                            startActivity(new Intent(getActivity(), ListaRelatosFragment.class));
+                            //getActivity().getSupportFragmentManager()
+                            // .beginTransaction()
+                            // .replace(R.id.fragment, new NotificacoesFragment())
+                            // .commit();
                             break;
                         case 1:
-                            startActivity(new Intent(getActivity(), ListaAprendizadosFragment.class));
+                            getActivity().getSupportFragmentManager()
+                                    .beginTransaction()
+                                    .replace(R.id.fragment_mentor, new CadastroTarefaFragment())
+                                    .commit();
                             break;
                         case 2:
-                            //startActivity(new Intent(getActivity(), ContatoMentorFragment.class));
+                            getActivity().getSupportFragmentManager()
+                                    .beginTransaction()
+                                    .replace(R.id.fragment_mentor, new ChatMentoradoFragment())
+                                    .commit();
                             break;
                         case 3:
-                            startActivity(new Intent(getActivity(), ListaTarefasActivity.class));
+                            getActivity().getSupportFragmentManager()
+                                    .beginTransaction()
+                                    .replace(R.id.fragment_mentor, new MeusMentoradosFragment())
+                                    .commit();
                             break;
                         case 4:
-                            startActivity(new Intent(getActivity(), ListaReunioesFragment.class));
+                            getActivity().getSupportFragmentManager()
+                                    .beginTransaction()
+                                    .replace(R.id.fragment_mentor, new ListaReunioesFragment())
+                                    .commit();
+                            break;
+                        case 5:
+                            getActivity().getSupportFragmentManager()
+                                    .beginTransaction()
+                                    .replace(R.id.fragment_mentor, new ListaFeedbacksFragment())
+                                    .commit();
                             break;
                     }
-                     */
                 }
             });
         }

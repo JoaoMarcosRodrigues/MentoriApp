@@ -6,14 +6,16 @@ import android.os.Parcelable;
 public class Mentor implements Parcelable {
     private String uuid;
     private String email;
+    private String areaAtuacao;
     private String senha;
     private String nome;
     private String telefone;
     private String profileUrl;
 
-    public Mentor(String uuid, String email, String senha, String nome, String telefone, String profileUrl) {
+    public Mentor(String uuid, String email, String areaAtuacao,String senha, String nome, String telefone, String profileUrl) {
         this.uuid = uuid;
         this.email = email;
+        this.areaAtuacao = areaAtuacao;
         this.senha = senha;
         this.nome = nome;
         this.telefone = telefone;
@@ -25,6 +27,7 @@ public class Mentor implements Parcelable {
     protected Mentor(Parcel in) {
         uuid = in.readString();
         email = in.readString();
+        areaAtuacao = in.readString();
         senha = in.readString();
         nome = in.readString();
         telefone = in.readString();
@@ -57,6 +60,14 @@ public class Mentor implements Parcelable {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getAreaAtuacao() {
+        return areaAtuacao;
+    }
+
+    public void setAreaAtuacao(String areaAtuacao) {
+        this.areaAtuacao = areaAtuacao;
     }
 
     public String getSenha() {

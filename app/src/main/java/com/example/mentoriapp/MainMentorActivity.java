@@ -1,5 +1,14 @@
 package com.example.mentoriapp;
 
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
@@ -8,31 +17,21 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.MenuItem;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import com.example.mentoriapp.Fragmentos_side.ChatFragment;
+import com.example.mentoriapp.Fragmentos_side.ChatMentorFragment;
 import com.example.mentoriapp.Fragmentos_side.ConfiguracaoFragment;
 import com.example.mentoriapp.Fragmentos_side.ContatoFragment;
-import com.example.mentoriapp.Fragmentos_side.MentoradoHomeFragment;
-import com.example.mentoriapp.Fragmentos_side.PerfilMentoradoFragment;
-import com.example.mentoriapp.Listas.ListaReunioesFragment;
+import com.example.mentoriapp.Fragmentos_side.MentorHomeFragment;
+import com.example.mentoriapp.Fragmentos_side.PerfilMentorFragment;
 import com.example.mentoriapp.Fragmentos_side.SobreFragment;
 import com.example.mentoriapp.Fragmentos_side.TutorialFragment;
+import com.example.mentoriapp.Listas.ListaReunioesFragment;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.squareup.picasso.Picasso;
 
-import android.view.View;
-
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class MainMentorActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private DrawerLayout drawer;
 
     FirebaseAuth mAuth;
@@ -42,7 +41,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_mentor_main);
 
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
@@ -62,7 +61,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         toggle.syncState();
 
         if(savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment, new MentoradoHomeFragment()).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_mentor, new MentorHomeFragment()).commit();
             navigationView.setCheckedItem(R.id.nav_home);
         }
 
@@ -72,7 +71,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private void verifyAuthentication() {
         if(FirebaseAuth.getInstance().getUid() == null){
-            Intent intent = new Intent(MainActivity.this,LoginActivity.class);
+            Intent intent = new Intent(MainMentorActivity.this,LoginActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
         }
@@ -91,28 +90,28 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
             case R.id.nav_home:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment, new MentoradoHomeFragment()).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_mentor, new MentorHomeFragment()).commit();
                 break;
             case R.id.nav_perfil:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment,new PerfilMentoradoFragment()).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_mentor,new PerfilMentorFragment()).commit();
                 break;
             case R.id.nav_chat:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment, new ChatFragment()).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_mentor, new ChatMentorFragment()).commit();
                 break;
             case R.id.nav_reuniao:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment, new ListaReunioesFragment()).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_mentor, new ListaReunioesFragment()).commit();
                 break;
             case R.id.nav_tutorial:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment, new TutorialFragment()).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_mentor, new TutorialFragment()).commit();
                 break;
             case R.id.nav_contato:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment, new ContatoFragment()).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_mentor, new ContatoFragment()).commit();
                 break;
             case R.id.nav_sobre:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment, new SobreFragment()).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_mentor, new SobreFragment()).commit();
                 break;
             case R.id.nav_configuracoes:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment, new ConfiguracaoFragment()).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_mentor, new ConfiguracaoFragment()).commit();
                 break;
             case R.id.nav_sair:
                 AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
@@ -128,7 +127,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 alertDialog.setNegativeButton("Não", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Toast.makeText(MainActivity.this,"Ok!",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainMentorActivity.this,"Ok!",Toast.LENGTH_SHORT).show();
                     }
                 });
                 alertDialog.create().show();

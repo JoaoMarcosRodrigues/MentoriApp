@@ -54,7 +54,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="20dp"
                 app:counterEnabled="true"
-                app:counterMaxLength="250"
+                app:counterMaxLength="255"
                 app:errorEnabled="true"
                 app:startIconDrawable="@drawable/ic_nome">
 
@@ -78,7 +78,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="20dp"
                 app:counterEnabled="true"
-                app:counterMaxLength="250"
+                app:counterMaxLength="255"
                 app:errorEnabled="true"
                 app:startIconDrawable="@drawable/ic_email">
 
@@ -94,10 +94,35 @@
 
             <!-- Telefone -->
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/input_telefone_cadastro"
+                android:id="@+id/input_atuacao_cadastro"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/input_email_cadastro"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="20dp"
+                app:counterEnabled="true"
+                app:counterMaxLength="40"
+                app:errorEnabled="true"
+                app:startIconDrawable="@drawable/ic_area_interesse">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edit_atuacao_cadastro"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/edit_round"
+                    android:hint="Área de atuação"
+                    android:inputType="text"
+                    android:maxLines="1" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Telefone -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/input_telefone_cadastro"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/input_atuacao_cadastro"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="20dp"

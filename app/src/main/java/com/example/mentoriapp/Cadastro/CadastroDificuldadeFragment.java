@@ -78,11 +78,11 @@ public class CadastroDificuldadeFragment extends Fragment {
                     public void onSuccess(DocumentReference documentReference) {
                         progressDialog.dismiss();
                         Toast.makeText(getContext(),"Dificuldade cadastrada com sucesso!",Toast.LENGTH_SHORT).show();
-                        editTag.setEnabled(false);
-                        editDescricao.setEnabled(false);
-                        btnSalvar.setEnabled(false);
+                        //editTag.setEnabled(false);
+                        //editDescricao.setEnabled(false);
+                        //btnSalvar.setEnabled(false);
                         getActivity().getSupportFragmentManager().beginTransaction()
-                                .replace(R.id.fragment,new ListaRelatosFragment())
+                                .replace(R.id.fragment_mentorado,new ListaRelatosFragment())
                                 .commit();
                     }
                 })

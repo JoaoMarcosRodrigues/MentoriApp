@@ -60,7 +60,7 @@
                 </LinearLayout>
 
             </androidx.cardview.widget.CardView>
-            <!-- Aprendizados e Soluções -->
+            <!-- Minhas e Tarefas -->
             <androidx.cardview.widget.CardView
                 android:layout_width="0dp"
                 android:layout_height="0dp"
@@ -83,14 +83,14 @@
                         android:layout_width="60dp"
                         android:layout_height="60dp"
                         android:layout_gravity="center"
-                        android:src="@drawable/aprendizado" />
+                        android:src="@drawable/tarefa" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
                         android:layout_gravity="center"
-                        android:text="Aprendizados\ne Soluções"
+                        android:text="Minhas\nTarefas"
                         android:textSize="18sp"
                         android:gravity="center_horizontal" />
                 </LinearLayout>
@@ -155,14 +155,14 @@
                         android:layout_width="60dp"
                         android:layout_height="60dp"
                         android:layout_gravity="center"
-                        android:src="@drawable/tarefa" />
+                        android:src="@drawable/reuniao" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
                         android:layout_gravity="center"
-                        android:text="Minhas\nTarefas"
+                        android:text="Reuniões"
                         android:gravity="center"
                         android:textSize="18sp" />
                 </LinearLayout>
@@ -191,13 +191,50 @@
                         android:layout_width="60dp"
                         android:layout_height="60dp"
                         android:layout_gravity="center"
-                        android:src="@drawable/reuniao" />
+                        android:src="@drawable/aprendizado" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
-                        android:text="Reuniões"
+                        android:text="Aprendizados e\nSoluções"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:textSize="18sp" />
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <!-- Dificuldades -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_rowWeight="1"
+                android:layout_columnWeight="1"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginBottom="16dp"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="8dp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal|center_vertical"
+                    android:layout_margin="16dp"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_dificuldade" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:text="Dificuldades"
                         android:layout_gravity="center"
                         android:gravity="center"
                         android:textSize="18sp" />

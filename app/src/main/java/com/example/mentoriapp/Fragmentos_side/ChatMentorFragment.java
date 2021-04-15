@@ -14,7 +14,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.mentoriapp.Classes.Mentorado;
+import com.example.mentoriapp.Classes.Mentor;
 import com.example.mentoriapp.R;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
@@ -23,20 +23,20 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.squareup.picasso.Picasso;
 import com.xwray.groupie.GroupAdapter;
-import com.xwray.groupie.Item;
 import com.xwray.groupie.GroupieViewHolder;
+import com.xwray.groupie.Item;
 import com.xwray.groupie.OnItemClickListener;
 
 import java.util.List;
 
-public class ChatFragment extends Fragment {
+public class ChatMentorFragment extends Fragment {
 
     private GroupAdapter adapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_chat, container, false);
+        View view = inflater.inflate(R.layout.fragment_mentor_chat, container, false);
 
         RecyclerView rv = view.findViewById(R.id.recycler_contatos);
 
@@ -49,11 +49,11 @@ public class ChatFragment extends Fragment {
             public void onItemClick(@NonNull Item item, @NonNull View view) {
                 UserItem userItem = (UserItem) item;
                 Bundle bundle = new Bundle();
-                bundle.putString("nome",userItem.mentorado.getNome());
-                getParentFragmentManager().setFragmentResult("mentorado",bundle);
+                bundle.putString("nome",userItem.mentor.getNome());
+                getParentFragmentManager().setFragmentResult("mentor",bundle);
                 getActivity().getSupportFragmentManager()
                         .beginTransaction()
-                        .replace(R.id.fragment, new MessageFragment())
+                        .replace(R.id.fragment_mentor, new MessageMentoradoFragment())
                         .commit();
             }
         });
@@ -63,7 +63,7 @@ public class ChatFragment extends Fragment {
     }
 
     private void fetchUsers() {
-        FirebaseFirestore.getInstance().collection("/mentorados")
+        FirebaseFirestore.getInstance().collection("/mentor")
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
                     public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
@@ -74,9 +74,9 @@ public class ChatFragment extends Fragment {
 
                         List<DocumentSnapshot> docs = value.getDocuments();
                         for(DocumentSnapshot doc: docs){
-                            Mentorado mentorado = doc.toObject(Mentorado.class);
-                            Log.d("Teste",mentorado.getNome());
-                            adapter.add(new UserItem(mentorado));
+                            Mentor mentor = doc.toObject(Mentor.class);
+                            Log.d("Teste",mentor.getNome());
+                            adapter.add(new UserItem(mentor));
                         }
                     }
                 });
@@ -84,10 +84,10 @@ public class ChatFragment extends Fragment {
 
     private class UserItem extends Item<GroupieViewHolder>{
 
-        private final Mentorado mentorado;
+        private final Mentor mentor;
 
-        public UserItem(Mentorado mentorado) {
-            this.mentorado = mentorado;
+        public UserItem(Mentor mentor) {
+            this.mentor = mentor;
         }
 
         @Override
@@ -95,10 +95,10 @@ public class ChatFragment extends Fragment {
             TextView txtNome = viewHolder.itemView.findViewById(R.id.txtNomeContato);
             ImageView imagePhoto = viewHolder.itemView.findViewById(R.id.imgContato);
 
-            txtNome.setText(mentorado.getNome());
+            txtNome.setText(mentor.getNome());
 
             Picasso.get()
-                    .load(mentorado.getProfileUrl())
+                    .load(mentor.getProfileUrl())
                     .into(imagePhoto);
         }
 

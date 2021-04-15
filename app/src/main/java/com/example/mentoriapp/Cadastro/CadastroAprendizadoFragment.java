@@ -73,8 +73,12 @@ public class CadastroAprendizadoFragment extends Fragment {
                     public void onSuccess(DocumentReference documentReference) {
                         progressDialog.dismiss();
                         Toast.makeText(getContext(),"Aprendizado cadasrado com sucesso!",Toast.LENGTH_SHORT).show();
-                        descricaoAprendizado.setEnabled(false);
-                        btnCadastroAprendizado.setEnabled(false);
+                        //descricaoAprendizado.setEnabled(false);
+                        //btnCadastroAprendizado.setEnabled(false);
+                        getActivity().getSupportFragmentManager()
+                                .beginTransaction()
+                                .replace(R.id.fragment_mentorado, new CadastroDificuldadeFragment())
+                                .commit();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {

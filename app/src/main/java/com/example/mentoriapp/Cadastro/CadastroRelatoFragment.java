@@ -162,12 +162,11 @@ public class CadastroRelatoFragment extends Fragment implements AdapterView.OnIt
                         bundle.putInt("idRelato",id);
 
                         Toast.makeText(getContext(),"Relato cadastrado!",Toast.LENGTH_SHORT).show();
-                        /*
                         getActivity().getSupportFragmentManager()
                                 .beginTransaction()
-                                .replace(R.id.fragment, new CadastroAprendizadoFragment())
+                                .replace(R.id.fragment_mentorado, new CadastroAprendizadoFragment())
                                 .commit();
-                         */
+                        /*
                         editTitulo.setEnabled(false);
                         editTema.setEnabled(false);
                         editDescricao.setEnabled(false);
@@ -175,6 +174,7 @@ public class CadastroRelatoFragment extends Fragment implements AdapterView.OnIt
                         spinner.setEnabled(false);
                         imgData.setClickable(false);
                         botao_pronto_relato.setEnabled(false);
+                         */
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {

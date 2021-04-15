@@ -19,14 +19,15 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.mentoriapp.Classes.Mentorado;
-import com.example.mentoriapp.MainActivity;
+import com.example.mentoriapp.MainMentoradoActivity;
 import com.example.mentoriapp.R;
+import com.github.rtoshiro.util.format.SimpleMaskFormatter;
+import com.github.rtoshiro.util.format.text.MaskTextWatcher;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
-import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
@@ -68,6 +69,10 @@ public class CadastroMentoradoActivity extends AppCompatActivity {
         mEditAreaMentorado = findViewById(R.id.edit_area_interesse_cadastro);
         mBtnCadastroMentorado = findViewById(R.id.btn_cadastrar);
         mImgPhoto = findViewById(R.id.img_photo);
+
+        SimpleMaskFormatter smf = new SimpleMaskFormatter("(NN)NNNNN-NNNN");
+        MaskTextWatcher mtw = new MaskTextWatcher(mEditTelefoneMentorado, smf);
+        mEditTelefoneMentorado.addTextChangedListener(mtw);
 
         mBtnCadastroMentorado.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -180,7 +185,7 @@ public class CadastroMentoradoActivity extends AppCompatActivity {
                                             public void onSuccess(DocumentReference documentReference) {
                                                 Log.i("Teste",documentReference.getId());
                                                 Toast.makeText(getApplicationContext(),"Mentorado cadastrado com sucesso!",Toast.LENGTH_SHORT).show();
-                                                Intent intent = new Intent(CadastroMentoradoActivity.this, MainActivity.class);
+                                                Intent intent = new Intent(CadastroMentoradoActivity.this, MainMentoradoActivity.class);
                                                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                                 startActivity(intent);
                                             }

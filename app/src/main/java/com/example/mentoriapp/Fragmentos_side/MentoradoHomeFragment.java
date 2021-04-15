@@ -13,6 +13,7 @@ import android.widget.GridLayout;
 import android.widget.Toast;
 
 import com.example.mentoriapp.Listas.ListaAprendizadosFragment;
+import com.example.mentoriapp.Listas.ListaDificuldadesFragment;
 import com.example.mentoriapp.Listas.ListaRelatosFragment;
 import com.example.mentoriapp.Listas.ListaReunioesFragment;
 import com.example.mentoriapp.Listas.ListaTarefasFragment;
@@ -91,13 +92,13 @@ public class MentoradoHomeFragment extends Fragment {
                         case 0:
                             getActivity().getSupportFragmentManager()
                                     .beginTransaction()
-                                    .replace(R.id.fragment, new ListaRelatosFragment())
+                                    .replace(R.id.fragment_mentorado, new ListaRelatosFragment())
                                     .commit();
                             break;
                         case 1:
                             getActivity().getSupportFragmentManager()
                                     .beginTransaction()
-                                    .replace(R.id.fragment, new ListaAprendizadosFragment())
+                                    .replace(R.id.fragment_mentorado, new ListaTarefasFragment())
                                     .commit();
                             break;
                         case 2:
@@ -107,13 +108,19 @@ public class MentoradoHomeFragment extends Fragment {
                         case 3:
                             getActivity().getSupportFragmentManager()
                                     .beginTransaction()
-                                    .replace(R.id.fragment, new ListaTarefasFragment())
+                                    .replace(R.id.fragment_mentorado, new ListaReunioesFragment())
                                     .commit();
                             break;
                         case 4:
                             getActivity().getSupportFragmentManager()
                                     .beginTransaction()
-                                    .replace(R.id.fragment, new ListaReunioesFragment())
+                                    .replace(R.id.fragment_mentorado, new ListaAprendizadosFragment())
+                                    .commit();
+                            break;
+                        case 5:
+                            getActivity().getSupportFragmentManager()
+                                    .beginTransaction()
+                                    .replace(R.id.fragment_mentorado, new ListaDificuldadesFragment())
                                     .commit();
                             break;
                     }

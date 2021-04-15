@@ -24,7 +24,7 @@ import com.xwray.groupie.GroupieViewHolder;
 import com.xwray.groupie.Item;
 
 
-public class MessageFragment extends Fragment {
+public class MessageMentoradoFragment extends Fragment {
 
     private GroupAdapter adapter;
 
@@ -45,7 +45,7 @@ public class MessageFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_message, container, false);
+        View view = inflater.inflate(R.layout.fragment_mentorado_message, container, false);
 
         RecyclerView rv = view.findViewById(R.id.recycler_chat);
 
@@ -74,7 +74,7 @@ public class MessageFragment extends Fragment {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
             case R.id.contatos:
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment,new ChatFragment()).commit();
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_mentorado,new ChatMentoradoFragment()).commit();
         }
 
         return super.onOptionsItemSelected(item);

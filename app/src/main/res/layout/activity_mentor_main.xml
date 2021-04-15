@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".MainActivity"
+    tools:context=".MainMentorActivity"
     tools:openDrawer="start">
 
     <LinearLayout
@@ -24,7 +24,7 @@
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
         <FrameLayout
-            android:id="@+id/fragment"
+            android:id="@+id/fragment_mentor"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 

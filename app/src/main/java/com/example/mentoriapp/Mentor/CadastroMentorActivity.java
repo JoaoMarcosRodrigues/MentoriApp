@@ -19,17 +19,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.example.mentoriapp.Classes.Mentor;
-import com.example.mentoriapp.Classes.Mentorado;
-import com.example.mentoriapp.Main2Activity;
-import com.example.mentoriapp.MainActivity;
-import com.example.mentoriapp.Mentorado.CadastroMentoradoActivity;
+import com.example.mentoriapp.MainMentorActivity;
 import com.example.mentoriapp.R;
+import com.github.rtoshiro.util.format.SimpleMaskFormatter;
+import com.github.rtoshiro.util.format.text.MaskTextWatcher;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
-import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
@@ -43,7 +41,7 @@ import java.util.UUID;
 
 public class CadastroMentorActivity extends AppCompatActivity {
 
-    private TextInputEditText edit_email,edit_nome,edit_telefone,edit_senha;
+    private TextInputEditText edit_email,edit_nome,edit_telefone,edit_senha,edit_area_atuacao;
     private Button botao_next, mBtnFotoMentor;
     private ImageView mImgPhoto;
     private Toolbar toolbar;
@@ -67,8 +65,13 @@ public class CadastroMentorActivity extends AppCompatActivity {
         edit_nome = findViewById(R.id.edit_nome_cadastro);
         edit_telefone = findViewById(R.id.edit_telefone_cadastro);
         edit_senha = findViewById(R.id.edit_senha_cadastro);
+        edit_area_atuacao = findViewById(R.id.edit_atuacao_cadastro);
         mBtnFotoMentor = findViewById(R.id.btn_img_cadastro_mentor);
         mImgPhoto = findViewById(R.id.img_photo);
+
+        SimpleMaskFormatter smf = new SimpleMaskFormatter("(NN)NNNNN-NNNN");
+        MaskTextWatcher mtw = new MaskTextWatcher(edit_telefone, smf);
+        edit_telefone.addTextChangedListener(mtw);
 
         botao_next.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -112,10 +115,11 @@ public class CadastroMentorActivity extends AppCompatActivity {
         String senha = edit_senha.getText().toString();
         String nome = edit_nome.getText().toString();
         String telefone = edit_telefone.getText().toString();
+        String area_atuacao = edit_area_atuacao.getText().toString();
 
         if(nome == null || nome.isEmpty() || email == null || email.isEmpty() ||
-                senha == null || senha.isEmpty()) {
-            Toast.makeText(this,"Nome Completo, Email e Senha devem ser preenchidos!",Toast.LENGTH_SHORT).show();
+                senha == null || senha.isEmpty() || area_atuacao == null || area_atuacao.isEmpty()) {
+            Toast.makeText(this,"Nome Completo, Email, Área de atuação e Senha devem ser preenchidos!",Toast.LENGTH_SHORT).show();
             return;
         }
         if(senha.length() < 6)
@@ -169,9 +173,10 @@ public class CadastroMentorActivity extends AppCompatActivity {
                                 String email = edit_email.getText().toString();
                                 String senha = edit_senha.getText().toString();
                                 String telefone = edit_telefone.getText().toString();
+                                String area_atuacao = edit_area_atuacao.getText().toString();
                                 String profileUrl = uri.toString();
 
-                                Mentor mentor = new Mentor(uid,email,senha,nome,telefone,profileUrl);
+                                Mentor mentor = new Mentor(uid,email,area_atuacao,senha,nome,telefone,profileUrl);
                                 FirebaseFirestore.getInstance().collection("mentor")
                                         .add(mentor)
                                         .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
@@ -179,7 +184,7 @@ public class CadastroMentorActivity extends AppCompatActivity {
                                             public void onSuccess(DocumentReference documentReference) {
                                                 Log.i("Teste",documentReference.getId());
                                                 Toast.makeText(getApplicationContext(),"Mentor cadastrado com sucesso!",Toast.LENGTH_SHORT).show();
-                                                Intent intent = new Intent(CadastroMentorActivity.this, Main2Activity.class);
+                                                Intent intent = new Intent(CadastroMentorActivity.this, MainMentorActivity.class);
                                                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                                 startActivity(intent);
                                             }

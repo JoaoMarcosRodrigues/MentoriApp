@@ -1,6 +1,5 @@
 package com.example.mentoriapp.Listas;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,10 +10,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mentoriapp.Adapters.ExemploRelatoAdapter;
-import com.example.mentoriapp.Adapters.ExemploReuniaoAdapter;
-import com.example.mentoriapp.Cadastro.RelatoFragment;
+import com.example.mentoriapp.Cadastro.CadastroRelatoFragment;
 import com.example.mentoriapp.Itens.ExemploItemRelato;
-import com.example.mentoriapp.Itens.ExemploItemReuniao;
 import com.example.mentoriapp.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -38,7 +35,7 @@ public class ListaRelatosFragment extends Fragment {
             public void onClick(View v) {
                 getActivity().getSupportFragmentManager()
                         .beginTransaction()
-                        .replace(R.id.fragment, new RelatoFragment())
+                        .replace(R.id.fragment_mentorado, new CadastroRelatoFragment())
                         .commit();
             }
         });
