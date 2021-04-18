@@ -178,11 +178,11 @@ public class CadastroMentorActivity extends AppCompatActivity {
 
                                 Mentor mentor = new Mentor(uid,email,area_atuacao,senha,nome,telefone,profileUrl);
                                 FirebaseFirestore.getInstance().collection("mentor")
-                                        .add(mentor)
-                                        .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                        .document(uid)
+                                        .set(mentor)
+                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
                                             @Override
-                                            public void onSuccess(DocumentReference documentReference) {
-                                                Log.i("Teste",documentReference.getId());
+                                            public void onSuccess(Void aVoid) {
                                                 Toast.makeText(getApplicationContext(),"Mentor cadastrado com sucesso!",Toast.LENGTH_SHORT).show();
                                                 Intent intent = new Intent(CadastroMentorActivity.this, MainMentorActivity.class);
                                                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);

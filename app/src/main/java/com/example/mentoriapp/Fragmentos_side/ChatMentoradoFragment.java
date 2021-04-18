@@ -50,6 +50,8 @@ public class ChatMentoradoFragment extends Fragment {
                 UserItem userItem = (UserItem) item;
                 Bundle bundle = new Bundle();
                 bundle.putString("nome",userItem.mentorado.getNome());
+                bundle.putString("id",userItem.mentorado.getUuid());
+                bundle.putString("imgProfile",userItem.mentorado.getProfileUrl());
                 getParentFragmentManager().setFragmentResult("mentorado",bundle);
                 getActivity().getSupportFragmentManager()
                         .beginTransaction()
