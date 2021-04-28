@@ -25,6 +25,13 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QuerySnapshot;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -33,6 +40,7 @@ public class LoginActivity extends AppCompatActivity {
     Button botao_entrar;
     TextView link_esquecer_senha, link_cadastro;
     ProgressDialog progressDialog;
+    private FirebaseFirestore db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +79,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         };
 
+        db = FirebaseFirestore.getInstance();
         progressDialog = new ProgressDialog(this);
         edit_email = findViewById(R.id.edit_email);
         edit_senha = findViewById(R.id.edit_senha);
@@ -111,11 +120,35 @@ public class LoginActivity extends AppCompatActivity {
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 progressDialog.dismiss();
                                 if (task.isSuccessful()) {
-                                    Log.i("Teste", task.getResult().getUser().getUid());
-                                    Intent intent = new Intent(LoginActivity.this, MainMentoradoActivity.class);
-                                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                                    startActivity(intent);
-                                    Toast.makeText(LoginActivity.this, "Usuário logado!", Toast.LENGTH_SHORT).show();
+                                    DocumentReference reference = db.collection("usuarios").document(email);
+                                    reference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                            DocumentSnapshot snapshot = task.getResult();
+                                            if(snapshot.exists()){
+                                                int tipoUsuario = ((Long) snapshot.getData().get("tipo")).intValue();
+
+                                                if(tipoUsuario == 1){
+                                                    Intent intent = new Intent(LoginActivity.this, MainMentorActivity.class);
+                                                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                                    startActivity(intent);
+                                                }
+                                                if(tipoUsuario == 2){
+                                                    Intent intent = new Intent(LoginActivity.this, MainMentoradoActivity.class);
+                                                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                                    startActivity(intent);
+                                                }
+                                            }
+
+                                            Toast.makeText(LoginActivity.this, "Usuário logado!", Toast.LENGTH_SHORT).show();
+                                        }
+                                    })
+                                    .addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            Toast.makeText(LoginActivity.this, "Usuário não cadastrado!", Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
 
                                 } else {
                                     Toast.makeText(LoginActivity.this, "Email ou senha inválido(s)", Toast.LENGTH_SHORT).show();

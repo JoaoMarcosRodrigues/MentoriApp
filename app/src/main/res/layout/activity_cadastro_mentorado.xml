@@ -125,6 +125,7 @@
                 app:counterEnabled="true"
                 app:counterMaxLength="8"
                 app:errorEnabled="true"
+                app:passwordToggleEnabled="true"
                 app:startIconDrawable="@drawable/ic_senha">
 
                 <com.google.android.material.textfield.TextInputEditText

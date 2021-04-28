@@ -1,14 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Cadastro.CadastroFeedbackFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="730dp"
+                android:background="#7CAEABAB">
+
+                <ImageView
+                    android:id="@+id/img_cadastro_mentorado"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="50dp"
+                    android:src="@drawable/ic_feedback" />
+
+                <TextView
+                    android:id="@+id/txt_titulo_cadastro_feedback"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/img_cadastro_mentorado"
+                    android:layout_centerHorizontal="true"
+                    android:text="Feedback"
+                    android:textSize="28sp"
+                    android:textStyle="bold" />
+
+                <!-- Nome completo -->
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/input_descricao"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/txt_titulo_cadastro_feedback"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="40dp"
+                    android:layout_marginRight="20dp"
+                    android:gravity="top|left"
+                    app:counterEnabled="true"
+                    app:counterMaxLength="250"
+                    app:errorEnabled="true"
+                    app:startIconDrawable="@drawable/ic_descricao">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edit_descricao"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/edit_round"
+                        android:gravity="top|left"
+                        android:hint="Descrição"
+                        android:inputType="text|textMultiLine"
+                        android:lines="5" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <Button
+                    android:id="@+id/btn_cadastrar_feedback"
+                    android:layout_width="180dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="50dp"
+                    android:text="Cadastrar" />
+
+            </RelativeLayout>
+
+    </RelativeLayout>
 
 </FrameLayout>

@@ -35,7 +35,7 @@ public class ListaFeedbacksFragment extends Fragment {
         exemploListaFeedback.add(new ExemploItemFeedback("Feedback 1","Descrição","07/03/2021"));
         exemploListaFeedback.add(new ExemploItemFeedback("Feedback 1","Descrição","07/03/2021"));
 
-        mRecyclerView = view.findViewById(R.id.listaRelatos);
+        mRecyclerView = view.findViewById(R.id.recycler_feedbacks);
         mBtnAdicionarFeedback = view.findViewById(R.id.btnAdicionarFeedback);
 
         mRecyclerView.setHasFixedSize(true);

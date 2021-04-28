@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".Mentor.CadastroMentorActivity">
+    tools:context=".CadastroUsuarioActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -21,7 +21,8 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="#7CAEABAB">
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/img_photo"
@@ -33,7 +34,7 @@
                 app:civ_border_width="2dp" />
 
             <Button
-                android:id="@+id/btn_img_cadastro_mentor"
+                android:id="@+id/btn_img_cadastro_usuario"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
                 android:layout_centerHorizontal="true"
@@ -44,17 +45,16 @@
                 android:textColor="@color/white"
                 android:textStyle="bold" />
 
-            <!-- Nome completo -->
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/input_nome_cadastro"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/btn_img_cadastro_mentor"
+                android:layout_below="@+id/btn_img_cadastro_usuario"
                 android:layout_marginLeft="20dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="20dp"
                 android:layout_marginRight="20dp"
                 app:counterEnabled="true"
-                app:counterMaxLength="255"
+                app:counterMaxLength="250"
                 app:errorEnabled="true"
                 app:startIconDrawable="@drawable/ic_nome">
 
@@ -63,12 +63,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/edit_round"
-                    android:hint="Nome completo"
+                    android:hint="Nome"
                     android:inputType="text"
                     android:maxLines="1" />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <!-- Email -->
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/input_email_cadastro"
                 android:layout_width="match_parent"
@@ -78,7 +77,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="20dp"
                 app:counterEnabled="true"
-                app:counterMaxLength="255"
+                app:counterMaxLength="250"
                 app:errorEnabled="true"
                 app:startIconDrawable="@drawable/ic_email">
 
@@ -92,37 +91,11 @@
                     android:maxLines="1" />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <!-- Telefone -->
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/input_atuacao_cadastro"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/input_email_cadastro"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="20dp"
-                app:counterEnabled="true"
-                app:counterMaxLength="40"
-                app:errorEnabled="true"
-                app:startIconDrawable="@drawable/ic_area_interesse">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/edit_atuacao_cadastro"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/edit_round"
-                    android:hint="Área de atuação"
-                    android:inputType="text"
-                    android:maxLines="1" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <!-- Telefone -->
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/input_telefone_cadastro"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/input_atuacao_cadastro"
+                android:layout_below="@+id/input_email_cadastro"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="20dp"
@@ -140,7 +113,7 @@
                     android:inputType="phone"
                     android:maxLines="1" />
             </com.google.android.material.textfield.TextInputLayout>
-            <!-- Senha -->
+
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/input_senha_cadastro"
                 android:layout_width="match_parent"
@@ -164,18 +137,40 @@
                     android:inputType="textWebPassword"
                     android:maxLines="1" />
             </com.google.android.material.textfield.TextInputLayout>
-            <!-- Next -->
-            <Button
-                android:id="@+id/btn_next"
-                android:layout_width="200dp"
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/input_area_interesse_cadastro"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/input_senha_cadastro"
+                android:layout_margin="20dp"
+                app:counterEnabled="true"
+                app:counterMaxLength="100"
+                app:errorEnabled="true"
+                app:startIconDrawable="@drawable/ic_area_interesse">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edit_area_interesse_cadastro"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/edit_round"
+                    android:hint="Área de interesse"
+                    android:inputType="text"
+                    android:maxLines="1" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <Button
+                android:id="@+id/btn_cadastrar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/input_area_interesse_cadastro"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="50dp"
-                android:layout_marginRight="40dp"
-                android:layout_marginBottom="35dp"
-                android:text="Cadastrar"
-                android:textColor="@color/black" />
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="30dp"
+                android:backgroundTint="#A83A3939"
+                android:text="Criar Conta" />
 
         </RelativeLayout>
 

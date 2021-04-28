@@ -25,6 +25,8 @@
             android:parentActivityName=".OpcaoCadastroActivity"/>
         <activity android:name=".Mentorado.CadastroMentoradoActivity"
             android:parentActivityName=".OpcaoCadastroActivity"/>
+        <activity android:name=".CadastroUsuarioActivity"
+            android:parentActivityName=".OpcaoCadastroActivity"/>
         <activity
             android:name=".MainMentoradoActivity"
             android:theme="@style/Theme.Design.Light.NoActionBar" />

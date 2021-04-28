@@ -32,6 +32,8 @@ import com.squareup.picasso.Picasso;
 
 import android.view.View;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class MainMentoradoActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private DrawerLayout drawer;
 
@@ -145,11 +147,10 @@ public class MainMentoradoActivity extends AppCompatActivity implements Navigati
 
         TextView nome = headerView.findViewById(R.id.txt_nome);
         TextView email = headerView.findViewById(R.id.txt_email);
-        ImageView foto = headerView.findViewById(R.id.image_perfil);
+        CircleImageView foto = headerView.findViewById(R.id.image_perfil);
 
         nome.setText(currentUser.getDisplayName());
         email.setText(currentUser.getEmail());
-
         Picasso.get().load(currentUser.getPhotoUrl()).into(foto);
 
 
