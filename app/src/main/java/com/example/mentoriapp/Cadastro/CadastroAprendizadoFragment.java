@@ -17,14 +17,19 @@ import com.example.mentoriapp.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class CadastroAprendizadoFragment extends Fragment {
 
     TextInputEditText descricaoAprendizado;
+    TextInputEditText tituloAprendizado;
     Button btnCadastroAprendizado;
     ProgressDialog progressDialog;
+    private FirebaseAuth auth;
+    private FirebaseUser user;
 
     public static CadastroAprendizadoFragment getInstance(){
         CadastroAprendizadoFragment cadastroAprendizadoFragment = new CadastroAprendizadoFragment();
@@ -38,7 +43,11 @@ public class CadastroAprendizadoFragment extends Fragment {
 
         descricaoAprendizado = view.findViewById(R.id.edit_descricao_aprendizado);
         btnCadastroAprendizado = view.findViewById(R.id.btn_cadastrar_aprendizado);
+        tituloAprendizado = view.findViewById(R.id.edit_titulo_aprendizado);
         progressDialog = new ProgressDialog(getContext());
+
+        auth = FirebaseAuth.getInstance();
+        user = auth.getCurrentUser();
 
         btnCadastroAprendizado.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -51,12 +60,14 @@ public class CadastroAprendizadoFragment extends Fragment {
     }
 
     private void cadastrarAprendizado() {
+        String titulo = tituloAprendizado.getText().toString();
         String descricao = descricaoAprendizado.getText().toString();
+        String emailMentorado = user.getEmail();
         Bundle bundle = new Bundle();
         int id_relato = bundle.getInt("idRelato");
 
-        if(descricao == null || descricao.isEmpty()){
-            Toast.makeText(getContext(),"Campo descrição obrigatório!",Toast.LENGTH_SHORT).show();
+        if(titulo == null || titulo.isEmpty() || descricao == null || descricao.isEmpty()){
+            Toast.makeText(getContext(),"Campo título e descrição obrigatórios!",Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -64,7 +75,7 @@ public class CadastroAprendizadoFragment extends Fragment {
         progressDialog.show();
 
 
-        Aprendizado aprendizado = new Aprendizado(1,id_relato,descricao);
+        Aprendizado aprendizado = new Aprendizado(1,id_relato,titulo,descricao,emailMentorado);
 
         FirebaseFirestore.getInstance().collection("aprendizados")
                 .add(aprendizado)
@@ -72,7 +83,7 @@ public class CadastroAprendizadoFragment extends Fragment {
                     @Override
                     public void onSuccess(DocumentReference documentReference) {
                         progressDialog.dismiss();
-                        Toast.makeText(getContext(),"Aprendizado cadasrado com sucesso!",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(),"Aprendizado cadastrado com sucesso!",Toast.LENGTH_SHORT).show();
                         //descricaoAprendizado.setEnabled(false);
                         //btnCadastroAprendizado.setEnabled(false);
                         getActivity().getSupportFragmentManager()

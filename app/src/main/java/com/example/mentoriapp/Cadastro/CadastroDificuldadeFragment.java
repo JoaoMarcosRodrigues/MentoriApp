@@ -18,6 +18,8 @@ import com.example.mentoriapp.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -26,6 +28,8 @@ public class CadastroDificuldadeFragment extends Fragment {
     TextInputEditText editTag, editDescricao;
     ProgressDialog progressDialog;
     Button btnSalvar;
+    private FirebaseAuth auth;
+    private FirebaseUser user;
 
     public static CadastroDificuldadeFragment getInstance(){
         CadastroDificuldadeFragment cadastroDificuldadeFragment = new CadastroDificuldadeFragment();
@@ -41,6 +45,9 @@ public class CadastroDificuldadeFragment extends Fragment {
         editDescricao = view.findViewById(R.id.edit_dificuldade);
         progressDialog = new ProgressDialog(getContext());
         btnSalvar = view.findViewById(R.id.btn_cadastrar_dificuldade);
+
+        auth = FirebaseAuth.getInstance();
+        user = auth.getCurrentUser();
 
         btnSalvar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,10 +72,14 @@ public class CadastroDificuldadeFragment extends Fragment {
         progressDialog.setMessage("Cadastrando dificuldade...");
         progressDialog.show();
 
+        String email = user.getEmail();
+
         Dificuldade dificuldade = new Dificuldade();
         dificuldade.setId(1);
         dificuldade.setIdRelato(1);
         dificuldade.setTagDificuldade(tag);
+        dificuldade.setEmailMentorado(email);
+        dificuldade.setFavorito(false);
         dificuldade.setDescricaoDificuldade(descricao);
 
         FirebaseFirestore.getInstance().collection("dificuldades")
@@ -78,9 +89,6 @@ public class CadastroDificuldadeFragment extends Fragment {
                     public void onSuccess(DocumentReference documentReference) {
                         progressDialog.dismiss();
                         Toast.makeText(getContext(),"Dificuldade cadastrada com sucesso!",Toast.LENGTH_SHORT).show();
-                        //editTag.setEnabled(false);
-                        //editDescricao.setEnabled(false);
-                        //btnSalvar.setEnabled(false);
                         getActivity().getSupportFragmentManager().beginTransaction()
                                 .replace(R.id.fragment_mentorado,new ListaRelatosFragment())
                                 .commit();

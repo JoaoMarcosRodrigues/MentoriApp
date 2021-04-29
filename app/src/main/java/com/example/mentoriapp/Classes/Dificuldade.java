@@ -5,12 +5,32 @@ public class Dificuldade {
     private int idRelato;
     private String tagDificuldade;
     private String descricaoDificuldade;
+    private boolean favorito;
+    private String emailMentorado;
 
-    public Dificuldade(int id, int idRelato, String tagDificuldade, String descricaoDificuldade) {
+    public Dificuldade(int id, int idRelato, String tagDificuldade, String descricaoDificuldade, boolean favorito, String emailMentorado) {
         this.id = id;
         this.idRelato = idRelato;
         this.tagDificuldade = tagDificuldade;
         this.descricaoDificuldade = descricaoDificuldade;
+        this.favorito = favorito;
+        this.emailMentorado = emailMentorado;
+    }
+
+    public boolean isFavorito() {
+        return favorito;
+    }
+
+    public void setFavorito(boolean favorito) {
+        this.favorito = favorito;
+    }
+
+    public String getEmailMentorado() {
+        return emailMentorado;
+    }
+
+    public void setEmailMentorado(String emailMentorado) {
+        this.emailMentorado = emailMentorado;
     }
 
     public int getId() {

@@ -21,10 +21,29 @@
             android:textStyle="bold" />
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layout_titulo_aprendizado"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="40dp"
+            app:counterEnabled="true"
+            app:counterMaxLength="255"
+            android:layout_below="@+id/txt_aprendizado"
+            app:errorEnabled="true">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edit_titulo_aprendizado"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Título do aprendizado"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/layout_descricao_aprendizado"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/txt_aprendizado"
+            android:layout_below="@+id/layout_titulo_aprendizado"
             android:layout_marginLeft="40dp"
             android:layout_marginTop="20dp"
             android:layout_marginRight="40dp"

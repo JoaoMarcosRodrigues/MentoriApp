@@ -4,29 +4,48 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mentoriapp.Adapters.ExemploRelatoAdapter;
+import com.example.mentoriapp.Adapters.RelatoAdapter;
 import com.example.mentoriapp.Cadastro.CadastroRelatoFragment;
+import com.example.mentoriapp.Classes.Relato;
 import com.example.mentoriapp.Itens.ExemploItemRelato;
 import com.example.mentoriapp.R;
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 
 import java.util.ArrayList;
 
 public class ListaRelatosFragment extends Fragment {
 
     private RecyclerView mRecyclerView;
-    private RecyclerView.Adapter mAdapter;
-    private RecyclerView.LayoutManager mLayoutManager;
+    private FirebaseFirestore db;
+    private CollectionReference ref;
+    private FirebaseAuth auth;
+    private FirebaseUser user;
+    View view;
+
+    private RelatoAdapter adapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_lista_relatos, container, false);
+        view = inflater.inflate(R.layout.fragment_lista_relatos, container, false);
+
+        db = FirebaseFirestore.getInstance();
+        ref = db.collection("relatos");
+        auth = FirebaseAuth.getInstance();
+        user = auth.getCurrentUser();
 
         FloatingActionButton addRelato = view.findViewById(R.id.btnAdicionarRelato);
 
@@ -40,19 +59,36 @@ public class ListaRelatosFragment extends Fragment {
             }
         });
 
-        ArrayList<ExemploItemRelato> exemploListaRelato = new ArrayList<>();
-        exemploListaRelato.add(new ExemploItemRelato("Relato 1","Tema 1","07/03/2021"));
-        exemploListaRelato.add(new ExemploItemRelato("Relato 2","Tema 2","07/03/2021"));
-        exemploListaRelato.add(new ExemploItemRelato("Relato 3","Tema 3","07/03/2021"));
-
-        mRecyclerView = view.findViewById(R.id.listaRelatos);
-        mRecyclerView.setHasFixedSize(true);
-        mLayoutManager = new LinearLayoutManager(getContext());
-        mAdapter = new ExemploRelatoAdapter(exemploListaRelato);
-
-        mRecyclerView.setLayoutManager(mLayoutManager);
-        mRecyclerView.setAdapter(mAdapter);
+        setUpRecyclerView();
 
         return view;
+    }
+
+    private void setUpRecyclerView() {
+        String email = user.getEmail();
+
+        Query query = ref.orderBy("data",Query.Direction.ASCENDING)
+                .whereEqualTo("emailMentorado",email);
+        FirestoreRecyclerOptions<Relato> options = new FirestoreRecyclerOptions.Builder<Relato>()
+                .setQuery(query, Relato.class)
+                .build();
+
+        adapter = new RelatoAdapter(options);
+        mRecyclerView = view.findViewById(R.id.listaRelatos);
+        mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        mRecyclerView.setAdapter(adapter);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        adapter.startListening();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        adapter.stopListening();
     }
 }
