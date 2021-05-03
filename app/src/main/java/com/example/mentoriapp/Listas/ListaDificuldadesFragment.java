@@ -55,7 +55,10 @@ public class ListaDificuldadesFragment extends Fragment {
         addDificuldade.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getActivity(), CadastroDificuldadeFragment.class));
+                getActivity().getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.fragment_mentorado, new CadastroDificuldadeFragment())
+                        .commit();
             }
         });
 

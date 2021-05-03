@@ -4,14 +4,17 @@ public class Tarefa {
     private int id;
     private String titulo;
     private String descricao;
+    private String emailMentor;
 
-    public Tarefa(int id, String titulo, String descricao) {
+    public Tarefa(int id, String titulo, String descricao, String emailMentor) {
         this.id = id;
         this.titulo = titulo;
         this.descricao = descricao;
+        this.emailMentor = emailMentor;
     }
 
-    public Tarefa() {}
+    public Tarefa() {
+    }
 
     public int getId() {
         return id;
@@ -35,5 +38,13 @@ public class Tarefa {
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
+    }
+
+    public String getEmailMentor() {
+        return emailMentor;
+    }
+
+    public void setEmailMentor(String emailMentor) {
+        this.emailMentor = emailMentor;
     }
 }

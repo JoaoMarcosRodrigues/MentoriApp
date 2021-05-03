@@ -13,22 +13,26 @@
 
         <TextView
             android:id="@+id/txt_titulo_relato"
-            android:layout_width="wrap_content"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_marginLeft="15dp"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:text="Relato"
             android:textSize="20sp"
             android:textStyle="bold" />
 
         <TextView
             android:id="@+id/txt_tema_relato"
-            android:layout_width="wrap_content"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_below="@+id/txt_titulo_relato"
             android:layout_alignParentTop="true"
             android:layout_marginLeft="15dp"
             android:layout_marginTop="40dp"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:text="Tema"
             android:textSize="17sp" />
 

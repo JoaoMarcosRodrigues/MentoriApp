@@ -91,7 +91,7 @@ public class MessageMentoradoFragment extends Fragment {
         rv.setLayoutManager(new LinearLayoutManager(getContext()));
         rv.setAdapter(adapter);
 
-        FirebaseFirestore.getInstance().collection("/mentorados")
+        FirebaseFirestore.getInstance().collection("/usuarios")
                 .document(FirebaseAuth.getInstance().getUid())
                 .get()
                 .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {

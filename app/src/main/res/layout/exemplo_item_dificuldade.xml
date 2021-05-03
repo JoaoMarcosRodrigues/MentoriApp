@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:cardCornerRadius="4dp"
-    android:layout_margin="4dp">
-    
+    android:layout_margin="4dp"
+    app:cardCornerRadius="4dp">
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -15,27 +15,29 @@
             android:id="@+id/txt_titulo_dificuldade"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
             android:text="Dificuldade"
             android:textSize="20sp"
-            android:layout_marginLeft="15dp"
             android:textStyle="bold" />
 
         <TextView
             android:id="@+id/txt_descricao_dificuldade"
-            android:layout_width="wrap_content"
+            android:layout_width="250dp"
             android:layout_height="wrap_content"
-            android:text="Descrição"
             android:layout_below="@+id/txt_titulo_dificuldade"
-            android:textSize="18sp"
             android:layout_marginLeft="15dp"
-            android:layout_marginTop="20dp"/>
+            android:layout_marginTop="15dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="Descrição"
+            android:textSize="18sp" />
 
         <CheckBox
             android:id="@+id/check_favorito_dificuldade"
+            style="?android:attr/starStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="?android:attr/starStyle"
-            android:layout_alignParentRight="true"/>
+            android:layout_alignParentRight="true" />
 
 
     </RelativeLayout>

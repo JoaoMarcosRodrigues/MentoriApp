@@ -9,8 +9,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MentoriApp">
-        <activity android:name=".Cadastro.CadastroReuniaoActivity"
-            android:parentActivityName=".MainMentoradoActivity"/>
         <activity android:name=".SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

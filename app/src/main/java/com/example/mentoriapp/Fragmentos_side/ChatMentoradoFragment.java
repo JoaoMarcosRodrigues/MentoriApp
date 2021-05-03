@@ -65,7 +65,7 @@ public class ChatMentoradoFragment extends Fragment {
     }
 
     private void fetchUsers() {
-        FirebaseFirestore.getInstance().collection("/mentorados")
+        FirebaseFirestore.getInstance().collection("/usuarios")
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
                     public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
