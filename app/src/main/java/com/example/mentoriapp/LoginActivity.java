@@ -2,9 +2,11 @@ package com.example.mentoriapp;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.preference.PreferenceManager;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.SpannableString;
@@ -15,6 +17,7 @@ import android.text.style.ClickableSpan;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,20 +38,23 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 public class LoginActivity extends AppCompatActivity {
 
-    TextInputLayout layout_email, layout_senha;
-    TextInputEditText edit_email, edit_senha;
-    Button botao_entrar;
-    TextView link_esquecer_senha, link_cadastro;
-    ProgressDialog progressDialog;
+    private TextInputLayout layout_email, layout_senha;
+    private TextInputEditText edit_email, edit_senha;
+    private Button botao_entrar;
+    private TextView link_esquecer_senha, link_cadastro;
+    private ProgressDialog progressDialog;
     private FirebaseFirestore db;
+    private CheckBox mCheckBox;
+    private SharedPreferences mSharedPreferences;
+    private SharedPreferences.Editor mEditor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        String text = "Ainda não possui cadastro? Clique aqui";
-        String text2 = "Esqueceu a senha? Clique aqui";
+        String text = "Ainda não tem cadastro? Cadastre-se";
+        String text2 = "Esqueceu a senha?";
 
         SpannableString ss = new SpannableString(text);
         SpannableString ss2 = new SpannableString(text2);
@@ -85,14 +91,19 @@ public class LoginActivity extends AppCompatActivity {
         edit_senha = findViewById(R.id.edit_senha);
         layout_email = findViewById(R.id.input_email);
         layout_senha = findViewById(R.id.input_senha);
+        mCheckBox = findViewById(R.id.check_login);
+        mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        mEditor = mSharedPreferences.edit();
+
+        checkSharedPreferences();
 
         link_esquecer_senha = findViewById(R.id.txt_esqueceu_senha);
         link_cadastro = findViewById(R.id.txt_ainda_nao_possui_cadastro);
 
         botao_entrar = findViewById(R.id.btn_entrar);
 
-        ss.setSpan(clickableSpan1, 27, 38, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        ss2.setSpan(clickableSpan2, 18, 29, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        ss.setSpan(clickableSpan1, 24, 35, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        ss2.setSpan(clickableSpan2, 0, 17, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
         link_cadastro.setText(ss);
         link_cadastro.setMovementMethod(LinkMovementMethod.getInstance());
@@ -113,6 +124,32 @@ public class LoginActivity extends AppCompatActivity {
 
                 progressDialog.setMessage("Verificando os dados...");
                 progressDialog.show();
+
+                if(mCheckBox.isChecked()){
+                    // Salva o checkbox
+                    mEditor.putString(getString(R.string.checkbox),"True");
+                    mEditor.commit();
+
+                    // Salva o email
+                    mEditor.putString(getString(R.string.email),email);
+                    mEditor.commit();
+
+                    // Salva a senha
+                    mEditor.putString(getString(R.string.senha),senha);
+                    mEditor.commit();
+                }else{
+                    // Salva o checkbox
+                    mEditor.putString(getString(R.string.checkbox),"False");
+                    mEditor.commit();
+
+                    // Salva o email
+                    mEditor.putString(getString(R.string.email),"");
+                    mEditor.commit();
+
+                    // Salva a senha
+                    mEditor.putString(getString(R.string.senha),"");
+                    mEditor.commit();
+                }
 
                 FirebaseAuth.getInstance().signInWithEmailAndPassword(email, senha)
                         .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -164,5 +201,20 @@ public class LoginActivity extends AppCompatActivity {
                         });
             }
         });
+    }
+
+    private void checkSharedPreferences(){
+        String checkBox = mSharedPreferences.getString(getString(R.string.checkbox),"False");
+        String email = mSharedPreferences.getString(getString(R.string.email),"");
+        String senha = mSharedPreferences.getString(getString(R.string.senha),"");
+
+        edit_email.setText(email);
+        edit_senha.setText(senha);
+
+        if(checkBox.equals("True")){
+            mCheckBox.setChecked(true);
+        }else{
+            mCheckBox.setChecked(false);
+        }
     }
 }
