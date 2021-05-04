@@ -1,6 +1,5 @@
 package com.example.mentoriapp.Fragmentos_side;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.cardview.widget.CardView;
@@ -15,58 +14,12 @@ import android.widget.Toast;
 import com.example.mentoriapp.Listas.ListaAprendizadosFragment;
 import com.example.mentoriapp.Listas.ListaDificuldadesFragment;
 import com.example.mentoriapp.Listas.ListaRelatosFragment;
-import com.example.mentoriapp.Listas.ListaReunioesFragment;
+import com.example.mentoriapp.Listas.ListaReunioesMentoradoFragment;
 import com.example.mentoriapp.Listas.ListaTarefasFragment;
 import com.example.mentoriapp.R;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link MentoradoHomeFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class MentoradoHomeFragment extends Fragment {
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
     GridLayout main_grid;
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public MentoradoHomeFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment MentoradoHomeFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static MentoradoHomeFragment newInstance(String param1, String param2) {
-        MentoradoHomeFragment fragment = new MentoradoHomeFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -108,7 +61,7 @@ public class MentoradoHomeFragment extends Fragment {
                         case 3:
                             getActivity().getSupportFragmentManager()
                                     .beginTransaction()
-                                    .replace(R.id.fragment_mentorado, new ListaReunioesFragment())
+                                    .replace(R.id.fragment_mentorado, new ListaReunioesMentoradoFragment())
                                     .commit();
                             break;
                         case 4:

@@ -10,14 +10,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.mentoriapp.Adapters.ExemploTarefaAdapter;
-import com.example.mentoriapp.Adapters.FeedbackAdapter;
-import com.example.mentoriapp.Adapters.TarefaAdapter;
-import com.example.mentoriapp.Cadastro.CadastroFeedbackFragment;
-import com.example.mentoriapp.Cadastro.CadastroTarefaFragment;
-import com.example.mentoriapp.Classes.Feedback;
-import com.example.mentoriapp.Classes.Tarefa;
-import com.example.mentoriapp.Itens.ExemploItemTarefa;
+import com.example.mentoriapp.Adapters.ReuniaoAdapter;
+import com.example.mentoriapp.Cadastro.CadastroReuniaoMentoradoFragment;
+import com.example.mentoriapp.Classes.Reuniao;
 import com.example.mentoriapp.R;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -27,36 +22,34 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
-import java.util.ArrayList;
+public class ListaReunioesMentoradoFragment extends Fragment {
 
-public class ListaTarefasFragment extends Fragment {
     private RecyclerView mRecyclerView;
-    private FirebaseFirestore db;
     private CollectionReference ref;
     private FirebaseAuth auth;
     private FirebaseUser user;
+    private FirebaseFirestore db;
     View view;
 
-    private TarefaAdapter adapter;
+    private ReuniaoAdapter adapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_lista_tarefas, container, false);
+        view = inflater.inflate(R.layout.fragment_lista_reunioes_mentorado, container, false);
 
-        FloatingActionButton addFeedback = view.findViewById(R.id.btnAdicionarTarefa);
-
+        FloatingActionButton addReuniao = view.findViewById(R.id.btnAdicionarReuniao);
         db = FirebaseFirestore.getInstance();
-        ref = db.collection("tarefas");
+        ref = db.collection("reunioes");
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
 
-        addFeedback.setOnClickListener(new View.OnClickListener() {
+        addReuniao.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 getActivity().getSupportFragmentManager()
                         .beginTransaction()
-                        .replace(R.id.fragment_mentor, new CadastroTarefaFragment())
+                        .replace(R.id.fragment_mentorado, new CadastroReuniaoMentoradoFragment())
                         .commit();
             }
         });
@@ -69,14 +62,14 @@ public class ListaTarefasFragment extends Fragment {
     private void setUpRecyclerView() {
         String email = user.getEmail();
 
-        Query query = ref.whereEqualTo("emailMentor",email);
-        FirestoreRecyclerOptions<Tarefa> options = new FirestoreRecyclerOptions.Builder<Tarefa>()
-                .setQuery(query, Tarefa.class)
+        Query query = ref.whereEqualTo("emailAutor",email);
+        FirestoreRecyclerOptions<Reuniao> options = new FirestoreRecyclerOptions.Builder<Reuniao>()
+                .setQuery(query, Reuniao.class)
                 .build();
 
 
-        adapter = new TarefaAdapter(options);
-        mRecyclerView = view.findViewById(R.id.listaTarefas);
+        adapter = new ReuniaoAdapter(options);
+        mRecyclerView = view.findViewById(R.id.listaReunioes);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mRecyclerView.setAdapter(adapter);

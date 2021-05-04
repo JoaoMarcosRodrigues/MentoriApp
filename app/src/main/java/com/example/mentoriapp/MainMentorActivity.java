@@ -24,7 +24,7 @@ import com.example.mentoriapp.Fragmentos_side.MentorHomeFragment;
 import com.example.mentoriapp.Fragmentos_side.PerfilMentorFragment;
 import com.example.mentoriapp.Fragmentos_side.SobreFragment;
 import com.example.mentoriapp.Fragmentos_side.TutorialFragment;
-import com.example.mentoriapp.Listas.ListaReunioesFragment;
+import com.example.mentoriapp.Listas.ListaReunioesMentoradoFragment;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -51,7 +51,7 @@ public class MainMentorActivity extends AppCompatActivity implements NavigationV
         setSupportActionBar(toolbar);
 
         drawer = findViewById(R.id.drawer_layout);
-        NavigationView navigationView = findViewById(R.id.nav_view);
+        NavigationView navigationView = findViewById(R.id.nav_view_mentor);
         navigationView.setNavigationItemSelectedListener(this);
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this,drawer,toolbar,
@@ -65,8 +65,22 @@ public class MainMentorActivity extends AppCompatActivity implements NavigationV
             navigationView.setCheckedItem(R.id.nav_home);
         }
 
-        verifyAuthentication();
+        //verifyAuthentication();
         atualizarHeader();
+        //NavigationView navigationView = findViewById(R.id.nav_view_mentor);
+        if(currentUser != null){
+            View headerView = navigationView.getHeaderView(0);
+
+            TextView nome = headerView.findViewById(R.id.txt_nome);
+            TextView email = headerView.findViewById(R.id.txt_email);
+            ImageView foto = headerView.findViewById(R.id.image_perfil);
+
+            nome.setText(currentUser.getDisplayName());
+            email.setText(currentUser.getEmail());
+
+            Picasso.get().load(currentUser.getPhotoUrl()).into(foto);
+        } else
+            Toast.makeText(this,"Usuário não está logado! Faça o login.",Toast.LENGTH_SHORT).show();
     }
 
     private void verifyAuthentication() {
@@ -99,7 +113,7 @@ public class MainMentorActivity extends AppCompatActivity implements NavigationV
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_mentor, new ChatMentorFragment()).commit();
                 break;
             case R.id.nav_reuniao:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_mentor, new ListaReunioesFragment()).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_mentor, new ListaReunioesMentoradoFragment()).commit();
                 break;
             case R.id.nav_tutorial:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_mentor, new TutorialFragment()).commit();
@@ -139,7 +153,7 @@ public class MainMentorActivity extends AppCompatActivity implements NavigationV
     }
 
     public void atualizarHeader(){
-        NavigationView navigationView = findViewById(R.id.nav_view);
+        NavigationView navigationView = findViewById(R.id.nav_view_mentor);
         View headerView = navigationView.getHeaderView(0);
 
         TextView nome = headerView.findViewById(R.id.txt_nome);

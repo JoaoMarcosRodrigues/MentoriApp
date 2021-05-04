@@ -57,6 +57,7 @@ public class CadastroTarefaFragment extends Fragment {
     }
 
     private void cadastrarTarefa() {
+        boolean status = false;
         String titulo = tituloTarefa.getText().toString();
         String descricao = descricaoTarefa.getText().toString();
         String emailMentor = user.getEmail();
@@ -70,7 +71,7 @@ public class CadastroTarefaFragment extends Fragment {
         progressDialog.show();
 
 
-        Tarefa tarefa = new Tarefa(1,titulo,descricao,emailMentor);
+        Tarefa tarefa = new Tarefa(1,titulo,descricao,emailMentor,status);
 
         FirebaseFirestore.getInstance().collection("tarefas")
                 .add(tarefa)

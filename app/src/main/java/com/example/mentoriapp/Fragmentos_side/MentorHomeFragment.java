@@ -10,8 +10,10 @@ import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
 import com.example.mentoriapp.Cadastro.CadastroTarefaFragment;
+import com.example.mentoriapp.Listas.ListaAvaliacoesFragment;
 import com.example.mentoriapp.Listas.ListaFeedbacksFragment;
-import com.example.mentoriapp.Listas.ListaReunioesFragment;
+import com.example.mentoriapp.Listas.ListaReunioesMentorFragment;
+import com.example.mentoriapp.Listas.ListaReunioesMentoradoFragment;
 import com.example.mentoriapp.Listas.MeusMentoradosFragment;
 import com.example.mentoriapp.R;
 
@@ -55,7 +57,7 @@ public class MentorHomeFragment extends Fragment {
                         case 2:
                             getActivity().getSupportFragmentManager()
                                     .beginTransaction()
-                                    .replace(R.id.fragment_mentor, new ChatMentorFragment())
+                                    .replace(R.id.fragment_mentor, new ListaAvaliacoesFragment())
                                     .commit();
                             break;
                         case 3:
@@ -67,7 +69,7 @@ public class MentorHomeFragment extends Fragment {
                         case 4:
                             getActivity().getSupportFragmentManager()
                                     .beginTransaction()
-                                    .replace(R.id.fragment_mentor, new ListaReunioesFragment())
+                                    .replace(R.id.fragment_mentor, new ListaReunioesMentorFragment())
                                     .commit();
                             break;
                         case 5:

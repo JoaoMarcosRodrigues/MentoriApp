@@ -13,8 +13,7 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="730dp"
-                android:background="#7CAEABAB">
+                android:layout_height="730dp">
 
                 <ImageView
                     android:id="@+id/img_cadastro_mentorado"
@@ -43,18 +42,16 @@
                     android:layout_marginLeft="20dp"
                     android:layout_marginTop="40dp"
                     android:layout_marginRight="20dp"
-                    android:gravity="top|left"
                     app:counterEnabled="true"
-                    app:counterMaxLength="250"
-                    app:errorEnabled="true"
-                    app:startIconDrawable="@drawable/ic_descricao">
+                    app:counterMaxLength="255"
+                    app:errorEnabled="true">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/edit_descricao"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/edit_round"
                         android:gravity="top|left"
+                        android:background="@drawable/edit_round"
                         android:hint="Descrição"
                         android:inputType="text|textMultiLine"
                         android:lines="5" />

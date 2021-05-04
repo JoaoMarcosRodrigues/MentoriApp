@@ -24,7 +24,7 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.example.mentoriapp.Classes.Reuniao;
-import com.example.mentoriapp.Listas.ListaReunioesFragment;
+import com.example.mentoriapp.Listas.ListaReunioesMentoradoFragment;
 import com.example.mentoriapp.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -36,7 +36,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.Calendar;
 
-public class CadastroReuniaoFragment extends Fragment {
+public class CadastroReuniaoMentoradoFragment extends Fragment {
 
     private Button btnCadastrarReuniao;
     private ImageView imgRelogio,imgCalendario;
@@ -53,7 +53,7 @@ public class CadastroReuniaoFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_cadastro_reuniao, container, false);
+        View view = inflater.inflate(R.layout.fragment_cadastro_reuniao_mentorado, container, false);
 
         /*
         toolbar = view.findViewById(R.id.toolbar);
@@ -192,7 +192,7 @@ public class CadastroReuniaoFragment extends Fragment {
                         progressDialog.dismiss();
                         Toast.makeText(getContext(),"Reunião cadastrada com sucesso!",Toast.LENGTH_SHORT).show();
                         getActivity().getSupportFragmentManager().beginTransaction()
-                                .replace(R.id.fragment_mentorado, new ListaReunioesFragment())
+                                .replace(R.id.fragment_mentorado, new ListaReunioesMentoradoFragment())
                                 .commit();
                     }
                 })

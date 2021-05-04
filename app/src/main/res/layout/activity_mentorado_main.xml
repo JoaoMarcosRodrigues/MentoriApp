@@ -31,11 +31,11 @@
     </LinearLayout>
 
     <com.google.android.material.navigation.NavigationView
-        android:id="@+id/nav_view"
+        android:id="@+id/nav_view_mentorado"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        app:headerLayout="@layout/nav_header"
-        app:menu="@menu/side_menu" />
+        app:headerLayout="@layout/nav_header_mentorado"
+        app:menu="@menu/side_menu_mentorado" />
 
 </androidx.drawerlayout.widget.DrawerLayout>

@@ -5,12 +5,14 @@ public class Tarefa {
     private String titulo;
     private String descricao;
     private String emailMentor;
+    private boolean status;
 
-    public Tarefa(int id, String titulo, String descricao, String emailMentor) {
+    public Tarefa(int id, String titulo, String descricao, String emailMentor, boolean status) {
         this.id = id;
         this.titulo = titulo;
         this.descricao = descricao;
         this.emailMentor = emailMentor;
+        this.status = status;
     }
 
     public Tarefa() {
@@ -46,5 +48,13 @@ public class Tarefa {
 
     public void setEmailMentor(String emailMentor) {
         this.emailMentor = emailMentor;
+    }
+
+    public boolean isStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
     }
 }

@@ -12,7 +12,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,7 +20,7 @@ import com.example.mentoriapp.Fragmentos_side.ConfiguracaoFragment;
 import com.example.mentoriapp.Fragmentos_side.ContatoFragment;
 import com.example.mentoriapp.Fragmentos_side.MentoradoHomeFragment;
 import com.example.mentoriapp.Fragmentos_side.PerfilMentoradoFragment;
-import com.example.mentoriapp.Listas.ListaReunioesFragment;
+import com.example.mentoriapp.Listas.ListaReunioesMentoradoFragment;
 import com.example.mentoriapp.Fragmentos_side.SobreFragment;
 import com.example.mentoriapp.Fragmentos_side.TutorialFragment;
 import com.google.android.material.navigation.NavigationView;
@@ -54,7 +53,7 @@ public class MainMentoradoActivity extends AppCompatActivity implements Navigati
         setSupportActionBar(toolbar);
 
         drawer = findViewById(R.id.drawer_layout);
-        NavigationView navigationView = findViewById(R.id.nav_view);
+        NavigationView navigationView = findViewById(R.id.nav_view_mentorado);
         navigationView.setNavigationItemSelectedListener(this);
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this,drawer,toolbar,
@@ -68,8 +67,11 @@ public class MainMentoradoActivity extends AppCompatActivity implements Navigati
             navigationView.setCheckedItem(R.id.nav_home);
         }
 
-        verifyAuthentication();
-        atualizarHeader();
+        //verifyAuthentication();
+        if(currentUser != null)
+            atualizarHeader();
+        else
+            Toast.makeText(this,"Usuário não está logado! Faça o login.",Toast.LENGTH_SHORT).show();
     }
 
     private void verifyAuthentication() {
@@ -102,7 +104,7 @@ public class MainMentoradoActivity extends AppCompatActivity implements Navigati
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_mentorado, new ChatMentoradoFragment()).commit();
                 break;
             case R.id.nav_reuniao:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_mentorado, new ListaReunioesFragment()).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_mentorado, new ListaReunioesMentoradoFragment()).commit();
                 break;
             case R.id.nav_tutorial:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_mentorado, new TutorialFragment()).commit();
@@ -142,7 +144,7 @@ public class MainMentoradoActivity extends AppCompatActivity implements Navigati
     }
 
     public void atualizarHeader(){
-        NavigationView navigationView = findViewById(R.id.nav_view);
+        NavigationView navigationView = findViewById(R.id.nav_view_mentorado);
         View headerView = navigationView.getHeaderView(0);
 
         TextView nome = headerView.findViewById(R.id.txt_nome);
