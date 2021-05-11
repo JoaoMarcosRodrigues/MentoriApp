@@ -14,13 +14,17 @@ import android.widget.Toast;
 
 import com.example.mentoriapp.Classes.Aprendizado;
 import com.example.mentoriapp.R;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
 public class CadastroAprendizadoFragment extends Fragment {
 
@@ -30,6 +34,8 @@ public class CadastroAprendizadoFragment extends Fragment {
     ProgressDialog progressDialog;
     private FirebaseAuth auth;
     private FirebaseUser user;
+    private FirebaseFirestore mFirestore;
+    int maxid;
 
     public static CadastroAprendizadoFragment getInstance(){
         CadastroAprendizadoFragment cadastroAprendizadoFragment = new CadastroAprendizadoFragment();
@@ -48,6 +54,19 @@ public class CadastroAprendizadoFragment extends Fragment {
 
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
+        mFirestore = FirebaseFirestore.getInstance();
+
+        mFirestore.collection("aprendizados").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if(task.isSuccessful()){
+                    maxid = 1;
+                    for(DocumentSnapshot document : task.getResult()){
+                        maxid++;
+                    }
+                }
+            }
+        });
 
         btnCadastroAprendizado.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,8 +93,7 @@ public class CadastroAprendizadoFragment extends Fragment {
         progressDialog.setMessage("Cadastrando aprendizado...");
         progressDialog.show();
 
-
-        Aprendizado aprendizado = new Aprendizado(1,id_relato,titulo,descricao,emailMentorado);
+        Aprendizado aprendizado = new Aprendizado(maxid,id_relato,titulo,descricao,emailMentorado);
 
         FirebaseFirestore.getInstance().collection("aprendizados")
                 .add(aprendizado)
@@ -83,6 +101,8 @@ public class CadastroAprendizadoFragment extends Fragment {
                     @Override
                     public void onSuccess(DocumentReference documentReference) {
                         progressDialog.dismiss();
+                        Bundle bundle = new Bundle();
+                        bundle.putInt("idRelato",id_relato);
                         Toast.makeText(getContext(),"Aprendizado cadastrado com sucesso!",Toast.LENGTH_SHORT).show();
                         //descricaoAprendizado.setEnabled(false);
                         //btnCadastroAprendizado.setEnabled(false);

@@ -5,9 +5,11 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.media.audiofx.Visualizer;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
@@ -27,13 +29,20 @@ import android.widget.Toast;
 
 import com.example.mentoriapp.R;
 import com.example.mentoriapp.Classes.Relato;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.Calendar;
 
@@ -42,17 +51,19 @@ public class CadastroRelatoFragment extends Fragment implements AdapterView.OnIt
     String tarefa_associada;
     ProgressDialog progressDialog;
 
-    Spinner spinner;
-    Button botao_pronto_relato;
-    TextInputEditText editTema, editTitulo, editDescricao;
-    TextView txtData;
-    ImageView imgData;
-    RadioGroup radioGroup;
-    RadioButton radioBtn;
+    private Spinner spinner;
+    private Button botao_pronto_relato;
+    private TextInputEditText editTema, editTitulo, editDescricao;
+    private TextView txtData;
+    private ImageView imgData;
+    private RadioGroup radioGroup;
+    private RadioButton radioBtn;
     private DatePickerDialog.OnDateSetListener mDateSetListener;
-    FirebaseAuth mAuth;
-    FirebaseUser mUser;
-    String presencial;
+    private FirebaseAuth mAuth;
+    private FirebaseUser mUser;
+    private FirebaseFirestore mFirestore;
+    private String presencial;
+    int maxid;
 
     public static CadastroRelatoFragment getInstance(){
         CadastroRelatoFragment cadastroRelatoFragment = new CadastroRelatoFragment();
@@ -78,12 +89,26 @@ public class CadastroRelatoFragment extends Fragment implements AdapterView.OnIt
         imgData = view.findViewById(R.id.img_data_relato);
         txtData = view.findViewById(R.id.txt_data_relato);
 
+        mFirestore = FirebaseFirestore.getInstance();
+        mFirestore.collection("relatos").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if(task.isSuccessful()){
+                    maxid = 1;
+                    for(DocumentSnapshot document : task.getResult()){
+                        maxid++;
+                    }
+                }
+            }
+        });
+
         int radioId = radioGroup.getCheckedRadioButtonId();
         radioBtn = view.findViewById(radioId);
         presencial = radioBtn.getText().toString();
 
         mAuth = FirebaseAuth.getInstance();
         mUser = mAuth.getCurrentUser();
+        mFirestore = FirebaseFirestore.getInstance();
 
         botao_pronto_relato.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -130,7 +155,6 @@ public class CadastroRelatoFragment extends Fragment implements AdapterView.OnIt
     }
 
     private void criarRelato() {
-        int id = 1;
         String titulo = editTitulo.getText().toString();
         String tema = editTema.getText().toString();
         String descricao = editDescricao.getText().toString();
@@ -146,7 +170,7 @@ public class CadastroRelatoFragment extends Fragment implements AdapterView.OnIt
         progressDialog.setMessage("Cadastrando relato...");
         progressDialog.show();
 
-        Relato relato = new Relato(id,titulo,tema,descricao,data,presencial,tarefa_associada,emailMentorado);
+        Relato relato = new Relato(maxid,titulo,tema,descricao,data,presencial,tarefa_associada,emailMentorado);
         FirebaseFirestore.getInstance().collection("relatos")
                 .add(relato)
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
@@ -155,22 +179,13 @@ public class CadastroRelatoFragment extends Fragment implements AdapterView.OnIt
                         progressDialog.dismiss();
                         Log.i("Teste",documentReference.getId());
                         Bundle bundle = new Bundle();
-                        bundle.putInt("idRelato",id);
+                        bundle.putInt("idRelato",maxid);
 
                         Toast.makeText(getContext(),"Relato cadastrado!",Toast.LENGTH_SHORT).show();
                         getActivity().getSupportFragmentManager()
                                 .beginTransaction()
                                 .replace(R.id.fragment_mentorado, new CadastroAprendizadoFragment())
                                 .commit();
-                        /*
-                        editTitulo.setEnabled(false);
-                        editTema.setEnabled(false);
-                        editDescricao.setEnabled(false);
-                        radioBtn.setEnabled(false);
-                        spinner.setEnabled(false);
-                        imgData.setClickable(false);
-                        botao_pronto_relato.setEnabled(false);
-                         */
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {

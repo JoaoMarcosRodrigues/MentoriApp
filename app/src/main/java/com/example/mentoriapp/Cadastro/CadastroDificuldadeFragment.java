@@ -15,13 +15,17 @@ import android.widget.Toast;
 import com.example.mentoriapp.Classes.Dificuldade;
 import com.example.mentoriapp.Listas.ListaRelatosFragment;
 import com.example.mentoriapp.R;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
 public class CadastroDificuldadeFragment extends Fragment {
 
@@ -30,6 +34,8 @@ public class CadastroDificuldadeFragment extends Fragment {
     Button btnSalvar;
     private FirebaseAuth auth;
     private FirebaseUser user;
+    private FirebaseFirestore mFirestore;
+    int maxid;
 
     public static CadastroDificuldadeFragment getInstance(){
         CadastroDificuldadeFragment cadastroDificuldadeFragment = new CadastroDificuldadeFragment();
@@ -48,6 +54,19 @@ public class CadastroDificuldadeFragment extends Fragment {
 
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
+        mFirestore = FirebaseFirestore.getInstance();
+
+        mFirestore.collection("dificuldades").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if(task.isSuccessful()){
+                    maxid = 1;
+                    for(DocumentSnapshot document : task.getResult()){
+                        maxid++;
+                    }
+                }
+            }
+        });
 
         btnSalvar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,6 +82,8 @@ public class CadastroDificuldadeFragment extends Fragment {
     private void cadastrarDificuldade() {
         String tag = editTag.getText().toString();
         String descricao = editDescricao.getText().toString();
+        Bundle bundle = new Bundle();
+        int id_relato = bundle.getInt("idRelato");
 
         if(tag == null || tag.isEmpty() || descricao.isEmpty() || descricao == null){
             Toast.makeText(getContext(),"Tag e descrição obrigatórios!",Toast.LENGTH_SHORT).show();
@@ -75,8 +96,8 @@ public class CadastroDificuldadeFragment extends Fragment {
         String email = user.getEmail();
 
         Dificuldade dificuldade = new Dificuldade();
-        dificuldade.setId(1);
-        dificuldade.setIdRelato(1);
+        dificuldade.setId(maxid);
+        dificuldade.setIdRelato(id_relato);
         dificuldade.setTagDificuldade(tag);
         dificuldade.setEmailMentorado(email);
         dificuldade.setFavorito(false);

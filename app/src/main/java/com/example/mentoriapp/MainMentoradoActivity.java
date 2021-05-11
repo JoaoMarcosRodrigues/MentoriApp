@@ -11,6 +11,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,10 +24,14 @@ import com.example.mentoriapp.Fragmentos_side.PerfilMentoradoFragment;
 import com.example.mentoriapp.Listas.ListaReunioesMentoradoFragment;
 import com.example.mentoriapp.Fragmentos_side.SobreFragment;
 import com.example.mentoriapp.Fragmentos_side.TutorialFragment;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.squareup.picasso.Picasso;
 
 import android.view.View;
@@ -151,10 +156,26 @@ public class MainMentoradoActivity extends AppCompatActivity implements Navigati
         TextView email = headerView.findViewById(R.id.txt_email);
         CircleImageView foto = headerView.findViewById(R.id.image_perfil);
 
-        nome.setText(currentUser.getDisplayName());
-        email.setText(currentUser.getEmail());
-        Picasso.get().load(currentUser.getPhotoUrl()).into(foto);
+        //nome.setText(currentUser.getDisplayName());
+        //email.setText(currentUser.getEmail());
+        //Picasso.get().load(currentUser.getPhotoUrl()).into(foto);
 
+        firebaseFirestore.collection("usuarios").whereEqualTo("email",currentUser.getEmail())
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if(task.isSuccessful()){
+                            for(QueryDocumentSnapshot document : task.getResult()){
+                                nome.setText(document.getData().get("nome").toString());
+                                email.setText(document.getData().get("email").toString());
+                                Picasso.get().load(document.getData().get("photoUrl").toString()).placeholder(R.drawable.ic_launcher_background).into(foto);
+                            }
+                        }else{
+                            Log.d("mentorados","Error: "+task.getException());
+                        }
+                    }
+                });
 
     }
 }
