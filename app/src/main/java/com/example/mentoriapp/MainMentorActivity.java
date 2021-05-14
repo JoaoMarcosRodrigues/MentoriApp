@@ -3,6 +3,7 @@ package com.example.mentoriapp;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -25,11 +26,17 @@ import com.example.mentoriapp.Fragmentos_side.PerfilMentorFragment;
 import com.example.mentoriapp.Fragmentos_side.SobreFragment;
 import com.example.mentoriapp.Fragmentos_side.TutorialFragment;
 import com.example.mentoriapp.Listas.ListaReunioesMentoradoFragment;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.squareup.picasso.Picasso;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MainMentorActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private DrawerLayout drawer;
@@ -65,9 +72,11 @@ public class MainMentorActivity extends AppCompatActivity implements NavigationV
             navigationView.setCheckedItem(R.id.nav_home);
         }
 
-        //verifyAuthentication();
-        atualizarHeader();
-        //NavigationView navigationView = findViewById(R.id.nav_view_mentor);
+        if(currentUser != null)
+            atualizarHeader();
+        else
+            Toast.makeText(this,"Usuário não está logado! Faça o login.",Toast.LENGTH_SHORT).show();
+
         if(currentUser != null){
             View headerView = navigationView.getHeaderView(0);
 
@@ -91,6 +100,7 @@ public class MainMentorActivity extends AppCompatActivity implements NavigationV
         }
     }
 
+
     @Override
     public void onBackPressed() {
         if(drawer.isDrawerOpen(GravityCompat.START)){
@@ -104,28 +114,36 @@ public class MainMentorActivity extends AppCompatActivity implements NavigationV
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
             case R.id.nav_home:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_mentor, new MentorHomeFragment()).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_mentor, new MentorHomeFragment())
+                        .addToBackStack(null).commit();
                 break;
             case R.id.nav_perfil:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_mentor,new PerfilMentorFragment()).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_mentor,new PerfilMentorFragment())
+                        .addToBackStack(null).commit();
                 break;
             case R.id.nav_chat:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_mentor, new ChatMentorFragment()).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_mentor, new ChatMentorFragment())
+                        .addToBackStack(null).commit();
                 break;
             case R.id.nav_reuniao:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_mentor, new ListaReunioesMentoradoFragment()).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_mentor, new ListaReunioesMentoradoFragment())
+                        .addToBackStack(null).commit();
                 break;
             case R.id.nav_tutorial:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_mentor, new TutorialFragment()).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_mentor, new TutorialFragment())
+                        .addToBackStack(null).commit();
                 break;
             case R.id.nav_contato:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_mentor, new ContatoFragment()).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_mentor, new ContatoFragment())
+                        .addToBackStack(null).commit();
                 break;
             case R.id.nav_sobre:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_mentor, new SobreFragment()).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_mentor, new SobreFragment())
+                        .addToBackStack(null).commit();
                 break;
             case R.id.nav_configuracoes:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_mentor, new ConfiguracaoFragment()).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_mentor, new ConfiguracaoFragment())
+                        .addToBackStack(null).commit();
                 break;
             case R.id.nav_sair:
                 AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
@@ -158,13 +176,28 @@ public class MainMentorActivity extends AppCompatActivity implements NavigationV
 
         TextView nome = headerView.findViewById(R.id.txt_nome);
         TextView email = headerView.findViewById(R.id.txt_email);
-        ImageView foto = headerView.findViewById(R.id.image_perfil);
+        CircleImageView foto = headerView.findViewById(R.id.image_perfil);
 
-        nome.setText(currentUser.getDisplayName());
-        email.setText(currentUser.getEmail());
+        //nome.setText(currentUser.getDisplayName());
+        //email.setText(currentUser.getEmail());
+        //Picasso.get().load(currentUser.getPhotoUrl()).into(foto);
 
-        Picasso.get().load(currentUser.getPhotoUrl()).into(foto);
-
+        firebaseFirestore.collection("usuarios").whereEqualTo("email",currentUser.getEmail())
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if(task.isSuccessful()){
+                            for(QueryDocumentSnapshot document : task.getResult()){
+                                nome.setText(document.getData().get("nome").toString());
+                                email.setText(document.getData().get("email").toString());
+                                Picasso.get().load(document.getData().get("photoUrl").toString()).placeholder(R.drawable.ic_launcher_background).into(foto);
+                            }
+                        }else{
+                            Log.d("mentores","Error: "+task.getException());
+                        }
+                    }
+                });
 
     }
 }

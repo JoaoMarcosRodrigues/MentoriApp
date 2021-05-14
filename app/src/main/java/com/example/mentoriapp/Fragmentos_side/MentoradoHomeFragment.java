@@ -45,13 +45,13 @@ public class MentoradoHomeFragment extends Fragment {
                         case 0:
                             getActivity().getSupportFragmentManager()
                                     .beginTransaction()
-                                    .replace(R.id.fragment_mentorado, new ListaRelatosFragment())
+                                    .replace(R.id.fragment_mentorado, new ListaRelatosFragment()).addToBackStack(null)
                                     .commit();
                             break;
                         case 1:
                             getActivity().getSupportFragmentManager()
                                     .beginTransaction()
-                                    .replace(R.id.fragment_mentorado, new ListaTarefasFragment())
+                                    .replace(R.id.fragment_mentorado, new ListaTarefasFragment()).addToBackStack(null)
                                     .commit();
                             break;
                         case 2:
@@ -61,19 +61,19 @@ public class MentoradoHomeFragment extends Fragment {
                         case 3:
                             getActivity().getSupportFragmentManager()
                                     .beginTransaction()
-                                    .replace(R.id.fragment_mentorado, new ListaReunioesMentoradoFragment())
+                                    .replace(R.id.fragment_mentorado, new ListaReunioesMentoradoFragment()).addToBackStack(null)
                                     .commit();
                             break;
                         case 4:
                             getActivity().getSupportFragmentManager()
                                     .beginTransaction()
-                                    .replace(R.id.fragment_mentorado, new ListaAprendizadosFragment())
+                                    .replace(R.id.fragment_mentorado, new ListaAprendizadosFragment()).addToBackStack(null)
                                     .commit();
                             break;
                         case 5:
                             getActivity().getSupportFragmentManager()
                                     .beginTransaction()
-                                    .replace(R.id.fragment_mentorado, new ListaDificuldadesFragment())
+                                    .replace(R.id.fragment_mentorado, new ListaDificuldadesFragment()).addToBackStack(null)
                                     .commit();
                             break;
                     }

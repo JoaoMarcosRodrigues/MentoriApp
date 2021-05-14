@@ -10,9 +10,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.mentoriapp.Classes.Aprendizado;
+import com.example.mentoriapp.Listas.ListaAprendizadosFragment;
 import com.example.mentoriapp.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -32,6 +34,7 @@ public class CadastroAprendizadoFragment extends Fragment {
     TextInputEditText tituloAprendizado;
     Button btnCadastroAprendizado;
     ProgressDialog progressDialog;
+    Spinner spinnerRelatos;
     private FirebaseAuth auth;
     private FirebaseUser user;
     private FirebaseFirestore mFirestore;
@@ -51,6 +54,7 @@ public class CadastroAprendizadoFragment extends Fragment {
         btnCadastroAprendizado = view.findViewById(R.id.btn_cadastrar_aprendizado);
         tituloAprendizado = view.findViewById(R.id.edit_titulo_aprendizado);
         progressDialog = new ProgressDialog(getContext());
+        spinnerRelatos = view.findViewById(R.id.spinner_relatos);
 
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
@@ -108,7 +112,7 @@ public class CadastroAprendizadoFragment extends Fragment {
                         //btnCadastroAprendizado.setEnabled(false);
                         getActivity().getSupportFragmentManager()
                                 .beginTransaction()
-                                .replace(R.id.fragment_mentorado, new CadastroDificuldadeFragment())
+                                .replace(R.id.fragment_mentorado, new ListaAprendizadosFragment())
                                 .commit();
                     }
                 })

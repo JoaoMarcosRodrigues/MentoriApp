@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridLayout;
+import android.widget.Toast;
 
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
@@ -13,7 +14,6 @@ import com.example.mentoriapp.Cadastro.CadastroTarefaFragment;
 import com.example.mentoriapp.Listas.ListaAvaliacoesFragment;
 import com.example.mentoriapp.Listas.ListaFeedbacksFragment;
 import com.example.mentoriapp.Listas.ListaReunioesMentorFragment;
-import com.example.mentoriapp.Listas.ListaReunioesMentoradoFragment;
 import com.example.mentoriapp.Listas.MeusMentoradosFragment;
 import com.example.mentoriapp.R;
 
@@ -47,6 +47,7 @@ public class MentorHomeFragment extends Fragment {
                             // .beginTransaction()
                             // .replace(R.id.fragment, new NotificacoesFragment())
                             // .commit();
+                            Toast.makeText(getContext(),"Em produção",Toast.LENGTH_SHORT).show();
                             break;
                         case 1:
                             getActivity().getSupportFragmentManager()

@@ -27,6 +27,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.mentoriapp.Listas.ListaRelatosFragment;
 import com.example.mentoriapp.R;
 import com.example.mentoriapp.Classes.Relato;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -184,7 +185,7 @@ public class CadastroRelatoFragment extends Fragment implements AdapterView.OnIt
                         Toast.makeText(getContext(),"Relato cadastrado!",Toast.LENGTH_SHORT).show();
                         getActivity().getSupportFragmentManager()
                                 .beginTransaction()
-                                .replace(R.id.fragment_mentorado, new CadastroAprendizadoFragment())
+                                .replace(R.id.fragment_mentorado, new ListaRelatosFragment(),null)
                                 .commit();
                     }
                 })

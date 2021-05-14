@@ -56,7 +56,7 @@ public class ListaAprendizadosFragment extends Fragment {
             public void onClick(View v) {
                 getActivity().getSupportFragmentManager()
                         .beginTransaction()
-                        .replace(R.id.fragment_mentorado, new CadastroAprendizadoFragment())
+                        .replace(R.id.fragment_mentorado, new CadastroAprendizadoFragment()).addToBackStack(null)
                         .commit();
             }
         });

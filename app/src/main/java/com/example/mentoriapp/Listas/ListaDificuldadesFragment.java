@@ -57,7 +57,7 @@ public class ListaDificuldadesFragment extends Fragment {
             public void onClick(View v) {
                 getActivity().getSupportFragmentManager()
                         .beginTransaction()
-                        .replace(R.id.fragment_mentorado, new CadastroDificuldadeFragment())
+                        .replace(R.id.fragment_mentorado, new CadastroDificuldadeFragment()).addToBackStack(null)
                         .commit();
             }
         });

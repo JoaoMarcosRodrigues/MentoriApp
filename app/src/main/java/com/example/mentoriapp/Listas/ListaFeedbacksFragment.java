@@ -57,7 +57,7 @@ public class ListaFeedbacksFragment extends Fragment {
             public void onClick(View v) {
                 getActivity().getSupportFragmentManager()
                         .beginTransaction()
-                        .replace(R.id.fragment_mentor, new CadastroFeedbackFragment())
+                        .replace(R.id.fragment_mentor, new CadastroFeedbackFragment()).addToBackStack(null)
                         .commit();
             }
         });

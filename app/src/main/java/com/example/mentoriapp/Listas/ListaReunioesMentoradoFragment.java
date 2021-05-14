@@ -49,7 +49,7 @@ public class ListaReunioesMentoradoFragment extends Fragment {
             public void onClick(View v) {
                 getActivity().getSupportFragmentManager()
                         .beginTransaction()
-                        .replace(R.id.fragment_mentorado, new CadastroReuniaoMentoradoFragment())
+                        .replace(R.id.fragment_mentorado, new CadastroReuniaoMentoradoFragment()).addToBackStack(null)
                         .commit();
             }
         });

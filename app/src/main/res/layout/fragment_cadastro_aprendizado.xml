@@ -61,6 +61,25 @@
                 android:lines="5" />
         </com.google.android.material.textfield.TextInputLayout>
 
+        <TextView
+            android:id="@+id/txtRelatoCorrespondente"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Relato associado"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:layout_below="@+id/layout_descricao_aprendizado"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="40dp"/>
+
+        <Spinner
+            android:id="@+id/spinner_relatos"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/txtRelatoCorrespondente"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="15dp"/>
+
         <Button
             android:id="@+id/btn_cadastrar_aprendizado"
             android:layout_width="200dp"

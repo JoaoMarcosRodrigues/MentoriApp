@@ -12,17 +12,20 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.example.mentoriapp.Classes.Aprendizado;
 import com.example.mentoriapp.Classes.Tarefa;
 import com.example.mentoriapp.Listas.ListaTarefasFragment;
 import com.example.mentoriapp.R;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
 public class CadastroTarefaFragment extends Fragment {
 
@@ -32,19 +35,33 @@ public class CadastroTarefaFragment extends Fragment {
     ProgressDialog progressDialog;
     private FirebaseAuth auth;
     private FirebaseUser user;
+    private FirebaseFirestore mFirestore;
+    int maxid;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_cadastro_aprendizado, container, false);
+        View view = inflater.inflate(R.layout.fragment_cadastro_tarefa, container, false);
 
-        descricaoTarefa = view.findViewById(R.id.edit_descricao);
+        descricaoTarefa = view.findViewById(R.id.edit_descricao_tarefa);
         btnCadastroTarefa = view.findViewById(R.id.btn_cadastrar_tarefa);
-        tituloTarefa = view.findViewById(R.id.edit_titulo);
+        tituloTarefa = view.findViewById(R.id.edit_titulo_tarefa);
         progressDialog = new ProgressDialog(getContext());
 
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
+        mFirestore = FirebaseFirestore.getInstance();
+        mFirestore.collection("tarefas").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if(task.isSuccessful()){
+                    maxid = 1;
+                    for(DocumentSnapshot document : task.getResult()){
+                        maxid++;
+                    }
+                }
+            }
+        });
 
         btnCadastroTarefa.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,7 +88,7 @@ public class CadastroTarefaFragment extends Fragment {
         progressDialog.show();
 
 
-        Tarefa tarefa = new Tarefa(1,titulo,descricao,emailMentor,status);
+        Tarefa tarefa = new Tarefa(maxid,titulo,descricao,emailMentor,status);
 
         FirebaseFirestore.getInstance().collection("tarefas")
                 .add(tarefa)

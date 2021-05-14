@@ -13,9 +13,10 @@ import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.example.mentoriapp.Classes.Dificuldade;
-import com.example.mentoriapp.Listas.ListaDificuldadesFragment;
-import com.example.mentoriapp.Listas.ListaRelatosFragment;
+import com.example.mentoriapp.Classes.Aprendizado;
+import com.example.mentoriapp.Classes.Avaliacao;
+import com.example.mentoriapp.Listas.ListaAprendizadosFragment;
+import com.example.mentoriapp.Listas.ListaAvaliacoesFragment;
 import com.example.mentoriapp.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -29,38 +30,34 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
-public class CadastroDificuldadeFragment extends Fragment {
+public class CadastroAvaliacaoFragment extends Fragment {
 
-    TextInputEditText editTag, editDescricao;
-    ProgressDialog progressDialog;
-    Button btnSalvar;
+    View view;
+    TextInputEditText editDescricao,editTitulo;
+    Button btnCadastroAvaliacao;
     Spinner spinnerRelatos;
+    private ProgressDialog progressDialog;
     private FirebaseAuth auth;
     private FirebaseUser user;
     private FirebaseFirestore mFirestore;
     int maxid;
 
-    public static CadastroDificuldadeFragment getInstance(){
-        CadastroDificuldadeFragment cadastroDificuldadeFragment = new CadastroDificuldadeFragment();
-        return cadastroDificuldadeFragment;
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_cadastro_dificuldade, container, false);
+        view = inflater.inflate(R.layout.fragment_cadastro_avaliacao, container, false);
 
-        editTag = view.findViewById(R.id.edit_tag_dificuldade);
-        editDescricao = view.findViewById(R.id.edit_dificuldade);
-        progressDialog = new ProgressDialog(getContext());
-        btnSalvar = view.findViewById(R.id.btn_cadastrar_dificuldade);
+        editTitulo = view.findViewById(R.id.edit_titulo_avaliacao);
+        editDescricao = view.findViewById(R.id.edit_descricao_avaliacao);
         spinnerRelatos = view.findViewById(R.id.spinner_relatos);
+        btnCadastroAvaliacao = view.findViewById(R.id.btn_cadastrar_avaliacao);
+        progressDialog = new ProgressDialog(getContext());
 
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
         mFirestore = FirebaseFirestore.getInstance();
 
-        mFirestore.collection("dificuldades").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        mFirestore.collection("avaliacoes").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if(task.isSuccessful()){
@@ -72,50 +69,43 @@ public class CadastroDificuldadeFragment extends Fragment {
             }
         });
 
-        btnSalvar.setOnClickListener(new View.OnClickListener() {
+        btnCadastroAvaliacao.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                cadastrarDificuldade();
+                cadastrarAvaliacao();
             }
         });
-
 
         return view;
     }
 
-    private void cadastrarDificuldade() {
-        String tag = editTag.getText().toString();
+    private void cadastrarAvaliacao() {
+        String titulo = editTitulo.getText().toString();
         String descricao = editDescricao.getText().toString();
-        Bundle bundle = new Bundle();
-        int id_relato = bundle.getInt("idRelato");
+        String emailMentorado = user.getEmail();
+        int id_relato = 1;
 
-        if(tag == null || tag.isEmpty() || descricao.isEmpty() || descricao == null){
-            Toast.makeText(getContext(),"Tag e descrição obrigatórios!",Toast.LENGTH_SHORT).show();
+        if(descricao == null || descricao.isEmpty()){
+            Toast.makeText(getContext(),"Descrição obrigatória!",Toast.LENGTH_SHORT).show();
             return;
         }
 
-        progressDialog.setMessage("Cadastrando dificuldade...");
+        progressDialog.setMessage("Cadastrando avaliação...");
         progressDialog.show();
 
-        String email = user.getEmail();
+        Avaliacao avaliacao = new Avaliacao(maxid,id_relato,titulo,descricao,emailMentorado);
 
-        Dificuldade dificuldade = new Dificuldade();
-        dificuldade.setId(maxid);
-        dificuldade.setIdRelato(id_relato);
-        dificuldade.setTagDificuldade(tag);
-        dificuldade.setEmailMentorado(email);
-        dificuldade.setFavorito(false);
-        dificuldade.setDescricaoDificuldade(descricao);
-
-        FirebaseFirestore.getInstance().collection("dificuldades")
-                .add(dificuldade)
+        FirebaseFirestore.getInstance().collection("avaliacoes")
+                .add(avaliacao)
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
                     public void onSuccess(DocumentReference documentReference) {
                         progressDialog.dismiss();
-                        Toast.makeText(getContext(),"Dificuldade cadastrada com sucesso!",Toast.LENGTH_SHORT).show();
-                        getActivity().getSupportFragmentManager().beginTransaction()
-                                .replace(R.id.fragment_mentorado,new ListaDificuldadesFragment())
+
+                        Toast.makeText(getContext(),"Avaliação cadastrada com sucesso!",Toast.LENGTH_SHORT).show();
+                        getActivity().getSupportFragmentManager()
+                                .beginTransaction()
+                                .replace(R.id.fragment_mentor, new ListaAvaliacoesFragment())
                                 .commit();
                     }
                 })
@@ -123,7 +113,7 @@ public class CadastroDificuldadeFragment extends Fragment {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         progressDialog.dismiss();
-                        Toast.makeText(getContext(),"Ops, houve um erro no cadastro da dificuldade! Tente novamente.",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(),"Ops, houve um erro no cadastro da avaliação! Tente novamente.",Toast.LENGTH_SHORT).show();
                     }
                 });
     }
