@@ -7,12 +7,14 @@ public class Mentor implements Parcelable {
     private String uuid;
     private String email;
     private String areaAtuacao;
+    private String formacao;
+    private String curriculo;
     private String senha;
     private String nome;
     private String telefone;
     private String profileUrl;
 
-    public Mentor(String uuid, String email, String areaAtuacao,String senha, String nome, String telefone, String profileUrl) {
+    public Mentor(String uuid, String email, String areaAtuacao,String senha, String nome, String telefone, String profileUrl, String formacao, String curriculo) {
         this.uuid = uuid;
         this.email = email;
         this.areaAtuacao = areaAtuacao;
@@ -20,6 +22,8 @@ public class Mentor implements Parcelable {
         this.nome = nome;
         this.telefone = telefone;
         this.profileUrl = profileUrl;
+        this.formacao = formacao;
+        this.curriculo = curriculo;
     }
 
     public Mentor() {}
@@ -32,6 +36,8 @@ public class Mentor implements Parcelable {
         nome = in.readString();
         telefone = in.readString();
         profileUrl = in.readString();
+        formacao = in.readString();
+        curriculo = in.readString();
     }
 
     public static final Creator<Mentor> CREATOR = new Creator<Mentor>() {
@@ -45,6 +51,22 @@ public class Mentor implements Parcelable {
             return new Mentor[size];
         }
     };
+
+    public String getFormacao() {
+        return formacao;
+    }
+
+    public void setFormacao(String formacao) {
+        this.formacao = formacao;
+    }
+
+    public String getCurriculo() {
+        return curriculo;
+    }
+
+    public void setCurriculo(String curriculo) {
+        this.curriculo = curriculo;
+    }
 
     public String getUuid() {
         return uuid;
@@ -115,5 +137,7 @@ public class Mentor implements Parcelable {
         dest.writeString(nome);
         dest.writeString(telefone);
         dest.writeString(profileUrl);
+        dest.writeString(formacao);
+        dest.writeString(curriculo);
     }
 }

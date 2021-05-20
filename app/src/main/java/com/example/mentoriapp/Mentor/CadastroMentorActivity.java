@@ -176,7 +176,7 @@ public class CadastroMentorActivity extends AppCompatActivity {
                                 String area_atuacao = edit_area_atuacao.getText().toString();
                                 String profileUrl = uri.toString();
 
-                                Mentor mentor = new Mentor(uid,email,area_atuacao,senha,nome,telefone,profileUrl);
+                                Mentor mentor = new Mentor(uid,email,area_atuacao,senha,nome,telefone,profileUrl,"Mestre em Ciência da Computação","Qualquer coisa");
                                 FirebaseFirestore.getInstance().collection("mentor")
                                         .document(uid)
                                         .set(mentor)

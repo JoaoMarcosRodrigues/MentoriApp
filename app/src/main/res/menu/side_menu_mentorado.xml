@@ -17,9 +17,9 @@
             android:icon="@drawable/ic_chat"
             android:title="Chat" />
         <item
-            android:id="@+id/nav_reuniao"
-            android:icon="@drawable/ic_reuniao"
-            android:title="Reunião" />
+            android:id="@+id/nav_mentores"
+            android:icon="@drawable/ic_mentores"
+            android:title="Mentores" />
         <item
             android:id="@+id/nav_tutorial"
             android:icon="@drawable/ic_tutorial"
