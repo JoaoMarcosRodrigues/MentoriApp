@@ -36,6 +36,6 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         app:headerLayout="@layout/nav_header_mentor"
-        app:menu="@menu/side_menu_mentorado" />
+        app:menu="@menu/side_menu_mentor" />
 
 </androidx.drawerlayout.widget.DrawerLayout>

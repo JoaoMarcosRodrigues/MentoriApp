@@ -13,8 +13,9 @@ public class Mentor implements Parcelable {
     private String nome;
     private String telefone;
     private String profileUrl;
+    private int tipoUsuario;
 
-    public Mentor(String uuid, String email, String areaAtuacao,String senha, String nome, String telefone, String profileUrl, String formacao, String curriculo) {
+    public Mentor(String uuid, String email, String areaAtuacao,String senha, String nome, String telefone, String profileUrl, String formacao, String curriculo, int tipo) {
         this.uuid = uuid;
         this.email = email;
         this.areaAtuacao = areaAtuacao;
@@ -24,6 +25,7 @@ public class Mentor implements Parcelable {
         this.profileUrl = profileUrl;
         this.formacao = formacao;
         this.curriculo = curriculo;
+        this.tipoUsuario = tipo;
     }
 
     public Mentor() {}
@@ -38,6 +40,7 @@ public class Mentor implements Parcelable {
         profileUrl = in.readString();
         formacao = in.readString();
         curriculo = in.readString();
+        tipoUsuario = in.readInt();
     }
 
     public static final Creator<Mentor> CREATOR = new Creator<Mentor>() {
@@ -51,6 +54,14 @@ public class Mentor implements Parcelable {
             return new Mentor[size];
         }
     };
+
+    public int getTipoUsuario() {
+        return tipoUsuario;
+    }
+
+    public void setTipoUsuario(int tipoUsuario) {
+        this.tipoUsuario = tipoUsuario;
+    }
 
     public String getFormacao() {
         return formacao;
@@ -139,5 +150,6 @@ public class Mentor implements Parcelable {
         dest.writeString(profileUrl);
         dest.writeString(formacao);
         dest.writeString(curriculo);
+        dest.writeInt(tipoUsuario);
     }
 }

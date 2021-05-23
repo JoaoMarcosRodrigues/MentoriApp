@@ -142,7 +142,7 @@ public class CadastroUsuarioActivity extends AppCompatActivity {
                         progressDialog.dismiss();
                         if(task.isSuccessful()) {
                             Log.i("Teste", task.getResult().getUser().getUid());
-                            saveMentoradoInFirebase();
+                            saveUserInFirebase();
                             Toast.makeText(getApplicationContext(),"Usuário cadastrado com sucesso!",Toast.LENGTH_SHORT).show();
                         }
                     }
@@ -159,7 +159,7 @@ public class CadastroUsuarioActivity extends AppCompatActivity {
                 });
     }
 
-    private void saveMentoradoInFirebase() {
+    private void saveUserInFirebase() {
         String filename = UUID.randomUUID().toString();
         final StorageReference ref = FirebaseStorage.getInstance().getReference("usuarios/"+filename);
         if(mSelectedUri == null){

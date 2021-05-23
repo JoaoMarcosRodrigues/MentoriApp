@@ -26,9 +26,6 @@ public class MentoresAdapter extends FirestoreRecyclerAdapter<Mentor, MentoresAd
         holder.txtNome.setText(model.getNome());
         holder.txtFormacao.setText(model.getFormacao());
         holder.txtCurriculo.setText(model.getCurriculo());
-        Picasso.get()
-                .load(model.getProfileUrl())
-                .into(holder.imgFotoPerfil);
     }
 
     @NonNull

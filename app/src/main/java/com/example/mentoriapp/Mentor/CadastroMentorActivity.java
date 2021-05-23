@@ -18,8 +18,11 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import com.example.mentoriapp.CadastroUsuarioActivity;
 import com.example.mentoriapp.Classes.Mentor;
+import com.example.mentoriapp.Classes.Usuario;
 import com.example.mentoriapp.MainMentorActivity;
+import com.example.mentoriapp.MainMentoradoActivity;
 import com.example.mentoriapp.R;
 import com.github.rtoshiro.util.format.SimpleMaskFormatter;
 import com.github.rtoshiro.util.format.text.MaskTextWatcher;
@@ -41,7 +44,7 @@ import java.util.UUID;
 
 public class CadastroMentorActivity extends AppCompatActivity {
 
-    private TextInputEditText edit_email,edit_nome,edit_telefone,edit_senha,edit_area_atuacao;
+    private TextInputEditText edit_email,edit_nome,edit_telefone,edit_senha,edit_area_atuacao,edit_formacao,edit_curriculo;
     private Button botao_next, mBtnFotoMentor;
     private ImageView mImgPhoto;
     private Toolbar toolbar;
@@ -66,6 +69,8 @@ public class CadastroMentorActivity extends AppCompatActivity {
         edit_telefone = findViewById(R.id.edit_telefone_cadastro);
         edit_senha = findViewById(R.id.edit_senha_cadastro);
         edit_area_atuacao = findViewById(R.id.edit_atuacao_cadastro);
+        edit_formacao = findViewById(R.id.edit_formacao);
+        edit_curriculo = findViewById(R.id.edit_curriculo);
         mBtnFotoMentor = findViewById(R.id.btn_img_cadastro_mentor);
         mImgPhoto = findViewById(R.id.img_photo);
 
@@ -116,10 +121,13 @@ public class CadastroMentorActivity extends AppCompatActivity {
         String nome = edit_nome.getText().toString();
         String telefone = edit_telefone.getText().toString();
         String area_atuacao = edit_area_atuacao.getText().toString();
+        String formacao = edit_formacao.getText().toString();
+        String curriculo = edit_curriculo.getText().toString();
 
         if(nome == null || nome.isEmpty() || email == null || email.isEmpty() ||
-                senha == null || senha.isEmpty() || area_atuacao == null || area_atuacao.isEmpty()) {
-            Toast.makeText(this,"Nome Completo, Email, Área de atuação e Senha devem ser preenchidos!",Toast.LENGTH_SHORT).show();
+                senha == null || senha.isEmpty() || area_atuacao == null || area_atuacao.isEmpty()
+                || formacao == null || formacao.isEmpty() || curriculo == null || curriculo.isEmpty()) {
+            Toast.makeText(this,"Nome Completo, Email, Área de atuação, Formação, Currículo e Senha devem ser preenchidos!",Toast.LENGTH_SHORT).show();
             return;
         }
         if(senha.length() < 6)
@@ -136,6 +144,7 @@ public class CadastroMentorActivity extends AppCompatActivity {
                         if(task.isSuccessful()) {
                             Log.i("Teste", task.getResult().getUser().getUid());
                             saveMentorInFirebase();
+                            saveUserInFirebase();
                             Toast.makeText(getApplicationContext(),"Mentor cadastrado com sucesso!",Toast.LENGTH_SHORT).show();
                         }
                     }
@@ -154,7 +163,7 @@ public class CadastroMentorActivity extends AppCompatActivity {
 
     private void saveMentorInFirebase() {
         String filename = UUID.randomUUID().toString();
-        final StorageReference ref = FirebaseStorage.getInstance().getReference("/images/mentor"+filename);
+        final StorageReference ref = FirebaseStorage.getInstance().getReference("mentor/"+filename);
         if(mSelectedUri == null){
             Toast.makeText(this,"Selecione uma foto de perfil",Toast.LENGTH_SHORT).show();
             return;
@@ -174,10 +183,12 @@ public class CadastroMentorActivity extends AppCompatActivity {
                                 String senha = edit_senha.getText().toString();
                                 String telefone = edit_telefone.getText().toString();
                                 String area_atuacao = edit_area_atuacao.getText().toString();
+                                String formacao = edit_formacao.getText().toString();
+                                String curriculo = edit_curriculo.getText().toString();
                                 String profileUrl = uri.toString();
 
-                                Mentor mentor = new Mentor(uid,email,area_atuacao,senha,nome,telefone,profileUrl,"Mestre em Ciência da Computação","Qualquer coisa");
-                                FirebaseFirestore.getInstance().collection("mentor")
+                                Mentor mentor = new Mentor(uid,email,area_atuacao,senha,nome,telefone,profileUrl,formacao,curriculo,1);
+                                FirebaseFirestore.getInstance().collection("mentores")
                                         .document(uid)
                                         .set(mentor)
                                         .addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -187,6 +198,74 @@ public class CadastroMentorActivity extends AppCompatActivity {
                                                 Intent intent = new Intent(CadastroMentorActivity.this, MainMentorActivity.class);
                                                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                                 startActivity(intent);
+                                            }
+                                        })
+                                        .addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                Toast.makeText(getApplicationContext(),"Ops, houve um erro no cadastro! Tente novamente.",Toast.LENGTH_SHORT).show();
+                                                Log.i("Teste",e.getMessage());
+                                            }
+                                        });
+                            }
+                        });
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.i("Teste",e.getMessage(),e);
+                    }
+                });
+    }
+
+    private void saveUserInFirebase() {
+        String filename = UUID.randomUUID().toString();
+        final StorageReference ref = FirebaseStorage.getInstance().getReference("usuarios/"+filename);
+        if(mSelectedUri == null){
+            Toast.makeText(this,"Selecione uma foto de perfil",Toast.LENGTH_SHORT).show();
+            return;
+        }
+        ref.putFile(mSelectedUri)
+                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        ref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                            @Override
+                            public void onSuccess(Uri uri) {
+                                //Log.i("Teste",uri.toString());
+
+                                String uid = FirebaseAuth.getInstance().getUid();
+                                String nome = edit_nome.getText().toString();
+                                String email = edit_email.getText().toString();
+                                String senha = edit_senha.getText().toString();
+                                String telefone = edit_telefone.getText().toString();
+                                String areaAtuacao = edit_area_atuacao.getText().toString();
+                                String profileUrl = uri.toString();
+                                Intent intent = getIntent();
+                                int tipo = intent.getIntExtra("tipoUsuario",1);
+
+                                Usuario usuario = new Usuario(uid,email,nome,telefone,profileUrl,areaAtuacao,senha,tipo);
+                                FirebaseFirestore.getInstance().collection("usuarios")
+                                        .document(email)
+                                        .set(usuario)
+                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void aVoid) {
+                                                /*
+                                                Toast.makeText(getApplicationContext(),"Usuário cadastrado com sucesso!",Toast.LENGTH_SHORT).show();
+                                                if(tipo == 1){
+                                                    Intent intent = new Intent(CadastroMentorActivity.this, MainMentorActivity.class);
+                                                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                                    startActivity(intent);
+                                                }
+                                                if(tipo == 2){
+                                                    Intent intent = new Intent(CadastroMentorActivity.this, MainMentoradoActivity.class);
+                                                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                                    startActivity(intent);
+                                                }
+
+                                                 */
                                             }
                                         })
                                         .addOnFailureListener(new OnFailureListener() {

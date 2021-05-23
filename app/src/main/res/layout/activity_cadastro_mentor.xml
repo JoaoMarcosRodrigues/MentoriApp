@@ -92,7 +92,7 @@
                     android:maxLines="1" />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <!-- Telefone -->
+            <!-- Área de Atuação -->
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/input_atuacao_cadastro"
                 android:layout_width="match_parent"
@@ -117,12 +117,64 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
+            <!-- Formação -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/input_formacao"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/input_atuacao_cadastro"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="20dp"
+                app:counterEnabled="true"
+                app:counterMaxLength="100"
+                app:errorEnabled="true"
+                app:startIconDrawable="@drawable/ic_formacao">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edit_formacao"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/edit_round"
+                    android:hint="Formação"
+                    android:inputType="text"
+                    android:maxLines="1" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Currículo -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/input_curriculo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/input_formacao"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="20dp"
+                app:counterEnabled="true"
+                app:counterMaxLength="255"
+                app:errorEnabled="true"
+                app:startIconDrawable="@drawable/ic_curriculo">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edit_curriculo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/edit_round"
+                    android:hint="Currículo"
+                    android:inputType="textMultiLine"
+                    android:maxLines="4"
+                    android:gravity="top|left"
+                    android:lines="4"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
             <!-- Telefone -->
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/input_telefone_cadastro"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/input_atuacao_cadastro"
+                android:layout_below="@+id/input_curriculo"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="20dp"

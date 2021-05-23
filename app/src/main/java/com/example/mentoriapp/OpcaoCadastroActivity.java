@@ -35,13 +35,13 @@ public class OpcaoCadastroActivity extends AppCompatActivity {
                 public void onClick(View v) {
                     switch (finalI){
                         case 0:
-                            Intent intent = new Intent(getBaseContext(),CadastroUsuarioActivity.class);
+                            Intent intent = new Intent(getBaseContext(),CadastroMentorActivity.class);
                             intent.putExtra("tipoUsuario",1);
                             startActivity(intent);
                             break;
 
                         case 1:
-                            Intent intent2 = new Intent(getBaseContext(),CadastroUsuarioActivity.class);
+                            Intent intent2 = new Intent(getBaseContext(),CadastroMentoradoActivity.class);
                             intent2.putExtra("tipoUsuario",2);
                             startActivity(intent2);
                             break;

@@ -11,12 +11,13 @@ public class Mentorado implements Parcelable {
     private String areaAtuacao;
     private String telefone;
     private String profileUrl;
+    private int tipoUsuario;
 
     public Mentorado(){
 
     }
 
-    public Mentorado(String uuid, String email, String senha, String nome, String areaAtuacao, String telefone, String profileUrl) {
+    public Mentorado(String uuid, String email, String senha, String nome, String areaAtuacao, String telefone, String profileUrl, int tipo) {
         this.uuid = uuid;
         this.email = email;
         this.senha = senha;
@@ -24,6 +25,7 @@ public class Mentorado implements Parcelable {
         this.areaAtuacao = areaAtuacao;
         this.telefone = telefone;
         this.profileUrl = profileUrl;
+        this.tipoUsuario = tipo;
     }
 
     protected Mentorado(Parcel in) {
@@ -34,6 +36,7 @@ public class Mentorado implements Parcelable {
         areaAtuacao = in.readString();
         telefone = in.readString();
         profileUrl = in.readString();
+        tipoUsuario = in.readInt();
     }
 
     public static final Creator<Mentorado> CREATOR = new Creator<Mentorado>() {
@@ -47,6 +50,30 @@ public class Mentorado implements Parcelable {
             return new Mentorado[size];
         }
     };
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
+
+    public int getTipoUsuario() {
+        return tipoUsuario;
+    }
+
+    public void setTipoUsuario(int tipoUsuario) {
+        this.tipoUsuario = tipoUsuario;
+    }
 
     public String getUuid() {
         return uuid;
@@ -100,5 +127,8 @@ public class Mentorado implements Parcelable {
         dest.writeString(areaAtuacao);
         dest.writeString(telefone);
         dest.writeString(profileUrl);
+        dest.writeString(email);
+        dest.writeString(senha);
+        dest.writeInt(tipoUsuario);
     }
 }
