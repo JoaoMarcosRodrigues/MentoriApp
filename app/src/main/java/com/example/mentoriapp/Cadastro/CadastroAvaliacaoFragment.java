@@ -57,7 +57,7 @@ public class CadastroAvaliacaoFragment extends Fragment {
         user = auth.getCurrentUser();
         mFirestore = FirebaseFirestore.getInstance();
 
-        mFirestore.collection("avaliacoes").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        mFirestore.collection("mentores").document(user.getUid()).collection("avaliacoes").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if(task.isSuccessful()){
@@ -95,7 +95,7 @@ public class CadastroAvaliacaoFragment extends Fragment {
 
         Avaliacao avaliacao = new Avaliacao(maxid,id_relato,titulo,descricao,emailMentorado);
 
-        FirebaseFirestore.getInstance().collection("avaliacoes")
+        FirebaseFirestore.getInstance().collection("mentores").document(user.getUid()).collection("avaliacoes")
                 .add(avaliacao)
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override

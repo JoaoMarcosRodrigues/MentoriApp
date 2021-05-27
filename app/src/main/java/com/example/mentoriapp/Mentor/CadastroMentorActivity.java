@@ -9,8 +9,11 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -40,6 +43,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.UUID;
 
 public class CadastroMentorActivity extends AppCompatActivity {
@@ -49,7 +53,9 @@ public class CadastroMentorActivity extends AppCompatActivity {
     private ImageView mImgPhoto;
     private Toolbar toolbar;
     private Uri mSelectedUri = null;
+    private Spinner spinnerTempoAtuacao;
     private ProgressDialog progressDialog;
+    private String tempoAtuacao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,11 +78,28 @@ public class CadastroMentorActivity extends AppCompatActivity {
         edit_formacao = findViewById(R.id.edit_formacao);
         edit_curriculo = findViewById(R.id.edit_curriculo);
         mBtnFotoMentor = findViewById(R.id.btn_img_cadastro_mentor);
+        spinnerTempoAtuacao = findViewById(R.id.spinnerTempoExperiencia);
         mImgPhoto = findViewById(R.id.img_photo);
+
+        ArrayAdapter<CharSequence> adapterSpinner = ArrayAdapter.createFromResource(this,R.array.tempoAtuacao, android.R.layout.simple_spinner_item);
+        adapterSpinner.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerTempoAtuacao.setAdapter(adapterSpinner);
 
         SimpleMaskFormatter smf = new SimpleMaskFormatter("(NN)NNNNN-NNNN");
         MaskTextWatcher mtw = new MaskTextWatcher(edit_telefone, smf);
         edit_telefone.addTextChangedListener(mtw);
+
+        spinnerTempoAtuacao.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                tempoAtuacao = parent.getItemAtPosition(position).toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
         botao_next.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -187,7 +210,7 @@ public class CadastroMentorActivity extends AppCompatActivity {
                                 String curriculo = edit_curriculo.getText().toString();
                                 String profileUrl = uri.toString();
 
-                                Mentor mentor = new Mentor(uid,email,area_atuacao,senha,nome,telefone,profileUrl,formacao,curriculo,1);
+                                Mentor mentor = new Mentor(uid,email,area_atuacao,tempoAtuacao,senha,nome,telefone,profileUrl,formacao,curriculo,1);
                                 FirebaseFirestore.getInstance().collection("mentores")
                                         .document(uid)
                                         .set(mentor)

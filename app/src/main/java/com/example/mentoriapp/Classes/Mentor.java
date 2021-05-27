@@ -9,16 +9,18 @@ public class Mentor implements Parcelable {
     private String areaAtuacao;
     private String formacao;
     private String curriculo;
+    private String tempoAtuacao;
     private String senha;
     private String nome;
     private String telefone;
     private String profileUrl;
     private int tipoUsuario;
 
-    public Mentor(String uuid, String email, String areaAtuacao,String senha, String nome, String telefone, String profileUrl, String formacao, String curriculo, int tipo) {
+    public Mentor(String uuid, String email, String areaAtuacao, String tempoAtuacao,String senha, String nome, String telefone, String profileUrl, String formacao, String curriculo, int tipo) {
         this.uuid = uuid;
         this.email = email;
         this.areaAtuacao = areaAtuacao;
+        this.tempoAtuacao = tempoAtuacao;
         this.senha = senha;
         this.nome = nome;
         this.telefone = telefone;
@@ -41,6 +43,7 @@ public class Mentor implements Parcelable {
         formacao = in.readString();
         curriculo = in.readString();
         tipoUsuario = in.readInt();
+        tempoAtuacao = in.readString();
     }
 
     public static final Creator<Mentor> CREATOR = new Creator<Mentor>() {
@@ -54,6 +57,14 @@ public class Mentor implements Parcelable {
             return new Mentor[size];
         }
     };
+
+    public String getTempoAtuacao() {
+        return tempoAtuacao;
+    }
+
+    public void setTempoAtuacao(String tempoAtuacao) {
+        this.tempoAtuacao = tempoAtuacao;
+    }
 
     public int getTipoUsuario() {
         return tipoUsuario;
@@ -151,5 +162,6 @@ public class Mentor implements Parcelable {
         dest.writeString(formacao);
         dest.writeString(curriculo);
         dest.writeInt(tipoUsuario);
+        dest.writeString(tempoAtuacao);
     }
 }

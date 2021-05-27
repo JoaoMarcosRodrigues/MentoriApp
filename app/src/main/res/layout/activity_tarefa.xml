@@ -23,7 +23,7 @@
         android:layout_below="@+id/txt_titulo_tarefa"
         android:layout_marginLeft="40dp"
         android:layout_marginTop="30dp"
-        android:text="Esta tarefa consiste em..."
+        android:text="Esta tarefaMentor consiste em..."
         android:textSize="16sp" />
 
     <TextView

@@ -60,7 +60,7 @@ public class CadastroAprendizadoFragment extends Fragment {
         user = auth.getCurrentUser();
         mFirestore = FirebaseFirestore.getInstance();
 
-        mFirestore.collection("aprendizados").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        mFirestore.collection("mentorados").document(user.getUid()).collection("aprendizados").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if(task.isSuccessful()){
@@ -99,7 +99,7 @@ public class CadastroAprendizadoFragment extends Fragment {
 
         Aprendizado aprendizado = new Aprendizado(maxid,id_relato,titulo,descricao,emailMentorado);
 
-        FirebaseFirestore.getInstance().collection("aprendizados")
+        FirebaseFirestore.getInstance().collection("mentorados").document(user.getUid()).collection("aprendizados")
                 .add(aprendizado)
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override

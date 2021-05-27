@@ -45,10 +45,10 @@ public class ListaRelatosFragment extends Fragment {
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_lista_relatos, container, false);
 
-        db = FirebaseFirestore.getInstance();
-        ref = db.collection("relatos");
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
+        db = FirebaseFirestore.getInstance();
+        ref = db.collection("mentorados").document(user.getUid()).collection("relatos");
 
         FloatingActionButton addRelato = view.findViewById(R.id.btnAdicionarRelato);
 

@@ -39,10 +39,11 @@ public class ListaReunioesMentoradoFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_lista_reunioes_mentorado, container, false);
 
         FloatingActionButton addReuniao = view.findViewById(R.id.btnAdicionarReuniao);
-        db = FirebaseFirestore.getInstance();
-        ref = db.collection("reunioes");
+
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
+        db = FirebaseFirestore.getInstance();
+        ref = db.collection("mentorados").document(user.getUid()).collection("reunioes");
 
         addReuniao.setOnClickListener(new View.OnClickListener() {
             @Override

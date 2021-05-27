@@ -9,13 +9,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
-import com.example.mentoriapp.Adapters.AprendizadoAdapter;
-import com.example.mentoriapp.Adapters.AvaliacaoAdapter;
-import com.example.mentoriapp.Cadastro.CadastroAprendizadoFragment;
-import com.example.mentoriapp.Cadastro.CadastroAvaliacaoFragment;
-import com.example.mentoriapp.Classes.Aprendizado;
-import com.example.mentoriapp.Classes.Avaliacao;
+import com.example.mentoriapp.Adapters.TarefaAdapter;
+import com.example.mentoriapp.Classes.Tarefa;
 import com.example.mentoriapp.R;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -25,8 +22,7 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
-public class ListaAvaliacoesFragment extends Fragment {
-
+public class ListaTarefasMentoradoFragment extends Fragment {
     private RecyclerView mRecyclerView;
     private FirebaseFirestore db;
     private CollectionReference ref;
@@ -34,35 +30,48 @@ public class ListaAvaliacoesFragment extends Fragment {
     private FirebaseUser user;
     View view;
 
-    private AvaliacaoAdapter adapter;
+    private TarefaAdapter adapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        view = inflater.inflate(R.layout.fragment_lista_tarefas_mentorado, container, false);
 
-        view = inflater.inflate(R.layout.fragment_lista_avaliacoes, container, false);
+        FloatingActionButton addTarefa = view.findViewById(R.id.btnAdicionarTarefa);
+        Button salvarTarefa = view.findViewById(R.id.btnSalvarTarefa);
 
         db = FirebaseFirestore.getInstance();
+        ref = db.collection("tarefas");
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
-        ref = db.collection("mentores").document(user.getUid()).collection("avaliacoes");
+
+        salvarTarefa.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                salvarTarefa();
+            }
+        });
 
         setUpRecyclerView();
 
         return view;
     }
 
-    private void setUpRecyclerView() {
-        String email = user.getEmail();
+    private void salvarTarefa() {
 
-        Query query = ref.whereEqualTo("emailMentor",email);
-        FirestoreRecyclerOptions<Avaliacao> options = new FirestoreRecyclerOptions.Builder<Avaliacao>()
-                .setQuery(query, Avaliacao.class)
+    }
+
+    private void setUpRecyclerView() {
+        //String email = user.getEmail();
+
+        Query query = ref;
+        FirestoreRecyclerOptions<Tarefa> options = new FirestoreRecyclerOptions.Builder<Tarefa>()
+                .setQuery(query, Tarefa.class)
                 .build();
 
 
-        adapter = new AvaliacaoAdapter(options);
-        mRecyclerView = view.findViewById(R.id.listaAvaliacoes);
+        adapter = new TarefaAdapter(options);
+        mRecyclerView = view.findViewById(R.id.listaTarefas);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mRecyclerView.setAdapter(adapter);

@@ -33,27 +33,44 @@
                     android:textSize="28sp"
                     android:textStyle="bold" />
 
-                <!-- Nome completo -->
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/input_descricao"
+                    android:id="@+id/layout_titulo_feedback"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="40dp"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginRight="40dp"
+                    app:counterEnabled="true"
+                    app:counterMaxLength="255"
                     android:layout_below="@+id/txt_titulo_cadastro_feedback"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginTop="40dp"
-                    android:layout_marginRight="20dp"
+                    app:errorEnabled="true">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edit_titulo_feedback"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Título do feedback"/>
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/layout_descricao_feedback"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/layout_titulo_feedback"
+                    android:layout_marginLeft="40dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginRight="40dp"
                     app:counterEnabled="true"
                     app:counterMaxLength="255"
                     app:errorEnabled="true">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/edit_descricao"
+                        android:id="@+id/edit_descricao_feedback"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="top|left"
-                        android:background="@drawable/edit_round"
-                        android:hint="Descrição"
-                        android:inputType="text|textMultiLine"
+                        android:hint="Descreva aqui seu feedback..."
+                        android:inputType="textMultiLine"
                         android:lines="5" />
                 </com.google.android.material.textfield.TextInputLayout>
 

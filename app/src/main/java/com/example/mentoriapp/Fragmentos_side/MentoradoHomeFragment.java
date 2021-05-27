@@ -15,7 +15,7 @@ import com.example.mentoriapp.Listas.ListaAprendizadosFragment;
 import com.example.mentoriapp.Listas.ListaDificuldadesFragment;
 import com.example.mentoriapp.Listas.ListaRelatosFragment;
 import com.example.mentoriapp.Listas.ListaReunioesMentoradoFragment;
-import com.example.mentoriapp.Listas.ListaTarefasFragment;
+import com.example.mentoriapp.Listas.ListaTarefasMentoradoFragment;
 import com.example.mentoriapp.R;
 
 public class MentoradoHomeFragment extends Fragment {
@@ -51,7 +51,7 @@ public class MentoradoHomeFragment extends Fragment {
                         case 1:
                             getActivity().getSupportFragmentManager()
                                     .beginTransaction()
-                                    .replace(R.id.fragment_mentorado, new ListaTarefasFragment()).addToBackStack(null)
+                                    .replace(R.id.fragment_mentorado, new ListaTarefasMentoradoFragment()).addToBackStack(null)
                                     .commit();
                             break;
                         case 2:

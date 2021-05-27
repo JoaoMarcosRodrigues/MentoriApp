@@ -16,31 +16,43 @@ import android.widget.Toast;
 import com.example.mentoriapp.Classes.Feedback;
 import com.example.mentoriapp.Listas.ListaFeedbacksFragment;
 import com.example.mentoriapp.R;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import java.text.DateFormat;
+import java.util.Date;
 
 public class CadastroFeedbackFragment extends Fragment {
 
-    private EditText mEditDescricao;
+    private TextInputEditText mEditDescricao,mEditTitulo;
     private Button mBtnCadastrar;
     private ProgressDialog progressDialog;
     private FirebaseAuth auth;
     private FirebaseUser user;
+    private FirebaseFirestore mFirestore;
+    int maxid;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_cadastro_feedback, container, false);
 
-        mEditDescricao = view.findViewById(R.id.edit_descricao);
+        mEditTitulo = view.findViewById(R.id.edit_titulo_feedback);
+        mEditDescricao = view.findViewById(R.id.edit_descricao_feedback);
         mBtnCadastrar = view.findViewById(R.id.btn_cadastrar_feedback);
         progressDialog = new ProgressDialog(getContext());
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
+        mFirestore = FirebaseFirestore.getInstance();
 
         mBtnCadastrar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -49,15 +61,29 @@ public class CadastroFeedbackFragment extends Fragment {
             }
         });
 
+        mFirestore.collection("mentores").document(user.getUid()).collection("feedbacks").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if(task.isSuccessful()){
+                    maxid = 1;
+                    for(DocumentSnapshot document : task.getResult()){
+                        maxid++;
+                    }
+                }
+            }
+        });
+
         return view;
     }
 
     private void cadastrarFeedback() {
         String descricao = mEditDescricao.getText().toString();
-        int id = 1;
+        String titulo = mEditTitulo.getText().toString();
         String emailMentor = user.getEmail();
+        Date d = new Date();
+        String dataFeedback = DateFormat.getDateInstance(DateFormat.MEDIUM).format(d);
 
-        if(descricao.isEmpty() || descricao == null){
+        if(titulo.isEmpty() || titulo == null || descricao.isEmpty() || descricao == null){
             Toast.makeText(getContext(),"Descrição obrigatória!",Toast.LENGTH_SHORT).show();
             return;
         }
@@ -66,11 +92,13 @@ public class CadastroFeedbackFragment extends Fragment {
         progressDialog.show();
 
         Feedback feedback = new Feedback();
-        feedback.setId(id);
+        feedback.setId(maxid);
+        feedback.setTitulo(titulo);
+        feedback.setData(dataFeedback);
         feedback.setEmailMentor(emailMentor);
         feedback.setDescricao(descricao);
 
-        FirebaseFirestore.getInstance().collection("feedbacks")
+        FirebaseFirestore.getInstance().collection("mentores").document(user.getUid()).collection("feedbacks")
                 .add(feedback)
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override

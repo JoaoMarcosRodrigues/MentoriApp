@@ -10,13 +10,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@color/purple_500"
-            app:titleTextColor="@color/white" />
-
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/layout_titulo"
             android:layout_width="match_parent"

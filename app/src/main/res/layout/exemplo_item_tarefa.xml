@@ -17,7 +17,7 @@
             android:layout_height="50dp"
             android:layout_margin="5dp"
             android:padding="2dp"
-            android:src="@drawable/tarefa" />
+            android:src="@drawable/ic_tarefa" />
 
         <TextView
             android:id="@+id/txt_titulo_tarefa"

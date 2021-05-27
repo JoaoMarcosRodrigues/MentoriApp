@@ -23,15 +23,20 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
 import com.example.mentoriapp.Classes.Reuniao;
+import com.example.mentoriapp.Listas.ListaReunioesMentorFragment;
 import com.example.mentoriapp.Listas.ListaReunioesMentoradoFragment;
 import com.example.mentoriapp.R;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.Calendar;
 
@@ -44,22 +49,16 @@ public class CadastroReuniaoMentorFragment extends Fragment {
     private DatePickerDialog.OnDateSetListener mDateSetListener;
     private TimePickerDialog.OnTimeSetListener mTimeSetListener;
     private ProgressDialog progressDialog;
-    private Toolbar toolbar;
     private FirebaseAuth auth;
     private FirebaseUser user;
+    private FirebaseFirestore firestore;
+    int maxid;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_cadastro_reuniao_mentor, container, false);
-
-        /*
-        toolbar = view.findViewById(R.id.toolbar);
-        getActivity().setActionBar(toolbar);
-        getActivity().getActionBar().setTitle("Cadastro de Reunião");
-        getActivity().getActionBar().setDisplayHomeAsUpEnabled(true);
-         */
 
         imgRelogio = view.findViewById(R.id.img_relogio);
         imgCalendario = view.findViewById(R.id.img_calendario);
@@ -71,8 +70,21 @@ public class CadastroReuniaoMentorFragment extends Fragment {
 
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
+        firestore = FirebaseFirestore.getInstance();
 
         progressDialog = new ProgressDialog(getContext());
+
+        firestore.collection("mentores").document(user.getUid()).collection("reunioes").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if(task.isSuccessful()){
+                    maxid = 1;
+                    for(DocumentSnapshot document : task.getResult()){
+                        maxid++;
+                    }
+                }
+            }
+        });
 
         imgRelogio.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -114,6 +126,7 @@ public class CadastroReuniaoMentorFragment extends Fragment {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 String dia,mes,data;
+                month = month+1;
 
                 if(dayOfMonth < 10 && month < 10) {
                     dia = "0" + dayOfMonth;
@@ -182,8 +195,8 @@ public class CadastroReuniaoMentorFragment extends Fragment {
         progressDialog.setMessage("Cadastrando reunião...");
         progressDialog.show();
 
-        Reuniao reuniao = new Reuniao(1,titulo,descricao,data,horario,autor,"teste@gmail.com");
-        FirebaseFirestore.getInstance().collection("reunioes")
+        Reuniao reuniao = new Reuniao(maxid,titulo,descricao,data,horario,autor,"teste@gmail.com");
+        FirebaseFirestore.getInstance().collection("mentores").document(user.getUid()).collection("reunioes")
                 .add(reuniao)
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
@@ -191,7 +204,7 @@ public class CadastroReuniaoMentorFragment extends Fragment {
                         progressDialog.dismiss();
                         Toast.makeText(getContext(),"Reunião cadastrada com sucesso!",Toast.LENGTH_SHORT).show();
                         getActivity().getSupportFragmentManager().beginTransaction()
-                                .replace(R.id.fragment_mentor, new ListaReunioesMentoradoFragment())
+                                .replace(R.id.fragment_mentor, new ListaReunioesMentorFragment())
                                 .commit();
                     }
                 })

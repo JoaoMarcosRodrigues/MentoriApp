@@ -95,7 +95,7 @@
             <!-- Área de Atuação -->
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/input_atuacao_cadastro"
-                android:layout_width="match_parent"
+                android:layout_width="210dp"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/input_email_cadastro"
                 android:layout_marginLeft="20dp"
@@ -108,7 +108,7 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/edit_atuacao_cadastro"
-                    android:layout_width="match_parent"
+                    android:layout_width="210dp"
                     android:layout_height="wrap_content"
                     android:background="@drawable/edit_round"
                     android:hint="Área de atuação"
@@ -117,7 +117,27 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
+            <TextView
+                android:id="@+id/txtTempoAtuacao"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tempo de atuação:"
+                android:layout_marginTop="10dp"
+                android:layout_below="@+id/input_email_cadastro"
+                android:layout_toRightOf="@+id/input_atuacao_cadastro"
+                android:textStyle="bold"/>
+
             <!-- Formação -->
+            <Spinner
+                android:id="@+id/spinnerTempoExperiencia"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/txtTempoAtuacao"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="5dp"
+                android:layout_toRightOf="@+id/input_atuacao_cadastro"
+                android:entries="@array/tempoAtuacao" />
+
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/input_formacao"
                 android:layout_width="match_parent"

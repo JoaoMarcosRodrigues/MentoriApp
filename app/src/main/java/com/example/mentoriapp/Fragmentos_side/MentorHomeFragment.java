@@ -10,10 +10,12 @@ import android.widget.Toast;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
-import com.example.mentoriapp.Cadastro.CadastroTarefaFragment;
+import com.example.mentoriapp.Cadastro.CadastroAvaliacaoFragment;
+import com.example.mentoriapp.Cadastro.CadastroTarefaMentorFragment;
 import com.example.mentoriapp.Listas.ListaAvaliacoesFragment;
 import com.example.mentoriapp.Listas.ListaFeedbacksFragment;
 import com.example.mentoriapp.Listas.ListaReunioesMentorFragment;
+import com.example.mentoriapp.Listas.ListaTarefasMentoradoFragment;
 import com.example.mentoriapp.Listas.MeusMentoradosFragment;
 import com.example.mentoriapp.R;
 
@@ -45,38 +47,38 @@ public class MentorHomeFragment extends Fragment {
                         case 0:
                             //getActivity().getSupportFragmentManager()
                             // .beginTransaction()
-                            // .replace(R.id.fragment, new NotificacoesFragment())
+                            // .replace(R.id.fragment, new NotificacoesFragment()).addToBackStack(null)
                             // .commit();
                             Toast.makeText(getContext(),"Em produção",Toast.LENGTH_SHORT).show();
                             break;
                         case 1:
                             getActivity().getSupportFragmentManager()
                                     .beginTransaction()
-                                    .replace(R.id.fragment_mentor, new CadastroTarefaFragment())
+                                    .replace(R.id.fragment_mentor, new CadastroTarefaMentorFragment()).addToBackStack(null)
                                     .commit();
                             break;
                         case 2:
                             getActivity().getSupportFragmentManager()
                                     .beginTransaction()
-                                    .replace(R.id.fragment_mentor, new ListaAvaliacoesFragment())
+                                    .replace(R.id.fragment_mentor, new CadastroAvaliacaoFragment()).addToBackStack(null)
                                     .commit();
                             break;
                         case 3:
                             getActivity().getSupportFragmentManager()
                                     .beginTransaction()
-                                    .replace(R.id.fragment_mentor, new MeusMentoradosFragment())
+                                    .replace(R.id.fragment_mentor, new MeusMentoradosFragment()).addToBackStack(null)
                                     .commit();
                             break;
                         case 4:
                             getActivity().getSupportFragmentManager()
                                     .beginTransaction()
-                                    .replace(R.id.fragment_mentor, new ListaReunioesMentorFragment())
+                                    .replace(R.id.fragment_mentor, new ListaReunioesMentorFragment()).addToBackStack(null)
                                     .commit();
                             break;
                         case 5:
                             getActivity().getSupportFragmentManager()
                                     .beginTransaction()
-                                    .replace(R.id.fragment_mentor, new ListaFeedbacksFragment())
+                                    .replace(R.id.fragment_mentor, new ListaFeedbacksFragment()).addToBackStack(null)
                                     .commit();
                             break;
                     }

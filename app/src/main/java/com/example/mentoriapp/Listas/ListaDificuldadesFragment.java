@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -35,6 +36,7 @@ public class ListaDificuldadesFragment extends Fragment {
     private FirebaseAuth auth;
     private FirebaseUser user;
     private FirebaseFirestore db;
+    private Button btnSalvarDificuldade;
     View view;
 
     private DificuldadeAdapter adapter;
@@ -46,11 +48,13 @@ public class ListaDificuldadesFragment extends Fragment {
 
         FloatingActionButton addDificuldade = view.findViewById(R.id.btnAdicionarDificuldade);
         mRecyclerView = view.findViewById(R.id.listaDificuldades);
+        btnSalvarDificuldade = view.findViewById(R.id.btnSalvarDificuldade);
 
-        db = FirebaseFirestore.getInstance();
-        ref = db.collection("dificuldades");
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
+
+        db = FirebaseFirestore.getInstance();
+        ref = db.collection("mentorados").document(user.getUid()).collection("dificuldades");
 
         addDificuldade.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,6 +63,13 @@ public class ListaDificuldadesFragment extends Fragment {
                         .beginTransaction()
                         .replace(R.id.fragment_mentorado, new CadastroDificuldadeFragment()).addToBackStack(null)
                         .commit();
+            }
+        });
+
+        btnSalvarDificuldade.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
             }
         });
 

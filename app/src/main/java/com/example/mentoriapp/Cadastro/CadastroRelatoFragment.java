@@ -58,12 +58,13 @@ public class CadastroRelatoFragment extends Fragment implements AdapterView.OnIt
     private TextView txtData;
     private ImageView imgData;
     private RadioGroup radioGroup;
-    private RadioButton radioBtn;
+    private RadioButton radioBtnSim,radioBtnNao;
     private DatePickerDialog.OnDateSetListener mDateSetListener;
     private FirebaseAuth mAuth;
     private FirebaseUser mUser;
     private FirebaseFirestore mFirestore;
     private String presencial;
+    private int radioId;
     int maxid;
 
     public static CadastroRelatoFragment getInstance(){
@@ -87,11 +88,17 @@ public class CadastroRelatoFragment extends Fragment implements AdapterView.OnIt
         editTema = view.findViewById(R.id.edit_tema_relato);
         editDescricao = view.findViewById(R.id.edit_descricao_relato);
         radioGroup = view.findViewById(R.id.radio_group_presencial);
+        radioBtnSim = view.findViewById(R.id.radio_btn_sim);
+        radioBtnNao = view.findViewById(R.id.radio_btn_nao);
         imgData = view.findViewById(R.id.img_data_relato);
         txtData = view.findViewById(R.id.txt_data_relato);
 
+        mAuth = FirebaseAuth.getInstance();
+        mUser = mAuth.getCurrentUser();
         mFirestore = FirebaseFirestore.getInstance();
-        mFirestore.collection("relatos").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+
+        mFirestore = FirebaseFirestore.getInstance();
+        mFirestore.collection("mentorados").document(mUser.getUid()).collection("relatos").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if(task.isSuccessful()){
@@ -102,14 +109,6 @@ public class CadastroRelatoFragment extends Fragment implements AdapterView.OnIt
                 }
             }
         });
-
-        int radioId = radioGroup.getCheckedRadioButtonId();
-        radioBtn = view.findViewById(radioId);
-        presencial = radioBtn.getText().toString();
-
-        mAuth = FirebaseAuth.getInstance();
-        mUser = mAuth.getCurrentUser();
-        mFirestore = FirebaseFirestore.getInstance();
 
         botao_pronto_relato.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -139,9 +138,22 @@ public class CadastroRelatoFragment extends Fragment implements AdapterView.OnIt
         mDateSetListener = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                int mes = month+1;
+                String dia,mes,data;
+                month=month+1;
 
-                String data = dayOfMonth+"/"+mes+"/"+year;
+                if(dayOfMonth < 10 && month < 10) {
+                    dia = "0" + dayOfMonth;
+                    mes = "0" + month;
+                    data = dia+"/"+mes+"/"+year;
+                }else if(dayOfMonth < 10){
+                    dia = "0" + dayOfMonth;
+                    data = dia+"/"+month+"/"+year;
+                }else if(month < 10){
+                    mes = "0" + month;
+                    data = dayOfMonth+"/"+mes+"/"+year;
+                }else{
+                    data = dayOfMonth+"/"+month+"/"+year;
+                }
 
                 txtData.setText(data);
             }
@@ -168,11 +180,16 @@ public class CadastroRelatoFragment extends Fragment implements AdapterView.OnIt
             return;
         }
 
+        if(radioBtnSim.isChecked())
+            presencial = "Sim";
+        else
+            presencial = "Não";
+
         progressDialog.setMessage("Cadastrando relato...");
         progressDialog.show();
 
         Relato relato = new Relato(maxid,titulo,tema,descricao,data,presencial,tarefa_associada,emailMentorado);
-        FirebaseFirestore.getInstance().collection("relatos")
+        FirebaseFirestore.getInstance().collection("mentorados").document(mUser.getUid()).collection("relatos")
                 .add(relato)
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override

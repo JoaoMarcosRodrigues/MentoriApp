@@ -2,18 +2,17 @@ package com.example.mentoriapp.Cadastro;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+
 import com.example.mentoriapp.Classes.Tarefa;
-import com.example.mentoriapp.Listas.ListaTarefasFragment;
+import com.example.mentoriapp.Listas.ListaTarefasMentorFragment;
 import com.example.mentoriapp.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -27,7 +26,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
-public class CadastroTarefaFragment extends Fragment {
+public class CadastroTarefaMentorFragment extends Fragment {
 
     TextInputEditText descricaoTarefa;
     TextInputEditText tituloTarefa;
@@ -41,7 +40,7 @@ public class CadastroTarefaFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_cadastro_tarefa, container, false);
+        View view = inflater.inflate(R.layout.fragment_cadastro_tarefa_mentor, container, false);
 
         descricaoTarefa = view.findViewById(R.id.edit_descricao_tarefa);
         btnCadastroTarefa = view.findViewById(R.id.btn_cadastrar_tarefa);
@@ -51,7 +50,7 @@ public class CadastroTarefaFragment extends Fragment {
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
         mFirestore = FirebaseFirestore.getInstance();
-        mFirestore.collection("tarefas").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        mFirestore.collection("mentores").document(user.getUid()).collection("tarefas").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if(task.isSuccessful()){
@@ -90,7 +89,7 @@ public class CadastroTarefaFragment extends Fragment {
 
         Tarefa tarefa = new Tarefa(maxid,titulo,descricao,emailMentor,status);
 
-        FirebaseFirestore.getInstance().collection("tarefas")
+        FirebaseFirestore.getInstance().collection("mentores").document(user.getUid()).collection("tarefas")
                 .add(tarefa)
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
@@ -99,7 +98,7 @@ public class CadastroTarefaFragment extends Fragment {
                         Toast.makeText(getContext(),"Tarefa cadastrada com sucesso!",Toast.LENGTH_SHORT).show();
                         getActivity().getSupportFragmentManager()
                                 .beginTransaction()
-                                .replace(R.id.fragment_mentor, new ListaTarefasFragment())
+                                .replace(R.id.fragment_mentor, new ListaTarefasMentorFragment())
                                 .commit();
                     }
                 })

@@ -60,7 +60,7 @@ public class CadastroDificuldadeFragment extends Fragment {
         user = auth.getCurrentUser();
         mFirestore = FirebaseFirestore.getInstance();
 
-        mFirestore.collection("dificuldades").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        mFirestore.collection("mentorados").document(user.getUid()).collection("dificuldades").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if(task.isSuccessful()){
@@ -107,7 +107,7 @@ public class CadastroDificuldadeFragment extends Fragment {
         dificuldade.setFavorito(false);
         dificuldade.setDescricaoDificuldade(descricao);
 
-        FirebaseFirestore.getInstance().collection("dificuldades")
+        FirebaseFirestore.getInstance().collection("mentorados").document(user.getUid()).collection("dificuldades")
                 .add(dificuldade)
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override

@@ -17,7 +17,15 @@
         android:backgroundTint="#AEACAC"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:layout_margin="40dp"
+        android:layout_margin="16dp"
         android:src="@drawable/ic_add" />
+
+    <Button
+        android:id="@+id/btnSalvarDificuldade"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="16dp"
+        android:text="Salvar"/>
 
 </RelativeLayout>

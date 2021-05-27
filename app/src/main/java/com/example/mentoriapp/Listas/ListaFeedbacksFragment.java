@@ -48,9 +48,9 @@ public class ListaFeedbacksFragment extends Fragment {
         FloatingActionButton addFeedback = view.findViewById(R.id.btnAdicionarFeedback);
 
         db = FirebaseFirestore.getInstance();
-        ref = db.collection("feedbacks");
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
+        ref = db.collection("mentores").document(user.getUid()).collection("feedbacks");
 
         addFeedback.setOnClickListener(new View.OnClickListener() {
             @Override

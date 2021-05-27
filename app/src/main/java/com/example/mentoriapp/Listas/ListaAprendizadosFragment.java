@@ -46,10 +46,12 @@ public class ListaAprendizadosFragment extends Fragment {
 
         FloatingActionButton addAprendizado = view.findViewById(R.id.btnAdicionarAprendizado);
 
-        db = FirebaseFirestore.getInstance();
-        ref = db.collection("aprendizados");
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
+
+        db = FirebaseFirestore.getInstance();
+        ref = db.collection("mentorados").document(user.getUid()).collection("aprendizados");
+
 
         addAprendizado.setOnClickListener(new View.OnClickListener() {
             @Override
