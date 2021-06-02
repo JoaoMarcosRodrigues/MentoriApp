@@ -42,12 +42,12 @@ public class Tarefa {
         this.descricao = descricao;
     }
 
-    public String getEmailMentor() {
+    public String getEmail() {
         return email;
     }
 
-    public void setEmailMentor(String emailMentor) {
-        this.email = emailMentor;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public boolean isStatus() {

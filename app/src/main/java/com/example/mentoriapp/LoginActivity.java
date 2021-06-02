@@ -151,6 +151,7 @@ public class LoginActivity extends AppCompatActivity {
                     mEditor.commit();
                 }
 
+
                 FirebaseAuth.getInstance().signInWithEmailAndPassword(email, senha)
                         .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                             @Override

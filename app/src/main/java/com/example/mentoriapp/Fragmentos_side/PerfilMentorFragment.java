@@ -20,14 +20,18 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.mentoriapp.Classes.Mentor;
 import com.example.mentoriapp.R;
 import com.github.rtoshiro.util.format.SimpleMaskFormatter;
 import com.github.rtoshiro.util.format.text.MaskTextWatcher;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.PhoneAuthCredential;
+import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -95,6 +99,57 @@ public class PerfilMentorFragment extends Fragment {
         return view;
     }
 
+    private void salvarPerfil() {
+        String email = editEmail.getText().toString();
+        String telefone = editTelefone.getText().toString();
+
+        if(email.isEmpty() || telefone.isEmpty()){
+            Toast.makeText(getContext(),"Email ou Telefone vazio(s)!.",Toast.LENGTH_SHORT).show();
+            return;
+        }else{
+            progressDialog.setMessage("Atualizando perfil...");
+            progressDialog.show();
+
+            firebaseFirestore.collection("mentores").document(firebaseUser.getUid())
+                    .update("email",email,"telefone",telefone)
+                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            firebaseUser.updateEmail(email);
+
+                            //progressDialog.dismiss();
+                            //Toast.makeText(getContext(),"Perfil atualizado!",Toast.LENGTH_SHORT).show();
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            progressDialog.dismiss();
+                            Toast.makeText(getContext(),e.getMessage(),Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
+            firebaseFirestore.collection("usuarios").document(firebaseUser.getUid())
+                    .update("email",email,"telefone",telefone)
+                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            firebaseUser.updateEmail(email);
+
+                            progressDialog.dismiss();
+                            Toast.makeText(getContext(),"Perfil atualizado!",Toast.LENGTH_SHORT).show();
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            progressDialog.dismiss();
+                            Toast.makeText(getContext(),e.getMessage(),Toast.LENGTH_SHORT).show();
+                        }
+                    });
+        }
+    }
+
     private void atualizarPerfil() {
         TextView nomePerfil = view.findViewById(R.id.txt_nome_perfil_mentor);
         TextView areaAtuacao = view.findViewById(R.id.txt_area_atuacao_perfil_mentor);
@@ -120,14 +175,7 @@ public class PerfilMentorFragment extends Fragment {
                 });
     }
 
-    private void salvarPerfil() {
-        if(editEmail.getText().toString().isEmpty() || editTelefone.getText().toString().isEmpty()){
-            Toast.makeText(getContext(),"Email ou Telefone vazio(s)!.",Toast.LENGTH_SHORT).show();
-            return;
-        }else{
 
-        }
-    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {

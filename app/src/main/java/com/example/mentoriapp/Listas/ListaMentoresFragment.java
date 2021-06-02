@@ -102,20 +102,6 @@ public class ListaMentoresFragment extends Fragment {
         mRecyclerView.setAdapter(adapter);
     }
 
-    /*
-    @Override
-    public void onStart() {
-        super.onStart();
-        adapter.startListening();
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        adapter.stopListening();
-    }
-     */
-
     private class UserItem extends Item<GroupieViewHolder> {
 
         private final Mentor mentor;

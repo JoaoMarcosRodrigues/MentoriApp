@@ -61,7 +61,7 @@ public class ListaTarefasMentorFragment extends Fragment {
     private void setUpRecyclerView() {
         String email = user.getEmail();
 
-        Query query = ref.whereEqualTo("emailMentor",email);
+        Query query = ref.whereEqualTo("email",email);
         FirestoreRecyclerOptions<Tarefa> options = new FirestoreRecyclerOptions.Builder<Tarefa>()
                 .setQuery(query, Tarefa.class)
                 .build();

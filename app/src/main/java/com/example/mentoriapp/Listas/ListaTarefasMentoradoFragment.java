@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.example.mentoriapp.Adapters.TarefaAdapter;
+import com.example.mentoriapp.Cadastro.CadastroTarefaMentoradoFragment;
 import com.example.mentoriapp.Classes.Tarefa;
 import com.example.mentoriapp.R;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
@@ -41,14 +42,24 @@ public class ListaTarefasMentoradoFragment extends Fragment {
         Button salvarTarefa = view.findViewById(R.id.btnSalvarTarefa);
 
         db = FirebaseFirestore.getInstance();
-        ref = db.collection("tarefas");
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
+        ref = db.collection("mentorados").document(user.getUid()).collection("tarefas");
 
         salvarTarefa.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 salvarTarefa();
+            }
+        });
+
+        addTarefa.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.fragment_mentorado, new CadastroTarefaMentoradoFragment()).addToBackStack(null)
+                        .commit();
             }
         });
 
@@ -62,9 +73,9 @@ public class ListaTarefasMentoradoFragment extends Fragment {
     }
 
     private void setUpRecyclerView() {
-        //String email = user.getEmail();
+        String email = user.getEmail();
 
-        Query query = ref;
+        Query query = ref.whereEqualTo("email",email);
         FirestoreRecyclerOptions<Tarefa> options = new FirestoreRecyclerOptions.Builder<Tarefa>()
                 .setQuery(query, Tarefa.class)
                 .build();

@@ -187,7 +187,7 @@ public class CadastroUsuarioActivity extends AppCompatActivity {
 
                                 Usuario usuario = new Usuario(uid,email,nome,telefone,profileUrl,areaAtuacao,senha,tipo);
                                 FirebaseFirestore.getInstance().collection("usuarios")
-                                        .document(email)
+                                        .document(uid)
                                         .set(usuario)
                                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                                             @Override

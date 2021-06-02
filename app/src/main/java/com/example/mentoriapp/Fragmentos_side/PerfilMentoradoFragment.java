@@ -134,11 +134,53 @@ public class PerfilMentoradoFragment extends Fragment {
     }
 
     private void salvarPerfil() {
-        if(editEmail.getText().toString().isEmpty() || editTelefone.getText().toString().isEmpty()){
+        String email = editEmail.getText().toString();
+        String telefone = editTelefone.getText().toString();
+
+        if(email.isEmpty() || telefone.isEmpty()){
             Toast.makeText(getContext(),"Email ou Telefone vazio(s)!.",Toast.LENGTH_SHORT).show();
             return;
-        }else{
+        }else {
+            progressDialog.setMessage("Atualizando perfil...");
+            progressDialog.show();
 
+            firebaseFirestore.collection("mentorados").document(firebaseUser.getUid())
+                    .update("email", email, "telefone", telefone)
+                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            firebaseUser.updateEmail(email);
+
+                            //progressDialog.dismiss();
+                            //Toast.makeText(getContext(),"Perfil atualizado!",Toast.LENGTH_SHORT).show();
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            progressDialog.dismiss();
+                            Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
+            firebaseFirestore.collection("usuarios").document(firebaseUser.getUid())
+                    .update("email", email, "telefone", telefone)
+                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            firebaseUser.updateEmail(email);
+
+                            progressDialog.dismiss();
+                            Toast.makeText(getContext(), "Perfil atualizado!", Toast.LENGTH_SHORT).show();
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            progressDialog.dismiss();
+                            Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    });
         }
     }
 
