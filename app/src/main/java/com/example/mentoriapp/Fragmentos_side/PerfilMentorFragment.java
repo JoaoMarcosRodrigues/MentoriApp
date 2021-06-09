@@ -35,11 +35,14 @@ import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
 import org.w3c.dom.Text;
 
 import java.io.IOException;
+import java.util.UUID;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -53,7 +56,7 @@ public class PerfilMentorFragment extends Fragment {
     private CircleImageView fotoPerfil;
     private Button btnSalvarPerfil;
     private ImageButton btnFotoPerfil;
-    private TextInputEditText editTelefone,editEmail;
+    private TextInputEditText editTelefone,editNome,editFormacao,editArea,editCurriculo;
     View view;
 
     @Override
@@ -68,15 +71,18 @@ public class PerfilMentorFragment extends Fragment {
 
         btnFotoPerfil = view.findViewById(R.id.btn_img_perfil);
         btnSalvarPerfil = view.findViewById(R.id.btn_salvar_perfil_mentor);
-        editEmail = view.findViewById(R.id.edit_email_perfil_mentor);
+        editNome = view.findViewById(R.id.edit_nome_perfil_mentor);
         editTelefone = view.findViewById(R.id.edit_telefone_perfil_mentor);
+        editFormacao = view.findViewById(R.id.edit_formacao_perfil_mentor);
+        editArea = view.findViewById(R.id.edit_area_perfil_mentor);
+        editCurriculo = view.findViewById(R.id.edit_curriculo_perfil_mentor);
         fotoPerfil = view.findViewById(R.id.img_photo_perfil);
 
         SimpleMaskFormatter smf = new SimpleMaskFormatter("(NN)NNNNN-NNNN");
         MaskTextWatcher mtw = new MaskTextWatcher(editTelefone, smf);
         editTelefone.addTextChangedListener(mtw);
 
-        editEmail.setText(firebaseUser.getEmail());
+        editNome.setText(firebaseUser.getDisplayName());
 
         btnFotoPerfil.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -100,23 +106,24 @@ public class PerfilMentorFragment extends Fragment {
     }
 
     private void salvarPerfil() {
-        String email = editEmail.getText().toString();
+        String nome = editNome.getText().toString();
         String telefone = editTelefone.getText().toString();
+        String formacao = editFormacao.getText().toString();
+        String area = editArea.getText().toString();
+        String curriculo = editCurriculo.getText().toString();
 
-        if(email.isEmpty() || telefone.isEmpty()){
-            Toast.makeText(getContext(),"Email ou Telefone vazio(s)!.",Toast.LENGTH_SHORT).show();
+        if(nome.isEmpty() || telefone.isEmpty() || formacao.isEmpty() || area.isEmpty() || curriculo.isEmpty()){
+            Toast.makeText(getContext(),"O(s) campo(s) não pode(m) ficar vazio(s)!",Toast.LENGTH_SHORT).show();
             return;
         }else{
             progressDialog.setMessage("Atualizando perfil...");
             progressDialog.show();
 
             firebaseFirestore.collection("mentores").document(firebaseUser.getUid())
-                    .update("email",email,"telefone",telefone)
+                    .update("nome",nome,"telefone",telefone,"formacao",formacao,"areaAtuacao",area,"curriculo",curriculo)
                     .addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
-                            firebaseUser.updateEmail(email);
-
                             //progressDialog.dismiss();
                             //Toast.makeText(getContext(),"Perfil atualizado!",Toast.LENGTH_SHORT).show();
                         }
@@ -129,13 +136,11 @@ public class PerfilMentorFragment extends Fragment {
                         }
                     });
 
-            firebaseFirestore.collection("usuarios").document(firebaseUser.getUid())
-                    .update("email",email,"telefone",telefone)
+            firebaseFirestore.collection("usuarios").document(firebaseUser.getEmail())
+                    .update("nome",nome,"telefone",telefone,"areaAtuacao",area)
                     .addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
-                            firebaseUser.updateEmail(email);
-
                             progressDialog.dismiss();
                             Toast.makeText(getContext(),"Perfil atualizado!",Toast.LENGTH_SHORT).show();
                         }
@@ -153,7 +158,10 @@ public class PerfilMentorFragment extends Fragment {
     private void atualizarPerfil() {
         TextView nomePerfil = view.findViewById(R.id.txt_nome_perfil_mentor);
         TextView areaAtuacao = view.findViewById(R.id.txt_area_atuacao_perfil_mentor);
+        TextView email = view.findViewById(R.id.txt_email_perfil_mentor);
         TextView tempoAtuacao = view.findViewById(R.id.txt_tempo_experiencia);
+
+        email.setText(firebaseUser.getEmail());
 
         firebaseFirestore.collection("mentores").whereEqualTo("email", firebaseUser.getEmail())
                 .get()
@@ -165,7 +173,11 @@ public class PerfilMentorFragment extends Fragment {
                                 nomePerfil.setText(document.getData().get("nome").toString());
                                 areaAtuacao.setText("Área de atuação: " + document.getData().get("areaAtuacao").toString());
                                 tempoAtuacao.setText(document.getData().get("tempoAtuacao").toString());
+                                editNome.setText(document.getData().get("nome").toString());
                                 editTelefone.setText(document.getData().get("telefone").toString());
+                                editFormacao.setText(document.getData().get("formacao").toString());
+                                editArea.setText(document.getData().get("areaAtuacao").toString());
+                                editCurriculo.setText(document.getData().get("curriculo").toString());
                                 Picasso.get().load(document.getData().get("profileUrl").toString()).placeholder(R.drawable.ic_launcher_background).into(fotoPerfil);
                             }
                         } else {

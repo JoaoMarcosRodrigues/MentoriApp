@@ -161,7 +161,7 @@ public class MainMentoradoActivity extends AppCompatActivity implements Navigati
         //email.setText(currentUser.getEmail());
         //Picasso.get().load(currentUser.getPhotoUrl()).into(foto);
 
-        firebaseFirestore.collection("usuarios").whereEqualTo("email",currentUser.getEmail())
+        firebaseFirestore.collection("mentorados").whereEqualTo("email",currentUser.getEmail())
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -170,7 +170,7 @@ public class MainMentoradoActivity extends AppCompatActivity implements Navigati
                             for(QueryDocumentSnapshot document : task.getResult()){
                                 nome.setText(document.getData().get("nome").toString());
                                 email.setText(document.getData().get("email").toString());
-                                Picasso.get().load(document.getData().get("photoUrl").toString()).placeholder(R.drawable.ic_launcher_background).into(foto);
+                                Picasso.get().load(document.getData().get("profileUrl").toString()).placeholder(R.drawable.ic_launcher_background).into(foto);
                             }
                         }else{
                             Log.d("mentorados","Error: "+task.getException());

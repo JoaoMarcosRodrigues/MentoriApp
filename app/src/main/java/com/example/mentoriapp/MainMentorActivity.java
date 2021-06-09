@@ -183,7 +183,7 @@ public class MainMentorActivity extends AppCompatActivity implements NavigationV
         //email.setText(currentUser.getEmail());
         //Picasso.get().load(currentUser.getPhotoUrl()).into(foto);
 
-        firebaseFirestore.collection("usuarios").whereEqualTo("email",currentUser.getEmail())
+        firebaseFirestore.collection("mentores").whereEqualTo("email",currentUser.getEmail())
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -192,7 +192,7 @@ public class MainMentorActivity extends AppCompatActivity implements NavigationV
                             for(QueryDocumentSnapshot document : task.getResult()){
                                 nome.setText(document.getData().get("nome").toString());
                                 email.setText(document.getData().get("email").toString());
-                                Picasso.get().load(document.getData().get("photoUrl").toString()).placeholder(R.drawable.ic_launcher_background).into(foto);
+                                Picasso.get().load(document.getData().get("profileUrl").toString()).placeholder(R.drawable.ic_launcher_background).into(foto);
                             }
                         }else{
                             Log.d("mentores","Error: "+task.getException());
