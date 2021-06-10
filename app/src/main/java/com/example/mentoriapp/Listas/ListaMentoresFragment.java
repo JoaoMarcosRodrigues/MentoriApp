@@ -12,8 +12,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.mentoriapp.Adapters.AprendizadoAdapter;
 import com.example.mentoriapp.Adapters.MentoresAdapter;
@@ -37,10 +39,12 @@ import com.xwray.groupie.GroupAdapter;
 import com.xwray.groupie.GroupieViewHolder;
 import com.xwray.groupie.Item;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ListaMentoresFragment extends Fragment {
 
+    private ArrayList<Mentor> mListaMentores = new ArrayList<Mentor>();
     private RecyclerView mRecyclerView;
     private FirebaseFirestore db;
     private CollectionReference ref;
@@ -67,15 +71,7 @@ public class ListaMentoresFragment extends Fragment {
     }
 
     private void setUpRecyclerView() {
-        //String email = user.getEmail();
-
-        Query query = ref.orderBy("nome").whereEqualTo("tipo",1);
-        /*
-        FirestoreRecyclerOptions<Mentor> options = new FirestoreRecyclerOptions.Builder<Mentor>()
-                .setQuery(query, Mentor.class)
-                .build();
-         */
-
+        //Query query = ref.orderBy("nome").whereEqualTo("tipo",1);
         FirebaseFirestore.getInstance().collection("mentores")
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
@@ -88,7 +84,6 @@ public class ListaMentoresFragment extends Fragment {
                         List<DocumentSnapshot> docs = value.getDocuments();
                         for(DocumentSnapshot doc: docs){
                             Mentor mentor = doc.toObject(Mentor.class);
-                            Log.d("Teste",mentor.getNome());
                             adapter.add(new UserItem(mentor));
                         }
                     }
@@ -116,6 +111,7 @@ public class ListaMentoresFragment extends Fragment {
             TextView nome = viewHolder.itemView.findViewById(R.id.txt_nome);
             TextView formacao = viewHolder.itemView.findViewById(R.id.txt_formacao);
             TextView curriculo = viewHolder.itemView.findViewById(R.id.txt_curriculo);
+            Button btnSolicitarMentor = viewHolder.itemView.findViewById(R.id.btnSolicitarMentoria);
 
             nome.setText(mentor.getNome());
             formacao.setText(mentor.getFormacao());
@@ -124,6 +120,13 @@ public class ListaMentoresFragment extends Fragment {
             Picasso.get()
                     .load(mentor.getProfileUrl())
                     .into(imagePhoto);
+
+            btnSolicitarMentor.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(getContext(),"Nome: "+nome.getText(),Toast.LENGTH_SHORT).show();
+                }
+            });
         }
 
         @Override
@@ -131,4 +134,5 @@ public class ListaMentoresFragment extends Fragment {
             return R.layout.exemplo_item_mentores;
         }
     }
+
 }

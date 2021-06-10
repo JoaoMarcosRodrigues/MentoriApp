@@ -135,7 +135,7 @@
                     app:errorEnabled="true">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/edit_formacao_perfil_mentor"
+                        android:id="@+id/edit_area_perfil_mentor"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="text"/>
@@ -153,7 +153,7 @@
                     app:errorEnabled="true">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/edit_curriculo_perfil_mentor"
+                        android:id="@+id/edit_formacao_perfil_mentor"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="text"/>
@@ -171,7 +171,7 @@
                     app:errorEnabled="true">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/edit_area_perfil_mentor"
+                        android:id="@+id/edit_curriculo_perfil_mentor"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:lines="4"
