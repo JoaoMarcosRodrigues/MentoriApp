@@ -180,8 +180,9 @@ public class CadastroMentoradoActivity extends AppCompatActivity {
                                 String telefone = mEditTelefoneMentorado.getText().toString();
                                 String areaAtuacao = mEditAreaMentorado.getText().toString();
                                 String profileUrl = uri.toString();
+                                String emailMentor = "";
 
-                                Mentorado mentorado = new Mentorado(uid,email,senha,nome,areaAtuacao,telefone,profileUrl,2);
+                                Mentorado mentorado = new Mentorado(uid,email,emailMentor,senha,nome,areaAtuacao,telefone,profileUrl,2);
                                 FirebaseFirestore.getInstance().collection("mentorados")
                                         .document(uid)
                                         .set(mentorado)

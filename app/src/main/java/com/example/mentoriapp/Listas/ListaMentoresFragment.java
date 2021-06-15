@@ -111,7 +111,7 @@ public class ListaMentoresFragment extends Fragment {
             TextView nome = viewHolder.itemView.findViewById(R.id.txt_nome);
             TextView formacao = viewHolder.itemView.findViewById(R.id.txt_formacao);
             TextView curriculo = viewHolder.itemView.findViewById(R.id.txt_curriculo);
-            Button btnSolicitarMentor = viewHolder.itemView.findViewById(R.id.btnSolicitarMentoria);
+            Button btnVerPerfil = viewHolder.itemView.findViewById(R.id.btnVerPerfil);
 
             nome.setText(mentor.getNome());
             formacao.setText(mentor.getFormacao());
@@ -121,10 +121,24 @@ public class ListaMentoresFragment extends Fragment {
                     .load(mentor.getProfileUrl())
                     .into(imagePhoto);
 
-            btnSolicitarMentor.setOnClickListener(new View.OnClickListener() {
+            btnVerPerfil.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(getContext(),"Nome: "+nome.getText(),Toast.LENGTH_SHORT).show();
+                    ref.whereEqualTo("nome",nome.getText()).addSnapshotListener(new EventListener<QuerySnapshot>() {
+                        @Override
+                        public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                            if(error != null){
+                                Log.i("Teste", error.getMessage());
+                                return;
+                            }
+
+                            List<DocumentSnapshot> docs = value.getDocuments();
+                            for(DocumentSnapshot doc: docs){
+                                Mentor mentor = doc.toObject(Mentor.class);
+                                Toast.makeText(getContext(),"Email: "+mentor.getEmail(),Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
                 }
             });
         }

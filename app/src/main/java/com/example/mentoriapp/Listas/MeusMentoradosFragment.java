@@ -1,5 +1,6 @@
 package com.example.mentoriapp.Listas;
 
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -12,8 +13,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.mentoriapp.Adapters.AprendizadoAdapter;
 import com.example.mentoriapp.Adapters.ExemploMeuMentoradoAdapter;
@@ -72,7 +75,7 @@ public class MeusMentoradosFragment extends Fragment {
     }
 
     private void setUpRecyclerView() {
-        Query query = ref.orderBy("nome");
+        //Query query = ref.orderBy("nome");
 
         ref.addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
@@ -112,6 +115,8 @@ public class MeusMentoradosFragment extends Fragment {
             ImageView imagePhoto = viewHolder.itemView.findViewById(R.id.img_meu_mentorado);
             TextView nome = viewHolder.itemView.findViewById(R.id.txt_nome_mentorado);
             TextView areaAtuacao = viewHolder.itemView.findViewById(R.id.txt_area_atuacao_mentorado);
+            Button btnIncluir = viewHolder.itemView.findViewById(R.id.btnIncluir);
+            Button btnVerPerfil = viewHolder.itemView.findViewById(R.id.btnPerfil);
 
             nome.setText(mentorado.getNome());
             areaAtuacao.setText(mentorado.getAreaAtuacao());
@@ -119,6 +124,54 @@ public class MeusMentoradosFragment extends Fragment {
             Picasso.get()
                     .load(mentorado.getProfileUrl())
                     .into(imagePhoto);
+
+            btnIncluir.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    final String[] email = new String[1];
+                    ref.whereEqualTo("nome",nome.getText()).addSnapshotListener(new EventListener<QuerySnapshot>() {
+                        @Override
+                        public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                            if(error != null){
+                                Log.i("Teste", error.getMessage());
+                                return;
+                            }
+
+                            List<DocumentSnapshot> docs = value.getDocuments();
+                            for(DocumentSnapshot doc: docs){
+                                Mentorado mentorado = doc.toObject(Mentorado.class);
+                                email[0] = mentorado.getEmail();
+                                Toast.makeText(getContext(),"Email: "+email[0],Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+
+                    btnIncluir.setBackgroundColor(Color.rgb(255,0,0));
+                    btnIncluir.setText("Excluir");
+                    btnIncluir.setTextSize(13);
+                }
+            });
+
+            btnVerPerfil.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ref.whereEqualTo("nome",nome.getText()).addSnapshotListener(new EventListener<QuerySnapshot>() {
+                        @Override
+                        public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                            if(error != null){
+                                Log.i("Teste", error.getMessage());
+                                return;
+                            }
+
+                            List<DocumentSnapshot> docs = value.getDocuments();
+                            for(DocumentSnapshot doc: docs){
+                                Mentorado mentorado = doc.toObject(Mentorado.class);
+                                Toast.makeText(getContext(),"Email: "+mentorado.getEmail(),Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+                }
+            });
         }
 
         @Override

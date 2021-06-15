@@ -11,15 +11,17 @@ public class Mentorado implements Parcelable {
     private String areaAtuacao;
     private String telefone;
     private String profileUrl;
+    private String emailMentor;
     private int tipoUsuario;
 
     public Mentorado(){
 
     }
 
-    public Mentorado(String uuid, String email, String senha, String nome, String areaAtuacao, String telefone, String profileUrl, int tipo) {
+    public Mentorado(String uuid, String email, String emailMentor, String senha, String nome, String areaAtuacao, String telefone, String profileUrl, int tipo) {
         this.uuid = uuid;
         this.email = email;
+        this.emailMentor = emailMentor;
         this.senha = senha;
         this.nome = nome;
         this.areaAtuacao = areaAtuacao;
@@ -32,6 +34,7 @@ public class Mentorado implements Parcelable {
         uuid = in.readString();
         nome = in.readString();
         email = in.readString();
+        emailMentor = in.readString();
         senha = in.readString();
         areaAtuacao = in.readString();
         telefone = in.readString();
@@ -115,6 +118,14 @@ public class Mentorado implements Parcelable {
         this.profileUrl = profileUrl;
     }
 
+    public String getEmailMentor() {
+        return emailMentor;
+    }
+
+    public void setEmailMentor(String emailMentor) {
+        this.emailMentor = emailMentor;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -130,5 +141,6 @@ public class Mentorado implements Parcelable {
         dest.writeString(email);
         dest.writeString(senha);
         dest.writeInt(tipoUsuario);
+        dest.writeString(emailMentor);
     }
 }

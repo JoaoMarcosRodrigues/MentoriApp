@@ -31,7 +31,7 @@ public class MentoresAdapter extends FirestoreRecyclerAdapter<Mentor, MentoresAd
         TextView txtNome;
         TextView txtFormacao;
         TextView txtCurriculo;
-        Button btnSolicitarMentoria;
+        Button btnVerPerfil;
 
         public MentoresHolder(@NonNull View itemView) {
             super(itemView);
@@ -40,7 +40,7 @@ public class MentoresAdapter extends FirestoreRecyclerAdapter<Mentor, MentoresAd
             txtFormacao = itemView.findViewById(R.id.txt_formacao);
             txtCurriculo = itemView.findViewById(R.id.txt_curriculo);
             imgFotoPerfil = itemView.findViewById(R.id.img_foto_perfil);
-            btnSolicitarMentoria = itemView.findViewById(R.id.btnSolicitarMentoria);
+            btnVerPerfil = itemView.findViewById(R.id.btnVerPerfil);
         }
     }
 

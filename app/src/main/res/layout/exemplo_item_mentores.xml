@@ -51,10 +51,13 @@
             android:textSize="15sp"/>
 
         <Button
-            android:id="@+id/btnSolicitarMentoria"
+            android:id="@+id/btnVerPerfil"
             android:layout_width="wrap_content"
-            android:text="Solicitar mentoria"
+            android:text="Ver perfil"
             android:layout_height="wrap_content"
+            android:textSize="13sp"
+            android:backgroundTint="#7CCEF3"
+            android:textColor="#434343"
             android:layout_below="@+id/txt_curriculo"
             android:layout_margin="10dp"/>
 
