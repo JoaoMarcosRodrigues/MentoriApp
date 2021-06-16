@@ -2,15 +2,15 @@ package com.example.mentoriapp.Classes;
 
 public class Dificuldade {
     private int id;
-    private int idRelato;
+    private String tituloRelato;
     private String tagDificuldade;
     private String descricaoDificuldade;
     private boolean favorito;
     private String emailMentorado;
 
-    public Dificuldade(int id, int idRelato, String tagDificuldade, String descricaoDificuldade, boolean favorito, String emailMentorado) {
+    public Dificuldade(int id, String tituloRelato, String tagDificuldade, String descricaoDificuldade, boolean favorito, String emailMentorado) {
         this.id = id;
-        this.idRelato = idRelato;
+        this.tituloRelato = tituloRelato;
         this.tagDificuldade = tagDificuldade;
         this.descricaoDificuldade = descricaoDificuldade;
         this.favorito = favorito;
@@ -43,12 +43,12 @@ public class Dificuldade {
 
     public Dificuldade(){}
 
-    public int getIdRelato() {
-        return idRelato;
+    public String getTituloRelato() {
+        return tituloRelato;
     }
 
-    public void setIdRelato(int idRelato) {
-        this.idRelato = idRelato;
+    public void setTituloRelato(String tituloRelato) {
+        this.tituloRelato = tituloRelato;
     }
 
     public String getTagDificuldade() {

@@ -43,9 +43,12 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 public class CadastroRelatoFragment extends Fragment implements AdapterView.OnItemSelectedListener {
 
@@ -63,6 +66,7 @@ public class CadastroRelatoFragment extends Fragment implements AdapterView.OnIt
     private FirebaseAuth mAuth;
     private FirebaseUser mUser;
     private FirebaseFirestore mFirestore;
+    private CollectionReference ref;
     private String presencial;
     private int radioId;
     int maxid;
@@ -81,6 +85,7 @@ public class CadastroRelatoFragment extends Fragment implements AdapterView.OnIt
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_cadastro_relato, container, false);
+
         progressDialog = new ProgressDialog(getActivity());
         spinner = view.findViewById(R.id.spinner_tarefas_associadas);
         botao_pronto_relato = view.findViewById(R.id.btn_relato_pronto);
@@ -96,8 +101,38 @@ public class CadastroRelatoFragment extends Fragment implements AdapterView.OnIt
         mAuth = FirebaseAuth.getInstance();
         mUser = mAuth.getCurrentUser();
         mFirestore = FirebaseFirestore.getInstance();
+        ref = mFirestore.collection("mentorados").document(mUser.getUid()).collection("tarefas");
+        List<String> listaTarefas = new ArrayList<>();
 
-        mFirestore = FirebaseFirestore.getInstance();
+        ArrayAdapter arrayAdapter = new ArrayAdapter(getActivity(), android.R.layout.simple_spinner_dropdown_item,listaTarefas);
+        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(arrayAdapter);
+
+        ref.whereEqualTo("email",mUser.getEmail()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if(task.isSuccessful()){
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        String subject = document.getString("titulo");
+                        listaTarefas.add(subject);
+                    }
+                    arrayAdapter.notifyDataSetChanged();
+                }
+            }
+        });
+
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                tarefa_associada = spinner.getSelectedItem().toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                // Quando nada for selecionado
+            }
+        });
+
         mFirestore.collection("mentorados").document(mUser.getUid()).collection("relatos").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -158,11 +193,6 @@ public class CadastroRelatoFragment extends Fragment implements AdapterView.OnIt
                 txtData.setText(data);
             }
         };
-
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(), R.array.numeros, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
-        spinner.setOnItemSelectedListener(this);
 
         return view;
     }

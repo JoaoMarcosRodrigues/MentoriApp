@@ -9,6 +9,8 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -24,10 +26,15 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class CadastroDificuldadeFragment extends Fragment {
 
@@ -38,7 +45,9 @@ public class CadastroDificuldadeFragment extends Fragment {
     private FirebaseAuth auth;
     private FirebaseUser user;
     private FirebaseFirestore mFirestore;
+    private CollectionReference ref;
     int maxid;
+    String relatoSelecionado;
 
     public static CadastroDificuldadeFragment getInstance(){
         CadastroDificuldadeFragment cadastroDificuldadeFragment = new CadastroDificuldadeFragment();
@@ -50,15 +59,46 @@ public class CadastroDificuldadeFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_cadastro_dificuldade, container, false);
 
+        auth = FirebaseAuth.getInstance();
+        user = auth.getCurrentUser();
+        mFirestore = FirebaseFirestore.getInstance();
+        ref = mFirestore.collection("mentorados").document(user.getUid()).collection("relatos");
+        List<String> listaRelatos = new ArrayList<>();
+
         editTag = view.findViewById(R.id.edit_tag_dificuldade);
         editDescricao = view.findViewById(R.id.edit_dificuldade);
         progressDialog = new ProgressDialog(getContext());
         btnSalvar = view.findViewById(R.id.btn_cadastrar_dificuldade);
         spinnerRelatos = view.findViewById(R.id.spinner_relatos);
 
-        auth = FirebaseAuth.getInstance();
-        user = auth.getCurrentUser();
-        mFirestore = FirebaseFirestore.getInstance();
+        ArrayAdapter arrayAdapter = new ArrayAdapter(getActivity(), android.R.layout.simple_spinner_dropdown_item,listaRelatos);
+        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerRelatos.setAdapter(arrayAdapter);
+
+        ref.whereEqualTo("emailMentorado",user.getEmail()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if(task.isSuccessful()){
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        String subject = document.getString("titulo");
+                        listaRelatos.add(subject);
+                    }
+                    arrayAdapter.notifyDataSetChanged();
+                }
+            }
+        });
+
+        spinnerRelatos.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                relatoSelecionado = spinnerRelatos.getSelectedItem().toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                // Quando nada for selecionado
+            }
+        });
 
         mFirestore.collection("mentorados").document(user.getUid()).collection("dificuldades").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
@@ -86,8 +126,6 @@ public class CadastroDificuldadeFragment extends Fragment {
     private void cadastrarDificuldade() {
         String tag = editTag.getText().toString();
         String descricao = editDescricao.getText().toString();
-        Bundle bundle = new Bundle();
-        int id_relato = bundle.getInt("idRelato");
 
         if(tag == null || tag.isEmpty() || descricao.isEmpty() || descricao == null){
             Toast.makeText(getContext(),"Tag e descrição obrigatórios!",Toast.LENGTH_SHORT).show();
@@ -101,7 +139,7 @@ public class CadastroDificuldadeFragment extends Fragment {
 
         Dificuldade dificuldade = new Dificuldade();
         dificuldade.setId(maxid);
-        dificuldade.setIdRelato(id_relato);
+        dificuldade.setTituloRelato(relatoSelecionado);
         dificuldade.setTagDificuldade(tag);
         dificuldade.setEmailMentorado(email);
         dificuldade.setFavorito(false);
