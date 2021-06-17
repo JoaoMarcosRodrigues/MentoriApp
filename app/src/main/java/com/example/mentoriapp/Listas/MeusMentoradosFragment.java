@@ -1,5 +1,6 @@
 package com.example.mentoriapp.Listas;
 
+import android.app.ProgressDialog;
 import android.graphics.Color;
 import android.os.Bundle;
 
@@ -26,14 +27,20 @@ import com.example.mentoriapp.Cadastro.CadastroAprendizadoFragment;
 import com.example.mentoriapp.Classes.Aprendizado;
 import com.example.mentoriapp.Classes.Mentor;
 import com.example.mentoriapp.Classes.Mentorado;
+import com.example.mentoriapp.Classes.Mentoria;
 import com.example.mentoriapp.Itens.ExemploItemMeuMentorado;
 import com.example.mentoriapp.Itens.ExemploItemRelato;
 import com.example.mentoriapp.R;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -54,8 +61,12 @@ public class MeusMentoradosFragment extends Fragment {
     private FirebaseFirestore db;
     private CollectionReference ref;
     private FirebaseAuth auth;
-    //private FirebaseUser user;
+    private FirebaseUser user;
+    final String[] email = new String[1];
+    ProgressDialog progressDialog;
+    Button btnVerTodosMentorados;
     View view;
+    int maxid;
 
     private GroupAdapter adapter;
 
@@ -67,14 +78,65 @@ public class MeusMentoradosFragment extends Fragment {
         db = FirebaseFirestore.getInstance();
         ref = db.collection("mentorados");
         auth = FirebaseAuth.getInstance();
+        user = auth.getCurrentUser();
+        progressDialog = new ProgressDialog(getContext());
         //user = auth.getCurrentUser();
 
-        setUpRecyclerView();
+        db.collection("mentorias").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if(task.isSuccessful()){
+                    maxid = 1;
+                    for(DocumentSnapshot document : task.getResult()){
+                        maxid++;
+                    }
+                }
+            }
+        });
+
+        verMeusMentorados();
+
+        btnVerTodosMentorados = view.findViewById(R.id.btnVerTodosMentorados);
+
+        btnVerTodosMentorados.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                verTodosMentorados();
+            }
+        });
 
         return view;
     }
 
-    private void setUpRecyclerView() {
+    private void verMeusMentorados() {
+        //Query query = ref.orderBy("nome");
+
+        ref.addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                if(error != null){
+                    Log.i("Teste", error.getMessage());
+                    return;
+                }
+
+                List<DocumentSnapshot> docs = value.getDocuments();
+                for(DocumentSnapshot doc: docs){
+                    Mentorado mentorado = doc.toObject(Mentorado.class);
+                    //Log.d("Teste",mentor.getNome());
+                    adapter.add(new UserItem(mentorado));
+                }
+            }
+        });
+
+
+        adapter = new GroupAdapter();
+        mRecyclerView = view.findViewById(R.id.recycler_meus_mentorados);
+        mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        mRecyclerView.setAdapter(adapter);
+    }
+
+    private void verTodosMentorados() {
         //Query query = ref.orderBy("nome");
 
         ref.addSnapshotListener(new EventListener<QuerySnapshot>() {
@@ -128,7 +190,10 @@ public class MeusMentoradosFragment extends Fragment {
             btnIncluir.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    final String[] email = new String[1];
+                    String emailMentor = user.getEmail();
+                    progressDialog.setMessage("Incluindo Mentorado e criando Mentoria...");
+                    progressDialog.show();
+
                     ref.whereEqualTo("nome",nome.getText()).addSnapshotListener(new EventListener<QuerySnapshot>() {
                         @Override
                         public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
@@ -141,14 +206,31 @@ public class MeusMentoradosFragment extends Fragment {
                             for(DocumentSnapshot doc: docs){
                                 Mentorado mentorado = doc.toObject(Mentorado.class);
                                 email[0] = mentorado.getEmail();
-                                Toast.makeText(getContext(),"Email: "+email[0],Toast.LENGTH_SHORT).show();
+                                Mentoria mentoria = new Mentoria(maxid,emailMentor,mentorado.getEmail());
+
+                                FirebaseFirestore.getInstance().collection("mentorias")
+                                        .add(mentoria)
+                                        .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                            @Override
+                                            public void onSuccess(DocumentReference documentReference) {
+                                                progressDialog.dismiss();
+                                                Toast.makeText(getContext(),"Mentoria cadastrada com sucesso!",Toast.LENGTH_SHORT).show();
+
+                                                btnIncluir.setBackgroundColor(Color.rgb(255,0,0));
+                                                btnIncluir.setText("Excluir");
+                                                btnIncluir.setTextSize(13);
+                                            }
+                                        })
+                                        .addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                progressDialog.dismiss();
+                                                Toast.makeText(getContext(),"Ops, houve um erro no cadastro da mentoria! Tente novamente.",Toast.LENGTH_SHORT).show();
+                                            }
+                                        });
                             }
                         }
                     });
-
-                    btnIncluir.setBackgroundColor(Color.rgb(255,0,0));
-                    btnIncluir.setText("Excluir");
-                    btnIncluir.setTextSize(13);
                 }
             });
 

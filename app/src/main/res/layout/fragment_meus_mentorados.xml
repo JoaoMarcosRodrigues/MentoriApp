@@ -12,7 +12,17 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_meus_mentorados"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/btnVerTodosMentorados"
+            android:layout_alignParentTop="true" />
+
+        <Button
+            android:id="@+id/btnVerTodosMentorados"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Ver todos os Mentorados"
+            android:layout_margin="15dp"
+            android:layout_alignParentBottom="true"/>
 
 
     </RelativeLayout>
