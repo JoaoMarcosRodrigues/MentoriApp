@@ -18,15 +18,15 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import com.example.mentoriapp.Fragmentos_side.ChatMentorFragment;
 import com.example.mentoriapp.Fragmentos_side.ConfiguracaoFragment;
 import com.example.mentoriapp.Fragmentos_side.ContatoFragment;
+import com.example.mentoriapp.Fragmentos_side.ContatosActivity;
 import com.example.mentoriapp.Fragmentos_side.MentorHomeFragment;
+import com.example.mentoriapp.Fragmentos_side.MessagesActivity;
 import com.example.mentoriapp.Fragmentos_side.PerfilMentorFragment;
 import com.example.mentoriapp.Fragmentos_side.SobreFragment;
 import com.example.mentoriapp.Fragmentos_side.TutorialFragment;
 import com.example.mentoriapp.Listas.ListaReunioesMentorFragment;
-import com.example.mentoriapp.Listas.ListaReunioesMentoradoFragment;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
@@ -123,8 +123,7 @@ public class MainMentorActivity extends AppCompatActivity implements NavigationV
                         .addToBackStack(null).commit();
                 break;
             case R.id.nav_chat:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_mentor, new ChatMentorFragment())
-                        .addToBackStack(null).commit();
+                startActivity(new Intent(getApplicationContext(), MessagesActivity.class));
                 break;
             case R.id.nav_reuniao:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_mentor, new ListaReunioesMentorFragment())

@@ -21,11 +21,9 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import com.example.mentoriapp.CadastroUsuarioActivity;
 import com.example.mentoriapp.Classes.Mentor;
 import com.example.mentoriapp.Classes.Usuario;
 import com.example.mentoriapp.MainMentorActivity;
-import com.example.mentoriapp.MainMentoradoActivity;
 import com.example.mentoriapp.R;
 import com.github.rtoshiro.util.format.SimpleMaskFormatter;
 import com.github.rtoshiro.util.format.text.MaskTextWatcher;
@@ -36,14 +34,12 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.UUID;
 
 public class CadastroMentorActivity extends AppCompatActivity {
@@ -270,7 +266,7 @@ public class CadastroMentorActivity extends AppCompatActivity {
 
                                 Usuario usuario = new Usuario(uid,email,nome,telefone,profileUrl,areaAtuacao,senha,tipo);
                                 FirebaseFirestore.getInstance().collection("usuarios")
-                                        .document(email)
+                                        .document(uid)
                                         .set(usuario)
                                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                                             @Override

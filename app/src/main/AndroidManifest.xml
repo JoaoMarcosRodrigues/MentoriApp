@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.mentoriapp">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -11,6 +11,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MentoriApp">
+        <activity android:name=".ChatActivity"
+            android:parentActivityName=".Fragmentos_side.ContatosActivity"></activity>
+        <activity
+            android:name=".Fragmentos_side.ContatosActivity"
+            android:label="Contatos"
+            android:parentActivityName=".Fragmentos_side.MessagesActivity"></activity>
+        <activity
+            android:name=".Fragmentos_side.MessagesActivity"
+            android:label="Mensagens" />
         <activity android:name=".SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,12 +30,12 @@
         <activity android:name=".RecuperarSenhaActivity" />
         <activity android:name=".LoginActivity" />
         <activity android:name=".OpcaoCadastroActivity" />
-        <activity android:name=".Mentor.CadastroMentorActivity"
-            android:parentActivityName=".OpcaoCadastroActivity"/>
-        <activity android:name=".Mentorado.CadastroMentoradoActivity"
-            android:parentActivityName=".OpcaoCadastroActivity"/>
-        <activity android:name=".CadastroUsuarioActivity"
-            android:parentActivityName=".OpcaoCadastroActivity"/>
+        <activity
+            android:name=".Mentor.CadastroMentorActivity"
+            android:parentActivityName=".OpcaoCadastroActivity" />
+        <activity
+            android:name=".Mentorado.CadastroMentoradoActivity"
+            android:parentActivityName=".OpcaoCadastroActivity" />
         <activity
             android:name=".MainMentoradoActivity"
             android:theme="@style/Theme.Design.Light.NoActionBar" />

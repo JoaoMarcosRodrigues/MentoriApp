@@ -1,35 +1,25 @@
-package com.example.mentoriapp.Fragmentos_side;
-
-import android.os.Bundle;
+package com.example.mentoriapp;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentResultListener;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.mentoriapp.Classes.Mentorado;
 import com.example.mentoriapp.Classes.Message;
-import com.example.mentoriapp.R;
+import com.example.mentoriapp.Classes.Usuario;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -39,46 +29,34 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.squareup.picasso.Picasso;
-import com.xwray.groupie.GroupAdapter;
+import com.xwray.groupie.GroupieAdapter;
 import com.xwray.groupie.GroupieViewHolder;
 import com.xwray.groupie.Item;
 
 import java.util.List;
 
+public class ChatActivity extends AppCompatActivity {
 
-public class MessageMentoradoFragment extends Fragment {
-
-    private GroupAdapter adapter;
-    Mentorado mentorado;
+    private GroupieAdapter adapter;
+    private Usuario usuario;
     private EditText editChat;
-    String toId, imgProfile;
-    private Mentorado me;
+    private Usuario me;
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.act_chat);
 
-        getParentFragmentManager().setFragmentResultListener("mentorado",this, new FragmentResultListener() {
-            @Override
-            public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle result) {
-                String nome = result.getString("nome");
-                toId = result.getString("id");
-                imgProfile = result.getString("imgProfile");
-                //Toast.makeText(getContext(),"Nome: "+nome,Toast.LENGTH_SHORT).show();
-                ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle(nome);
-            }
-        });
-    }
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_mentorado_message, container, false);
+        usuario = getIntent().getExtras().getParcelable("user");
+        getSupportActionBar().setTitle(usuario.getNome());
 
-        RecyclerView rv = view.findViewById(R.id.recycler_chat);
-        Button btnChat = view.findViewById(R.id.btn_enviar);
-        editChat = view.findViewById(R.id.edit_chat);
-        mentorado = new Mentorado();
+        RecyclerView rv = findViewById(R.id.recycler_chat);
+        editChat = findViewById(R.id.edit_chat);
+        Button btnChat = findViewById(R.id.btn_enviar);
 
         btnChat.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -87,40 +65,39 @@ public class MessageMentoradoFragment extends Fragment {
             }
         });
 
-        adapter = new GroupAdapter();
-        rv.setLayoutManager(new LinearLayoutManager(getContext()));
+        adapter = new GroupieAdapter();
+        rv.setLayoutManager(new LinearLayoutManager(this));
         rv.setAdapter(adapter);
 
-        FirebaseFirestore.getInstance().collection("/usuarios")
+        FirebaseFirestore.getInstance().collection("usuarios")
                 .document(FirebaseAuth.getInstance().getUid())
                 .get()
                 .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                     @Override
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
-                        me = documentSnapshot.toObject(Mentorado.class);
-                        fetchMessage();
+                        me = documentSnapshot.toObject(Usuario.class);
+                        fetchMessages();
                     }
                 });
 
-        return view;
     }
 
-    private void fetchMessage() {
+    private void fetchMessages() {
         if(me != null){
             String fromId = me.getUuid();
-            //String toId = mentorado.getUuid();
+            String toId = usuario.getUuid();
 
-            FirebaseFirestore.getInstance().collection("/conversas")
+            FirebaseFirestore.getInstance().collection("conversations")
                     .document(fromId)
                     .collection(toId)
                     .orderBy("timestamp", Query.Direction.ASCENDING)
                     .addSnapshotListener(new EventListener<QuerySnapshot>() {
                         @Override
                         public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-                            List<DocumentChange> documentChangeList = value.getDocumentChanges();
+                            List<DocumentChange> documentChanges = value.getDocumentChanges();
 
-                            if(documentChangeList != null){
-                                for(DocumentChange doc: documentChangeList){
+                            if(documentChanges != null){
+                                for(DocumentChange doc : documentChanges){
                                     if(doc.getType() == DocumentChange.Type.ADDED){
                                         Message message = doc.getDocument().toObject(Message.class);
                                         adapter.add(new MessageItem(message));
@@ -137,7 +114,7 @@ public class MessageMentoradoFragment extends Fragment {
         editChat.setText(null);
 
         String fromId = FirebaseAuth.getInstance().getUid();
-        //String toId = mentorado.getUuid();
+        String toId = usuario.getUuid();
         long timestamp = System.currentTimeMillis();
 
         Message message = new Message();
@@ -147,7 +124,7 @@ public class MessageMentoradoFragment extends Fragment {
         message.setText(text);
 
         if(!message.getText().isEmpty()){
-            FirebaseFirestore.getInstance().collection("/conversas")
+            FirebaseFirestore.getInstance().collection("conversations")
                     .document(fromId)
                     .collection(toId)
                     .add(message)
@@ -164,7 +141,7 @@ public class MessageMentoradoFragment extends Fragment {
                         }
                     });
 
-            FirebaseFirestore.getInstance().collection("/conversas")
+            FirebaseFirestore.getInstance().collection("conversations")
                     .document(toId)
                     .collection(fromId)
                     .add(message)
@@ -183,29 +160,12 @@ public class MessageMentoradoFragment extends Fragment {
         }
     }
 
-    @Override
-    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-        getActivity().getMenuInflater().inflate(R.menu.menu_mensagens,menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()){
-            case R.id.contatos:
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_mentorado,new ChatMentoradoFragment()).commit();
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    private class MessageItem extends Item<GroupieViewHolder>{
-
+    private class MessageItem extends Item<GroupieViewHolder> {
         private final Message message;
 
         private MessageItem(Message message) {
             this.message = message;
         }
-
 
         @Override
         public void bind(@NonNull GroupieViewHolder viewHolder, int position) {
@@ -214,15 +174,13 @@ public class MessageMentoradoFragment extends Fragment {
 
             txtMsg.setText(message.getText());
             Picasso.get()
-                    .load(imgProfile)
+                    .load(usuario.getPhotoUrl())
                     .into(imgMsg);
         }
 
         @Override
         public int getLayout() {
-            return message.getFromId().equals(FirebaseAuth.getInstance().getUid())
-                    ? R.layout.item_from_message
-                    : R.layout.item_to_message;
+            return message.getFromId().equals(FirebaseAuth.getInstance().getUid()) ? R.layout.item_from_message : R.layout.item_to_message;
         }
     }
 }

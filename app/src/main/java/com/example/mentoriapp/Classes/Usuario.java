@@ -1,6 +1,9 @@
 package com.example.mentoriapp.Classes;
 
-public class Usuario {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Usuario implements Parcelable {
     private String uuid;
     private String email;
     private String nome;
@@ -10,7 +13,7 @@ public class Usuario {
     private String senha;
     private int tipo;
 
-    public Usuario(String uuid, String email, String nome, String telefone, String photoUrl, String areaAtuacao, String senha, int tipo) {
+    public Usuario(String uuid, String email, String nome, String telefone, String photoUrl, String areaAtuacao, String senha, int tipo){
         this.uuid = uuid;
         this.email = email;
         this.nome = nome;
@@ -20,6 +23,46 @@ public class Usuario {
         this.senha = senha;
         this.tipo = tipo;
     }
+
+    protected Usuario(Parcel in) {
+        uuid = in.readString();
+        email = in.readString();
+        nome = in.readString();
+        telefone = in.readString();
+        photoUrl = in.readString();
+        areaAtuacao = in.readString();
+        senha = in.readString();
+        tipo = in.readInt();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(uuid);
+        dest.writeString(email);
+        dest.writeString(nome);
+        dest.writeString(telefone);
+        dest.writeString(photoUrl);
+        dest.writeString(areaAtuacao);
+        dest.writeString(senha);
+        dest.writeInt(tipo);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<Usuario> CREATOR = new Creator<Usuario>() {
+        @Override
+        public Usuario createFromParcel(Parcel in) {
+            return new Usuario(in);
+        }
+
+        @Override
+        public Usuario[] newArray(int size) {
+            return new Usuario[size];
+        }
+    };
 
     public String getUuid() {
         return uuid;
@@ -86,4 +129,6 @@ public class Usuario {
     public void setTipo(int tipo) {
         this.tipo = tipo;
     }
+
+
 }

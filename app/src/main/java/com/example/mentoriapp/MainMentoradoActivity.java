@@ -16,13 +16,13 @@ import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.mentoriapp.Fragmentos_side.ChatMentoradoFragment;
 import com.example.mentoriapp.Fragmentos_side.ConfiguracaoFragment;
 import com.example.mentoriapp.Fragmentos_side.ContatoFragment;
+import com.example.mentoriapp.Fragmentos_side.ContatosActivity;
 import com.example.mentoriapp.Fragmentos_side.MentoradoHomeFragment;
+import com.example.mentoriapp.Fragmentos_side.MessagesActivity;
 import com.example.mentoriapp.Fragmentos_side.PerfilMentoradoFragment;
 import com.example.mentoriapp.Listas.ListaMentoresFragment;
-import com.example.mentoriapp.Listas.ListaReunioesMentoradoFragment;
 import com.example.mentoriapp.Fragmentos_side.SobreFragment;
 import com.example.mentoriapp.Fragmentos_side.TutorialFragment;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -107,7 +107,7 @@ public class MainMentoradoActivity extends AppCompatActivity implements Navigati
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_mentorado,new PerfilMentoradoFragment()).addToBackStack(null).commit();
                 break;
             case R.id.nav_chat:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_mentorado, new ChatMentoradoFragment()).addToBackStack(null).commit();
+                startActivity(new Intent(getApplicationContext(), MessagesActivity.class));
                 break;
             case R.id.nav_mentores:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_mentorado, new ListaMentoresFragment()).addToBackStack(null).commit();
