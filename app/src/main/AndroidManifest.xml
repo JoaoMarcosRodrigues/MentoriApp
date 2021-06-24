@@ -11,12 +11,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MentoriApp">
-        <activity android:name=".ChatActivity"
-            android:parentActivityName=".Fragmentos_side.ContatosActivity"></activity>
+        <activity android:name=".Detalhes.DetalheRelatoActivity"></activity>
+        <activity
+            android:name=".ChatActivity"
+            android:parentActivityName=".Fragmentos_side.ContatosActivity" />
         <activity
             android:name=".Fragmentos_side.ContatosActivity"
             android:label="Contatos"
-            android:parentActivityName=".Fragmentos_side.MessagesActivity"></activity>
+            android:parentActivityName=".Fragmentos_side.MessagesActivity" />
         <activity
             android:name=".Fragmentos_side.MessagesActivity"
             android:label="Mensagens" />

@@ -1,54 +1,92 @@
 package com.example.mentoriapp.Listas;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.mentoriapp.Adapters.ExemploRelatoAdapter;
-import com.example.mentoriapp.Adapters.RelatoAdapter;
 import com.example.mentoriapp.Cadastro.CadastroRelatoFragment;
 import com.example.mentoriapp.Classes.Relato;
-import com.example.mentoriapp.Fragmentos_side.MentorHomeFragment;
-import com.example.mentoriapp.Itens.ExemploItemRelato;
-import com.example.mentoriapp.MainMentorActivity;
+import com.example.mentoriapp.Detalhes.DetalheRelatoActivity;
 import com.example.mentoriapp.R;
-import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.xwray.groupie.GroupieAdapter;
+import com.xwray.groupie.GroupieViewHolder;
+import com.xwray.groupie.Item;
+import com.xwray.groupie.OnItemClickListener;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class ListaRelatosFragment extends Fragment {
 
-    private RecyclerView mRecyclerView;
+    private RecyclerView recycler_relatos;
     private FirebaseFirestore db;
     private CollectionReference ref;
     private FirebaseAuth auth;
     private FirebaseUser user;
+    private GroupieAdapter adapter;
     View view;
 
-    private RelatoAdapter adapter;
+    //private RelatoAdapter adapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_lista_relatos, container, false);
 
+        recycler_relatos = view.findViewById(R.id.listaRelatos);
+
+        adapter = new GroupieAdapter();
+        recycler_relatos.setAdapter(adapter);
+        recycler_relatos.setLayoutManager(new LinearLayoutManager(getContext()));
+        recycler_relatos.setHasFixedSize(true);
+
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
         db = FirebaseFirestore.getInstance();
         ref = db.collection("mentorados").document(user.getUid()).collection("relatos");
+
+        adapter.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(@NonNull Item item, @NonNull View view) {
+                ListaRelatosFragment myFrag = new ListaRelatosFragment();
+
+                Intent intent = new Intent(getContext(), DetalheRelatoActivity.class);
+                RelatoItem relatoItem = (RelatoItem) item;
+                intent.putExtra("relato",relatoItem.relato);
+                //bundle.putParcelable("relato",relatoItem.getItem(0));
+                //bundle.putString("tema", relatoItem.getItem(0).toString());
+                //bundle.putString("data", relatoItem.getItem(0).toString());
+                //myFrag.setArguments(bundle);
+                startActivity(intent);
+
+                /*
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                fragmentManager.beginTransaction().replace(R.id.fragment_mentorado, new DetalheRelatoActivity()).commit();
+                 */
+
+                Toast.makeText(getContext(),"Clicou no item: "+item.getId(),Toast.LENGTH_SHORT).show();
+            }
+        });
 
         FloatingActionButton addRelato = view.findViewById(R.id.btnAdicionarRelato);
 
@@ -62,38 +100,54 @@ public class ListaRelatosFragment extends Fragment {
             }
         });
 
-        setUpRecyclerView();
+        fetchRelatos();
 
         return view;
     }
 
-    private void setUpRecyclerView() {
-        String email = user.getEmail();
+    private void fetchRelatos() {
+        FirebaseFirestore.getInstance().collection("mentorados").document(user.getUid()).collection("relatos")
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                        if(error != null){
+                            Log.e("Teste", error.getMessage(),error);
+                            return;
+                        }
 
-        Query query = ref.orderBy("data",Query.Direction.ASCENDING)
-                .whereEqualTo("emailMentorado",email);
-        FirestoreRecyclerOptions<Relato> options = new FirestoreRecyclerOptions.Builder<Relato>()
-                .setQuery(query, Relato.class)
-                .build();
+                        List<DocumentSnapshot> docs = value.getDocuments();
+                        for(DocumentSnapshot doc : docs){
+                            Relato relato = doc.toObject(Relato.class);
+                            Log.d("Teste",relato.getTitulo());
 
-        adapter = new RelatoAdapter(options);
-        mRecyclerView = view.findViewById(R.id.listaRelatos);
-        mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        mRecyclerView.setAdapter(adapter);
+                            adapter.add(new RelatoItem(relato));
+                        }
+                    }
+                });
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        adapter.startListening();
-    }
+    private class RelatoItem extends Item<GroupieViewHolder> {
 
-    @Override
-    public void onStop() {
-        super.onStop();
-        adapter.stopListening();
-    }
+        private final Relato relato;
 
-    
+        private RelatoItem(Relato relato){
+            this.relato = relato;
+        }
+
+        @Override
+        public void bind(@NonNull GroupieViewHolder viewHolder, int position) {
+            TextView tituloRelato = viewHolder.itemView.findViewById(R.id.txt_titulo_relato);
+            TextView temaRelato = viewHolder.itemView.findViewById(R.id.txt_tema_relato);
+            TextView dataRelato = viewHolder.itemView.findViewById(R.id.txt_data_relato);
+
+            tituloRelato.setText(relato.getTitulo());
+            temaRelato.setText(relato.getTema());
+            dataRelato.setText(relato.getData());
+        }
+
+        @Override
+        public int getLayout() {
+            return R.layout.exemplo_item_relato;
+        }
+    }
 }

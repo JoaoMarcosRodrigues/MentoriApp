@@ -15,11 +15,13 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.mentoriapp.Classes.Contato;
 import com.example.mentoriapp.Classes.Message;
 import com.example.mentoriapp.Classes.Usuario;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -41,6 +43,8 @@ public class ChatActivity extends AppCompatActivity {
     private Usuario usuario;
     private EditText editChat;
     private Usuario me;
+    private FirebaseUser userCorrente;
+    private FirebaseAuth auth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +57,9 @@ public class ChatActivity extends AppCompatActivity {
 
         usuario = getIntent().getExtras().getParcelable("user");
         getSupportActionBar().setTitle(usuario.getNome());
+
+        auth = FirebaseAuth.getInstance();
+        userCorrente = auth.getCurrentUser();
 
         RecyclerView rv = findViewById(R.id.recycler_chat);
         editChat = findViewById(R.id.edit_chat);
@@ -132,6 +139,19 @@ public class ChatActivity extends AppCompatActivity {
                         @Override
                         public void onSuccess(DocumentReference documentReference) {
                             Log.d("Teste",documentReference.getId());
+
+                            Contato contato = new Contato();
+                            contato.setUuid(toId);
+                            contato.setUsername(usuario.getNome());
+                            contato.setPhotoUrl(usuario.getPhotoUrl());
+                            contato.setTimestamp(message.getTimestamp());
+                            contato.setLastMessage(message.getText());
+
+                            FirebaseFirestore.getInstance().collection("last-messages")
+                                    .document(fromId)
+                                    .collection("contatos")
+                                    .document(toId)
+                                    .set(contato);
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
@@ -149,6 +169,19 @@ public class ChatActivity extends AppCompatActivity {
                         @Override
                         public void onSuccess(DocumentReference documentReference) {
                             Log.d("Teste",documentReference.getId());
+
+                            Contato contato = new Contato();
+                            contato.setUuid(toId);
+                            contato.setUsername(usuario.getNome());
+                            contato.setPhotoUrl(usuario.getPhotoUrl());
+                            contato.setTimestamp(message.getTimestamp());
+                            contato.setLastMessage(message.getText());
+
+                            FirebaseFirestore.getInstance().collection("last-messages")
+                                    .document(toId)
+                                    .collection("contatos")
+                                    .document(fromId)
+                                    .set(contato);
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
@@ -174,7 +207,9 @@ public class ChatActivity extends AppCompatActivity {
 
             txtMsg.setText(message.getText());
             Picasso.get()
-                    .load(usuario.getPhotoUrl())
+                    .load(message.getFromId().equals(FirebaseAuth.getInstance().getUid())
+                            ? me.getPhotoUrl()
+                            : usuario.getPhotoUrl())
                     .into(imgMsg);
         }
 

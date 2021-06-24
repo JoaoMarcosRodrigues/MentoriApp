@@ -1,6 +1,9 @@
 package com.example.mentoriapp.Classes;
 
-public class Relato {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Relato implements Parcelable {
     private int id;
     private String titulo;
     private String tema;
@@ -20,6 +23,29 @@ public class Relato {
         this.tarefa_associada = tarefa_associada;
         this.emailMentorado = emailMentorado;
     }
+
+    protected Relato(Parcel in) {
+        id = in.readInt();
+        titulo = in.readString();
+        tema = in.readString();
+        descricao = in.readString();
+        data = in.readString();
+        presencial = in.readString();
+        tarefa_associada = in.readString();
+        emailMentorado = in.readString();
+    }
+
+    public static final Creator<Relato> CREATOR = new Creator<Relato>() {
+        @Override
+        public Relato createFromParcel(Parcel in) {
+            return new Relato(in);
+        }
+
+        @Override
+        public Relato[] newArray(int size) {
+            return new Relato[size];
+        }
+    };
 
     public String getTitulo() {
         return titulo;
@@ -85,5 +111,24 @@ public class Relato {
 
     public void setTarefa_associada(String tarefa_associada) {
         this.tarefa_associada = tarefa_associada;
+    }
+
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+
+        dest.writeInt(id);
+        dest.writeString(titulo);
+        dest.writeString(tema);
+        dest.writeString(descricao);
+        dest.writeString(data);
+        dest.writeString(presencial);
+        dest.writeString(tarefa_associada);
+        dest.writeString(emailMentorado);
     }
 }
