@@ -11,7 +11,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MentoriApp">
-        <activity android:name=".Detalhes.DetalheRelatoActivity"></activity>
+        <activity android:name=".Detalhes.DetalheFeedbackActivity"></activity>
+        <activity android:name=".Detalhes.DetalheDificuldadeActivity" />
+        <activity android:name=".Detalhes.DetalheAprendizadoActivity" />
+        <activity android:name=".Detalhes.DetalheRelatoActivity" />
         <activity
             android:name=".ChatActivity"
             android:parentActivityName=".Fragmentos_side.ContatosActivity" />

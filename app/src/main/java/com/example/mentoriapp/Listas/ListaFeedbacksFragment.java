@@ -2,13 +2,17 @@ package com.example.mentoriapp.Listas;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.example.mentoriapp.Adapters.AprendizadoAdapter;
 import com.example.mentoriapp.Adapters.ExemploFeedbackAdapter;
@@ -17,6 +21,7 @@ import com.example.mentoriapp.Cadastro.CadastroAprendizadoFragment;
 import com.example.mentoriapp.Cadastro.CadastroFeedbackFragment;
 import com.example.mentoriapp.Classes.Aprendizado;
 import com.example.mentoriapp.Classes.Feedback;
+import com.example.mentoriapp.Classes.Relato;
 import com.example.mentoriapp.Itens.ExemploItemFeedback;
 import com.example.mentoriapp.R;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
@@ -24,21 +29,30 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.xwray.groupie.GroupieAdapter;
+import com.xwray.groupie.GroupieViewHolder;
+import com.xwray.groupie.Item;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ListaFeedbacksFragment extends Fragment {
 
-    private RecyclerView mRecyclerView;
+    private RecyclerView recycler_feedbacks;
     private FirebaseFirestore db;
     private CollectionReference ref;
     private FirebaseAuth auth;
     private FirebaseUser user;
+    private GroupieAdapter adapter;
     View view;
 
-    private FeedbackAdapter adapter;
+    //private FeedbackAdapter adapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -46,6 +60,12 @@ public class ListaFeedbacksFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_lista_feedbacks, container, false);
 
         FloatingActionButton addFeedback = view.findViewById(R.id.btnAdicionarFeedback);
+        recycler_feedbacks = view.findViewById(R.id.recycler_feedbacks);
+
+        adapter = new GroupieAdapter();
+        recycler_feedbacks.setAdapter(adapter);
+        recycler_feedbacks.setLayoutManager(new LinearLayoutManager(getContext()));
+        recycler_feedbacks.setHasFixedSize(true);
 
         db = FirebaseFirestore.getInstance();
         auth = FirebaseAuth.getInstance();
@@ -62,36 +82,54 @@ public class ListaFeedbacksFragment extends Fragment {
             }
         });
 
-        setUpRecyclerView();
+        fetchFeedbacks();
 
         return view;
     }
 
-    private void setUpRecyclerView() {
-        String email = user.getEmail();
+    private void fetchFeedbacks() {
+        FirebaseFirestore.getInstance().collection("mentores").document(user.getUid()).collection("feedbacks")
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                        if(error != null){
+                            Log.e("Teste", error.getMessage(),error);
+                            return;
+                        }
 
-        Query query = ref.whereEqualTo("emailMentor",email);
-        FirestoreRecyclerOptions<Feedback> options = new FirestoreRecyclerOptions.Builder<Feedback>()
-                .setQuery(query, Feedback.class)
-                .build();
+                        List<DocumentSnapshot> docs = value.getDocuments();
+                        for(DocumentSnapshot doc : docs){
+                            Feedback feedback = doc.toObject(Feedback.class);
+                            Log.d("Teste",feedback.getTitulo());
 
-
-        adapter = new FeedbackAdapter(options);
-        mRecyclerView = view.findViewById(R.id.recycler_feedbacks);
-        mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        mRecyclerView.setAdapter(adapter);
+                            adapter.add(new FeedbackItem(feedback));
+                        }
+                    }
+                });
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        adapter.startListening();
-    }
+    private class FeedbackItem extends Item<GroupieViewHolder> {
 
-    @Override
-    public void onStop() {
-        super.onStop();
-        adapter.stopListening();
+        private final Feedback feedback;
+
+        private FeedbackItem(Feedback feedback){
+            this.feedback = feedback;
+        }
+
+        @Override
+        public void bind(@NonNull GroupieViewHolder viewHolder, int position) {
+            TextView tituloRelato = viewHolder.itemView.findViewById(R.id.txt_titulo_feedback);
+            TextView temaRelato = viewHolder.itemView.findViewById(R.id.txt_descricao_feedback);
+            TextView dataRelato = viewHolder.itemView.findViewById(R.id.txt_data_feedback);
+
+            tituloRelato.setText(feedback.getTitulo());
+            temaRelato.setText(feedback.getDescricao());
+            dataRelato.setText(feedback.getData());
+        }
+
+        @Override
+        public int getLayout() {
+            return R.layout.exemplo_item_feedback;
+        }
     }
 }

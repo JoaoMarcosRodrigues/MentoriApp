@@ -1,6 +1,9 @@
 package com.example.mentoriapp.Classes;
 
-public class Dificuldade {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Dificuldade implements Parcelable {
     private int id;
     private String tituloRelato;
     private String tagDificuldade;
@@ -16,6 +19,42 @@ public class Dificuldade {
         this.favorito = favorito;
         this.emailMentorado = emailMentorado;
     }
+
+    protected Dificuldade(Parcel in) {
+        id = in.readInt();
+        tituloRelato = in.readString();
+        tagDificuldade = in.readString();
+        descricaoDificuldade = in.readString();
+        favorito = in.readByte() != 0;
+        emailMentorado = in.readString();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeString(tituloRelato);
+        dest.writeString(tagDificuldade);
+        dest.writeString(descricaoDificuldade);
+        dest.writeByte((byte) (favorito ? 1 : 0));
+        dest.writeString(emailMentorado);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<Dificuldade> CREATOR = new Creator<Dificuldade>() {
+        @Override
+        public Dificuldade createFromParcel(Parcel in) {
+            return new Dificuldade(in);
+        }
+
+        @Override
+        public Dificuldade[] newArray(int size) {
+            return new Dificuldade[size];
+        }
+    };
 
     public boolean isFavorito() {
         return favorito;

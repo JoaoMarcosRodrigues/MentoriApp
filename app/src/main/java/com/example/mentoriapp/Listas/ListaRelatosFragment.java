@@ -68,23 +68,11 @@ public class ListaRelatosFragment extends Fragment {
         adapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(@NonNull Item item, @NonNull View view) {
-                ListaRelatosFragment myFrag = new ListaRelatosFragment();
-
                 Intent intent = new Intent(getContext(), DetalheRelatoActivity.class);
                 RelatoItem relatoItem = (RelatoItem) item;
-                intent.putExtra("relato",relatoItem.relato);
-                //bundle.putParcelable("relato",relatoItem.getItem(0));
-                //bundle.putString("tema", relatoItem.getItem(0).toString());
-                //bundle.putString("data", relatoItem.getItem(0).toString());
-                //myFrag.setArguments(bundle);
+                intent.putExtra("feedback",relatoItem.relato);
+
                 startActivity(intent);
-
-                /*
-                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                fragmentManager.beginTransaction().replace(R.id.fragment_mentorado, new DetalheRelatoActivity()).commit();
-                 */
-
-                Toast.makeText(getContext(),"Clicou no item: "+item.getId(),Toast.LENGTH_SHORT).show();
             }
         });
 
