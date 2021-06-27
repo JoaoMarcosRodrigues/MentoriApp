@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.os.Bundle;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.mentoriapp.Classes.Feedback;
@@ -13,7 +14,8 @@ import com.example.mentoriapp.R;
 public class DetalheFeedbackActivity extends AppCompatActivity {
 
     Feedback feedback;
-    Toolbar toolbar;
+    private Toolbar toolbar;
+    private TextView txtDescricao,txtData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,6 +23,9 @@ public class DetalheFeedbackActivity extends AppCompatActivity {
         setContentView(R.layout.activity_detalhe_feedback);
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        txtDescricao = findViewById(R.id.txtDescrição);
+        txtData = findViewById(R.id.txtData);
 
         Bundle bundle = getIntent().getExtras();
         feedback = bundle.getParcelable("feedback");
@@ -30,6 +35,9 @@ public class DetalheFeedbackActivity extends AppCompatActivity {
         String descricao = feedback.getDescricao();
         String data = feedback.getData();
 
-        Toast.makeText(this,titulo+"-"+descricao+"-"+data,Toast.LENGTH_SHORT).show();
+        txtData.setText(data);
+        txtDescricao.setText(descricao);
+
+        //Toast.makeText(this,titulo+"-"+descricao+"-"+data,Toast.LENGTH_SHORT).show();
     }
 }

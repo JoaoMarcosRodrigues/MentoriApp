@@ -1,6 +1,7 @@
 package com.example.mentoriapp.Listas;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 
@@ -28,6 +29,8 @@ import com.example.mentoriapp.Classes.Aprendizado;
 import com.example.mentoriapp.Classes.Mentor;
 import com.example.mentoriapp.Classes.Mentorado;
 import com.example.mentoriapp.Classes.Mentoria;
+import com.example.mentoriapp.Detalhes.DetalheAprendizadoActivity;
+import com.example.mentoriapp.Detalhes.MentoradoPerfilVisitaActivity;
 import com.example.mentoriapp.Itens.ExemploItemMeuMentorado;
 import com.example.mentoriapp.Itens.ExemploItemRelato;
 import com.example.mentoriapp.R;
@@ -51,13 +54,14 @@ import com.squareup.picasso.Picasso;
 import com.xwray.groupie.GroupAdapter;
 import com.xwray.groupie.GroupieViewHolder;
 import com.xwray.groupie.Item;
+import com.xwray.groupie.OnItemClickListener;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class MeusMentoradosFragment extends Fragment {
 
-    private RecyclerView mRecyclerView;
+    private RecyclerView recycler_meus_mentorados;
     private FirebaseFirestore db;
     private CollectionReference ref;
     private FirebaseAuth auth;
@@ -128,12 +132,23 @@ public class MeusMentoradosFragment extends Fragment {
             }
         });
 
-
         adapter = new GroupAdapter();
-        mRecyclerView = view.findViewById(R.id.recycler_meus_mentorados);
-        mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        mRecyclerView.setAdapter(adapter);
+        recycler_meus_mentorados = view.findViewById(R.id.recycler_meus_mentorados);
+        recycler_meus_mentorados.setHasFixedSize(true);
+        recycler_meus_mentorados.setLayoutManager(new LinearLayoutManager(getContext()));
+        recycler_meus_mentorados.setAdapter(adapter);
+
+        adapter.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(@NonNull Item item, @NonNull View view) {
+                Intent intent = new Intent(getContext(), MentoradoPerfilVisitaActivity.class);
+                UserItem userItem = (UserItem) item;
+                intent.putExtra("mentorado",userItem.mentorado);
+
+                startActivity(intent);
+            }
+        });
+
     }
 
     private void verTodosMentorados() {
@@ -156,12 +171,22 @@ public class MeusMentoradosFragment extends Fragment {
             }
         });
 
-
         adapter = new GroupAdapter();
-        mRecyclerView = view.findViewById(R.id.recycler_meus_mentorados);
-        mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        mRecyclerView.setAdapter(adapter);
+        recycler_meus_mentorados = view.findViewById(R.id.recycler_meus_mentorados);
+        recycler_meus_mentorados.setHasFixedSize(true);
+        recycler_meus_mentorados.setLayoutManager(new LinearLayoutManager(getContext()));
+        recycler_meus_mentorados.setAdapter(adapter);
+
+        adapter.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(@NonNull Item item, @NonNull View view) {
+                Intent intent = new Intent(getContext(), MentoradoPerfilVisitaActivity.class);
+                UserItem userItem = (UserItem) item;
+                intent.putExtra("mentorado",userItem.mentorado);
+
+                startActivity(intent);
+            }
+        });
     }
 
     private class UserItem extends Item<GroupieViewHolder> {
@@ -178,7 +203,6 @@ public class MeusMentoradosFragment extends Fragment {
             TextView nome = viewHolder.itemView.findViewById(R.id.txt_nome_mentorado);
             TextView areaAtuacao = viewHolder.itemView.findViewById(R.id.txt_area_atuacao_mentorado);
             Button btnIncluir = viewHolder.itemView.findViewById(R.id.btnIncluir);
-            Button btnVerPerfil = viewHolder.itemView.findViewById(R.id.btnPerfil);
 
             nome.setText(mentorado.getNome());
             areaAtuacao.setText(mentorado.getAreaAtuacao());
@@ -230,27 +254,6 @@ public class MeusMentoradosFragment extends Fragment {
                                         });
 
                                 db.collection("mentorados").document(mentorado.getUuid()).update("emailMentor",emailMentor);
-                            }
-                        }
-                    });
-                }
-            });
-
-            btnVerPerfil.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    ref.whereEqualTo("nome",nome.getText()).addSnapshotListener(new EventListener<QuerySnapshot>() {
-                        @Override
-                        public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-                            if(error != null){
-                                Log.i("Teste", error.getMessage());
-                                return;
-                            }
-
-                            List<DocumentSnapshot> docs = value.getDocuments();
-                            for(DocumentSnapshot doc: docs){
-                                Mentorado mentorado = doc.toObject(Mentorado.class);
-                                Toast.makeText(getContext(),"Email: "+mentorado.getEmail(),Toast.LENGTH_SHORT).show();
                             }
                         }
                     });

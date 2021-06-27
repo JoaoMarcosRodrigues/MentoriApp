@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -9,4 +9,91 @@
     <include android:id="@+id/toolbar"
         layout="@layout/toolbar"/>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <CheckBox
+        android:id="@+id/check_favorito_dificuldade"
+        style="?android:attr/starStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:text=" Favorito"
+        android:textSize="16sp"
+        android:layout_margin="18dp"
+        android:layout_below="@+id/toolbar"/>
+
+    <RelativeLayout
+        android:id="@+id/layout1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/check_favorito_dificuldade"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="15dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/edit_round"
+        android:padding="20dp">
+
+        <TextView
+            android:id="@+id/lblDificuldade"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="32dp"
+            android:layout_marginRight="32dp"
+            android:text="Descrição"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/txtDescrição"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/lblDificuldade"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginRight="32dp"
+            android:hint="Discorra sua dificuldade..."
+            android:textSize="18sp" />
+    </RelativeLayout>
+
+    <View
+        android:id="@+id/linha"
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:background="#A5A2A2"
+        android:layout_below="@+id/layout1"
+        android:layout_marginTop="20dp"
+        android:focusable="false" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/linha"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="15dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/edit_round"
+        android:padding="20dp">
+
+        <TextView
+            android:id="@+id/lblRelato"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Relato associado"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/txtRelato"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="32dp"
+            android:layout_marginRight="32dp"
+            android:hint="Relato..."
+            android:textStyle="italic"
+            android:textSize="18sp"
+            android:layout_marginTop="16dp"
+            android:layout_below="@+id/lblRelato"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>

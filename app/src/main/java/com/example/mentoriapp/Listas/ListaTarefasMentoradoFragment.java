@@ -110,7 +110,7 @@ public class ListaTarefasMentoradoFragment extends Fragment {
     }
 
     private void fetchTarefas() {
-        FirebaseFirestore.getInstance().collection("mentorados").document(user.getUid()).collection("tarefas")
+        db.collection("mentorados").document(user.getUid()).collection("tarefas")
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
                     public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {

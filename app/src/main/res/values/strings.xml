@@ -44,6 +44,7 @@
     <string name="checkbox">com.example.mentoriapp.checkbox</string>
     <string name="email">com.example.mentoriapp.email</string>
     <string name="senha">com.example.mentoriapp.senha</string>
+    <string name="posTarefa">Assim que concluir esta tarefa, entre em contato com seu mentor e relate as suas dificuldades, dúvidas e soluções referente a esta tarefa.</string>
 
     <string-array name="numeros">
         <item>Nenhuma</item>
