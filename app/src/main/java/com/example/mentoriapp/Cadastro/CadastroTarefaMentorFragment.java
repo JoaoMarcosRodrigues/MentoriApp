@@ -5,7 +5,10 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -21,20 +24,28 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class CadastroTarefaMentorFragment extends Fragment {
 
-    TextInputEditText descricaoTarefa;
-    TextInputEditText tituloTarefa;
-    Button btnCadastroTarefa;
-    ProgressDialog progressDialog;
+    private TextInputEditText descricaoTarefa;
+    private TextInputEditText tituloTarefa;
+    private Button btnCadastroTarefa;
+    private ProgressDialog progressDialog;
+    private Spinner spinnerMentorado;
     private FirebaseAuth auth;
     private FirebaseUser user;
     private FirebaseFirestore mFirestore;
+    private CollectionReference ref;
+    String mentoradoSelecionado;
     int maxid;
 
     @Override
@@ -45,6 +56,7 @@ public class CadastroTarefaMentorFragment extends Fragment {
         descricaoTarefa = view.findViewById(R.id.edit_descricao_tarefa);
         btnCadastroTarefa = view.findViewById(R.id.btn_cadastrar_tarefa);
         tituloTarefa = view.findViewById(R.id.edit_titulo_tarefa);
+        spinnerMentorado = view.findViewById(R.id.spinner_mentorados);
         progressDialog = new ProgressDialog(getContext());
 
         auth = FirebaseAuth.getInstance();
@@ -59,6 +71,39 @@ public class CadastroTarefaMentorFragment extends Fragment {
                         maxid++;
                     }
                 }
+            }
+        });
+
+        //ref = mFirestore.collection("mentorias").document(user.getUid()).collection("relatos");
+        ref = mFirestore.collection("mentorias");
+        List<String> listaMentorados = new ArrayList<>();
+
+        ArrayAdapter arrayAdapter = new ArrayAdapter(getActivity(), android.R.layout.simple_spinner_dropdown_item,listaMentorados);
+        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerMentorado.setAdapter(arrayAdapter);
+
+        ref.whereEqualTo("emailMentor",user.getEmail()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if(task.isSuccessful()){
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        String subject = document.getString("emailMentorado");
+                        listaMentorados.add(subject);
+                    }
+                    arrayAdapter.notifyDataSetChanged();
+                }
+            }
+        });
+
+        spinnerMentorado.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                mentoradoSelecionado = spinnerMentorado.getSelectedItem().toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                // Quando nada for selecionado
             }
         });
 
@@ -87,7 +132,7 @@ public class CadastroTarefaMentorFragment extends Fragment {
         progressDialog.show();
 
 
-        Tarefa tarefa = new Tarefa(maxid,titulo,descricao,email,status);
+        Tarefa tarefa = new Tarefa(maxid,titulo,descricao,email,mentoradoSelecionado,status);
 
         FirebaseFirestore.getInstance().collection("mentores").document(user.getUid()).collection("tarefas")
                 .add(tarefa)

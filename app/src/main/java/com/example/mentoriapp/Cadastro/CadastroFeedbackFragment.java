@@ -9,8 +9,11 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.mentoriapp.Classes.Feedback;
@@ -23,22 +26,29 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class CadastroFeedbackFragment extends Fragment {
 
     private TextInputEditText mEditDescricao,mEditTitulo;
     private Button mBtnCadastrar;
+    private Spinner spinnerMentorado;
     private ProgressDialog progressDialog;
     private FirebaseAuth auth;
     private FirebaseUser user;
     private FirebaseFirestore mFirestore;
+    private CollectionReference ref;
+    String mentoradoSelecionado;
     int maxid;
 
     @Override
@@ -49,10 +59,43 @@ public class CadastroFeedbackFragment extends Fragment {
         mEditTitulo = view.findViewById(R.id.edit_titulo_feedback);
         mEditDescricao = view.findViewById(R.id.edit_descricao_feedback);
         mBtnCadastrar = view.findViewById(R.id.btn_cadastrar_feedback);
+        spinnerMentorado = view.findViewById(R.id.spinner_relatos);
         progressDialog = new ProgressDialog(getContext());
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
         mFirestore = FirebaseFirestore.getInstance();
+
+        ref = mFirestore.collection("mentorias");
+        List<String> listaMentorados = new ArrayList<>();
+
+        ArrayAdapter arrayAdapter = new ArrayAdapter(getActivity(), android.R.layout.simple_spinner_dropdown_item,listaMentorados);
+        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerMentorado.setAdapter(arrayAdapter);
+
+        ref.whereEqualTo("emailMentor",user.getEmail()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if(task.isSuccessful()){
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        String subject = document.getString("emailMentorado");
+                        listaMentorados.add(subject);
+                    }
+                    arrayAdapter.notifyDataSetChanged();
+                }
+            }
+        });
+
+        spinnerMentorado.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                mentoradoSelecionado = spinnerMentorado.getSelectedItem().toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                // Quando nada for selecionado
+            }
+        });
 
         mBtnCadastrar.setOnClickListener(new View.OnClickListener() {
             @Override

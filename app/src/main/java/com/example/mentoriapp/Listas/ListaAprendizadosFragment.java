@@ -20,6 +20,7 @@ import com.example.mentoriapp.Adapters.RelatoAdapter;
 import com.example.mentoriapp.Cadastro.CadastroAprendizadoFragment;
 import com.example.mentoriapp.Classes.Aprendizado;
 import com.example.mentoriapp.Classes.Relato;
+import com.example.mentoriapp.Detalhes.DetalheAprendizadoActivity;
 import com.example.mentoriapp.Detalhes.DetalheRelatoActivity;
 import com.example.mentoriapp.Itens.ExemploItemAprendizado;
 import com.example.mentoriapp.R;
@@ -77,7 +78,7 @@ public class ListaAprendizadosFragment extends Fragment {
         adapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(@NonNull Item item, @NonNull View view) {
-                Intent intent = new Intent(getContext(), DetalheRelatoActivity.class);
+                Intent intent = new Intent(getContext(), DetalheAprendizadoActivity.class);
                 AprendizadoItem aprendizadoItem = (AprendizadoItem) item;
                 intent.putExtra("aprendizado",aprendizadoItem.aprendizado);
 

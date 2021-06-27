@@ -1,22 +1,63 @@
 package com.example.mentoriapp.Classes;
 
-public class Tarefa {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Tarefa implements Parcelable {
     private int id;
     private String titulo;
     private String descricao;
-    private String email;
+    private String emailAutor;
+    private String emailDestinatario;
     private boolean status;
 
-    public Tarefa(int id, String titulo, String descricao, String email, boolean status) {
+    public Tarefa(int id, String titulo, String descricao, String emailAutor, String emailDestinatario, boolean status) {
         this.id = id;
         this.titulo = titulo;
         this.descricao = descricao;
-        this.email = email;
+        this.emailAutor = emailAutor;
+        this.emailDestinatario = emailDestinatario;
         this.status = status;
     }
 
     public Tarefa() {
     }
+
+    protected Tarefa(Parcel in) {
+        id = in.readInt();
+        titulo = in.readString();
+        descricao = in.readString();
+        emailAutor = in.readString();
+        emailDestinatario = in.readString();
+        status = in.readByte() != 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeString(titulo);
+        dest.writeString(descricao);
+        dest.writeString(emailAutor);
+        dest.writeString(emailDestinatario);
+        dest.writeByte((byte) (status ? 1 : 0));
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<Tarefa> CREATOR = new Creator<Tarefa>() {
+        @Override
+        public Tarefa createFromParcel(Parcel in) {
+            return new Tarefa(in);
+        }
+
+        @Override
+        public Tarefa[] newArray(int size) {
+            return new Tarefa[size];
+        }
+    };
 
     public int getId() {
         return id;
@@ -42,12 +83,20 @@ public class Tarefa {
         this.descricao = descricao;
     }
 
-    public String getEmail() {
-        return email;
+    public String getEmailAutor() {
+        return emailAutor;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setEmailAutor(String emailAutor) {
+        this.emailAutor = emailAutor;
+    }
+
+    public String getEmailDestinatario() {
+        return emailDestinatario;
+    }
+
+    public void setEmailDestinatario(String emailDestinatario) {
+        this.emailDestinatario = emailDestinatario;
     }
 
     public boolean isStatus() {

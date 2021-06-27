@@ -6,85 +6,105 @@
     android:layout_height="match_parent"
     tools:context=".Cadastro.CadastroFeedbackFragment">
 
-    <RelativeLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-            <RelativeLayout
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="730dp">
+
+            <ImageView
+                android:id="@+id/img_cadastro_mentorado"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="50dp"
+                android:src="@drawable/ic_feedback" />
+
+            <TextView
+                android:id="@+id/txt_titulo_cadastro_feedback"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/img_cadastro_mentorado"
+                android:layout_centerHorizontal="true"
+                android:text="Feedback"
+                android:textSize="28sp"
+                android:textStyle="bold" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/layout_titulo_feedback"
                 android:layout_width="match_parent"
-                android:layout_height="730dp">
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/txt_titulo_cadastro_feedback"
+                android:layout_marginLeft="40dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginRight="40dp"
+                app:counterEnabled="true"
+                app:counterMaxLength="255"
+                app:errorEnabled="true">
 
-                <ImageView
-                    android:id="@+id/img_cadastro_mentorado"
-                    android:layout_width="150dp"
-                    android:layout_height="150dp"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="50dp"
-                    android:src="@drawable/ic_feedback" />
-
-                <TextView
-                    android:id="@+id/txt_titulo_cadastro_feedback"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/img_cadastro_mentorado"
-                    android:layout_centerHorizontal="true"
-                    android:text="Feedback"
-                    android:textSize="28sp"
-                    android:textStyle="bold" />
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/layout_titulo_feedback"
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edit_titulo_feedback"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="40dp"
-                    android:layout_marginTop="30dp"
-                    android:layout_marginRight="40dp"
-                    app:counterEnabled="true"
-                    app:counterMaxLength="255"
-                    android:layout_below="@+id/txt_titulo_cadastro_feedback"
-                    app:errorEnabled="true">
+                    android:hint="Título do feedback"
+                    android:inputType="text" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/edit_titulo_feedback"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="Título do feedback"/>
-                </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/layout_descricao_feedback"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/layout_titulo_feedback"
+                android:layout_marginLeft="40dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="40dp"
+                app:counterEnabled="true"
+                app:counterMaxLength="255"
+                app:errorEnabled="true">
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/layout_descricao_feedback"
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edit_descricao_feedback"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/layout_titulo_feedback"
-                    android:layout_marginLeft="40dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginRight="40dp"
-                    app:counterEnabled="true"
-                    app:counterMaxLength="255"
-                    app:errorEnabled="true">
+                    android:gravity="top|left"
+                    android:hint="Descreva aqui seu feedback..."
+                    android:inputType="textMultiLine"
+                    android:lines="5" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/edit_descricao_feedback"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="top|left"
-                        android:hint="Descreva aqui seu feedback..."
-                        android:inputType="textMultiLine"
-                        android:lines="5" />
-                </com.google.android.material.textfield.TextInputLayout>
+            <TextView
+                android:id="@+id/txtRelatos"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/layout_descricao_feedback"
+                android:layout_marginLeft="40dp"
+                android:layout_marginTop="20dp"
+                android:text="Relatos"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
-                <Button
-                    android:id="@+id/btn_cadastrar_feedback"
-                    android:layout_width="180dp"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginBottom="50dp"
-                    android:text="Cadastrar" />
+            <Spinner
+                android:id="@+id/spinner_relatos"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/txtRelatos"
+                android:layout_marginLeft="40dp"
+                android:layout_marginTop="15dp" />
 
-            </RelativeLayout>
+            <Button
+                android:id="@+id/btn_cadastrar_feedback"
+                android:layout_width="180dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/spinner_relatos"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="60dp"
+                android:layout_marginBottom="30dp"
+                android:text="Cadastrar" />
 
-    </RelativeLayout>
+        </RelativeLayout>
+
+    </ScrollView>
 
 </FrameLayout>

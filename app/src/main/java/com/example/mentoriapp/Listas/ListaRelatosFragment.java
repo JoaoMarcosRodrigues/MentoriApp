@@ -70,7 +70,7 @@ public class ListaRelatosFragment extends Fragment {
             public void onItemClick(@NonNull Item item, @NonNull View view) {
                 Intent intent = new Intent(getContext(), DetalheRelatoActivity.class);
                 RelatoItem relatoItem = (RelatoItem) item;
-                intent.putExtra("feedback",relatoItem.relato);
+                intent.putExtra("relato",relatoItem.relato);
 
                 startActivity(intent);
             }

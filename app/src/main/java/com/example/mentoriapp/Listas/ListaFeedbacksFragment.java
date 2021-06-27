@@ -1,5 +1,6 @@
 package com.example.mentoriapp.Listas;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -22,6 +23,8 @@ import com.example.mentoriapp.Cadastro.CadastroFeedbackFragment;
 import com.example.mentoriapp.Classes.Aprendizado;
 import com.example.mentoriapp.Classes.Feedback;
 import com.example.mentoriapp.Classes.Relato;
+import com.example.mentoriapp.Detalhes.DetalheAprendizadoActivity;
+import com.example.mentoriapp.Detalhes.DetalheFeedbackActivity;
 import com.example.mentoriapp.Itens.ExemploItemFeedback;
 import com.example.mentoriapp.R;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
@@ -38,6 +41,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.xwray.groupie.GroupieAdapter;
 import com.xwray.groupie.GroupieViewHolder;
 import com.xwray.groupie.Item;
+import com.xwray.groupie.OnItemClickListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,8 +64,8 @@ public class ListaFeedbacksFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_lista_feedbacks, container, false);
 
         FloatingActionButton addFeedback = view.findViewById(R.id.btnAdicionarFeedback);
-        recycler_feedbacks = view.findViewById(R.id.recycler_feedbacks);
 
+        recycler_feedbacks = view.findViewById(R.id.recycler_feedbacks);
         adapter = new GroupieAdapter();
         recycler_feedbacks.setAdapter(adapter);
         recycler_feedbacks.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -71,6 +75,17 @@ public class ListaFeedbacksFragment extends Fragment {
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
         ref = db.collection("mentores").document(user.getUid()).collection("feedbacks");
+
+        adapter.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(@NonNull Item item, @NonNull View view) {
+                Intent intent = new Intent(getContext(), DetalheFeedbackActivity.class);
+                FeedbackItem feedbackItemItem = (FeedbackItem) item;
+                intent.putExtra("feedback",feedbackItemItem.feedback);
+
+                startActivity(intent);
+            }
+        });
 
         addFeedback.setOnClickListener(new View.OnClickListener() {
             @Override

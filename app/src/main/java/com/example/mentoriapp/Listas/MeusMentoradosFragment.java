@@ -111,7 +111,7 @@ public class MeusMentoradosFragment extends Fragment {
     private void verMeusMentorados() {
         //Query query = ref.orderBy("nome");
 
-        ref.addSnapshotListener(new EventListener<QuerySnapshot>() {
+        ref.whereEqualTo("emailMentor",user.getEmail()).addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
                 if(error != null){
@@ -228,6 +228,8 @@ public class MeusMentoradosFragment extends Fragment {
                                                 Toast.makeText(getContext(),"Ops, houve um erro no cadastro da mentoria! Tente novamente.",Toast.LENGTH_SHORT).show();
                                             }
                                         });
+
+                                db.collection("mentorados").document(mentorado.getUuid()).update("emailMentor",emailMentor);
                             }
                         }
                     });

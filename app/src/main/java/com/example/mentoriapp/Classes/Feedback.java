@@ -1,6 +1,9 @@
 package com.example.mentoriapp.Classes;
 
-public class Feedback {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Feedback implements Parcelable {
     private int id;
     private String emailMentor;
     private String titulo;
@@ -17,6 +20,40 @@ public class Feedback {
 
     public Feedback() {
     }
+
+    protected Feedback(Parcel in) {
+        id = in.readInt();
+        emailMentor = in.readString();
+        titulo = in.readString();
+        descricao = in.readString();
+        data = in.readString();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeString(emailMentor);
+        dest.writeString(titulo);
+        dest.writeString(descricao);
+        dest.writeString(data);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<Feedback> CREATOR = new Creator<Feedback>() {
+        @Override
+        public Feedback createFromParcel(Parcel in) {
+            return new Feedback(in);
+        }
+
+        @Override
+        public Feedback[] newArray(int size) {
+            return new Feedback[size];
+        }
+    };
 
     public int getId() {
         return id;

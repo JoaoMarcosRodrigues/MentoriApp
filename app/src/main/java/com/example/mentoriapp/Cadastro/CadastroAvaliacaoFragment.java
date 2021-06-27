@@ -9,6 +9,8 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -25,10 +27,15 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class CadastroAvaliacaoFragment extends Fragment {
 
@@ -39,7 +46,9 @@ public class CadastroAvaliacaoFragment extends Fragment {
     private ProgressDialog progressDialog;
     private FirebaseAuth auth;
     private FirebaseUser user;
+    private CollectionReference ref;
     private FirebaseFirestore mFirestore;
+    String mentoradoSelecionado;
     int maxid;
 
     @Override
@@ -56,6 +65,38 @@ public class CadastroAvaliacaoFragment extends Fragment {
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
         mFirestore = FirebaseFirestore.getInstance();
+
+        ref = mFirestore.collection("mentorias");
+        List<String> listaMentorados = new ArrayList<>();
+
+        ArrayAdapter arrayAdapter = new ArrayAdapter(getActivity(), android.R.layout.simple_spinner_dropdown_item,listaMentorados);
+        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerRelatos.setAdapter(arrayAdapter);
+
+        ref.whereEqualTo("emailMentor",user.getEmail()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if(task.isSuccessful()){
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        String subject = document.getString("emailMentorado");
+                        listaMentorados.add(subject);
+                    }
+                    arrayAdapter.notifyDataSetChanged();
+                }
+            }
+        });
+
+        spinnerRelatos.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                mentoradoSelecionado = spinnerRelatos.getSelectedItem().toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                // Quando nada for selecionado
+            }
+        });
 
         mFirestore.collection("mentores").document(user.getUid()).collection("avaliacoes").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override

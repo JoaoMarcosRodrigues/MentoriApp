@@ -15,7 +15,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="40dp"
-            android:layout_marginTop="100dp"
+            android:layout_marginTop="70dp"
             android:text="Avaliação"
             android:textSize="20sp"
             android:textStyle="bold" />
@@ -89,8 +89,7 @@
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="40dp"
-            android:backgroundTint="#5E5D5D"
-            android:text="Salvar" />
+            android:text="Cadastrar" />
 
     </RelativeLayout>
 

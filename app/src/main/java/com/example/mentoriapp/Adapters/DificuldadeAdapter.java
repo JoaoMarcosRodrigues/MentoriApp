@@ -42,7 +42,7 @@ public class DificuldadeAdapter extends FirestoreRecyclerAdapter<Dificuldade, Di
         public DificuldadeHolder(@NonNull View itemView) {
             super(itemView);
 
-            txtTag = itemView.findViewById(R.id.txt_titulo_dificuldade);
+            txtTag = itemView.findViewById(R.id.txt_tag_dificuldade);
             txtDescricao = itemView.findViewById(R.id.txt_descricao_dificuldade);
             checkBox = itemView.findViewById(R.id.check_favorito_dificuldade);
         }

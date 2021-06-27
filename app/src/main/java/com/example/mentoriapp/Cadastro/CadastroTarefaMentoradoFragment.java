@@ -88,8 +88,7 @@ public class CadastroTarefaMentoradoFragment extends Fragment {
         progressDialog.setMessage("Cadastrando tarefa...");
         progressDialog.show();
 
-
-        Tarefa tarefa = new Tarefa(maxid,titulo,descricao,email,status);
+        Tarefa tarefa = new Tarefa(maxid,titulo,descricao,email,email,status);
 
         FirebaseFirestore.getInstance().collection("mentorados").document(user.getUid()).collection("tarefas")
                 .add(tarefa)

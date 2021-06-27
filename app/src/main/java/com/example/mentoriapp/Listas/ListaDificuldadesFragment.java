@@ -23,6 +23,7 @@ import com.example.mentoriapp.Cadastro.CadastroDificuldadeFragment;
 import com.example.mentoriapp.Classes.Aprendizado;
 import com.example.mentoriapp.Classes.Dificuldade;
 import com.example.mentoriapp.Classes.Relato;
+import com.example.mentoriapp.Detalhes.DetalheDificuldadeActivity;
 import com.example.mentoriapp.Detalhes.DetalheRelatoActivity;
 import com.example.mentoriapp.Itens.ExemploItemDificuldade;
 import com.example.mentoriapp.R;
@@ -83,7 +84,7 @@ public class ListaDificuldadesFragment extends Fragment {
         adapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(@NonNull Item item, @NonNull View view) {
-                Intent intent = new Intent(getContext(), DetalheRelatoActivity.class);
+                Intent intent = new Intent(getContext(), DetalheDificuldadeActivity.class);
                 DificuldadeItem relatoItem = (DificuldadeItem) item;
                 intent.putExtra("dificuldade",relatoItem.dificuldade);
 
