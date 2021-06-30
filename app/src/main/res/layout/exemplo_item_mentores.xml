@@ -49,17 +49,7 @@
             android:layout_below="@+id/img_foto_perfil"
             android:layout_margin="10dp"
             android:textSize="15sp"/>
-
-        <Button
-            android:id="@+id/btnVerPerfil"
-            android:layout_width="wrap_content"
-            android:text="Ver perfil"
-            android:layout_height="wrap_content"
-            android:textSize="13sp"
-            android:backgroundTint="#7CCEF3"
-            android:textColor="#434343"
-            android:layout_below="@+id/txt_curriculo"
-            android:layout_margin="10dp"/>
+        
 
     </RelativeLayout>
 

@@ -124,17 +124,16 @@ public class CadastroAvaliacaoFragment extends Fragment {
         String titulo = editTitulo.getText().toString();
         String descricao = editDescricao.getText().toString();
         String emailMentorado = user.getEmail();
-        int id_relato = 1;
 
-        if(descricao == null || descricao.isEmpty()){
-            Toast.makeText(getContext(),"Descrição obrigatória!",Toast.LENGTH_SHORT).show();
+        if(titulo == null || titulo.isEmpty() || descricao == null || descricao.isEmpty()){
+            Toast.makeText(getContext(),"Título e Descrição obrigatória!",Toast.LENGTH_SHORT).show();
             return;
         }
 
         progressDialog.setMessage("Cadastrando avaliação...");
         progressDialog.show();
 
-        Avaliacao avaliacao = new Avaliacao(maxid,id_relato,titulo,descricao,emailMentorado);
+        Avaliacao avaliacao = new Avaliacao(maxid,mentoradoSelecionado,titulo,descricao,emailMentorado);
 
         FirebaseFirestore.getInstance().collection("mentores").document(user.getUid()).collection("avaliacoes")
                 .add(avaliacao)

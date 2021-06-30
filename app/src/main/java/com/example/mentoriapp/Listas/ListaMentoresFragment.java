@@ -1,5 +1,6 @@
 package com.example.mentoriapp.Listas;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -18,6 +19,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.mentoriapp.Classes.Mentor;
+import com.example.mentoriapp.Detalhes.MentorPerfilVisitaActivity;
+import com.example.mentoriapp.Detalhes.MentoradoPerfilVisitaActivity;
 import com.example.mentoriapp.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
@@ -30,6 +33,7 @@ import com.squareup.picasso.Picasso;
 import com.xwray.groupie.GroupAdapter;
 import com.xwray.groupie.GroupieViewHolder;
 import com.xwray.groupie.Item;
+import com.xwray.groupie.OnItemClickListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,6 +61,23 @@ public class ListaMentoresFragment extends Fragment {
         auth = FirebaseAuth.getInstance();
         //user = auth.getCurrentUser();
 
+        adapter = new GroupAdapter();
+        mRecyclerView = view.findViewById(R.id.listaMentores);
+        mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        mRecyclerView.setAdapter(adapter);
+
+        adapter.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(@NonNull Item item, @NonNull View view) {
+                Intent intent = new Intent(getContext(), MentorPerfilVisitaActivity.class);
+                UserItem userItem = (UserItem) item;
+                intent.putExtra("mentor",userItem.mentor);
+
+                startActivity(intent);
+            }
+        });
+
         setUpRecyclerView();
 
         return view;
@@ -80,13 +101,6 @@ public class ListaMentoresFragment extends Fragment {
                         }
                     }
                 });
-
-
-        adapter = new GroupAdapter();
-        mRecyclerView = view.findViewById(R.id.listaMentores);
-        mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        mRecyclerView.setAdapter(adapter);
     }
 
     private class UserItem extends Item<GroupieViewHolder> {
@@ -103,7 +117,6 @@ public class ListaMentoresFragment extends Fragment {
             TextView nome = viewHolder.itemView.findViewById(R.id.txt_nome);
             TextView formacao = viewHolder.itemView.findViewById(R.id.txt_formacao);
             TextView curriculo = viewHolder.itemView.findViewById(R.id.txt_curriculo);
-            Button btnVerPerfil = viewHolder.itemView.findViewById(R.id.btnVerPerfil);
 
             nome.setText(mentor.getNome());
             formacao.setText(mentor.getFormacao());
@@ -112,27 +125,6 @@ public class ListaMentoresFragment extends Fragment {
             Picasso.get()
                     .load(mentor.getProfileUrl())
                     .into(imagePhoto);
-
-            btnVerPerfil.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    ref.whereEqualTo("nome",nome.getText()).addSnapshotListener(new EventListener<QuerySnapshot>() {
-                        @Override
-                        public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-                            if(error != null){
-                                Log.i("Teste", error.getMessage());
-                                return;
-                            }
-
-                            List<DocumentSnapshot> docs = value.getDocuments();
-                            for(DocumentSnapshot doc: docs){
-                                Mentor mentor = doc.toObject(Mentor.class);
-                                Toast.makeText(getContext(),"Email: "+mentor.getEmail(),Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                    });
-                }
-            });
         }
 
         @Override

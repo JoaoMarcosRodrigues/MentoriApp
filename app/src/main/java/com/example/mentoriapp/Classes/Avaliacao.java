@@ -1,15 +1,18 @@
 package com.example.mentoriapp.Classes;
 
-public class Avaliacao {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Avaliacao implements Parcelable {
     private int id;
-    int idRelato;
+    String tituloRelato;
     String tituloAvaliacao;
     String descricaoAvaliacao;
     String emailMentor;
 
-    public Avaliacao(int id, int idRelato, String tituloAvaliacao, String descricaoAvaliacao, String emailMentor) {
+    public Avaliacao(int id, String tituloRelato, String tituloAvaliacao, String descricaoAvaliacao, String emailMentor) {
         this.id = id;
-        this.idRelato = idRelato;
+        this.tituloRelato = tituloRelato;
         this.tituloAvaliacao = tituloAvaliacao;
         this.descricaoAvaliacao = descricaoAvaliacao;
         this.emailMentor = emailMentor;
@@ -17,6 +20,40 @@ public class Avaliacao {
 
     public Avaliacao() {
     }
+
+    protected Avaliacao(Parcel in) {
+        id = in.readInt();
+        tituloRelato = in.readString();
+        tituloAvaliacao = in.readString();
+        descricaoAvaliacao = in.readString();
+        emailMentor = in.readString();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeString(tituloRelato);
+        dest.writeString(tituloAvaliacao);
+        dest.writeString(descricaoAvaliacao);
+        dest.writeString(emailMentor);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<Avaliacao> CREATOR = new Creator<Avaliacao>() {
+        @Override
+        public Avaliacao createFromParcel(Parcel in) {
+            return new Avaliacao(in);
+        }
+
+        @Override
+        public Avaliacao[] newArray(int size) {
+            return new Avaliacao[size];
+        }
+    };
 
     public int getId() {
         return id;
@@ -26,12 +63,12 @@ public class Avaliacao {
         this.id = id;
     }
 
-    public int getIdRelato() {
-        return idRelato;
+    public String getTituloRelato() {
+        return tituloRelato;
     }
 
-    public void setIdRelato(int idRelato) {
-        this.idRelato = idRelato;
+    public void setTituloRelato(String tituloRelato) {
+        this.tituloRelato = tituloRelato;
     }
 
     public String getTituloAvaliacao() {

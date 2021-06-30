@@ -28,6 +28,8 @@ import com.example.mentoriapp.Detalhes.DetalheFeedbackActivity;
 import com.example.mentoriapp.Detalhes.DetalheTarefaMentoradoActivity;
 import com.example.mentoriapp.R;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;

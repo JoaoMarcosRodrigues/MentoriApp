@@ -40,7 +40,7 @@ public class MentoresAdapter extends FirestoreRecyclerAdapter<Mentor, MentoresAd
             txtFormacao = itemView.findViewById(R.id.txt_formacao);
             txtCurriculo = itemView.findViewById(R.id.txt_curriculo);
             imgFotoPerfil = itemView.findViewById(R.id.img_foto_perfil);
-            btnVerPerfil = itemView.findViewById(R.id.btnVerPerfil);
+
         }
     }
 

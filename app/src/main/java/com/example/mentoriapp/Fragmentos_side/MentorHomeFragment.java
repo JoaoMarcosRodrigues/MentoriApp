@@ -60,7 +60,7 @@ public class MentorHomeFragment extends Fragment {
                         case 2:
                             getActivity().getSupportFragmentManager()
                                     .beginTransaction()
-                                    .replace(R.id.fragment_mentor, new CadastroAvaliacaoFragment()).addToBackStack(null)
+                                    .replace(R.id.fragment_mentor, new ListaAvaliacoesFragment()).addToBackStack(null)
                                     .commit();
                             break;
                         case 3:
