@@ -62,7 +62,7 @@ public class CadastroDificuldadeFragment extends Fragment {
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
         mFirestore = FirebaseFirestore.getInstance();
-        ref = mFirestore.collection("mentorados").document(user.getUid()).collection("relatos");
+        ref = mFirestore.collection("relatos");
         List<String> listaRelatos = new ArrayList<>();
 
         editTag = view.findViewById(R.id.edit_tag_dificuldade);

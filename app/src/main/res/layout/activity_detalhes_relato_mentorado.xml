@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Detalhes.DetalhesRelatoMentoradoActivity">
+
+    <include android:id="@+id/toolbar"
+        layout="@layout/toolbar"/>
+
+    <RelativeLayout
+        android:id="@+id/layout1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/toolbar"
+        android:layout_marginTop="40dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/edit_round"
+        android:padding="15dp">
+
+        <TextView
+            android:id="@+id/lblTema"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="32dp"
+            android:layout_marginRight="32dp"
+            android:text="Tema"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/txtTema"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/lblTema"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginRight="32dp"
+            android:hint="Tema do relato......"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/lblDificuldade"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="32dp"
+            android:layout_marginRight="32dp"
+            android:layout_marginTop="24dp"
+            android:text="Descrição"
+            android:layout_below="@+id/txtTema"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/txtDescrição"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/lblDificuldade"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginRight="32dp"
+            android:hint="Discorra sua dificuldade..."
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/lblData"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="24dp"
+            android:text="Data:"
+            android:layout_below="@+id/txtDescrição"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/txtData"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/lblData"
+            android:layout_below="@+id/txtDescrição"
+            android:layout_marginTop="25dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginRight="15dp"
+            android:hint="Data..."
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/lblPrensencial"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="24dp"
+            android:text="Presencial:"
+            android:layout_below="@+id/txtDescrição"
+            android:layout_toRightOf="@+id/txtData"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/txtPresencial"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/lblPrensencial"
+            android:layout_below="@+id/txtDescrição"
+            android:layout_marginTop="25dp"
+            android:hint="P..."
+            android:textSize="18sp" />
+    </RelativeLayout>
+
+    <View
+        android:id="@+id/linha"
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:background="#A5A2A2"
+        android:layout_below="@+id/layout1"
+        android:layout_marginTop="20dp"
+        android:focusable="false" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/linha"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="15dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/edit_round"
+        android:padding="20dp">
+
+        <TextView
+            android:id="@+id/lblTarefa"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tarefa associada"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/txtTarefa"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="32dp"
+            android:layout_marginRight="32dp"
+            android:hint="Tarefa..."
+            android:textStyle="italic"
+            android:textSize="18sp"
+            android:layout_marginTop="16dp"
+            android:layout_below="@+id/lblTarefa"/>
+
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/btnFeedback"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Feedback"
+        android:layout_margin="15dp"
+        android:layout_alignParentBottom="true"/>
+
+</RelativeLayout>

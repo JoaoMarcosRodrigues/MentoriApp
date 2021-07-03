@@ -63,7 +63,7 @@ public class ListaRelatosFragment extends Fragment {
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
         db = FirebaseFirestore.getInstance();
-        ref = db.collection("mentorados").document(user.getUid()).collection("relatos");
+        ref = db.collection("relatos");
 
         adapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
@@ -94,7 +94,7 @@ public class ListaRelatosFragment extends Fragment {
     }
 
     private void fetchRelatos() {
-        FirebaseFirestore.getInstance().collection("mentorados").document(user.getUid()).collection("relatos")
+        FirebaseFirestore.getInstance().collection("relatos").whereEqualTo("emailMentorado",user.getEmail())
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
                     public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {

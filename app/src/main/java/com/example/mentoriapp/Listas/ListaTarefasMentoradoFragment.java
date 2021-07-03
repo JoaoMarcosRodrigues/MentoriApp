@@ -76,7 +76,7 @@ public class ListaTarefasMentoradoFragment extends Fragment {
         db = FirebaseFirestore.getInstance();
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
-        ref = db.collection("mentorados").document(user.getUid()).collection("tarefas");
+        ref = db.collection("tarefas");
 
         adapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
@@ -112,7 +112,7 @@ public class ListaTarefasMentoradoFragment extends Fragment {
     }
 
     private void fetchTarefas() {
-        db.collection("mentorados").document(user.getUid()).collection("tarefas")
+        db.collection("tarefas").whereEqualTo("emailDestinatario",user.getEmail())
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
                     public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
@@ -155,9 +155,9 @@ public class ListaTarefasMentoradoFragment extends Fragment {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     if(isChecked){
-                        db.collection("mentorados").document(user.getUid()).collection("tarefas").document("5bBzkNvtWM0M1pTulwLa").update("status",true);
+                        db.collection("tarefas").document("5bBzkNvtWM0M1pTulwLa").update("status",true);
                     }else{
-                        db.collection("mentorados").document(user.getUid()).collection("tarefas").document("5bBzkNvtWM0M1pTulwLa").update("status",false);
+                        db.collection("tarefas").document("5bBzkNvtWM0M1pTulwLa").update("status",false);
                     }
                 }
             });

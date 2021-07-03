@@ -19,6 +19,7 @@ import com.example.mentoriapp.Classes.Aprendizado;
 import com.example.mentoriapp.Classes.Relato;
 import com.example.mentoriapp.Detalhes.DetalheAprendizadoActivity;
 import com.example.mentoriapp.Detalhes.DetalheRelatoActivity;
+import com.example.mentoriapp.Detalhes.DetalhesRelatoMentoradoActivity;
 import com.example.mentoriapp.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -46,7 +47,7 @@ public class ListaRelatosMentoradoActivity extends AppCompatActivity {
     private FirebaseAuth auth;
     private FirebaseUser user;
     private GroupieAdapter adapter;
-    private String mentoradoId;
+    private String emailMentorado;
     private Toolbar toolbar;
 
     @Override
@@ -57,7 +58,7 @@ public class ListaRelatosMentoradoActivity extends AppCompatActivity {
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         Bundle bundle = getIntent().getExtras();
-        String emailMentorado = bundle.getString("emailMentorado");
+        emailMentorado = bundle.getString("emailMentorado");
         String nomeMentorado = bundle.getString("nomeMentorado");
         getSupportActionBar().setTitle("Relatos de "+nomeMentorado);
 
@@ -76,7 +77,7 @@ public class ListaRelatosMentoradoActivity extends AppCompatActivity {
         adapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(@NonNull Item item, @NonNull View view) {
-                Intent intent = new Intent(getApplicationContext(), DetalheRelatoActivity.class);
+                Intent intent = new Intent(getApplicationContext(), DetalhesRelatoMentoradoActivity.class);
                 RelatoItem relatoItem = (RelatoItem) item;
                 intent.putExtra("relato",relatoItem.relato);
 
@@ -90,7 +91,7 @@ public class ListaRelatosMentoradoActivity extends AppCompatActivity {
     }
 
     private void fetchRelatos(String emailMentorado) {
-        db.collection("mentorados").document("nXV8xNa23tUbEYDfbdB1MYlFVy43").collection("relatos")
+        db.collection("relatos").whereEqualTo("emailMentorado",emailMentorado)
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
                     public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {

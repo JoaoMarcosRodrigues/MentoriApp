@@ -52,7 +52,7 @@ public class CadastroTarefaMentoradoFragment extends Fragment {
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
         mFirestore = FirebaseFirestore.getInstance();
-        mFirestore.collection("mentorados").document(user.getUid()).collection("tarefas").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        mFirestore.collection("tarefas").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if(task.isSuccessful()){
@@ -90,7 +90,7 @@ public class CadastroTarefaMentoradoFragment extends Fragment {
 
         Tarefa tarefa = new Tarefa(maxid,titulo,descricao,email,email,status);
 
-        FirebaseFirestore.getInstance().collection("mentorados").document(user.getUid()).collection("tarefas")
+        FirebaseFirestore.getInstance().collection("tarefas")
                 .add(tarefa)
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override

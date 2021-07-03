@@ -101,14 +101,14 @@ public class CadastroRelatoFragment extends Fragment implements AdapterView.OnIt
         mAuth = FirebaseAuth.getInstance();
         mUser = mAuth.getCurrentUser();
         mFirestore = FirebaseFirestore.getInstance();
-        ref = mFirestore.collection("mentorados").document(mUser.getUid()).collection("tarefas");
+        ref = mFirestore.collection("tarefas");
         List<String> listaTarefas = new ArrayList<>();
 
         ArrayAdapter arrayAdapter = new ArrayAdapter(getActivity(), android.R.layout.simple_spinner_dropdown_item,listaTarefas);
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(arrayAdapter);
 
-        ref.whereEqualTo("email",mUser.getEmail()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        ref.whereEqualTo("emailAutor",mUser.getEmail()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if(task.isSuccessful()){
@@ -133,7 +133,7 @@ public class CadastroRelatoFragment extends Fragment implements AdapterView.OnIt
             }
         });
 
-        mFirestore.collection("mentorados").document(mUser.getUid()).collection("relatos").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        mFirestore.collection("relatos").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if(task.isSuccessful()){
@@ -219,7 +219,7 @@ public class CadastroRelatoFragment extends Fragment implements AdapterView.OnIt
         progressDialog.show();
 
         Relato relato = new Relato(maxid,titulo,tema,descricao,data,presencial,tarefa_associada,emailMentorado);
-        FirebaseFirestore.getInstance().collection("mentorados").document(mUser.getUid()).collection("relatos")
+        FirebaseFirestore.getInstance().collection("relatos")
                 .add(relato)
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override

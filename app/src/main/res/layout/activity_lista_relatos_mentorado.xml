@@ -13,15 +13,7 @@
         android:id="@+id/recycler_relatos_mentorado"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/btnFeedback"
+        android:layout_alignParentBottom="true"
         android:layout_below="@+id/toolbar"/>
-
-    <Button
-        android:id="@+id/btnFeedback"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Feedback"
-        android:layout_margin="15dp"
-        android:layout_alignParentBottom="true"/>
 
 </RelativeLayout>
