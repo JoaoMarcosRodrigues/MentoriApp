@@ -63,8 +63,6 @@ public class ListaFeedbacksFragment extends Fragment {
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_lista_feedbacks, container, false);
 
-        FloatingActionButton addFeedback = view.findViewById(R.id.btnAdicionarFeedback);
-
         recycler_feedbacks = view.findViewById(R.id.recycler_feedbacks);
         adapter = new GroupieAdapter();
         recycler_feedbacks.setAdapter(adapter);
@@ -74,7 +72,7 @@ public class ListaFeedbacksFragment extends Fragment {
         db = FirebaseFirestore.getInstance();
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
-        ref = db.collection("mentores").document(user.getUid()).collection("feedbacks");
+        ref = db.collection("feedbacks");
 
         adapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
@@ -87,23 +85,13 @@ public class ListaFeedbacksFragment extends Fragment {
             }
         });
 
-        addFeedback.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getActivity().getSupportFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.fragment_mentor, new CadastroFeedbackFragment()).addToBackStack(null)
-                        .commit();
-            }
-        });
-
         fetchFeedbacks();
 
         return view;
     }
 
     private void fetchFeedbacks() {
-        FirebaseFirestore.getInstance().collection("mentores").document(user.getUid()).collection("feedbacks")
+        FirebaseFirestore.getInstance().collection("feedbacks").whereEqualTo("emailMentor",user.getEmail())
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
                     public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {

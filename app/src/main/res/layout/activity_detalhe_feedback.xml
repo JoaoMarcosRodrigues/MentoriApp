@@ -37,8 +37,6 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/lblAprendizado"
             android:layout_marginTop="16dp"
-            android:layout_marginEnd="32dp"
-            android:layout_marginRight="32dp"
             android:hint="Discorra seu aprendizado..."
             android:textSize="18sp" />
 

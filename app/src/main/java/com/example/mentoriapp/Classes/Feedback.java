@@ -8,13 +8,15 @@ public class Feedback implements Parcelable {
     private String emailMentor;
     private String titulo;
     private String descricao;
+    private String relatoAssociado;
     private String data;
 
-    public Feedback(int id, String emailMentor, String titulo, String descricao, String data) {
+    public Feedback(int id, String emailMentor, String titulo, String descricao, String relatoAssociado, String data) {
         this.id = id;
         this.emailMentor = emailMentor;
         this.titulo = titulo;
         this.descricao = descricao;
+        this.relatoAssociado = relatoAssociado;
         this.data = data;
     }
 
@@ -26,6 +28,7 @@ public class Feedback implements Parcelable {
         emailMentor = in.readString();
         titulo = in.readString();
         descricao = in.readString();
+        relatoAssociado = in.readString();
         data = in.readString();
     }
 
@@ -35,6 +38,7 @@ public class Feedback implements Parcelable {
         dest.writeString(emailMentor);
         dest.writeString(titulo);
         dest.writeString(descricao);
+        dest.writeString(relatoAssociado);
         dest.writeString(data);
     }
 
@@ -85,6 +89,14 @@ public class Feedback implements Parcelable {
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
+    }
+
+    public String getRelatoAssociado() {
+        return relatoAssociado;
+    }
+
+    public void setRelatoAssociado(String relatoAssociado) {
+        this.relatoAssociado = relatoAssociado;
     }
 
     public String getData() {
