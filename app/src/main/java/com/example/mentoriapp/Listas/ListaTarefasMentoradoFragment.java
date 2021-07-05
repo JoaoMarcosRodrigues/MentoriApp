@@ -64,8 +64,6 @@ public class ListaTarefasMentoradoFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_lista_tarefas_mentorado, container, false);
 
         FloatingActionButton addTarefa = view.findViewById(R.id.btnAdicionarTarefa);
-        Button salvarTarefa = view.findViewById(R.id.btnSalvarTarefa);
-
 
         recycler_tarefas = view.findViewById(R.id.listaTarefas);
         adapter = new GroupieAdapter();
@@ -86,13 +84,6 @@ public class ListaTarefasMentoradoFragment extends Fragment {
                 intent.putExtra("tarefa",tarefaItem.tarefa);
 
                 startActivity(intent);
-            }
-        });
-
-        salvarTarefa.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                salvarTarefa();
             }
         });
 
@@ -150,14 +141,17 @@ public class ListaTarefasMentoradoFragment extends Fragment {
             descricaoTarefa.setText(tarefa.getDescricao());
             statusTarefa.setChecked(tarefa.isStatus());
 
+            String idTarefa = Integer.toString(tarefa.getId());
+
             // MUDAR STATUS DA TAREFA AO MUDAR O SWITCH
             statusTarefa.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    adapter.clear();
                     if(isChecked){
-                        db.collection("tarefas").document("5bBzkNvtWM0M1pTulwLa").update("status",true);
+                        db.collection("tarefas").document(idTarefa).update("status",true);
                     }else{
-                        db.collection("tarefas").document("5bBzkNvtWM0M1pTulwLa").update("status",false);
+                        db.collection("tarefas").document(idTarefa).update("status",false);
                     }
                 }
             });
@@ -167,9 +161,5 @@ public class ListaTarefasMentoradoFragment extends Fragment {
         public int getLayout() {
             return R.layout.exemplo_item_tarefa;
         }
-    }
-
-    private void salvarTarefa() {
-
     }
 }

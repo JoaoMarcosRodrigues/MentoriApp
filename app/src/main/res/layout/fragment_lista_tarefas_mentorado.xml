@@ -14,15 +14,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
-        <Button
-            android:id="@+id/btnSalvarTarefa"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:text="Salvar"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="20dp"/>
-
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/btnAdicionarTarefa"
             android:layout_width="150dp"
