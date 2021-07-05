@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import com.example.mentoriapp.Classes.Contato;
 import com.example.mentoriapp.Classes.Message;
+import com.example.mentoriapp.Classes.Notificacao;
 import com.example.mentoriapp.Classes.Usuario;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -152,6 +153,19 @@ public class ChatActivity extends AppCompatActivity {
                                     .collection("contatos")
                                     .document(toId)
                                     .set(contato);
+
+                            if(usuario.isOnline()){
+                                Notificacao notificacao = new Notificacao();
+                                notificacao.setFromId(message.getFromId());
+                                notificacao.setToId(message.getToId());
+                                notificacao.setTimestamp(message.getTimestamp());
+                                notificacao.setText(message.getText());
+                                notificacao.setFromName(me.getNome());
+
+                                FirebaseFirestore.getInstance().collection("notificacoes")
+                                        .document(usuario.getToken())
+                                        .set(notificacao);
+                            }
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {

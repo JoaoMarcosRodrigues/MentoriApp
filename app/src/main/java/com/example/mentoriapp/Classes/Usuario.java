@@ -11,9 +11,11 @@ public class Usuario implements Parcelable {
     private String photoUrl;
     private String areaAtuacao;
     private String senha;
+    private String token;
+    private boolean online;
     private int tipo;
 
-    public Usuario(String uuid, String email, String nome, String telefone, String photoUrl, String areaAtuacao, String senha, int tipo){
+    public Usuario(String uuid, String email, String nome, String telefone, String photoUrl, String areaAtuacao, String senha, String token, boolean online, int tipo) {
         this.uuid = uuid;
         this.email = email;
         this.nome = nome;
@@ -21,7 +23,12 @@ public class Usuario implements Parcelable {
         this.photoUrl = photoUrl;
         this.areaAtuacao = areaAtuacao;
         this.senha = senha;
+        this.token = token;
+        this.online = online;
         this.tipo = tipo;
+    }
+
+    public Usuario() {
     }
 
     protected Usuario(Parcel in) {
@@ -32,6 +39,8 @@ public class Usuario implements Parcelable {
         photoUrl = in.readString();
         areaAtuacao = in.readString();
         senha = in.readString();
+        token = in.readString();
+        online = in.readByte() != 0;
         tipo = in.readInt();
     }
 
@@ -44,6 +53,8 @@ public class Usuario implements Parcelable {
         dest.writeString(photoUrl);
         dest.writeString(areaAtuacao);
         dest.writeString(senha);
+        dest.writeString(token);
+        dest.writeByte((byte) (online ? 1 : 0));
         dest.writeInt(tipo);
     }
 
@@ -71,8 +82,6 @@ public class Usuario implements Parcelable {
     public void setUuid(String uuid) {
         this.uuid = uuid;
     }
-
-    public Usuario() {}
 
     public String getEmail() {
         return email;
@@ -122,6 +131,22 @@ public class Usuario implements Parcelable {
         this.senha = senha;
     }
 
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    public boolean isOnline() {
+        return online;
+    }
+
+    public void setOnline(boolean online) {
+        this.online = online;
+    }
+
     public int getTipo() {
         return tipo;
     }
@@ -129,6 +154,4 @@ public class Usuario implements Parcelable {
     public void setTipo(int tipo) {
         this.tipo = tipo;
     }
-
-
 }

@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.example.mentoriapp.ChatActivity;
 import com.example.mentoriapp.Classes.Usuario;
 import com.example.mentoriapp.R;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -72,8 +73,12 @@ public class ContatosActivity extends AppCompatActivity {
                         }
 
                         List<DocumentSnapshot> docs = value.getDocuments();
+                        adapter.clear();
                         for(DocumentSnapshot doc : docs){
                             Usuario usuario = doc.toObject(Usuario.class);
+                            String uid = FirebaseAuth.getInstance().getUid();
+                            if(usuario.getUuid().equals(uid))
+                                continue;
                             Log.d("Teste",usuario.getNome());
 
                             adapter.add(new UserItem(usuario));

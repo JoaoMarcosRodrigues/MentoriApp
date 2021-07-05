@@ -11,10 +11,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.mentoriapp.ChatActivity;
+import com.example.mentoriapp.Classes.ChatApplication;
 import com.example.mentoriapp.Classes.Contato;
+import com.example.mentoriapp.Classes.Usuario;
 import com.example.mentoriapp.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentChange;
@@ -22,10 +26,12 @@ import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.squareup.picasso.Picasso;
 import com.xwray.groupie.GroupieAdapter;
 import com.xwray.groupie.GroupieViewHolder;
 import com.xwray.groupie.Item;
+import com.xwray.groupie.OnItemClickListener;
 
 import java.util.List;
 
@@ -38,17 +44,32 @@ public class MessagesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_messages);
 
+        ChatApplication application = (ChatApplication) getApplication();
+
+        getApplication().registerActivityLifecycleCallbacks(application);
+
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         RecyclerView rv = findViewById(R.id.recycler_contato);
         rv.setLayoutManager(new LinearLayoutManager(this));
         adapter = new GroupieAdapter();
-
         rv.setAdapter(adapter);
 
-        fetchLastMessages();
+        updateToken();
 
+        fetchLastMessages();
+    }
+
+    private void updateToken() {
+        String token = FirebaseInstanceId.getInstance().getToken();
+        String uid = FirebaseAuth.getInstance().getUid();
+
+        if(uid != null){
+            FirebaseFirestore.getInstance().collection("usuarios")
+                    .document(uid)
+                    .update("token",token);
+        }
     }
 
     private void fetchLastMessages() {

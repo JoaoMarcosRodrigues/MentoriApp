@@ -2,7 +2,10 @@ package com.example.mentoriapp.Listas;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffColorFilter;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -49,6 +52,7 @@ import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.squareup.picasso.Picasso;
 import com.xwray.groupie.GroupAdapter;
@@ -211,13 +215,59 @@ public class MeusMentoradosFragment extends Fragment {
                     .load(mentorado.getProfileUrl())
                     .into(imagePhoto);
 
+            db.collection("mentorias").whereEqualTo("emailMentorado",mentorado.getEmail()).get()
+                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if(task.isSuccessful()){
+                                for (QueryDocumentSnapshot document : task.getResult()) {
+                                    if(document.exists()){
+                                        //Toast.makeText(getApplicationContext(),"Feedback já cadastrado!",Toast.LENGTH_SHORT).show();
+                                        btnIncluir.setEnabled(false);
+                                        PorterDuffColorFilter colorFilter = new PorterDuffColorFilter(Color.LTGRAY, PorterDuff.Mode.MULTIPLY);
+                                        btnIncluir.getBackground().setColorFilter(colorFilter);
+                                        btnIncluir.setTextColor(Color.GRAY);
+                                        return;
+                                    }
+                                }
+                            }
+                        }
+                    });
+
             btnIncluir.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     String emailMentor = user.getEmail();
+
+                    adapter.clear();
+
                     progressDialog.setMessage("Incluindo Mentorado e criando Mentoria...");
                     progressDialog.show();
 
+                    Mentoria mentoria = new Mentoria(maxid,emailMentor,mentorado.getEmail());
+
+                    FirebaseFirestore.getInstance().collection("mentorias")
+                            .add(mentoria)
+                            .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                @Override
+                                public void onSuccess(DocumentReference documentReference) {
+                                    progressDialog.dismiss();
+                                    Toast.makeText(getContext(),"Mentoria cadastrada com sucesso!",Toast.LENGTH_SHORT).show();
+
+                                    btnIncluir.setEnabled(false);
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    progressDialog.dismiss();
+                                    Toast.makeText(getContext(),"Ops, houve um erro no cadastro da mentoria! Tente novamente.",Toast.LENGTH_SHORT).show();
+                                }
+                            });
+
+                    db.collection("mentorados").document(mentorado.getUuid()).update("emailMentor",emailMentor);
+
+                    /*
                     ref.whereEqualTo("nome",nome.getText()).addSnapshotListener(new EventListener<QuerySnapshot>() {
                         @Override
                         public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
@@ -230,33 +280,11 @@ public class MeusMentoradosFragment extends Fragment {
                             for(DocumentSnapshot doc: docs){
                                 Mentorado mentorado = doc.toObject(Mentorado.class);
                                 email[0] = mentorado.getEmail();
-                                Mentoria mentoria = new Mentoria(maxid,emailMentor,mentorado.getEmail());
 
-                                FirebaseFirestore.getInstance().collection("mentorias")
-                                        .add(mentoria)
-                                        .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                                            @Override
-                                            public void onSuccess(DocumentReference documentReference) {
-                                                progressDialog.dismiss();
-                                                Toast.makeText(getContext(),"Mentoria cadastrada com sucesso!",Toast.LENGTH_SHORT).show();
-
-                                                btnIncluir.setBackgroundColor(Color.rgb(255,0,0));
-                                                btnIncluir.setText("Excluir");
-                                                btnIncluir.setTextSize(13);
-                                            }
-                                        })
-                                        .addOnFailureListener(new OnFailureListener() {
-                                            @Override
-                                            public void onFailure(@NonNull Exception e) {
-                                                progressDialog.dismiss();
-                                                Toast.makeText(getContext(),"Ops, houve um erro no cadastro da mentoria! Tente novamente.",Toast.LENGTH_SHORT).show();
-                                            }
-                                        });
-
-                                db.collection("mentorados").document(mentorado.getUuid()).update("emailMentor",emailMentor);
                             }
                         }
                     });
+                     */
                 }
             });
         }

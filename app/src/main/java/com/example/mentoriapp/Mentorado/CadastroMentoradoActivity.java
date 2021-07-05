@@ -240,7 +240,7 @@ public class CadastroMentoradoActivity extends AppCompatActivity {
                                 Intent intent = getIntent();
                                 int tipo = intent.getIntExtra("tipoUsuario",1);
 
-                                Usuario usuario = new Usuario(uid,email,nome,telefone,profileUrl,areaAtuacao,senha,tipo);
+                                Usuario usuario = new Usuario(uid,email,nome,telefone,profileUrl,areaAtuacao,senha,"",true,tipo);
                                 FirebaseFirestore.getInstance().collection("usuarios")
                                         .document(uid)
                                         .set(usuario)
