@@ -1,6 +1,8 @@
 package com.example.mentoriapp.Cadastro;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -123,8 +125,21 @@ public class CadastroTarefaMentorFragment extends Fragment {
         String descricao = descricaoTarefa.getText().toString();
         String email = user.getEmail();
 
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+
         if(titulo == null || titulo.isEmpty() || descricao == null || descricao.isEmpty()){
-            Toast.makeText(getContext(),"Campo título e descrição obrigatórios!",Toast.LENGTH_SHORT).show();
+            builder.setTitle("Campos obrigatórios")
+                    .setMessage("Todos os campos são obrigatórios!")
+                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                        }
+                    });
+
+            builder.create();
+            builder.show();
+            //Toast.makeText(getContext(),"Campo título e descrição obrigatórios!",Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -140,7 +155,18 @@ public class CadastroTarefaMentorFragment extends Fragment {
                     @Override
                     public void onSuccess(DocumentReference documentReference) {
                         progressDialog.dismiss();
-                        Toast.makeText(getContext(),"Tarefa cadastrada com sucesso!",Toast.LENGTH_SHORT).show();
+                        builder.setTitle("Cadastro da tarefa")
+                                .setMessage("Tarefa cadastrada!")
+                                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+
+                                    }
+                                });
+
+                        builder.create();
+                        builder.show();
+                        //Toast.makeText(getContext(),"Tarefa cadastrada com sucesso!",Toast.LENGTH_SHORT).show();
                         getActivity().getSupportFragmentManager()
                                 .beginTransaction()
                                 .replace(R.id.fragment_mentor, new ListaTarefasMentorFragment())
@@ -151,7 +177,18 @@ public class CadastroTarefaMentorFragment extends Fragment {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         progressDialog.dismiss();
-                        Toast.makeText(getContext(),"Ops, houve um erro no cadastro da tarefa! Tente novamente.",Toast.LENGTH_SHORT).show();
+                        builder.setTitle("Cadastro da tarefa")
+                                .setMessage("Ops, houve um erro no cadastro da tarefa! Tente novamente.")
+                                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+
+                                    }
+                                });
+
+                        builder.create();
+                        builder.show();
+                        //Toast.makeText(getContext(),"Ops, houve um erro no cadastro da tarefa! Tente novamente.",Toast.LENGTH_SHORT).show();
                     }
                 });
     }

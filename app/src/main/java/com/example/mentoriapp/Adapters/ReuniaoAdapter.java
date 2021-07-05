@@ -13,6 +13,8 @@ import com.example.mentoriapp.R;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 
+import java.util.ArrayList;
+
 public class ReuniaoAdapter extends FirestoreRecyclerAdapter<Reuniao, ReuniaoAdapter.ReuniaoHolder> {
 
     public ReuniaoAdapter(@NonNull FirestoreRecyclerOptions<Reuniao> options) {
@@ -34,6 +36,7 @@ public class ReuniaoAdapter extends FirestoreRecyclerAdapter<Reuniao, ReuniaoAda
                 parent,false);
         return new ReuniaoAdapter.ReuniaoHolder(v);
     }
+
 
     class ReuniaoHolder extends RecyclerView.ViewHolder{
         TextView txtTitulo;

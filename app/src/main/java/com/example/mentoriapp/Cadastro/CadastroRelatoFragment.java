@@ -1,8 +1,10 @@
 package com.example.mentoriapp.Cadastro;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.media.audiofx.Visualizer;
@@ -204,9 +206,23 @@ public class CadastroRelatoFragment extends Fragment implements AdapterView.OnIt
         String data = txtData.getText().toString();
         String emailMentorado = mUser.getEmail();
 
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+
         if(titulo == null || titulo.isEmpty() || tema == null || tema.equals("") || descricao == null || descricao.equals("") ||
                 data == null || data.equals("")) {
-            Toast.makeText(getActivity(),"Título, Tema, descrição e data do relato obrigatórios!",Toast.LENGTH_SHORT).show();
+
+            builder.setTitle("Campos obrigatórios")
+                    .setMessage("Campos título, tema, descrição e data do relato obrigatórios")
+                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                        }
+                    });
+
+            builder.create();
+            builder.show();
+            //Toast.makeText(getActivity(),"Título, Tema, descrição e data do relato obrigatórios!",Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -229,7 +245,18 @@ public class CadastroRelatoFragment extends Fragment implements AdapterView.OnIt
                         Bundle bundle = new Bundle();
                         bundle.putInt("idRelato",maxid);
 
-                        Toast.makeText(getContext(),"Relato cadastrado!",Toast.LENGTH_SHORT).show();
+                        builder.setTitle("Cadastro do relato")
+                                .setMessage("Relato cadastrado!")
+                                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+
+                                    }
+                                });
+
+                        builder.create();
+                        builder.show();
+                        //Toast.makeText(getContext(),"Relato cadastrado!",Toast.LENGTH_SHORT).show();
                         getActivity().getSupportFragmentManager()
                                 .beginTransaction()
                                 .replace(R.id.fragment_mentorado, new ListaRelatosFragment(),null)
@@ -240,7 +267,18 @@ public class CadastroRelatoFragment extends Fragment implements AdapterView.OnIt
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         progressDialog.dismiss();
-                        Toast.makeText(getContext(),"Ops, houve um erro no cadastro do relato! Tente novamente.",Toast.LENGTH_SHORT).show();
+                        builder.setTitle("Cadastro do relato")
+                                .setMessage("Ops, houve um erro no cadastro do relato! Tente novamente.")
+                                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+
+                                    }
+                                });
+
+                        builder.create();
+                        builder.show();
+                        //Toast.makeText(getContext(),"Ops, houve um erro no cadastro do relato! Tente novamente.",Toast.LENGTH_SHORT).show();
                         Log.i("Teste",e.getMessage());
                     }
                 });

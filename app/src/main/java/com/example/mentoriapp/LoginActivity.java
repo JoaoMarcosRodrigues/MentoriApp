@@ -158,7 +158,6 @@ public class LoginActivity extends AppCompatActivity {
                         .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
-                                progressDialog.dismiss();
                                 if (task.isSuccessful()) {
                                     CollectionReference reference = db.collection("usuarios");
                                     Query query = reference.whereEqualTo("email",email);
@@ -172,12 +171,14 @@ public class LoginActivity extends AppCompatActivity {
                                                 if (tipoUsuario == 1) {
                                                     Intent intent = new Intent(LoginActivity.this, MainMentorActivity.class);
                                                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                                    progressDialog.dismiss();
                                                     startActivity(intent);
                                                     Toast.makeText(LoginActivity.this, "Usuário logado!", Toast.LENGTH_SHORT).show();
                                                 }
                                                 if (tipoUsuario == 2) {
                                                     Intent intent = new Intent(LoginActivity.this, MainMentoradoActivity.class);
                                                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                                    progressDialog.dismiss();
                                                     startActivity(intent);
                                                     Toast.makeText(LoginActivity.this, "Usuário logado!", Toast.LENGTH_SHORT).show();
                                                 }
@@ -186,6 +187,7 @@ public class LoginActivity extends AppCompatActivity {
                                     }).addOnFailureListener(new OnFailureListener() {
                                         @Override
                                         public void onFailure(@NonNull Exception e) {
+                                            progressDialog.dismiss();
                                             Toast.makeText(LoginActivity.this, "Usuário não cadastrado!", Toast.LENGTH_SHORT).show();
                                         }
                                     });
@@ -210,6 +212,7 @@ public class LoginActivity extends AppCompatActivity {
                                     });
                                      */
                                 } else {
+                                    progressDialog.dismiss();
                                     Toast.makeText(LoginActivity.this, "Email ou senha inválido(s)", Toast.LENGTH_SHORT).show();
                                 }
                             }

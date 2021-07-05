@@ -2,14 +2,23 @@ package com.example.mentoriapp.Listas;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -41,6 +50,7 @@ import com.xwray.groupie.Item;
 import com.xwray.groupie.OnItemClickListener;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 public class ListaAprendizadosFragment extends Fragment {
@@ -123,7 +133,7 @@ public class ListaAprendizadosFragment extends Fragment {
                 });
     }
 
-    private class AprendizadoItem extends Item<GroupieViewHolder> {
+    private class AprendizadoItem extends Item<GroupieViewHolder>{
 
         private final Aprendizado aprendizado;
 
@@ -144,7 +154,6 @@ public class ListaAprendizadosFragment extends Fragment {
         public int getLayout() {
             return R.layout.exemplo_item_aprendizado;
         }
+
     }
-
-
 }

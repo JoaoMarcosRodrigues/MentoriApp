@@ -1,6 +1,8 @@
 package com.example.mentoriapp.Fragmentos_side;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
@@ -112,8 +114,21 @@ public class PerfilMentorFragment extends Fragment {
         String area = editArea.getText().toString();
         String curriculo = editCurriculo.getText().toString();
 
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+
         if(nome.isEmpty() || telefone.isEmpty() || formacao.isEmpty() || area.isEmpty() || curriculo.isEmpty()){
-            Toast.makeText(getContext(),"O(s) campo(s) não pode(m) ficar vazio(s)!",Toast.LENGTH_SHORT).show();
+            builder.setTitle("Campos obrigatórios")
+                    .setMessage("Todos os campos são obrigatórios!")
+                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                        }
+                    });
+
+            builder.create();
+            builder.show();
+            //Toast.makeText(getContext(),"O(s) campo(s) não pode(m) ficar vazio(s)!",Toast.LENGTH_SHORT).show();
             return;
         }else{
             progressDialog.setMessage("Atualizando perfil...");
@@ -142,14 +157,36 @@ public class PerfilMentorFragment extends Fragment {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             progressDialog.dismiss();
-                            Toast.makeText(getContext(),"Perfil atualizado!",Toast.LENGTH_SHORT).show();
+                            builder.setTitle("Atualização do perfil")
+                                    .setMessage("Perfil atualizado!")
+                                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+
+                                        }
+                                    });
+
+                            builder.create();
+                            builder.show();
+                            //Toast.makeText(getContext(),"Perfil atualizado!",Toast.LENGTH_SHORT).show();
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
                             progressDialog.dismiss();
-                            Toast.makeText(getContext(),e.getMessage(),Toast.LENGTH_SHORT).show();
+                            builder.setTitle("Atualização do perfil")
+                                    .setMessage("Ops, houve um erro ao atualizar seu perfil. Tente novamente.")
+                                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+
+                                        }
+                                    });
+
+                            builder.create();
+                            builder.show();
+                            //Toast.makeText(getContext(),e.getMessage(),Toast.LENGTH_SHORT).show();
                         }
                     });
         }

@@ -1,6 +1,8 @@
 package com.example.mentoriapp.Cadastro;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -125,8 +127,21 @@ public class CadastroAvaliacaoFragment extends Fragment {
         String descricao = editDescricao.getText().toString();
         String emailMentorado = user.getEmail();
 
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+
         if(titulo == null || titulo.isEmpty() || descricao == null || descricao.isEmpty()){
-            Toast.makeText(getContext(),"Título e Descrição obrigatória!",Toast.LENGTH_SHORT).show();
+            builder.setTitle("Campos obrigatórios")
+                    .setMessage("Todos os campos são obrigatórios!")
+                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                        }
+                    });
+
+            builder.create();
+            builder.show();
+            //Toast.makeText(getContext(),"Título e Descrição obrigatória!",Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -141,8 +156,18 @@ public class CadastroAvaliacaoFragment extends Fragment {
                     @Override
                     public void onSuccess(DocumentReference documentReference) {
                         progressDialog.dismiss();
+                        builder.setTitle("Cadastro de avaliação")
+                                .setMessage("Avaliação cadastrada com sucesso!")
+                                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
 
-                        Toast.makeText(getContext(),"Avaliação cadastrada com sucesso!",Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+
+                        builder.create();
+                        builder.show();
+                        //Toast.makeText(getContext(),"Avaliação cadastrada com sucesso!",Toast.LENGTH_SHORT).show();
                         getActivity().getSupportFragmentManager()
                                 .beginTransaction()
                                 .replace(R.id.fragment_mentor, new ListaAvaliacoesFragment())
@@ -153,7 +178,18 @@ public class CadastroAvaliacaoFragment extends Fragment {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         progressDialog.dismiss();
-                        Toast.makeText(getContext(),"Ops, houve um erro no cadastro da avaliação! Tente novamente.",Toast.LENGTH_SHORT).show();
+                        builder.setTitle("Cadastro de avaliação")
+                                .setMessage("Avaliação cadastrada com sucesso!")
+                                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+
+                                    }
+                                });
+
+                        builder.create();
+                        builder.show();
+                        //Toast.makeText(getContext(),"Ops, houve um erro no cadastro da avaliação! Tente novamente.",Toast.LENGTH_SHORT).show();
                     }
                 });
     }

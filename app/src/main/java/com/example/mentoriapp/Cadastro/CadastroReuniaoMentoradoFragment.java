@@ -1,8 +1,10 @@
 package com.example.mentoriapp.Cadastro;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
@@ -188,9 +190,23 @@ public class CadastroReuniaoMentoradoFragment extends Fragment {
         String horario = txtHorario.getText().toString();
         String autor = user.getEmail();
 
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+
         if(descricao == null || data == null || horario == null ||
                 descricao.isEmpty() || data.isEmpty() || horario.isEmpty()){
-            Toast.makeText(getContext(),"Todos os campos são obrigatórios!",Toast.LENGTH_SHORT).show();
+
+            builder.setTitle("Campos obrigatórios")
+                    .setMessage("Todos os campos são obrigatórios!")
+                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                        }
+                    });
+
+            builder.create();
+            builder.show();
+            //Toast.makeText(getContext(),"Todos os campos são obrigatórios!",Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -204,7 +220,18 @@ public class CadastroReuniaoMentoradoFragment extends Fragment {
                     @Override
                     public void onSuccess(DocumentReference documentReference) {
                         progressDialog.dismiss();
-                        Toast.makeText(getContext(),"Reunião cadastrada com sucesso!",Toast.LENGTH_SHORT).show();
+                        builder.setTitle("Cadastro da reunião")
+                                .setMessage("Reunião cadastrada com sucesso!")
+                                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+
+                                    }
+                                });
+
+                        builder.create();
+                        builder.show();
+                        //Toast.makeText(getContext(),"Reunião cadastrada com sucesso!",Toast.LENGTH_SHORT).show();
                         getActivity().getSupportFragmentManager().beginTransaction()
                                 .replace(R.id.fragment_mentorado, new ListaReunioesMentoradoFragment())
                                 .commit();
@@ -214,7 +241,18 @@ public class CadastroReuniaoMentoradoFragment extends Fragment {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         progressDialog.dismiss();
-                        Toast.makeText(getContext(),"Ops, houve um erro ao cadastrar a reunião! Tente novamente.",Toast.LENGTH_SHORT).show();
+                        builder.setTitle("Cadastro da reunião")
+                                .setMessage("Ops, houve um erro ao cadastrar a reunião! Tente novamente.")
+                                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+
+                                    }
+                                });
+
+                        builder.create();
+                        builder.show();
+                        //Toast.makeText(getContext(),"Ops, houve um erro ao cadastrar a reunião! Tente novamente.",Toast.LENGTH_SHORT).show();
                     }
                 });
     }
