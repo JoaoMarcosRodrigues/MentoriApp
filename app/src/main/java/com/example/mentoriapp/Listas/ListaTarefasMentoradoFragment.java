@@ -103,7 +103,7 @@ public class ListaTarefasMentoradoFragment extends Fragment {
     }
 
     private void fetchTarefas() {
-        db.collection("tarefas").whereEqualTo("emailDestinatario",user.getEmail())
+        db.collection("tarefas").whereEqualTo("emailDestinatario",user.getEmail()).orderBy("id")
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
                     public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {

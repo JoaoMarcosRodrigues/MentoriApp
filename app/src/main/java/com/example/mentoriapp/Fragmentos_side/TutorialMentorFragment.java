@@ -13,12 +13,13 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.example.mentoriapp.R;
 import com.example.mentoriapp.Adapters.SliderAdapter;
+import com.example.mentoriapp.Adapters.SliderMentorAdapter;
+import com.example.mentoriapp.R;
 
-public class TutorialFragment extends Fragment {
+public class TutorialMentorFragment extends Fragment {
     private TextView[] mDots;
-    private SliderAdapter sliderAdapter;
+    private SliderMentorAdapter sliderAdapter;
     private ViewPager mSlideViewPager;
     private LinearLayout mDotLayout;
     private Button mAnteriorBtn, mProximoBtn;
@@ -27,8 +28,7 @@ public class TutorialFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
-        View view = inflater.inflate(R.layout.fragment_tutorial, container, false);
+        View view = inflater.inflate(R.layout.fragment_tutorial_mentor, container, false);
 
         mAnteriorBtn = view.findViewById(R.id.btn_anterior);
         mProximoBtn = view.findViewById(R.id.btn_proximo);
@@ -36,7 +36,7 @@ public class TutorialFragment extends Fragment {
         mSlideViewPager = view.findViewById(R.id.view_pager);
         mDotLayout = view.findViewById(R.id.layout_navegacao);
 
-        sliderAdapter = new SliderAdapter(getActivity());
+        sliderAdapter = new SliderMentorAdapter(getActivity());
         mSlideViewPager.setAdapter(sliderAdapter);
 
         addDotsIndicator(0);

@@ -1,5 +1,7 @@
 package com.example.mentoriapp.Listas;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -7,6 +9,7 @@ import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -17,6 +20,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.mentoriapp.Adapters.ReuniaoAdapter;
 import com.example.mentoriapp.Cadastro.CadastroReuniaoMentoradoFragment;
@@ -34,7 +38,7 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collection;
 
-public class ListaReunioesMentoradoFragment extends Fragment {
+public class ListaReunioesMentoradoFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener{
 
     private RecyclerView mRecyclerView;
     private CollectionReference ref;
@@ -75,7 +79,7 @@ public class ListaReunioesMentoradoFragment extends Fragment {
     private void setUpRecyclerView() {
         String email = user.getEmail();
 
-        Query query = ref.whereEqualTo("emailAutor",email);
+        Query query = ref.whereEqualTo("emailAutor",email).orderBy("data");
         FirestoreRecyclerOptions<Reuniao> options = new FirestoreRecyclerOptions.Builder<Reuniao>()
                 .setQuery(query, Reuniao.class)
                 .build();
@@ -85,6 +89,8 @@ public class ListaReunioesMentoradoFragment extends Fragment {
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mRecyclerView.setAdapter(adapter);
+
+        adapter.notifyDataSetChanged();
     }
 
     @Override
@@ -97,5 +103,10 @@ public class ListaReunioesMentoradoFragment extends Fragment {
     public void onStop() {
         super.onStop();
         adapter.stopListening();
+    }
+
+    @Override
+    public void onRefresh() {
+
     }
 }

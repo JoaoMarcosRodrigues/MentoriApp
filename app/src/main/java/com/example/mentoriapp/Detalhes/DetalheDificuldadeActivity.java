@@ -16,7 +16,6 @@ public class DetalheDificuldadeActivity extends AppCompatActivity {
     Dificuldade dificuldade;
     private Toolbar toolbar;
     private TextView txtDescricao,txtRelato;
-    private CheckBox checkBox;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +26,6 @@ public class DetalheDificuldadeActivity extends AppCompatActivity {
 
         txtDescricao = findViewById(R.id.txtDescrição);
         txtRelato = findViewById(R.id.txtRelato);
-        checkBox = findViewById(R.id.check_favorito_dificuldade);
 
         Bundle bundle = getIntent().getExtras();
         dificuldade = bundle.getParcelable("dificuldade");
@@ -40,11 +38,6 @@ public class DetalheDificuldadeActivity extends AppCompatActivity {
 
         txtRelato.setText(relato);
         txtDescricao.setText(descricao);
-        if(check == true){
-            checkBox.setChecked(true);
-        }else{
-            checkBox.setChecked(false);
-        }
 
         //Toast.makeText(this,tag+"-"+descricao+"-"+check,Toast.LENGTH_SHORT).show();
     }

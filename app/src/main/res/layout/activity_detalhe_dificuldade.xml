@@ -9,23 +9,12 @@
     <include android:id="@+id/toolbar"
         layout="@layout/toolbar"/>
 
-    <CheckBox
-        android:id="@+id/check_favorito_dificuldade"
-        style="?android:attr/starStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:text=" Favorito"
-        android:textSize="16sp"
-        android:layout_margin="18dp"
-        android:layout_below="@+id/toolbar"/>
-
     <RelativeLayout
         android:id="@+id/layout1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/check_favorito_dificuldade"
-        android:layout_marginTop="10dp"
+        android:layout_below="@id/toolbar"
+        android:layout_marginTop="25dp"
         android:layout_marginBottom="15dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"

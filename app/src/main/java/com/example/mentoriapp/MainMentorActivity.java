@@ -26,6 +26,7 @@ import com.example.mentoriapp.Fragmentos_side.MessagesActivity;
 import com.example.mentoriapp.Fragmentos_side.PerfilMentorFragment;
 import com.example.mentoriapp.Fragmentos_side.SobreFragment;
 import com.example.mentoriapp.Fragmentos_side.TutorialFragment;
+import com.example.mentoriapp.Fragmentos_side.TutorialMentorFragment;
 import com.example.mentoriapp.Listas.ListaReunioesMentorFragment;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -130,7 +131,7 @@ public class MainMentorActivity extends AppCompatActivity implements NavigationV
                         .addToBackStack(null).commit();
                 break;
             case R.id.nav_tutorial:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_mentor, new TutorialFragment())
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_mentor, new TutorialMentorFragment())
                         .addToBackStack(null).commit();
                 break;
             case R.id.nav_contato:

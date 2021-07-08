@@ -94,7 +94,7 @@ public class ListaRelatosFragment extends Fragment {
     }
 
     private void fetchRelatos() {
-        FirebaseFirestore.getInstance().collection("relatos").whereEqualTo("emailMentorado",user.getEmail())
+        FirebaseFirestore.getInstance().collection("relatos").whereEqualTo("emailMentorado",user.getEmail()).orderBy("data")
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
                     public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {

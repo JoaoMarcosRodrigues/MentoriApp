@@ -25,7 +25,6 @@ public class ExemploDificuldadeAdapter extends RecyclerView.Adapter<ExemploDific
         public ExemploViewHolder(@NonNull View itemView) {
             super(itemView);
             mTituloDificuldade = itemView.findViewById(R.id.txt_tag_dificuldade);
-            mFavoritoDificuldade = itemView.findViewById(R.id.check_favorito_dificuldade);
         }
     }
 

@@ -119,7 +119,7 @@ public class MeusMentoradosFragment extends Fragment {
     private void verMeusMentorados() {
         //Query query = ref.orderBy("nome");
 
-        ref.whereEqualTo("emailMentor",user.getEmail()).addSnapshotListener(new EventListener<QuerySnapshot>() {
+        ref.whereEqualTo("emailMentor",user.getEmail()).orderBy("nome").addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
                 if(error != null){
@@ -158,7 +158,7 @@ public class MeusMentoradosFragment extends Fragment {
     private void verTodosMentorados() {
         //Query query = ref.orderBy("nome");
 
-        ref.addSnapshotListener(new EventListener<QuerySnapshot>() {
+        ref.orderBy("nome").addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
                 if(error != null){

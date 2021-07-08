@@ -19,8 +19,8 @@
         android:layout_below="@+id/slide_image"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp"
-        android:textColor="@color/black"
-        android:textSize="30sp"
+        android:textColor="#FFFFFF"
+        android:textSize="28sp"
         android:textStyle="bold"/>
 
     <TextView
@@ -32,7 +32,7 @@
         android:gravity="center"
         android:layout_below="@+id/titulo_slide"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="40dp"
-        android:textColor="@color/black"
+        android:layout_marginTop="30dp"
+        android:textColor="#FFFFFF"
         android:textSize="22sp"/>
 </RelativeLayout>

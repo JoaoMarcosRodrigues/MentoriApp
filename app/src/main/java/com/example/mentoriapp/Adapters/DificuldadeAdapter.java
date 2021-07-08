@@ -44,7 +44,6 @@ public class DificuldadeAdapter extends FirestoreRecyclerAdapter<Dificuldade, Di
 
             txtTag = itemView.findViewById(R.id.txt_tag_dificuldade);
             txtDescricao = itemView.findViewById(R.id.txt_descricao_dificuldade);
-            checkBox = itemView.findViewById(R.id.check_favorito_dificuldade);
         }
     }
 }

@@ -85,7 +85,7 @@ public class ListaMentoresFragment extends Fragment {
 
     private void setUpRecyclerView() {
         //Query query = ref.orderBy("nome").whereEqualTo("tipo",1);
-        FirebaseFirestore.getInstance().collection("mentores")
+        FirebaseFirestore.getInstance().collection("mentores").orderBy("nome")
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
                     public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {

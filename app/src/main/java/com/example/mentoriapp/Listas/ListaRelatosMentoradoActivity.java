@@ -91,7 +91,7 @@ public class ListaRelatosMentoradoActivity extends AppCompatActivity {
     }
 
     private void fetchRelatos(String emailMentorado) {
-        db.collection("relatos").whereEqualTo("emailMentorado",emailMentorado)
+        db.collection("relatos").whereEqualTo("emailMentorado",emailMentorado).orderBy("data")
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
                     public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {

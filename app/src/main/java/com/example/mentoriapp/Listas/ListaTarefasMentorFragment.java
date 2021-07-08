@@ -94,7 +94,7 @@ public class ListaTarefasMentorFragment extends Fragment {
     }
 
     private void fetchTarefas() {
-        db.collection("tarefas").whereEqualTo("emailAutor",user.getEmail())
+        db.collection("tarefas").whereEqualTo("emailAutor",user.getEmail()).orderBy("id")
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
                     public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {

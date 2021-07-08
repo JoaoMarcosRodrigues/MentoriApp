@@ -91,7 +91,7 @@ public class ListaAvaliacoesFragment extends Fragment {
     }
 
     private void fetchAvaliacao() {
-        FirebaseFirestore.getInstance().collection("mentores").document(user.getUid()).collection("avaliacoes")
+        FirebaseFirestore.getInstance().collection("mentores").document(user.getUid()).collection("avaliacoes").orderBy("id")
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
                     public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {

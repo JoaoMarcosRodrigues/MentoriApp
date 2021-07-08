@@ -2,7 +2,6 @@ package com.example.mentoriapp.Adapters;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,27 +12,21 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mentoriapp.Classes.Reuniao;
-import com.example.mentoriapp.Listas.ListaReunioesMentoradoFragment;
 import com.example.mentoriapp.R;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 
-import java.util.ArrayList;
-
-public class ReuniaoAdapter extends FirestoreRecyclerAdapter<Reuniao, ReuniaoAdapter.ReuniaoHolder> {
+public class ReuniaoMentorAdapter extends FirestoreRecyclerAdapter<Reuniao, ReuniaoMentorAdapter.ReuniaoHolder> {
 
     private FirebaseFirestore db;
     private FirebaseAuth auth;
     private FirebaseUser user;
 
-    public ReuniaoAdapter(@NonNull FirestoreRecyclerOptions<Reuniao> options) {
+    public ReuniaoMentorAdapter(@NonNull FirestoreRecyclerOptions<Reuniao> options) {
         super(options);
     }
 
@@ -57,7 +50,7 @@ public class ReuniaoAdapter extends FirestoreRecyclerAdapter<Reuniao, ReuniaoAda
                         .setPositiveButton("Sim", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                db.collection("mentorados").document(user.getUid()).collection("reunioes").document(documentPath).delete();
+                                db.collection("mentores").document(user.getUid()).collection("reunioes").document(documentPath).delete();
                                 notifyItemRemoved(holder.getAdapterPosition());
                                 //Toast.makeText(v.getContext(),"Clicou SIM!",Toast.LENGTH_SHORT).show();
                             }
@@ -87,7 +80,7 @@ public class ReuniaoAdapter extends FirestoreRecyclerAdapter<Reuniao, ReuniaoAda
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
 
-        return new ReuniaoAdapter.ReuniaoHolder(v);
+        return new ReuniaoMentorAdapter.ReuniaoHolder(v);
     }
 
 

@@ -32,13 +32,6 @@
             android:text="Descrição"
             android:textSize="18sp" />
 
-        <CheckBox
-            android:id="@+id/check_favorito_dificuldade"
-            style="?android:attr/starStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true" />
-
 
     </RelativeLayout>
 

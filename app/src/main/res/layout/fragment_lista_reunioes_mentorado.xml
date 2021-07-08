@@ -5,7 +5,6 @@
     android:layout_height="match_parent"
     tools:context=".Listas.ListaReunioesMentoradoFragment">
 
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/listaReunioes"
         android:layout_width="match_parent"

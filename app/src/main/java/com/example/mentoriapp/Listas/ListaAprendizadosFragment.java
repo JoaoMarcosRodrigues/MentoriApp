@@ -113,7 +113,7 @@ public class ListaAprendizadosFragment extends Fragment {
     }
 
     private void fetchAprendizados() {
-        FirebaseFirestore.getInstance().collection("mentorados").document(user.getUid()).collection("aprendizados")
+        FirebaseFirestore.getInstance().collection("mentorados").document(user.getUid()).collection("aprendizados").orderBy("id")
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
                     public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {

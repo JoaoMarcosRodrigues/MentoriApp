@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -54,7 +55,6 @@ public class ListaDificuldadesFragment extends Fragment {
     private FirebaseUser user;
     private FirebaseFirestore db;
     private Dificuldade dificuldade;
-    private Button btnSalvarDificuldade;
     private GroupieAdapter adapter;
     View view;
 
@@ -73,7 +73,6 @@ public class ListaDificuldadesFragment extends Fragment {
         recycler_dificuldades.setHasFixedSize(true);
 
         FloatingActionButton addDificuldade = view.findViewById(R.id.btnAdicionarDificuldade);
-        btnSalvarDificuldade = view.findViewById(R.id.btnSalvarDificuldade);
 
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
@@ -102,13 +101,6 @@ public class ListaDificuldadesFragment extends Fragment {
             }
         });
 
-        btnSalvarDificuldade.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
-
         fetchDificuldades();
 
         return view;
@@ -116,6 +108,7 @@ public class ListaDificuldadesFragment extends Fragment {
 
     private void fetchDificuldades() {
         FirebaseFirestore.getInstance().collection("mentorados").document(user.getUid()).collection("dificuldades")
+                .orderBy("id")
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
                     public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
@@ -147,11 +140,9 @@ public class ListaDificuldadesFragment extends Fragment {
         public void bind(@NonNull GroupieViewHolder viewHolder, int position) {
             TextView tagDificuldade = viewHolder.itemView.findViewById(R.id.txt_tag_dificuldade);
             TextView descricaoDificuldade = viewHolder.itemView.findViewById(R.id.txt_descricao_dificuldade);
-            CheckBox favorito = viewHolder.itemView.findViewById(R.id.check_favorito_dificuldade);
 
             tagDificuldade.setText(dificuldade.getTagDificuldade());
             descricaoDificuldade.setText(dificuldade.getDescricaoDificuldade());
-            favorito.setChecked(dificuldade.isFavorito());
         }
 
         @Override

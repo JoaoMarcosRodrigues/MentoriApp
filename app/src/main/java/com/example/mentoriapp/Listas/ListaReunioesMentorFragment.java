@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mentoriapp.Adapters.ReuniaoAdapter;
+import com.example.mentoriapp.Adapters.ReuniaoMentorAdapter;
 import com.example.mentoriapp.Cadastro.CadastroReuniaoMentorFragment;
 import com.example.mentoriapp.Cadastro.CadastroReuniaoMentoradoFragment;
 import com.example.mentoriapp.Classes.Reuniao;
@@ -31,7 +32,7 @@ public class ListaReunioesMentorFragment extends Fragment {
     private FirebaseFirestore db;
     View view;
 
-    private ReuniaoAdapter adapter;
+    private ReuniaoMentorAdapter adapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -63,13 +64,13 @@ public class ListaReunioesMentorFragment extends Fragment {
     private void setUpRecyclerView() {
         String email = user.getEmail();
 
-        Query query = ref.whereEqualTo("emailAutor",email);
+        Query query = ref.whereEqualTo("emailAutor",email).orderBy("data");
         FirestoreRecyclerOptions<Reuniao> options = new FirestoreRecyclerOptions.Builder<Reuniao>()
                 .setQuery(query, Reuniao.class)
                 .build();
 
 
-        adapter = new ReuniaoAdapter(options);
+        adapter = new ReuniaoMentorAdapter(options);
         mRecyclerView = view.findViewById(R.id.listaReunioes);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
