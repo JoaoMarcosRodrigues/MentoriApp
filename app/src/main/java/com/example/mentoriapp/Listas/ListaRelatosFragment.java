@@ -103,6 +103,7 @@ public class ListaRelatosFragment extends Fragment {
                             return;
                         }
 
+                        adapter.clear();
                         List<DocumentSnapshot> docs = value.getDocuments();
                         for(DocumentSnapshot doc : docs){
                             Relato relato = doc.toObject(Relato.class);

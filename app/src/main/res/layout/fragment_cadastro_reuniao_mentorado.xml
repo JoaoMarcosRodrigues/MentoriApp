@@ -6,126 +6,154 @@
     android:layout_height="match_parent"
     tools:context=".Cadastro.CadastroReuniaoMentoradoFragment">
 
-    <RelativeLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/layout_titulo"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/toolbar"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="60dp"
-            android:layout_marginRight="20dp"
-            android:hint="Título"
-            app:counterEnabled="true"
-            app:counterMaxLength="100"
-            app:errorEnabled="true">
+            android:layout_height="match_parent">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edit_titulo"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/layout_titulo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="top|left"
-                android:inputType="text"
-                android:lines="1" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="60dp"
+                android:layout_marginRight="20dp"
+                android:hint="Título"
+                app:counterEnabled="true"
+                app:counterMaxLength="100"
+                app:errorEnabled="true">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/layout_descricao"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/layout_titulo"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginRight="20dp"
-            android:hint="Descrição"
-            app:counterEnabled="true"
-            app:counterMaxLength="255"
-            app:errorEnabled="true">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edit_titulo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="top|left"
+                    android:inputType="text"
+                    android:lines="1" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edit_descricao"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/layout_descricao"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="top|left"
-                android:inputType="textMultiLine"
-                android:lines="4" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:layout_below="@+id/layout_titulo"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginRight="20dp"
+                android:hint="Descrição"
+                app:counterEnabled="true"
+                app:counterMaxLength="255"
+                app:errorEnabled="true">
 
-        <TextView
-            android:id="@+id/txt_data_horario"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/layout_descricao"
-            android:layout_marginLeft="30dp"
-            android:layout_marginTop="30dp"
-            android:text="Data e Horário"
-            android:textSize="18sp"
-            android:textStyle="bold" />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edit_descricao"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="top|left"
+                    android:inputType="textMultiLine"
+                    android:lines="4" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-        <TextView
-            android:id="@+id/txt_selecione"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/txt_data_horario"
-            android:layout_marginLeft="30dp"
-            android:layout_marginTop="5dp"
-            android:text="(Clique nos ícones para selecionar)"
-            android:textColor="#8FDD1E1E"
-            android:textSize="14sp"
-            android:textStyle="bold" />
+            <TextView
+                android:id="@+id/txt_convidado"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/layout_descricao"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="30dp"
+                android:text="Convidado"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
-        <ImageView
-            android:id="@+id/img_calendario"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_below="@+id/txt_selecione"
-            android:layout_marginLeft="40dp"
-            android:layout_marginTop="40dp"
-            android:src="@drawable/ic_calendario" />
+            <Spinner
+                android:id="@+id/spinnerConvidados"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/txt_convidado"
+                android:layout_marginLeft="30dp"
+                android:background="@drawable/edit_round"
+                android:layout_marginTop="10dp"
+                android:spinnerMode="dropdown"
+                android:prompt="@string/convidado"/>
 
-        <TextView
-            android:id="@+id/txt_data"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/txt_selecione"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="43dp"
-            android:layout_toRightOf="@+id/img_calendario"
-            android:hint="___________"
-            android:textSize="18sp" />
+            <TextView
+                android:id="@+id/txt_data_horario"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/spinnerConvidados"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="30dp"
+                android:text="Data e Horário"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
-        <ImageView
-            android:id="@+id/img_relogio"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_below="@+id/img_calendario"
-            android:layout_marginLeft="40dp"
-            android:layout_marginTop="30dp"
-            android:src="@drawable/ic_horario" />
+            <TextView
+                android:id="@+id/txt_selecione"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/txt_data_horario"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="5dp"
+                android:text="(Clique nos ícones para selecionar)"
+                android:textColor="#8FDD1E1E"
+                android:textSize="14sp"
+                android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/txt_horario"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/txt_data"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="40dp"
-            android:layout_toRightOf="@+id/img_relogio"
-            android:hint="___________"
-            android:textSize="18sp" />
+            <ImageView
+                android:id="@+id/img_calendario"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_below="@+id/txt_selecione"
+                android:layout_marginLeft="40dp"
+                android:layout_marginTop="40dp"
+                android:src="@drawable/ic_calendario" />
 
-        <Button
-            android:id="@+id/btn_cadastrar_reuniao"
-            android:layout_width="250dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="40dp"
-            android:backgroundTint="#858383"
-            android:text="Cadastrar" />
-    </RelativeLayout>
+            <TextView
+                android:id="@+id/txt_data"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/txt_selecione"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="43dp"
+                android:layout_toRightOf="@+id/img_calendario"
+                android:hint="___________"
+                android:textSize="18sp" />
+
+            <ImageView
+                android:id="@+id/img_relogio"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_below="@+id/img_calendario"
+                android:layout_marginLeft="40dp"
+                android:layout_marginTop="30dp"
+                android:src="@drawable/ic_horario" />
+
+            <TextView
+                android:id="@+id/txt_horario"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/txt_data"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="40dp"
+                android:layout_toRightOf="@+id/img_relogio"
+                android:hint="___________"
+                android:textSize="18sp" />
+
+            <Button
+                android:id="@+id/btn_cadastrar_reuniao"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="30dp"
+                android:backgroundTint="#858383"
+                android:layout_below="@+id/txt_horario"
+                android:text="Cadastrar"
+                android:layout_marginTop="80dp"/>
+        </RelativeLayout>
+
+    </ScrollView>
 
 </FrameLayout>

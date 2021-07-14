@@ -117,6 +117,7 @@ public class ListaDificuldadesFragment extends Fragment {
                             return;
                         }
 
+                        adapter.clear();
                         List<DocumentSnapshot> docs = value.getDocuments();
                         for(DocumentSnapshot doc : docs){
                             Dificuldade dificuldade = doc.toObject(Dificuldade.class);

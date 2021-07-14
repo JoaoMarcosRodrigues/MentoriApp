@@ -127,6 +127,7 @@ public class MeusMentoradosFragment extends Fragment {
                     return;
                 }
 
+                adapter.clear();
                 List<DocumentSnapshot> docs = value.getDocuments();
                 for(DocumentSnapshot doc: docs){
                     Mentorado mentorado = doc.toObject(Mentorado.class);
@@ -166,6 +167,7 @@ public class MeusMentoradosFragment extends Fragment {
                     return;
                 }
 
+                adapter.clear();
                 List<DocumentSnapshot> docs = value.getDocuments();
                 for(DocumentSnapshot doc: docs){
                     Mentorado mentorado = doc.toObject(Mentorado.class);

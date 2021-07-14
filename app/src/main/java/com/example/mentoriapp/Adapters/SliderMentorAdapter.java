@@ -23,21 +23,24 @@ public class SliderMentorAdapter extends PagerAdapter {
 
     // Arrays
     public int[] slide_images = {
-            R.drawable.passo1,
-            R.drawable.passo2,
-            R.drawable.passo3
+            R.drawable.passo4,
+            R.drawable.passo5,
+            R.drawable.passo6,
+            R.drawable.passo7
     };
 
     public String[] slide_titulos = {
             "PASSO 1",
             "PASSO 2",
-            "PASSO 3"
+            "PASSO 3",
+            "PASSO 4"
     };
 
     public String[] slide_conteudos = {
-            "Execute uma tarefa externa ou recomendada pelo seu mentor.",
-            "Relate tudo o que ocorreu durante a execução desta tarefa, descrevendo dificuldades e aprendizados.",
-            "Evolua através dos feedbacks do seu mentor."
+            "Inclua o mentorado ao processo de mentoria.",
+            "Tenha acesso ao perfil e relato(s) do seu mentorado.",
+            "Cadastre tarefas direcionadas ao mentorado afim de fixar e/ou construir aprendizados.",
+            "Dê o feedback dos relatos do seu mentorado para que o mesmo possa evoluir no processo de mentoria."
     };
 
     @Override

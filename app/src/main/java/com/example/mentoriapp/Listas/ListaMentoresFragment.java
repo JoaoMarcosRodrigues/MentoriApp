@@ -94,6 +94,7 @@ public class ListaMentoresFragment extends Fragment {
                             return;
                         }
 
+                        adapter.clear();
                         List<DocumentSnapshot> docs = value.getDocuments();
                         for(DocumentSnapshot doc: docs){
                             Mentor mentor = doc.toObject(Mentor.class);

@@ -112,6 +112,7 @@ public class ListaTarefasMentoradoFragment extends Fragment {
                             return;
                         }
 
+                        adapter.clear();
                         List<DocumentSnapshot> docs = value.getDocuments();
                         for(DocumentSnapshot doc : docs){
                             Tarefa tarefa = doc.toObject(Tarefa.class);

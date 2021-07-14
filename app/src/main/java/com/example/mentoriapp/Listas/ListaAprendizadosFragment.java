@@ -122,6 +122,7 @@ public class ListaAprendizadosFragment extends Fragment {
                             return;
                         }
 
+                        adapter.clear();
                         List<DocumentSnapshot> docs = value.getDocuments();
                         for(DocumentSnapshot doc : docs){
                             Aprendizado aprendizado = doc.toObject(Aprendizado.class);

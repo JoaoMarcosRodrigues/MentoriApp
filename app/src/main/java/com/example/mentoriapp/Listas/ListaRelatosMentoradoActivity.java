@@ -100,6 +100,7 @@ public class ListaRelatosMentoradoActivity extends AppCompatActivity {
                             return;
                         }
 
+                        adapter.clear();
                         List<DocumentSnapshot> docs = value.getDocuments();
                         for(DocumentSnapshot doc : docs){
                             Relato relato = doc.toObject(Relato.class);

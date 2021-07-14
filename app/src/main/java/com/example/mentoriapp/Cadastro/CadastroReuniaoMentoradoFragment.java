@@ -11,21 +11,29 @@ import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.example.mentoriapp.Classes.Aprendizado;
+import com.example.mentoriapp.Classes.Mentorado;
 import com.example.mentoriapp.Classes.Reuniao;
+import com.example.mentoriapp.Listas.ListaAprendizadosFragment;
 import com.example.mentoriapp.Listas.ListaReunioesMentoradoFragment;
 import com.example.mentoriapp.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -35,12 +43,18 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 public class CadastroReuniaoMentoradoFragment extends Fragment {
 
@@ -54,7 +68,10 @@ public class CadastroReuniaoMentoradoFragment extends Fragment {
     private FirebaseAuth auth;
     private FirebaseUser user;
     private FirebaseFirestore firestore;
+    private CollectionReference ref;
+    private Spinner spinnerConvidados;
     int maxid;
+    private String emailMentor;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -70,14 +87,47 @@ public class CadastroReuniaoMentoradoFragment extends Fragment {
         txtCalendario = view.findViewById(R.id.txt_data);
         editDescricao = view.findViewById(R.id.edit_descricao);
         editTitulo = view.findViewById(R.id.edit_titulo);
+        spinnerConvidados = view.findViewById(R.id.spinnerConvidados);
 
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
         firestore = FirebaseFirestore.getInstance();
 
+        ref = firestore.collection("mentorados");
+        List<String> listaConvidados = new ArrayList<>();
+
+        ArrayAdapter arrayAdapter = new ArrayAdapter(getActivity(), android.R.layout.simple_spinner_dropdown_item,listaConvidados);
+        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerConvidados.setAdapter(arrayAdapter);
+
+        ref.whereEqualTo("email",user.getEmail()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if(task.isSuccessful()){
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        String subject = document.getString("emailMentor");
+                        listaConvidados.add(subject);
+                    }
+                    arrayAdapter.notifyDataSetChanged();
+                }
+            }
+        });
+
+        spinnerConvidados.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                emailMentor = spinnerConvidados.getSelectedItem().toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                // Quando nada for selecionado
+            }
+        });
+
         progressDialog = new ProgressDialog(getContext());
 
-        firestore.collection("mentorados").document(user.getUid()).collection("reunioes").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        firestore.collection("reunioes").whereEqualTo("emailAutor",user.getEmail()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if(task.isSuccessful()){
@@ -183,6 +233,7 @@ public class CadastroReuniaoMentoradoFragment extends Fragment {
         return view;
     }
 
+
     private void cadastrarReuniao() {
         String titulo = editTitulo.getText().toString();
         String descricao = editDescricao.getText().toString();
@@ -213,8 +264,9 @@ public class CadastroReuniaoMentoradoFragment extends Fragment {
         progressDialog.setMessage("Cadastrando reunião...");
         progressDialog.show();
 
-        Reuniao reuniao = new Reuniao(maxid,titulo,descricao,data,horario,autor,"teste@gmail.com");
-        FirebaseFirestore.getInstance().collection("mentorados").document(user.getUid()).collection("reunioes")
+
+        Reuniao reuniao = new Reuniao(maxid,titulo,descricao,data,horario,autor,emailMentor);
+        FirebaseFirestore.getInstance().collection("reunioes")
                 .add(reuniao)
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override

@@ -100,6 +100,7 @@ public class ListaFeedbacksFragment extends Fragment {
                             return;
                         }
 
+                        adapter.clear();
                         List<DocumentSnapshot> docs = value.getDocuments();
                         for(DocumentSnapshot doc : docs){
                             Feedback feedback = doc.toObject(Feedback.class);

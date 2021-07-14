@@ -100,6 +100,7 @@ public class ListaAvaliacoesFragment extends Fragment {
                             return;
                         }
 
+                        adapter.clear();
                         List<DocumentSnapshot> docs = value.getDocuments();
                         for(DocumentSnapshot doc : docs){
                             Avaliacao avaliacao = doc.toObject(Avaliacao.class);

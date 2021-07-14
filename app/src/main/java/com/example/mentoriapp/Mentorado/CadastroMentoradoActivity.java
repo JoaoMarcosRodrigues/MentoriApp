@@ -136,12 +136,12 @@ public class CadastroMentoradoActivity extends AppCompatActivity {
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        progressDialog.dismiss();
                         if(task.isSuccessful()) {
                             Log.i("Teste", task.getResult().getUser().getUid());
                             saveMentoradoInFirebase();
                             saveUserInFirebase();
-                            Toast.makeText(getApplicationContext(),"Mentorado cadastrado com sucesso!",Toast.LENGTH_SHORT).show();
+                            progressDialog.dismiss();
+                            //Toast.makeText(getApplicationContext(),"Mentorado cadastrado com sucesso!",Toast.LENGTH_SHORT).show();
                         }
                     }
                 })
@@ -189,7 +189,7 @@ public class CadastroMentoradoActivity extends AppCompatActivity {
                                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                                             @Override
                                             public void onSuccess(Void aVoid) {
-                                                Toast.makeText(getApplicationContext(),"Mentorado cadastrado com sucesso!",Toast.LENGTH_SHORT).show();
+                                                //Toast.makeText(getApplicationContext(),"Mentorado cadastrado com sucesso!",Toast.LENGTH_SHORT).show();
                                                 Intent intent = new Intent(CadastroMentoradoActivity.this, MainMentoradoActivity.class);
                                                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                                 startActivity(intent);
@@ -247,20 +247,7 @@ public class CadastroMentoradoActivity extends AppCompatActivity {
                                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                                             @Override
                                             public void onSuccess(Void aVoid) {
-                                                /*
-                                                Toast.makeText(getApplicationContext(),"Usuário cadastrado com sucesso!",Toast.LENGTH_SHORT).show();
-                                                if(tipo == 1){
-                                                    Intent intent = new Intent(CadastroMentoradoActivity.this, MainMentorActivity.class);
-                                                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                                                    startActivity(intent);
-                                                }
-                                                if(tipo == 2){
-                                                    Intent intent = new Intent(CadastroMentoradoActivity.this, MainMentoradoActivity.class);
-                                                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                                                    startActivity(intent);
-                                                }
 
-                                                 */
                                             }
                                         })
                                         .addOnFailureListener(new OnFailureListener() {

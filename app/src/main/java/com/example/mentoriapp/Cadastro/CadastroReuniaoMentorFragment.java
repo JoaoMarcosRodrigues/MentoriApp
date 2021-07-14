@@ -12,9 +12,12 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -35,12 +38,16 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 public class CadastroReuniaoMentorFragment extends Fragment {
 
@@ -54,7 +61,10 @@ public class CadastroReuniaoMentorFragment extends Fragment {
     private FirebaseAuth auth;
     private FirebaseUser user;
     private FirebaseFirestore firestore;
+    private CollectionReference ref;
+    private Spinner spinnerConvidados;
     int maxid;
+    private String emailMentorado;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -69,14 +79,47 @@ public class CadastroReuniaoMentorFragment extends Fragment {
         txtCalendario = view.findViewById(R.id.txt_data);
         editDescricao = view.findViewById(R.id.edit_descricao);
         editTitulo = view.findViewById(R.id.edit_titulo);
+        spinnerConvidados = view.findViewById(R.id.spinnerConvidados);
 
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
         firestore = FirebaseFirestore.getInstance();
 
+        ref = firestore.collection("mentorias");
+        List<String> listaConvidados = new ArrayList<>();
+
+        ArrayAdapter arrayAdapter = new ArrayAdapter(getActivity(), android.R.layout.simple_spinner_dropdown_item,listaConvidados);
+        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerConvidados.setAdapter(arrayAdapter);
+
+        ref.whereEqualTo("emailMentor",user.getEmail()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if(task.isSuccessful()){
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        String subject = document.getString("emailMentorado");
+                        listaConvidados.add(subject);
+                    }
+                    arrayAdapter.notifyDataSetChanged();
+                }
+            }
+        });
+
+        spinnerConvidados.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                emailMentorado = spinnerConvidados.getSelectedItem().toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                // Quando nada for selecionado
+            }
+        });
+
         progressDialog = new ProgressDialog(getContext());
 
-        firestore.collection("mentores").document(user.getUid()).collection("reunioes").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        firestore.collection("reunioes").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if(task.isSuccessful()){
@@ -210,8 +253,8 @@ public class CadastroReuniaoMentorFragment extends Fragment {
         progressDialog.setMessage("Cadastrando reunião...");
         progressDialog.show();
 
-        Reuniao reuniao = new Reuniao(maxid,titulo,descricao,data,horario,autor,"teste@gmail.com");
-        FirebaseFirestore.getInstance().collection("mentores").document(user.getUid()).collection("reunioes")
+        Reuniao reuniao = new Reuniao(maxid,titulo,descricao,data,horario,autor,emailMentorado);
+        FirebaseFirestore.getInstance().collection("reunioes")
                 .add(reuniao)
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
