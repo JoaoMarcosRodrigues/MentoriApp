@@ -1,5 +1,6 @@
 package com.example.mentoriapp.Fragmentos_side;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.cardview.widget.CardView;
@@ -59,10 +60,13 @@ public class MentoradoHomeFragment extends Fragment {
                             Toast.makeText(getActivity(),"Contato Mentor em produção",Toast.LENGTH_SHORT).show();
                             break;
                         case 3:
+                            /*
                             getActivity().getSupportFragmentManager()
                                     .beginTransaction()
                                     .replace(R.id.fragment_mentorado, new ListaReunioesMentoradoFragment()).addToBackStack(null)
                                     .commit();
+                             */
+                            startActivity(new Intent(getContext(),ReuniaoActivity.class));
                             break;
                         case 4:
                             getActivity().getSupportFragmentManager()

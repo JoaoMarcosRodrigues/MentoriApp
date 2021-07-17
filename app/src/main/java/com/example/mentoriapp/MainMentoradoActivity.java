@@ -26,10 +26,14 @@ import com.example.mentoriapp.Listas.ListaMentoresFragment;
 import com.example.mentoriapp.Fragmentos_side.SobreFragment;
 import com.example.mentoriapp.Fragmentos_side.TutorialFragment;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -131,8 +135,25 @@ public class MainMentoradoActivity extends AppCompatActivity implements Navigati
                 alertDialog.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        FirebaseAuth.getInstance().signOut();
-                        verifyAuthentication();
+                        DocumentReference documentReference =
+                                firebaseFirestore.collection("usuarios").document(
+                                        currentUser.getUid()
+                                );
+
+                        documentReference.update("fcm_token", FieldValue.delete())
+                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void unused) {
+                                        FirebaseAuth.getInstance().signOut();
+                                        verifyAuthentication();
+                                    }
+                                })
+                                .addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(Exception e) {
+                                        Toast.makeText(getApplicationContext(),"Não foi possível deslogar.",Toast.LENGTH_LONG).show();
+                                    }
+                                });
                     }
                 });
                 alertDialog.setNegativeButton("Não", new DialogInterface.OnClickListener() {
