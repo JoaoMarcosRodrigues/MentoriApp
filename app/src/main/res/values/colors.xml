@@ -9,4 +9,6 @@
     <color name="white">#FFFFFFFF</color>
     <color name="colorTransparent">#cccccccc</color>
     <color name="gray">#E0E0E0</color>
+    <color name="colorMeetingInvitationStart">#4004BB</color>
+    <color name="colorMeetingInvitationEnd">#8A1AAA</color>
 </resources>

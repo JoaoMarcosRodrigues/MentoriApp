@@ -15,7 +15,13 @@
         android:theme="@style/Theme.MentoriApp"
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
-        <activity android:name=".Fragmentos_side.ReuniaoActivity"></activity>
+        <activity
+            android:name=".OutgoingInvitationActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".IncomingInvitationActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".Fragmentos_side.ReuniaoActivity" />
         <activity android:name=".Detalhes.DetalhesRelatoMentoradoActivity" />
         <activity android:name=".Detalhes.DetalheTarefaMentorActivity" />
         <activity android:name=".Listas.ListaRelatosMentoradoActivity" />

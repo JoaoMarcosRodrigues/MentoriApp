@@ -140,7 +140,7 @@ public class MainMentoradoActivity extends AppCompatActivity implements Navigati
                                         currentUser.getUid()
                                 );
 
-                        documentReference.update("fcm_token", FieldValue.delete())
+                        documentReference.update("token", FieldValue.delete())
                                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void unused) {

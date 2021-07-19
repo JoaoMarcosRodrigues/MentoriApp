@@ -8,12 +8,20 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:242098954453:android:cef2cd13be3668b5da025c",
+        "mobilesdk_app_id": "1:242098954453:android:8fad4ca78c606e66da025c",
         "android_client_info": {
           "package_name": "com.example.mentoriapp"
         }
       },
       "oauth_client": [
+        {
+          "client_id": "242098954453-e70khvthtmo7mop3imj3c2q9tv1bgrsm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.mentoriapp",
+            "certificate_hash": "e1c4ecd196d3f7f4e7ebce01b5567b6cd7eca1ec"
+          }
+        },
         {
           "client_id": "242098954453-nfmjb19lpdjvt8hqqi4d0ag2pclvrml4.apps.googleusercontent.com",
           "client_type": 3

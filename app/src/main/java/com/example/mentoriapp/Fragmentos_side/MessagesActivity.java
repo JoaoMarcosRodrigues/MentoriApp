@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,13 +21,16 @@ import com.example.mentoriapp.Classes.ChatApplication;
 import com.example.mentoriapp.Classes.Contato;
 import com.example.mentoriapp.Classes.Usuario;
 import com.example.mentoriapp.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.installations.FirebaseInstallations;
+import com.google.firebase.installations.InstallationTokenResult;
 import com.squareup.picasso.Picasso;
 import com.xwray.groupie.GroupieAdapter;
 import com.xwray.groupie.GroupieViewHolder;
@@ -62,14 +66,26 @@ public class MessagesActivity extends AppCompatActivity {
     }
 
     private void updateToken() {
-        String token = FirebaseInstanceId.getInstance().getToken();
         String uid = FirebaseAuth.getInstance().getUid();
 
-        if(uid != null){
-            FirebaseFirestore.getInstance().collection("usuarios")
-                    .document(uid)
-                    .update("token",token);
-        }
+        FirebaseInstallations.getInstance().getToken(true)
+                .addOnCompleteListener(new OnCompleteListener<InstallationTokenResult>() {
+                    @Override
+                    public void onComplete(Task<InstallationTokenResult> task) {
+                        String token = task.getResult().getToken();
+
+                        if (task.isSuccessful() && task.getResult() != null && uid != null) {
+                            Log.d("Installations", "Installation auth token: " + task.getResult().getToken());
+                            FirebaseFirestore.getInstance().collection("usuarios")
+                                    .document(uid)
+                                    .update("token",token);
+                        } else {
+                            Log.e("Installations", "Unable to get Installation auth token");
+                        }
+                    }
+                });
+
+
     }
 
     private void fetchLastMessages() {
