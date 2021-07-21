@@ -151,7 +151,7 @@ public class PerfilMentorFragment extends Fragment {
                         }
                     });
 
-            firebaseFirestore.collection("usuarios").document(firebaseUser.getEmail())
+            firebaseFirestore.collection("usuarios").document(firebaseUser.getUid())
                     .update("nome",nome,"telefone",telefone,"areaAtuacao",area)
                     .addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override

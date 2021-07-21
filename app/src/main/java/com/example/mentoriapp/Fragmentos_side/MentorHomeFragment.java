@@ -50,7 +50,7 @@ public class MentorHomeFragment extends Fragment {
                             // .beginTransaction()
                             // .replace(R.id.fragment, new NotificacoesFragment()).addToBackStack(null)
                             // .commit();
-                            Toast.makeText(getContext(),"Em produção",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getContext(),"Notificações em produção",Toast.LENGTH_SHORT).show();
                             break;
                         case 1:
                             getActivity().getSupportFragmentManager()
@@ -59,10 +59,13 @@ public class MentorHomeFragment extends Fragment {
                                     .commit();
                             break;
                         case 2:
+                            /*
                             getActivity().getSupportFragmentManager()
                                     .beginTransaction()
                                     .replace(R.id.fragment_mentor, new ListaAvaliacoesFragment()).addToBackStack(null)
                                     .commit();
+                             */
+                            Toast.makeText(getContext(),"Avaliações em produção",Toast.LENGTH_SHORT).show();
                             break;
                         case 3:
                             getActivity().getSupportFragmentManager()

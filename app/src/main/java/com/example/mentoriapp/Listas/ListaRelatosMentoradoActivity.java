@@ -87,7 +87,7 @@ public class ListaRelatosMentoradoActivity extends AppCompatActivity {
 
         fetchRelatos(emailMentorado);
 
-        Toast.makeText(this,emailMentorado,Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this,emailMentorado,Toast.LENGTH_SHORT).show();
     }
 
     private void fetchRelatos(String emailMentorado) {

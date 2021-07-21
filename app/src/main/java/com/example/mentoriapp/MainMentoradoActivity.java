@@ -126,7 +126,8 @@ public class MainMentoradoActivity extends AppCompatActivity implements Navigati
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_mentorado, new SobreFragment()).addToBackStack(null).commit();
                 break;
             case R.id.nav_configuracoes:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_mentorado, new ConfiguracaoFragment()).addToBackStack(null).commit();
+                //getSupportFragmentManager().beginTransaction().replace(R.id.fragment_mentorado, new ConfiguracaoFragment()).addToBackStack(null).commit();
+                Toast.makeText(this,"Em construção",Toast.LENGTH_SHORT).show();
                 break;
             case R.id.nav_sair:
                 AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);

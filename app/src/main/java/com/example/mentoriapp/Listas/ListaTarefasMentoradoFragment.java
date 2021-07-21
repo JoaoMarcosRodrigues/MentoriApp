@@ -154,6 +154,7 @@ public class ListaTarefasMentoradoFragment extends Fragment {
                     }else{
                         db.collection("tarefas").document(idTarefa).update("status",false);
                     }
+                    adapter.notifyDataSetChanged();
                 }
             });
         }

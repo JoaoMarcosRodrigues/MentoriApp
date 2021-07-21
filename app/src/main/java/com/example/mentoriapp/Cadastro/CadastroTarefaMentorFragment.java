@@ -150,10 +150,11 @@ public class CadastroTarefaMentorFragment extends Fragment {
         Tarefa tarefa = new Tarefa(maxid,titulo,descricao,email,mentoradoSelecionado,status);
 
         FirebaseFirestore.getInstance().collection("tarefas")
-                .add(tarefa)
-                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                .document(Integer.toString(maxid))
+                .set(tarefa)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
-                    public void onSuccess(DocumentReference documentReference) {
+                    public void onSuccess(Void unused) {
                         progressDialog.dismiss();
                         builder.setTitle("Cadastro da tarefa")
                                 .setMessage("Tarefa cadastrada!")
