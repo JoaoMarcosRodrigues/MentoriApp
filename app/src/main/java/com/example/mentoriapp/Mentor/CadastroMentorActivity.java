@@ -163,7 +163,7 @@ public class CadastroMentorActivity extends AppCompatActivity {
                             Log.i("Teste", task.getResult().getUser().getUid());
                             saveMentorInFirebase();
                             saveUserInFirebase();
-                            progressDialog.dismiss();
+                            //progressDialog.dismiss();
                             //Toast.makeText(getApplicationContext(),"Mentor cadastrado com sucesso!",Toast.LENGTH_SHORT).show();
                         }
                     }
@@ -216,6 +216,7 @@ public class CadastroMentorActivity extends AppCompatActivity {
                                                 //Toast.makeText(getApplicationContext(),"Mentor cadastrado com sucesso!",Toast.LENGTH_SHORT).show();
                                                 Intent intent = new Intent(CadastroMentorActivity.this, MainMentorActivity.class);
                                                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                                progressDialog.dismiss();
                                                 startActivity(intent);
                                             }
                                         })
