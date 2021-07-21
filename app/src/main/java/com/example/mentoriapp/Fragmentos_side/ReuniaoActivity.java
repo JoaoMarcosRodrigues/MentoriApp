@@ -1,11 +1,16 @@
 package com.example.mentoriapp.Fragmentos_side;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.PowerManager;
+import android.provider.Settings;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.RecyclerView;
@@ -34,6 +39,8 @@ public class ReuniaoActivity extends AppCompatActivity implements UsersListener 
     private UsersAdapter usersAdapter;
     private TextView textError;
     private SwipeRefreshLayout swipeRefreshLayout;
+
+    private int REQUEST_CODE_BATTERY_OPTIMIZATIONS = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +72,7 @@ public class ReuniaoActivity extends AppCompatActivity implements UsersListener 
         swipeRefreshLayout.setOnRefreshListener(this::getUsers);
 
         getUsers();
+        checkForBatteryOptimizations();
     }
 
     private void getUsers(){
@@ -118,7 +126,7 @@ public class ReuniaoActivity extends AppCompatActivity implements UsersListener 
             Toast.makeText(this,usuario.getNome()+" não está disponível para vídeo chamada.",Toast.LENGTH_SHORT).show();
         }else{
             Intent intent = new Intent(getApplicationContext(), OutgoingInvitationActivity.class);
-            intent.putExtra("user",user); // Usuário é Serializable
+            intent.putExtra("user",usuario); // Usuário é Serializable
             intent.putExtra("type","video");
             startActivity(intent);
         }
@@ -129,7 +137,35 @@ public class ReuniaoActivity extends AppCompatActivity implements UsersListener 
         if(usuario.getToken() == null || usuario.getToken().trim().isEmpty()){
             Toast.makeText(this,usuario.getNome()+" não está disponível para áudio chamada.",Toast.LENGTH_SHORT).show();
         }else{
-            Toast.makeText(this,"Áudio chamada com "+usuario.getNome(),Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(getApplicationContext(),OutgoingInvitationActivity.class);
+            intent.putExtra("user",usuario);
+            intent.putExtra("type","audio");
+            startActivity(intent);
+        }
+    }
+
+    private void checkForBatteryOptimizations(){
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+            PowerManager powerManager = (PowerManager) getSystemService(POWER_SERVICE);
+            if(!powerManager.isIgnoringBatteryOptimizations(getPackageName())){
+                AlertDialog.Builder builder = new AlertDialog.Builder(ReuniaoActivity.this);
+                builder.setTitle("Alerta");
+                builder.setMessage("Otimização de bateria está ativado. Pode interromper serviços de segundo plano");
+                builder.setPositiveButton("Desativar", (dialog, which) -> {
+                    Intent intent = new Intent(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS);
+                    startActivityForResult(intent,REQUEST_CODE_BATTERY_OPTIMIZATIONS);
+                });
+                builder.setNegativeButton("Cancelar", (dialog, which) -> dialog.dismiss());
+                builder.create().show();
+            }
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable @org.jetbrains.annotations.Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == REQUEST_CODE_BATTERY_OPTIMIZATIONS){
+            checkForBatteryOptimizations();
         }
     }
 }

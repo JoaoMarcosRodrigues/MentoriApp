@@ -1,5 +1,6 @@
 package com.example.mentoriapp.Fragmentos_side;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -70,10 +71,13 @@ public class MentorHomeFragment extends Fragment {
                                     .commit();
                             break;
                         case 4:
+                            /*
                             getActivity().getSupportFragmentManager()
                                     .beginTransaction()
                                     .replace(R.id.fragment_mentor, new ListaReunioesMentorFragment()).addToBackStack(null)
                                     .commit();
+                             */
+                            startActivity(new Intent(getContext(),ReuniaoActivity.class));
                             break;
                         case 5:
                             getActivity().getSupportFragmentManager()

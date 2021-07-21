@@ -9,7 +9,7 @@ android {
 
     defaultConfig {
         applicationId "com.example.mentoriapp"
-        minSdkVersion 19
+        minSdkVersion 21
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
@@ -71,6 +71,9 @@ dependencies {
 
     // Swipe Refresh Layout
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
+
+    // Jitsi Meet
+    implementation ('org.jitsi.react:jitsi-meet-sdk:2.8.2') { transitive = true }
 }
 
 apply plugin: 'com.google.gms.google-services'
