@@ -55,10 +55,21 @@ public class MessagesActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        RecyclerView rv = findViewById(R.id.recycler_contato);
+        RecyclerView rv = findViewById(R.id.recycler_messages);
         rv.setLayoutManager(new LinearLayoutManager(this));
         adapter = new GroupieAdapter();
         rv.setAdapter(adapter);
+
+        adapter.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(@NonNull Item item, @NonNull View view) {
+                Intent intent = new Intent(MessagesActivity.this, ChatActivity.class);
+                ContatoItem contatoItem = (ContatoItem) item;
+                intent.putExtra("contato",contatoItem.contato);
+
+                startActivity(intent);
+            }
+        });
 
         updateToken();
 
