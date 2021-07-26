@@ -60,6 +60,7 @@ public class MessagesActivity extends AppCompatActivity {
         adapter = new GroupieAdapter();
         rv.setAdapter(adapter);
 
+        /*
         adapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(@NonNull Item item, @NonNull View view) {
@@ -70,6 +71,7 @@ public class MessagesActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+         */
 
         updateToken();
 

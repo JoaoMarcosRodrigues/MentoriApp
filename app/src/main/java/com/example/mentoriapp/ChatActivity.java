@@ -42,7 +42,7 @@ public class ChatActivity extends AppCompatActivity {
 
     private GroupieAdapter adapter;
     private Usuario usuario;
-    private Contato contatoMessages;
+    //private Contato contatoMessages;
     private EditText editChat;
     private Usuario me;
     private FirebaseUser userCorrente;
@@ -58,11 +58,9 @@ public class ChatActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         usuario = getIntent().getExtras().getParcelable("user");
-        contatoMessages = getIntent().getExtras().getParcelable("contato");
-        if(usuario != null) {
+        //contatoMessages = getIntent().getExtras().getParcelable("contato");
+        if (usuario != null) {
             getSupportActionBar().setTitle(usuario.getNome());
-        }else{
-            getSupportActionBar().setTitle(contatoMessages.getUsername());
         }
 
         auth = FirebaseAuth.getInstance();
@@ -97,14 +95,9 @@ public class ChatActivity extends AppCompatActivity {
     }
 
     private void fetchMessages() {
-        if(me != null){
+        if (me != null) {
             String fromId = me.getUuid();
-            String toId;
-            if(usuario != null){
-                toId = usuario.getUuid();
-            }else{
-                toId = contatoMessages.getUuid();
-            }
+            String toId = usuario.getUuid();
 
             FirebaseFirestore.getInstance().collection("conversations")
                     .document(fromId)
@@ -115,9 +108,9 @@ public class ChatActivity extends AppCompatActivity {
                         public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
                             List<DocumentChange> documentChanges = value.getDocumentChanges();
 
-                            if(documentChanges != null){
-                                for(DocumentChange doc : documentChanges){
-                                    if(doc.getType() == DocumentChange.Type.ADDED){
+                            if (documentChanges != null) {
+                                for (DocumentChange doc : documentChanges) {
+                                    if (doc.getType() == DocumentChange.Type.ADDED) {
                                         Message message = doc.getDocument().toObject(Message.class);
                                         adapter.add(new MessageItem(message));
                                     }
@@ -133,12 +126,7 @@ public class ChatActivity extends AppCompatActivity {
         editChat.setText(null);
 
         String fromId = FirebaseAuth.getInstance().getUid();
-        String toId;
-        if(usuario != null){
-            toId = usuario.getUuid();
-        }else{
-            toId = contatoMessages.getUuid();
-        }
+        String toId = usuario.getUuid();
 
         long timestamp = System.currentTimeMillis();
 
@@ -148,7 +136,7 @@ public class ChatActivity extends AppCompatActivity {
         message.setTimestamp(timestamp);
         message.setText(text);
 
-        if(!message.getText().isEmpty()){
+        if (!message.getText().isEmpty()) {
             FirebaseFirestore.getInstance().collection("conversations")
                     .document(fromId)
                     .collection(toId)
@@ -156,64 +144,41 @@ public class ChatActivity extends AppCompatActivity {
                     .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                         @Override
                         public void onSuccess(DocumentReference documentReference) {
-                            Log.d("Teste",documentReference.getId());
+                            Log.d("Teste", documentReference.getId());
 
-                            if(usuario != null) {
-                                Contato contato = new Contato();
-                                contato.setUuid(toId);
-                                contato.setUsername(usuario.getNome());
-                                contato.setPhotoUrl(usuario.getPhotoUrl());
-                                contato.setTimestamp(message.getTimestamp());
-                                contato.setLastMessage(message.getText());
+                            Contato contato = new Contato();
+                            contato.setUuid(toId);
+                            contato.setUsername(usuario.getNome());
+                            contato.setPhotoUrl(usuario.getPhotoUrl());
+                            contato.setTimestamp(message.getTimestamp());
+                            contato.setLastMessage(message.getText());
 
-                                FirebaseFirestore.getInstance().collection("last-messages")
-                                        .document(fromId)
-                                        .collection("contatos")
-                                        .document(toId)
-                                        .set(contato);
+                            FirebaseFirestore.getInstance().collection("last-messages")
+                                    .document(fromId)
+                                    .collection("contatos")
+                                    .document(toId)
+                                    .set(contato);
 
-                                if (usuario.isOnline()) {
-                                    Notificacao notificacao = new Notificacao();
-                                    notificacao.setFromId(message.getFromId());
-                                    notificacao.setToId(message.getToId());
-                                    notificacao.setTimestamp(message.getTimestamp());
-                                    notificacao.setText(message.getText());
-                                    notificacao.setFromName(me.getNome());
+                            /*
+                            if (usuario.isOnline()) {
+                                Notificacao notificacao = new Notificacao();
+                                notificacao.setFromId(message.getFromId());
+                                notificacao.setToId(message.getToId());
+                                notificacao.setTimestamp(message.getTimestamp());
+                                notificacao.setText(message.getText());
+                                notificacao.setFromName(me.getNome());
 
-                                    FirebaseFirestore.getInstance().collection("notificacoes")
-                                            .document(usuario.getToken())
-                                            .set(notificacao);
-                                }
-                            }else{
-                                contatoMessages.setUuid(toId);
-
-                                FirebaseFirestore.getInstance().collection("last-messages")
-                                        .document(fromId)
-                                        .collection("contatos")
-                                        .document(toId)
-                                        .set(contatoMessages);
-
-                                if(usuario != null) {
-                                    if (usuario.isOnline()) {
-                                        Notificacao notificacao = new Notificacao();
-                                        notificacao.setFromId(message.getFromId());
-                                        notificacao.setToId(message.getToId());
-                                        notificacao.setTimestamp(message.getTimestamp());
-                                        notificacao.setText(message.getText());
-                                        notificacao.setFromName(me.getNome());
-
-                                        FirebaseFirestore.getInstance().collection("notificacoes")
-                                                .document(usuario.getToken())
-                                                .set(notificacao);
-                                    }
-                                }
+                                FirebaseFirestore.getInstance().collection("notificacoes")
+                                        .document(usuario.getToken())
+                                        .set(notificacao);
                             }
+                             */
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                            Log.e("Teste",e.getMessage(),e);
+                            Log.e("Teste", e.getMessage(), e);
                         }
                     });
 
@@ -224,36 +189,26 @@ public class ChatActivity extends AppCompatActivity {
                     .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                         @Override
                         public void onSuccess(DocumentReference documentReference) {
-                            Log.d("Teste",documentReference.getId());
+                            Log.d("Teste", documentReference.getId());
 
-                            if(usuario != null) {
-                                Contato contato = new Contato();
-                                contato.setUuid(toId);
-                                contato.setUsername(usuario.getNome());
-                                contato.setPhotoUrl(usuario.getPhotoUrl());
-                                contato.setTimestamp(message.getTimestamp());
-                                contato.setLastMessage(message.getText());
+                            Contato contato = new Contato();
+                            contato.setUuid(toId);
+                            contato.setUsername(usuario.getNome());
+                            contato.setPhotoUrl(usuario.getPhotoUrl());
+                            contato.setTimestamp(message.getTimestamp());
+                            contato.setLastMessage(message.getText());
 
-                                FirebaseFirestore.getInstance().collection("last-messages")
-                                        .document(toId)
-                                        .collection("contatos")
-                                        .document(fromId)
-                                        .set(contato);
-                            }else{
-                                contatoMessages.setUuid(toId);
-
-                                FirebaseFirestore.getInstance().collection("last-messages")
-                                        .document(toId)
-                                        .collection("contatos")
-                                        .document(fromId)
-                                        .set(contatoMessages);
-                            }
+                            FirebaseFirestore.getInstance().collection("last-messages")
+                                    .document(toId)
+                                    .collection("contatos")
+                                    .document(fromId)
+                                    .set(contato);
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                            Log.e("Teste",e.getMessage(),e);
+                            Log.e("Teste", e.getMessage(), e);
                         }
                     });
         }
@@ -272,19 +227,11 @@ public class ChatActivity extends AppCompatActivity {
             ImageView imgMsg = viewHolder.itemView.findViewById(R.id.img_message_user);
 
             txtMsg.setText(message.getText());
-            if(usuario != null) {
-                Picasso.get()
-                        .load(message.getFromId().equals(FirebaseAuth.getInstance().getUid())
-                                ? me.getPhotoUrl()
-                                : usuario.getPhotoUrl())
-                        .into(imgMsg);
-            }else{
-                Picasso.get()
-                        .load(message.getFromId().equals(FirebaseAuth.getInstance().getUid())
-                                ? me.getPhotoUrl()
-                                : contatoMessages.getPhotoUrl())
-                        .into(imgMsg);
-            }
+            Picasso.get()
+                    .load(message.getFromId().equals(FirebaseAuth.getInstance().getUid())
+                            ? me.getPhotoUrl()
+                            : usuario.getPhotoUrl())
+                    .into(imgMsg);
         }
 
         @Override
