@@ -10,16 +10,21 @@ import com.example.mentoriapp.IncomingInvitationActivity;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
+import org.jetbrains.annotations.NotNull;
+
 public class MessagingService extends FirebaseMessagingService {
 
     @Override
-    public void onNewToken(String token) {
-        super.onNewToken(token);
+    public void onNewToken(@NonNull @NotNull String s) {
+        super.onNewToken(s);
+        Log.d("FCM","Token: "+s);
     }
 
     @Override
-    public void onMessageReceived(RemoteMessage remoteMessage) {
+    public void onMessageReceived(@NonNull @NotNull RemoteMessage remoteMessage) {
         super.onMessageReceived(remoteMessage);
+
+        Log.d("FCM","RemoteMessage: "+remoteMessage);
 
         String type = remoteMessage.getData().get("type");
 
@@ -29,6 +34,7 @@ public class MessagingService extends FirebaseMessagingService {
                 intent.putExtra("meetingType",remoteMessage.getData().get("meetingType"));
                 intent.putExtra("nome",remoteMessage.getData().get("nome"));
                 intent.putExtra("email",remoteMessage.getData().get("email"));
+                intent.putExtra("inviterToken",remoteMessage.getData().get("inviterToken"));
                 intent.putExtra("inviterToken",remoteMessage.getData().get("inviterToken"));
                 intent.putExtra("meetingRoom",remoteMessage.getData().get("meetingRoom"));
 

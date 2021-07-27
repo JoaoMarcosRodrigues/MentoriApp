@@ -22,8 +22,10 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.installations.FirebaseInstallations;
 import com.google.firebase.installations.InstallationTokenResult;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.gson.JsonObject;
 
+import org.jetbrains.annotations.NotNull;
 import org.jitsi.meet.sdk.JitsiMeetActivity;
 import org.jitsi.meet.sdk.JitsiMeetConferenceOptions;
 import org.json.JSONArray;
@@ -69,36 +71,50 @@ public class OutgoingInvitationActivity extends AppCompatActivity {
         TextView textUserEmail = findViewById(R.id.textEmail);
 
         Bundle bundle = getIntent().getExtras();
-        Usuario user = bundle.getParcelable("user");
+        Usuario usuario = bundle.getParcelable("user");
 
-        if(user != null){
-            textFirstChar.setText(user.getNome().substring(0,1));
-            textUserName.setText(user.getNome());
-            textUserEmail.setText(user.getEmail());
+        if(usuario != null){
+            textFirstChar.setText(usuario.getNome().substring(0,1));
+            textUserName.setText(usuario.getNome());
+            textUserEmail.setText(usuario.getEmail());
         }
 
         ImageView imageStopInvitation = findViewById(R.id.imageStopInvitation);
         imageStopInvitation.setOnClickListener(v -> {
-            if(user != null){
-                cancelInvitation(user.getToken());
+            if(usuario != null){
+                cancelInvitation(usuario.getToken());
             }
         });
 
+        FirebaseMessaging.getInstance().getToken().addOnCompleteListener(new OnCompleteListener<String>() {
+            @Override
+            public void onComplete(@NonNull @NotNull Task<String> task) {
+                if(task.isSuccessful() && task.getResult() != null){
+                    inviterToken = task.getResult();
+                    if(meetingType != null && user != null){
+                        initiateMeeting(meetingType,usuario.getToken());
+                    }
+                }
+            }
+        });
+
+        /*
         FirebaseInstallations.getInstance().getToken(true).addOnCompleteListener(task -> {
             if(task.isSuccessful() && task.getResult() != null){
                 inviterToken = task.getResult().getToken();
                 if(meetingType != null && user != null){
-                    initiateMeeting(meetingType,user.getToken());
+                    initiateMeeting(meetingType,usuario.getToken());
                 }
             }
         });
+         */
 
     }
 
     public static HashMap<String,String> getRemoteMessageHeaders(){
         HashMap<String,String> headers = new HashMap<>();
         headers.put("Authorization",
-                "key=AAAAOF444NU:APA91bH9SXAXvEmaAk7XQKANJSBhmyu9VPXNLOHxvLOf8QAMdqXbpLmUb7zlXbhblKDHQOaL-Zngt-3jny66kJd9blqa_8WGxaEj1d1KhfxEwG5TOm6SrlyQQDM5YLPIsK_jrWZ2aOoO"
+                "key=AAAAOF444NU:APA91bFvNpg39XrSnEw16zWvAskBFSGTMnILBGcSdIxTmlDFMpyQhkmXd8dbDqROk_iHpo8J-VrywW5ajcb46MLF_2IFE-j0f_rdLARGc8WS1mb9N4K7g9prwFhUxFwm1-mwpnhpqVQo"
         );
         headers.put("Content-Type","application/json");
 

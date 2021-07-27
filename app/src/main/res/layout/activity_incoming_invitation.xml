@@ -9,9 +9,9 @@
 
     <ImageView
         android:id="@+id/imageMeetingType"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginTop="50dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="65dp"
         android:contentDescription="@string/app_name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -27,7 +27,7 @@
         android:textStyle="bold"
         android:text="Convite para reunião recebida"
         android:textColor="@color/white"
-        android:textSize="16sp"
+        android:textSize="18sp"
         app:layout_constraintTop_toBottomOf="@id/imageMeetingType"/>
 
     <LinearLayout
@@ -59,7 +59,7 @@
             android:gravity="center"
             android:includeFontPadding="false"
             android:textColor="@color/gray"
-            android:textSize="18sp"/>
+            android:textSize="22sp"/>
         
         <TextView
             android:id="@+id/textEmail"
@@ -69,16 +69,16 @@
             android:gravity="center"
             android:includeFontPadding="false"
             android:textColor="@color/gray"
-            android:textSize="12sp"/>
+            android:textSize="16sp"/>
 
     </LinearLayout>
 
     <ImageView
         android:id="@+id/imageAccept"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:layout_marginLeft="70dp"
-        android:layout_marginBottom="50dp"
+        android:layout_marginBottom="65dp"
         android:background="@drawable/background_accept_invitation"
         android:contentDescription="@string/app_name"
         android:padding="8dp"
@@ -89,10 +89,10 @@
 
     <ImageView
         android:id="@+id/imageReject"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:layout_marginRight="70dp"
-        android:layout_marginBottom="50dp"
+        android:layout_marginBottom="65dp"
         android:background="@drawable/background_reject_invitation"
         android:contentDescription="@string/app_name"
         android:padding="8dp"

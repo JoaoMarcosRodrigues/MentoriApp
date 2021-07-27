@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,12 +22,17 @@ import com.example.mentoriapp.Classes.Usuario;
 import com.example.mentoriapp.OutgoingInvitationActivity;
 import com.example.mentoriapp.R;
 import com.example.mentoriapp.listeners.UsersListener;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.installations.FirebaseInstallations;
+import com.google.firebase.messaging.FirebaseMessaging;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,12 +62,21 @@ public class ReuniaoActivity extends AppCompatActivity implements UsersListener 
         user = auth.getCurrentUser();
         Objects.requireNonNull(getSupportActionBar()).setTitle(user.getEmail());
 
+        FirebaseMessaging.getInstance().getToken().addOnCompleteListener(task -> {
+            if(task.isSuccessful() && task.getResult() != null){
+                sendFCMTokenToDatabase(task.getResult());
+            }
+        });
+
+        /*
         FirebaseInstallations.getInstance().getToken(true)
                 .addOnCompleteListener(task -> {
                     if(task.isSuccessful() && task.getResult() != null){
                         sendFCMTokenToDatabase(task.getResult().getToken());
                     }
                 });
+
+         */
 
         RecyclerView usersRecyclerView = findViewById(R.id.usersRecyclerView);
         users = new ArrayList<>();

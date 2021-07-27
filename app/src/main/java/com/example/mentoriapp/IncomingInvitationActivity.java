@@ -74,7 +74,7 @@ public class IncomingInvitationActivity extends AppCompatActivity {
     public static HashMap<String,String> getRemoteMessageHeaders(){
         HashMap<String,String> headers = new HashMap<>();
         headers.put("Authorization",
-                "key=AAAAOF444NU:APA91bH9SXAXvEmaAk7XQKANJSBhmyu9VPXNLOHxvLOf8QAMdqXbpLmUb7zlXbhblKDHQOaL-Zngt-3jny66kJd9blqa_8WGxaEj1d1KhfxEwG5TOm6SrlyQQDM5YLPIsK_jrWZ2aOoO"
+                "key=AAAAOF444NU:APA91bFvNpg39XrSnEw16zWvAskBFSGTMnILBGcSdIxTmlDFMpyQhkmXd8dbDqROk_iHpo8J-VrywW5ajcb46MLF_2IFE-j0f_rdLARGc8WS1mb9N4K7g9prwFhUxFwm1-mwpnhpqVQo"
         );
         headers.put("Content-Type","application/json");
 
