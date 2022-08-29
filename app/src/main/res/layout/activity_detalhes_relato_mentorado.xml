@@ -191,6 +191,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="top|left"
+                    android:background="@drawable/edit_round"
                     android:hint="Descreva aqui seu feedback..."
                     android:inputType="textMultiLine"
                     android:lines="5" />
@@ -205,6 +206,7 @@
                 android:layout_marginTop="20dp"
                 android:layout_marginRight="15dp"
                 android:layout_marginBottom="30dp"
+                android:backgroundTint="#4CAF50"
                 android:text="Feedback" />
 
         </RelativeLayout>

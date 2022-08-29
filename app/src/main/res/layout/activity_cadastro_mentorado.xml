@@ -11,7 +11,7 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/purple_500"/>
+        android:background="@android:color/darker_gray" />
 
     <ScrollView
         android:id="@+id/scrollView"
@@ -164,11 +164,11 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/input_area_interesse_cadastro"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="20dp"
                 android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
                 android:layout_marginRight="20dp"
                 android:layout_marginBottom="30dp"
-                android:backgroundTint="#A83A3939"
+                android:backgroundTint="#4CAF50"
                 android:text="Criar Conta" />
 
         </RelativeLayout>

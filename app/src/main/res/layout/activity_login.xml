@@ -44,6 +44,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Email"
+            android:background="@drawable/edit_round"
             android:inputType="textEmailAddress"
             android:maxLines="1" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -67,6 +68,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Senha"
+            android:background="@drawable/edit_round"
             android:inputType="textWebPassword"
             android:maxLines="1" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -86,8 +88,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/check_login"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
         android:layout_marginLeft="30dp"
+        android:layout_marginTop="20dp"
         android:layout_marginRight="30dp"
         android:backgroundTint="#80000000"
         android:text="Entrar" />
@@ -111,8 +113,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/btn_entrar"
-        android:layout_marginTop="40dp"
         android:layout_marginLeft="80dp"
+        android:layout_marginTop="40dp"
         android:text="Ainda não tem cadastro? Cadastre-se" />
 
 

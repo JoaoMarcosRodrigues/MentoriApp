@@ -11,7 +11,7 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/purple_500" />
+        android:background="@android:color/darker_gray" />
 
     <ScrollView
         android:id="@+id/scrollView"
@@ -121,11 +121,11 @@
                 android:id="@+id/txtTempoAtuacao"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Tempo de atuação:"
-                android:layout_marginTop="10dp"
                 android:layout_below="@+id/input_email_cadastro"
+                android:layout_marginTop="10dp"
                 android:layout_toRightOf="@+id/input_atuacao_cadastro"
-                android:textStyle="bold"/>
+                android:text="Tempo de atuação:"
+                android:textStyle="bold" />
 
             <!-- Formação -->
             <Spinner
@@ -135,6 +135,7 @@
                 android:layout_below="@+id/txtTempoAtuacao"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="5dp"
+                android:background="@drawable/round_spinner"
                 android:layout_toRightOf="@+id/input_atuacao_cadastro"
                 android:entries="@array/tempoAtuacao" />
 
@@ -181,11 +182,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/edit_round"
+                    android:gravity="top|left"
                     android:hint="Currículo"
                     android:inputType="textMultiLine"
-                    android:maxLines="4"
-                    android:gravity="top|left"
-                    android:lines="4"/>
+                    android:lines="4"
+                    android:maxLines="4" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -239,15 +240,18 @@
             <!-- Next -->
             <Button
                 android:id="@+id/btn_next"
-                android:layout_width="200dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/input_senha_cadastro"
                 android:layout_centerHorizontal="true"
+                android:layout_marginLeft="20dp"
                 android:layout_marginTop="50dp"
-                android:layout_marginRight="40dp"
+                android:layout_marginRight="20dp"
                 android:layout_marginBottom="35dp"
+                android:backgroundTint="#4CAF50"
                 android:text="Cadastrar"
-                android:textColor="@color/black" />
+                android:textColor="@color/white"
+                android:textStyle="bold" />
 
         </RelativeLayout>
 

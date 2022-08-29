@@ -37,9 +37,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/txt_titulo_cadastro_feedback"
-                android:layout_marginLeft="40dp"
+                android:layout_marginLeft="30dp"
                 android:layout_marginTop="30dp"
-                android:layout_marginRight="40dp"
+                android:layout_marginRight="30dp"
                 app:counterEnabled="true"
                 app:counterMaxLength="255"
                 app:errorEnabled="true">
@@ -49,6 +49,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Título do feedback"
+                    android:background="@drawable/edit_round"
                     android:inputType="text" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -57,9 +58,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/layout_titulo_feedback"
-                android:layout_marginLeft="40dp"
+                android:layout_marginLeft="30dp"
                 android:layout_marginTop="20dp"
-                android:layout_marginRight="40dp"
+                android:layout_marginRight="30dp"
                 app:counterEnabled="true"
                 app:counterMaxLength="255"
                 app:errorEnabled="true">
@@ -69,6 +70,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="top|left"
+                    android:background="@drawable/edit_round"
                     android:hint="Descreva aqui seu feedback..."
                     android:inputType="textMultiLine"
                     android:lines="5" />
@@ -79,7 +81,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/layout_descricao_feedback"
-                android:layout_marginLeft="40dp"
+                android:layout_marginLeft="30dp"
                 android:layout_marginTop="20dp"
                 android:text="Relatos"
                 android:textSize="18sp"
@@ -90,16 +92,20 @@
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/txtRelatos"
-                android:layout_marginLeft="40dp"
+                android:layout_marginLeft="30dp"
+                android:background="@drawable/round_spinner"
                 android:layout_marginTop="15dp" />
 
             <Button
                 android:id="@+id/btn_cadastrar_feedback"
-                android:layout_width="180dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
                 android:layout_below="@+id/spinner_relatos"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="60dp"
+                android:backgroundTint="#4CAF50"
                 android:layout_marginBottom="30dp"
                 android:text="Cadastrar" />
 

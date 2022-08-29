@@ -94,6 +94,7 @@
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/edit_telefone_perfil_mentor"
                         android:layout_width="match_parent"
+                        android:background="@drawable/edit_round"
                         android:layout_height="wrap_content"
                         android:inputType="phone"/>
                 </com.google.android.material.textfield.TextInputLayout>
@@ -112,6 +113,7 @@
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/edit_formacao_perfil_mentor"
                         android:layout_width="match_parent"
+                        android:background="@drawable/edit_round"
                         android:layout_height="wrap_content"
                         android:inputType="phone"/>
                 </com.google.android.material.textfield.TextInputLayout>
@@ -134,6 +136,7 @@
                         android:layout_height="wrap_content"
                         android:lines="4"
                         android:maxLines="4"
+                        android:background="@drawable/edit_round"
                         android:gravity="top|left"
                         android:inputType="textMultiLine"/>
                 </com.google.android.material.textfield.TextInputLayout>

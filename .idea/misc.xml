@@ -1,5 +1,61 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Android_Projetos/MentoriApp/app/src/main/res/drawable/background_meeting_invitation_user_icon.xml" value="0.1735" />
+        <entry key="..\:/Android_Projetos/MentoriApp/app/src/main/res/drawable/edit_round.xml" value="0.1735" />
+        <entry key="..\:/Android_Projetos/MentoriApp/app/src/main/res/drawable/round_spinner.xml" value="0.1735" />
+        <entry key="..\:/Android_Projetos/MentoriApp/app/src/main/res/layout/act_chat.xml" value="0.26871794871794874" />
+        <entry key="..\:/Android_Projetos/MentoriApp/app/src/main/res/layout/act_contatos.xml" value="0.26871794871794874" />
+        <entry key="..\:/Android_Projetos/MentoriApp/app/src/main/res/layout/act_messages.xml" value="0.26871794871794874" />
+        <entry key="..\:/Android_Projetos/MentoriApp/app/src/main/res/layout/activity_avaliacao.xml" value="0.27291666666666664" />
+        <entry key="..\:/Android_Projetos/MentoriApp/app/src/main/res/layout/activity_cadastro_mentor.xml" value="0.25" />
+        <entry key="..\:/Android_Projetos/MentoriApp/app/src/main/res/layout/activity_cadastro_mentorado.xml" value="0.27291666666666664" />
+        <entry key="..\:/Android_Projetos/MentoriApp/app/src/main/res/layout/activity_detalhe_aprendizado.xml" value="0.27291666666666664" />
+        <entry key="..\:/Android_Projetos/MentoriApp/app/src/main/res/layout/activity_detalhe_avaliacao.xml" value="0.27291666666666664" />
+        <entry key="..\:/Android_Projetos/MentoriApp/app/src/main/res/layout/activity_detalhe_dificuldade.xml" value="0.27291666666666664" />
+        <entry key="..\:/Android_Projetos/MentoriApp/app/src/main/res/layout/activity_detalhe_feedback.xml" value="0.27291666666666664" />
+        <entry key="..\:/Android_Projetos/MentoriApp/app/src/main/res/layout/activity_detalhe_relato.xml" value="0.27291666666666664" />
+        <entry key="..\:/Android_Projetos/MentoriApp/app/src/main/res/layout/activity_detalhe_tarefa_mentor.xml" value="0.27291666666666664" />
+        <entry key="..\:/Android_Projetos/MentoriApp/app/src/main/res/layout/activity_detalhe_tarefa_mentorado.xml" value="0.27291666666666664" />
+        <entry key="..\:/Android_Projetos/MentoriApp/app/src/main/res/layout/activity_detalhes_relato_mentorado.xml" value="0.27291666666666664" />
+        <entry key="..\:/Android_Projetos/MentoriApp/app/src/main/res/layout/activity_incoming_invitation.xml" value="0.26871794871794874" />
+        <entry key="..\:/Android_Projetos/MentoriApp/app/src/main/res/layout/activity_lista_relatos_mentorado.xml" value="0.27291666666666664" />
+        <entry key="..\:/Android_Projetos/MentoriApp/app/src/main/res/layout/activity_login.xml" value="0.26871794871794874" />
+        <entry key="..\:/Android_Projetos/MentoriApp/app/src/main/res/layout/activity_mentor_main.xml" value="0.27291666666666664" />
+        <entry key="..\:/Android_Projetos/MentoriApp/app/src/main/res/layout/activity_mentor_perfil_visita.xml" value="0.26871794871794874" />
+        <entry key="..\:/Android_Projetos/MentoriApp/app/src/main/res/layout/activity_mentorado_main.xml" value="0.27291666666666664" />
+        <entry key="..\:/Android_Projetos/MentoriApp/app/src/main/res/layout/activity_mentorado_perfil_visita.xml" value="0.27291666666666664" />
+        <entry key="..\:/Android_Projetos/MentoriApp/app/src/main/res/layout/activity_opcao_cadastro.xml" value="0.27291666666666664" />
+        <entry key="..\:/Android_Projetos/MentoriApp/app/src/main/res/layout/activity_outgoing_invitation.xml" value="0.27291666666666664" />
+        <entry key="..\:/Android_Projetos/MentoriApp/app/src/main/res/layout/activity_recuperar_senha.xml" value="0.27291666666666664" />
+        <entry key="..\:/Android_Projetos/MentoriApp/app/src/main/res/layout/activity_reuniao.xml" value="0.27291666666666664" />
+        <entry key="..\:/Android_Projetos/MentoriApp/app/src/main/res/layout/activity_splash_screen.xml" value="0.27291666666666664" />
+        <entry key="..\:/Android_Projetos/MentoriApp/app/src/main/res/layout/activity_tarefa.xml" value="0.27291666666666664" />
+        <entry key="..\:/Android_Projetos/MentoriApp/app/src/main/res/layout/exemplo_item_aprendizado.xml" value="0.27291666666666664" />
+        <entry key="..\:/Android_Projetos/MentoriApp/app/src/main/res/layout/exemplo_item_avaliacao.xml" value="0.27291666666666664" />
+        <entry key="..\:/Android_Projetos/MentoriApp/app/src/main/res/layout/exemplo_item_dificuldade.xml" value="0.27291666666666664" />
+        <entry key="..\:/Android_Projetos/MentoriApp/app/src/main/res/layout/exemplo_item_feedback.xml" value="0.27291666666666664" />
+        <entry key="..\:/Android_Projetos/MentoriApp/app/src/main/res/layout/exemplo_item_mentorado.xml" value="0.27291666666666664" />
+        <entry key="..\:/Android_Projetos/MentoriApp/app/src/main/res/layout/exemplo_item_mentores.xml" value="0.27291666666666664" />
+        <entry key="..\:/Android_Projetos/MentoriApp/app/src/main/res/layout/exemplo_item_meus_mentorados.xml" value="0.27291666666666664" />
+        <entry key="..\:/Android_Projetos/MentoriApp/app/src/main/res/layout/exemplo_item_notificacao.xml" value="0.27291666666666664" />
+        <entry key="..\:/Android_Projetos/MentoriApp/app/src/main/res/layout/exemplo_item_relato.xml" value="0.27291666666666664" />
+        <entry key="..\:/Android_Projetos/MentoriApp/app/src/main/res/layout/exemplo_item_reuniao.xml" value="0.27291666666666664" />
+        <entry key="..\:/Android_Projetos/MentoriApp/app/src/main/res/layout/exemplo_item_tarefa.xml" value="0.27291666666666664" />
+        <entry key="..\:/Android_Projetos/MentoriApp/app/src/main/res/layout/exemplo_item_tarefa_mentor.xml" value="0.27291666666666664" />
+        <entry key="..\:/Android_Projetos/MentoriApp/app/src/main/res/layout/fragment_cadastro_aprendizado.xml" value="0.26871794871794874" />
+        <entry key="..\:/Android_Projetos/MentoriApp/app/src/main/res/layout/fragment_cadastro_avaliacao.xml" value="0.27291666666666664" />
+        <entry key="..\:/Android_Projetos/MentoriApp/app/src/main/res/layout/fragment_cadastro_dificuldade.xml" value="0.27291666666666664" />
+        <entry key="..\:/Android_Projetos/MentoriApp/app/src/main/res/layout/fragment_cadastro_feedback.xml" value="0.27291666666666664" />
+        <entry key="..\:/Android_Projetos/MentoriApp/app/src/main/res/layout/fragment_cadastro_relato.xml" value="0.26871794871794874" />
+        <entry key="..\:/Android_Projetos/MentoriApp/app/src/main/res/layout/fragment_cadastro_tarefa_mentorado.xml" value="0.27291666666666664" />
+        <entry key="..\:/Android_Projetos/MentoriApp/app/src/main/res/layout/nav_header_mentor.xml" value="0.27291666666666664" />
+        <entry key="..\:/Android_Projetos/MentoriApp/app/src/main/res/layout/toolbar.xml" value="0.27291666666666664" />
+      </map>
+    </option>
+  </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>

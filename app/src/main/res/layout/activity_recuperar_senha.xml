@@ -43,18 +43,21 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Email"
+            android:background="@drawable/edit_round"
             android:inputType="textEmailAddress"
             android:maxLines="1" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
         android:id="@+id/btn_recuperar"
-        android:layout_width="250dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/input_email"
         android:layout_centerHorizontal="true"
+        android:layout_marginLeft="30dp"
         android:layout_marginTop="50dp"
-        android:backgroundTint="#80000000"
+        android:layout_marginRight="30dp"
+        android:backgroundTint="#4CAF50"
         android:text="Enviar email" />
 
     <TextView

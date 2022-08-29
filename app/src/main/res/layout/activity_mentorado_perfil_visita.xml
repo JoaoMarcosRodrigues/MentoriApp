@@ -94,6 +94,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:enabled="false"
+                        android:background="@drawable/edit_round"
                         android:gravity="center_vertical"
                         android:inputType="phone" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -102,9 +103,9 @@
                     android:id="@+id/btnVerRelatos"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Seus relatos"
+                    android:layout_below="@+id/layout_telefone_perfil_mentorado"
                     android:layout_marginTop="10dp"
-                    android:layout_below="@+id/layout_telefone_perfil_mentorado"/>
+                    android:text="Seus relatos" />
 
             </RelativeLayout>
         </LinearLayout>

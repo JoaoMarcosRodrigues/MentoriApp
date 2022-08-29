@@ -19,7 +19,10 @@
                 android:id="@+id/layout_titulo_relato"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="20dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginBottom="20dp"
+                android:layout_marginTop="20dp"
                 app:counterEnabled="true"
                 app:counterMaxLength="100"
                 app:errorEnabled="true">
@@ -28,7 +31,9 @@
                     android:id="@+id/edit_titulo_relato"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/edit_round"
                     android:hint="Título"
+                    android:maxLines="1"
                     android:inputType="text" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -37,8 +42,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/layout_titulo_relato"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
                 android:layout_marginBottom="20dp"
                 app:counterEnabled="true"
                 app:counterMaxLength="100"
@@ -49,6 +54,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Tema"
+                    android:background="@drawable/edit_round"
                     android:inputType="text" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -57,8 +63,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/layout_tema_relato"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
                 app:counterEnabled="true"
                 app:counterMaxLength="255"
                 app:errorEnabled="true">
@@ -69,6 +75,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="left|top"
                     android:hint="Descrição"
+                    android:background="@drawable/edit_round"
                     android:inputType="textMultiLine"
                     android:lines="3" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -128,7 +135,8 @@
                 android:layout_marginLeft="42dp"
                 android:layout_marginTop="15dp"
                 android:layout_marginRight="30dp"
-                android:layout_toRightOf="@+id/radio_group_presencial" />
+                android:layout_toRightOf="@+id/radio_group_presencial"
+                android:background="@drawable/round_spinner" />
 
             <TextView
                 android:id="@+id/txt_titulo_data_relato"
@@ -162,21 +170,23 @@
                 android:layout_marginTop="27dp"
                 android:layout_marginRight="20dp"
                 android:layout_toRightOf="@+id/img_data_relato"
-                android:hint="Data do relato"
-                android:textSize="18sp" />
+                android:hint="Data do relato (clique no ícone ao lado)"
+                android:textSize="15sp" />
 
 
             <Button
                 android:id="@+id/btn_relato_pronto"
-                android:layout_width="200dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/img_data_relato"
                 android:layout_centerHorizontal="true"
+                android:layout_marginLeft="30dp"
                 android:layout_marginTop="70dp"
+                android:layout_marginRight="30dp"
                 android:layout_marginBottom="30dp"
-                android:backgroundTint="@color/colorTransparent"
+                android:backgroundTint="#4CAF50"
                 android:text="Pronto"
-                android:textColor="@color/black" />
+                android:textColor="@color/white" />
 
         </RelativeLayout>
 

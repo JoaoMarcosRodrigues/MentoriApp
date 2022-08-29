@@ -14,7 +14,7 @@
             android:id="@+id/txt_avaliacao"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="40dp"
+            android:layout_marginLeft="30dp"
             android:layout_marginTop="70dp"
             android:text="Avaliação"
             android:textSize="20sp"
@@ -25,9 +25,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/txt_avaliacao"
-            android:layout_marginLeft="40dp"
+            android:layout_marginLeft="30dp"
             android:layout_marginTop="20dp"
-            android:layout_marginRight="40dp"
+            android:layout_marginRight="30dp"
             app:counterEnabled="true"
             app:counterMaxLength="100"
             app:errorEnabled="true">
@@ -37,6 +37,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="text"
+                android:background="@drawable/edit_round"
                 android:hint="Título da avaliação..."
                 android:lines="1" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -46,9 +47,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/layout_titulo_avaliacao"
-            android:layout_marginLeft="40dp"
+            android:layout_marginLeft="30dp"
             android:layout_marginTop="20dp"
-            android:layout_marginRight="40dp"
+            android:layout_marginRight="30dp"
             app:counterEnabled="true"
             app:counterMaxLength="255"
             app:errorEnabled="true">
@@ -59,6 +60,7 @@
                 android:layout_height="wrap_content"
                 android:inputType="textMultiLine"
                 android:gravity="top|left"
+                android:background="@drawable/edit_round"
                 android:hint="Discorra aqui sua avaliação..."
                 android:lines="5" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -67,27 +69,31 @@
             android:id="@+id/txtRelatoCorrespondente"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Relato associado"
-            android:textStyle="bold"
-            android:textSize="18sp"
             android:layout_below="@+id/layout_descricao_avaliacao"
-            android:layout_marginLeft="40dp"
-            android:layout_marginTop="40dp"/>
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="40dp"
+            android:text="Relato associado"
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
         <Spinner
             android:id="@+id/spinner_relatos"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_below="@+id/txtRelatoCorrespondente"
-            android:layout_marginLeft="40dp"
-            android:layout_marginTop="15dp"/>
+            android:layout_marginLeft="30dp"
+            android:background="@drawable/round_spinner"
+            android:layout_marginTop="15dp" />
 
         <Button
             android:id="@+id/btn_cadastrar_avaliacao"
-            android:layout_width="200dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
             android:layout_centerHorizontal="true"
+            android:backgroundTint="#4CAF50"
             android:layout_marginBottom="40dp"
             android:text="Cadastrar" />
 

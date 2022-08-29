@@ -14,7 +14,7 @@
             android:id="@+id/txt_aprendizado"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="40dp"
+            android:layout_marginLeft="30dp"
             android:layout_marginTop="40dp"
             android:text="Aprendizado"
             android:textSize="20sp"
@@ -24,19 +24,20 @@
             android:id="@+id/layout_titulo_aprendizado"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="40dp"
+            android:layout_below="@+id/txt_aprendizado"
+            android:layout_marginLeft="30dp"
             android:layout_marginTop="20dp"
-            android:layout_marginRight="40dp"
+            android:layout_marginRight="30dp"
             app:counterEnabled="true"
             app:counterMaxLength="255"
-            android:layout_below="@+id/txt_aprendizado"
             app:errorEnabled="true">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edit_titulo_aprendizado"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Título do aprendizado"/>
+                android:background="@drawable/edit_round"
+                android:hint="Título do aprendizado" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -44,9 +45,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/layout_titulo_aprendizado"
-            android:layout_marginLeft="40dp"
+            android:layout_marginLeft="30dp"
             android:layout_marginTop="20dp"
-            android:layout_marginRight="40dp"
+            android:layout_marginRight="30dp"
             app:counterEnabled="true"
             app:counterMaxLength="255"
             app:errorEnabled="true">
@@ -56,6 +57,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="top|left"
+                android:background="@drawable/edit_round"
                 android:hint="Descreva aqui seu aprendizado..."
                 android:inputType="textMultiLine"
                 android:lines="5" />
@@ -65,29 +67,33 @@
             android:id="@+id/txtRelatoCorrespondente"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Relato associado"
-            android:textStyle="bold"
-            android:textSize="18sp"
             android:layout_below="@+id/layout_descricao_aprendizado"
-            android:layout_marginLeft="40dp"
-            android:layout_marginTop="40dp"/>
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="40dp"
+            android:text="Relato associado"
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
         <Spinner
             android:id="@+id/spinner_relatos"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_below="@+id/txtRelatoCorrespondente"
-            android:layout_marginLeft="40dp"
-            android:layout_marginTop="15dp"/>
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/round_spinner" />
 
         <Button
             android:id="@+id/btn_cadastrar_aprendizado"
-            android:layout_width="200dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/layout_descricao_aprendizado"
             android:layout_centerHorizontal="true"
-            android:layout_marginBottom="40dp"
+            android:layout_marginLeft="30dp"
             android:layout_marginTop="300dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginBottom="40dp"
+            android:backgroundTint="#4CAF50"
             android:text="Salvar" />
 
     </RelativeLayout>

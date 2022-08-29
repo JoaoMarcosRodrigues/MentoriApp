@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.os.Bundle;
+import android.widget.CheckBox;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -17,7 +18,7 @@ public class DetalheTarefaMentoradoActivity extends AppCompatActivity {
     Tarefa tarefa;
     private Toolbar toolbar;
     private TextView txtDescricao;
-    private Switch switchStatus;
+    private CheckBox switchStatus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

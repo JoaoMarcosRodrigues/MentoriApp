@@ -119,111 +119,95 @@ public class LoginActivity extends AppCompatActivity {
                 String email = edit_email.getText().toString();
                 String senha = edit_senha.getText().toString();
 
-                if (email == null || email.isEmpty() || senha == null || senha.isEmpty()) {
-                    Toast.makeText(LoginActivity.this, "Email e senha devem ser preenchidos!", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                progressDialog.setMessage("Verificando os dados...");
-                progressDialog.show();
-
-                if(mCheckBox.isChecked()){
-                    // Salva o checkbox
-                    mEditor.putString(getString(R.string.checkbox),"True");
-                    mEditor.commit();
-
-                    // Salva o email
-                    mEditor.putString(getString(R.string.email),email);
-                    mEditor.commit();
-
-                    // Salva a senha
-                    mEditor.putString(getString(R.string.senha),senha);
-                    mEditor.commit();
+                if (email.isEmpty()) {
+                    layout_email.setError("Email obrigatório!");
                 }else{
-                    // Salva o checkbox
-                    mEditor.putString(getString(R.string.checkbox),"False");
-                    mEditor.commit();
-
-                    // Salva o email
-                    mEditor.putString(getString(R.string.email),"");
-                    mEditor.commit();
-
-                    // Salva a senha
-                    mEditor.putString(getString(R.string.senha),"");
-                    mEditor.commit();
+                    layout_email.setError("");
                 }
 
+                if(senha.isEmpty()){
+                    layout_senha.setError("Senha obrigatória!");
+                }else{
+                    layout_senha.setError("");
+                }
 
-                FirebaseAuth.getInstance().signInWithEmailAndPassword(email, senha)
-                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                if (task.isSuccessful()) {
-                                    CollectionReference reference = db.collection("usuarios");
-                                    Query query = reference.whereEqualTo("email",email);
-                                    query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                                        @Override
-                                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                            if(task.isSuccessful()){
-                                                int tipoUsuario = ((Long) task.getResult().getDocuments().get(0).getData().get("tipo")).intValue();
-                                                //int tipoUsuario = ((Long) document.getData().get("tipo")).intValue();
+                if(!email.isEmpty() && !senha.isEmpty()){
+                    progressDialog.setMessage("Verificando os dados...");
+                    progressDialog.show();
 
-                                                if (tipoUsuario == 1) {
-                                                    Intent intent = new Intent(LoginActivity.this, MainMentorActivity.class);
-                                                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                                                    progressDialog.dismiss();
-                                                    startActivity(intent);
-                                                    Toast.makeText(LoginActivity.this, "Usuário logado!", Toast.LENGTH_SHORT).show();
-                                                }
-                                                if (tipoUsuario == 2) {
-                                                    Intent intent = new Intent(LoginActivity.this, MainMentoradoActivity.class);
-                                                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                                                    progressDialog.dismiss();
-                                                    startActivity(intent);
-                                                    Toast.makeText(LoginActivity.this, "Usuário logado!", Toast.LENGTH_SHORT).show();
+                    if(mCheckBox.isChecked()){
+                        // Salva o checkbox
+                        mEditor.putString(getString(R.string.checkbox),"True");
+                        mEditor.commit();
+
+                        // Salva o email
+                        mEditor.putString(getString(R.string.email),email);
+                        mEditor.commit();
+
+                        // Salva a senha
+                        mEditor.putString(getString(R.string.senha),senha);
+                        mEditor.commit();
+                    }else{
+                        // Salva o checkbox
+                        mEditor.putString(getString(R.string.checkbox),"False");
+                        mEditor.commit();
+
+                        // Salva o email
+                        mEditor.putString(getString(R.string.email),"");
+                        mEditor.commit();
+
+                        // Salva a senha
+                        mEditor.putString(getString(R.string.senha),"");
+                        mEditor.commit();
+                    }
+
+                    FirebaseAuth.getInstance().signInWithEmailAndPassword(email, senha)
+                            .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                    if (task.isSuccessful()) {
+                                        CollectionReference reference = db.collection("usuarios");
+                                        Query query = reference.whereEqualTo("email",email);
+                                        query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                                if(task.isSuccessful()){
+                                                    int tipoUsuario = ((Long) task.getResult().getDocuments().get(0).getData().get("tipo")).intValue();
+
+                                                    if (tipoUsuario == 1) {
+                                                        Intent intent = new Intent(LoginActivity.this, MainMentorActivity.class);
+                                                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                                        progressDialog.dismiss();
+                                                        startActivity(intent);
+                                                    }
+                                                    if (tipoUsuario == 2) {
+                                                        Intent intent = new Intent(LoginActivity.this, MainMentoradoActivity.class);
+                                                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                                        progressDialog.dismiss();
+                                                        startActivity(intent);
+                                                    }
                                                 }
                                             }
-                                        }
-                                    }).addOnFailureListener(new OnFailureListener() {
-                                        @Override
-                                        public void onFailure(@NonNull Exception e) {
-                                            progressDialog.dismiss();
-                                            Toast.makeText(LoginActivity.this, "Usuário não cadastrado!", Toast.LENGTH_SHORT).show();
-                                        }
-                                    });
-                                    /*
-                                    reference.whereEqualTo("email",email).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                                        @Override
-                                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                            QuerySnapshot snapshot = task.getResult();
-                                            if(!snapshot.isEmpty()){
-                                                //int tipoUsuario = ((Long) snapshot.get("tipo")).intValue();
-                                                //int tipoUsuario = snapshot.getQuery().get().getResult();
-
-
+                                        }).addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                progressDialog.dismiss();
+                                                Toast.makeText(LoginActivity.this, "Usuário não cadastrado!", Toast.LENGTH_SHORT).show();
                                             }
-
-                                        }
-                                    }).addOnFailureListener(new OnFailureListener() {
-                                        @Override
-                                        public void onFailure(@NonNull Exception e) {
-
-                                        }
-                                    });
-                                     */
-                                } else {
-                                    progressDialog.dismiss();
-                                    Toast.makeText(LoginActivity.this, "Email ou senha inválido(s)", Toast.LENGTH_SHORT).show();
+                                        });
+                                    } else {
+                                        progressDialog.dismiss();
+                                        Toast.makeText(LoginActivity.this, "Email ou senha inválido(s)", Toast.LENGTH_SHORT).show();
+                                    }
                                 }
-                            }
-                        })
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                progressDialog.dismiss();
-                                Log.i("Teste", e.getMessage());
-                            }
-                        });
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    progressDialog.dismiss();
+                                }
+                            });
+                }
             }
         });
     }
