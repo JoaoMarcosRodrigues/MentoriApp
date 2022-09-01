@@ -1,5 +1,6 @@
 package com.example.mentoriapp.Fragmentos_side;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -13,6 +14,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.mentoriapp.Listas.ListaRelatosFragment;
 import com.example.mentoriapp.R;
 import com.example.mentoriapp.Adapters.SliderAdapter;
 
@@ -46,7 +48,14 @@ public class TutorialFragment extends Fragment {
         mProximoBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mSlideViewPager.setCurrentItem(mCurrentPage+1);
+                if(mCurrentPage == 2){
+                    getActivity().getSupportFragmentManager()
+                            .beginTransaction()
+                            .replace(R.id.fragment_mentorado, new MentoradoHomeFragment(),null)
+                            .commit();
+                }else{
+                    mSlideViewPager.setCurrentItem(mCurrentPage+1);
+                }
             }
         });
 

@@ -42,38 +42,38 @@
 
                 <TextView
                     android:id="@+id/txt_nome_perfil_mentor"
-                    android:layout_width="230dp"
-                    android:gravity="center"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/btn_img_perfil"
                     android:layout_centerHorizontal="true"
-                    android:ellipsize="end"
                     android:layout_marginTop="20dp"
+                    android:ellipsize="end"
+                    android:gravity="center"
                     android:text="Brendan Moore"
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/txt_email_perfil_mentor"
-                    android:layout_width="230dp"
-                    android:ellipsize="end"
-                    android:gravity="center"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/txt_nome_perfil_mentor"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="8dp"
+                    android:ellipsize="end"
+                    android:gravity="center"
                     android:text="Email"
                     android:textSize="15sp" />
 
                 <TextView
                     android:id="@+id/txt_area_atuacao_perfil_mentor"
-                    android:layout_width="230dp"
-                    android:ellipsize="end"
-                    android:gravity="center"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/txt_email_perfil_mentor"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="8dp"
+                    android:ellipsize="end"
+                    android:gravity="center"
                     android:text="Área de atuação"
                     android:textSize="15sp" />
 
@@ -94,6 +94,7 @@
                     android:layout_height="wrap_content"
                     app:counterEnabled="true"
                     app:counterMaxLength="255"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     app:startIconDrawable="@drawable/ic_nome"
                     app:errorEnabled="true">
 
@@ -113,6 +114,7 @@
                     android:layout_marginTop="10dp"
                     app:counterEnabled="true"
                     app:counterMaxLength="15"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     app:startIconDrawable="@drawable/ic_contato"
                     app:errorEnabled="true">
 
@@ -131,6 +133,7 @@
                     android:layout_marginTop="10dp"
                     app:counterEnabled="true"
                     app:counterMaxLength="40"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     app:startIconDrawable="@drawable/ic_area_interesse"
                     app:errorEnabled="true">
 
@@ -149,6 +152,7 @@
                     android:layout_marginTop="10dp"
                     app:counterEnabled="true"
                     app:counterMaxLength="100"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     app:startIconDrawable="@drawable/ic_formacao"
                     app:errorEnabled="true">
 
@@ -167,6 +171,7 @@
                     android:layout_marginTop="10dp"
                     app:counterEnabled="true"
                     app:counterMaxLength="255"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     app:startIconDrawable="@drawable/ic_curriculo"
                     app:errorEnabled="true">
 
@@ -206,10 +211,12 @@
 
             <Button
                 android:id="@+id/btn_salvar_perfil_mentor"
-                android:layout_width="150dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:background="@color/purple_500"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:backgroundTint="#4CAF50"
                 android:layout_marginTop="70dp"
                 android:layout_marginBottom="40dp"
                 android:text="Salvar" />

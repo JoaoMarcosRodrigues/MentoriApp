@@ -89,7 +89,7 @@ public class CadastroTarefaMentorFragment extends Fragment {
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if(task.isSuccessful()){
                     for (QueryDocumentSnapshot document : task.getResult()) {
-                        String subject = document.getString("emailMentorado");
+                        String subject = document.getString("nomeMentorado");
                         listaMentorados.add(subject);
                     }
                     arrayAdapter.notifyDataSetChanged();

@@ -240,13 +240,14 @@ public class MeusMentoradosFragment extends Fragment {
                 @Override
                 public void onClick(View v) {
                     String emailMentor = user.getEmail();
+                    String nomeMentor = user.getDisplayName();
 
                     adapter.clear();
 
                     progressDialog.setMessage("Incluindo Mentorado e criando Mentoria...");
                     progressDialog.show();
 
-                    Mentoria mentoria = new Mentoria(maxid,emailMentor,mentorado.getEmail());
+                    Mentoria mentoria = new Mentoria(maxid,emailMentor,mentorado.getEmail(),nomeMentor,mentorado.getNome());
 
                     FirebaseFirestore.getInstance().collection("mentorias")
                             .add(mentoria)

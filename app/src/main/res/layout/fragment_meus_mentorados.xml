@@ -20,9 +20,12 @@
             android:id="@+id/btnVerTodosMentorados"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Ver todos os Mentorados"
-            android:layout_margin="15dp"
-            android:layout_alignParentBottom="true"/>
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="15dp"
+            android:text="Ver todos os Mentorados" />
 
 
     </RelativeLayout>

@@ -3,6 +3,7 @@ package com.example.mentoriapp.Cadastro;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -15,6 +16,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.mentoriapp.Classes.Dificuldade;
@@ -66,6 +68,7 @@ public class CadastroDificuldadeFragment extends Fragment {
         mFirestore = FirebaseFirestore.getInstance();
         ref = mFirestore.collection("relatos");
         List<String> listaRelatos = new ArrayList<>();
+        listaRelatos.add("Selecione...");
 
         editTag = view.findViewById(R.id.edit_tag_dificuldade);
         editDescricao = view.findViewById(R.id.edit_dificuldade);
@@ -73,7 +76,32 @@ public class CadastroDificuldadeFragment extends Fragment {
         btnSalvar = view.findViewById(R.id.btn_cadastrar_dificuldade);
         spinnerRelatos = view.findViewById(R.id.spinner_relatos);
 
-        ArrayAdapter arrayAdapter = new ArrayAdapter(getActivity(), android.R.layout.simple_spinner_dropdown_item,listaRelatos);
+        ArrayAdapter arrayAdapter = new ArrayAdapter(getActivity(), android.R.layout.simple_spinner_dropdown_item,listaRelatos){
+            @Override
+            public boolean isEnabled(int position) {
+                if (position == 0) {
+                    // Disable the first item from Spinner
+                    // First item will be use for hint
+                    return false;
+                } else {
+                    return true;
+                }
+            }
+
+            @Override
+            public View getDropDownView(int position, View convertView,
+                                        ViewGroup parent) {
+                View view = super.getDropDownView(position, convertView, parent);
+                TextView tv = (TextView) view;
+                if (position == 0) {
+                    // Set the hint text color gray
+                    tv.setTextColor(Color.GRAY);
+                } else {
+                    tv.setTextColor(Color.BLACK);
+                }
+                return view;
+            }
+        };
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerRelatos.setAdapter(arrayAdapter);
 

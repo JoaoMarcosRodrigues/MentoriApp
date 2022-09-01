@@ -23,10 +23,11 @@
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
     <string name="title_activity_settings">SettingsActivity</string>
     <string name="entre_em_contato">Fique a vontade para nos escrever</string>
-    <string name="telefone_contato">(79) 99609-0622</string>
+    <string name="telefone_contato">(79) 99675-1725</string>
     <string name="email_contato">mentoriapp@gmail.com</string>
-    <string name="txt_formacao1">Aluno graduando em Ciência da Computação pela Universidade Federal de Sergipe - UFS</string>
+    <string name="txt_formacao1">Aluno graduado em Ciência da Computação pela Universidade Federal de Sergipe - UFS</string>
     <string name="txt_formacao2">Técnico em Informática pelo Instituto Federal de Sergipe - IFS</string>
+    <string name="txt_formacao3">Desenvolvedor Júnior pela Influir - Automatização de Processos</string>
     <string name="title_activity_reunioes">ReunioesActivity</string>
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>

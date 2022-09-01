@@ -40,9 +40,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:textColor="@color/white"
         android:layout_alignParentBottom="true"
         android:background="#00CCCCCC"
-        android:text="Próximo" />
+        android:text="Próximo"
+        android:textColor="@color/white" />
 
 </RelativeLayout>

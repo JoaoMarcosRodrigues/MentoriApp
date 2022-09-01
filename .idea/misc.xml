@@ -50,7 +50,33 @@
         <entry key="..\:/Android_Projetos/MentoriApp/app/src/main/res/layout/fragment_cadastro_dificuldade.xml" value="0.27291666666666664" />
         <entry key="..\:/Android_Projetos/MentoriApp/app/src/main/res/layout/fragment_cadastro_feedback.xml" value="0.27291666666666664" />
         <entry key="..\:/Android_Projetos/MentoriApp/app/src/main/res/layout/fragment_cadastro_relato.xml" value="0.26871794871794874" />
+        <entry key="..\:/Android_Projetos/MentoriApp/app/src/main/res/layout/fragment_cadastro_reuniao_mentor.xml" value="0.27291666666666664" />
+        <entry key="..\:/Android_Projetos/MentoriApp/app/src/main/res/layout/fragment_cadastro_tarefa_mentor.xml" value="0.27291666666666664" />
         <entry key="..\:/Android_Projetos/MentoriApp/app/src/main/res/layout/fragment_cadastro_tarefa_mentorado.xml" value="0.27291666666666664" />
+        <entry key="..\:/Android_Projetos/MentoriApp/app/src/main/res/layout/fragment_contato.xml" value="0.27291666666666664" />
+        <entry key="..\:/Android_Projetos/MentoriApp/app/src/main/res/layout/fragment_home_mentor.xml" value="0.27291666666666664" />
+        <entry key="..\:/Android_Projetos/MentoriApp/app/src/main/res/layout/fragment_home_mentorado.xml" value="0.27291666666666664" />
+        <entry key="..\:/Android_Projetos/MentoriApp/app/src/main/res/layout/fragment_lista_aprendizados.xml" value="0.27291666666666664" />
+        <entry key="..\:/Android_Projetos/MentoriApp/app/src/main/res/layout/fragment_lista_avaliacoes.xml" value="0.27291666666666664" />
+        <entry key="..\:/Android_Projetos/MentoriApp/app/src/main/res/layout/fragment_lista_dificuldades.xml" value="0.27291666666666664" />
+        <entry key="..\:/Android_Projetos/MentoriApp/app/src/main/res/layout/fragment_lista_feedbacks.xml" value="0.27291666666666664" />
+        <entry key="..\:/Android_Projetos/MentoriApp/app/src/main/res/layout/fragment_lista_mentores.xml" value="0.27291666666666664" />
+        <entry key="..\:/Android_Projetos/MentoriApp/app/src/main/res/layout/fragment_lista_notificacoes.xml" value="0.27291666666666664" />
+        <entry key="..\:/Android_Projetos/MentoriApp/app/src/main/res/layout/fragment_lista_relatos.xml" value="0.27291666666666664" />
+        <entry key="..\:/Android_Projetos/MentoriApp/app/src/main/res/layout/fragment_lista_reunioes_mentor.xml" value="0.27291666666666664" />
+        <entry key="..\:/Android_Projetos/MentoriApp/app/src/main/res/layout/fragment_lista_reunioes_mentorado.xml" value="0.27291666666666664" />
+        <entry key="..\:/Android_Projetos/MentoriApp/app/src/main/res/layout/fragment_lista_tarefas_mentor.xml" value="0.27291666666666664" />
+        <entry key="..\:/Android_Projetos/MentoriApp/app/src/main/res/layout/fragment_lista_tarefas_mentorado.xml" value="0.27291666666666664" />
+        <entry key="..\:/Android_Projetos/MentoriApp/app/src/main/res/layout/fragment_mentor_chat.xml" value="0.27291666666666664" />
+        <entry key="..\:/Android_Projetos/MentoriApp/app/src/main/res/layout/fragment_mentor_message.xml" value="0.27291666666666664" />
+        <entry key="..\:/Android_Projetos/MentoriApp/app/src/main/res/layout/fragment_mentor_perfil.xml" value="0.27291666666666664" />
+        <entry key="..\:/Android_Projetos/MentoriApp/app/src/main/res/layout/fragment_mentorado_chat.xml" value="0.27291666666666664" />
+        <entry key="..\:/Android_Projetos/MentoriApp/app/src/main/res/layout/fragment_mentorado_message.xml" value="0.27291666666666664" />
+        <entry key="..\:/Android_Projetos/MentoriApp/app/src/main/res/layout/fragment_mentorado_perfil.xml" value="0.27291666666666664" />
+        <entry key="..\:/Android_Projetos/MentoriApp/app/src/main/res/layout/fragment_meus_mentorados.xml" value="0.27291666666666664" />
+        <entry key="..\:/Android_Projetos/MentoriApp/app/src/main/res/layout/fragment_sobre.xml" value="0.27291666666666664" />
+        <entry key="..\:/Android_Projetos/MentoriApp/app/src/main/res/layout/fragment_tutorial.xml" value="0.27291666666666664" />
+        <entry key="..\:/Android_Projetos/MentoriApp/app/src/main/res/layout/fragment_tutorial_mentor.xml" value="0.27291666666666664" />
         <entry key="..\:/Android_Projetos/MentoriApp/app/src/main/res/layout/nav_header_mentor.xml" value="0.27291666666666664" />
         <entry key="..\:/Android_Projetos/MentoriApp/app/src/main/res/layout/toolbar.xml" value="0.27291666666666664" />
       </map>

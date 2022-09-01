@@ -46,7 +46,14 @@ public class TutorialMentorFragment extends Fragment {
         mProximoBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mSlideViewPager.setCurrentItem(mCurrentPage+1);
+                if(mCurrentPage == 3){
+                    getActivity().getSupportFragmentManager()
+                            .beginTransaction()
+                            .replace(R.id.fragment_mentor, new MentorHomeFragment(),null)
+                            .commit();
+                }else{
+                    mSlideViewPager.setCurrentItem(mCurrentPage+1);
+                }
             }
         });
 

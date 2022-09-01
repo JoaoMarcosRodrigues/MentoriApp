@@ -42,6 +42,7 @@
                 android:layout_marginRight="30dp"
                 app:counterEnabled="true"
                 app:counterMaxLength="255"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 app:errorEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -49,7 +50,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Título do feedback"
-                    android:background="@drawable/edit_round"
                     android:inputType="text" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -63,6 +63,7 @@
                 android:layout_marginRight="30dp"
                 app:counterEnabled="true"
                 app:counterMaxLength="255"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 app:errorEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -70,7 +71,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="top|left"
-                    android:background="@drawable/edit_round"
                     android:hint="Descreva aqui seu feedback..."
                     android:inputType="textMultiLine"
                     android:lines="5" />
@@ -89,11 +89,11 @@
 
             <Spinner
                 android:id="@+id/spinner_relatos"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/txtRelatos"
                 android:layout_marginLeft="30dp"
-                android:background="@drawable/round_spinner"
                 android:layout_marginTop="15dp" />
 
             <Button

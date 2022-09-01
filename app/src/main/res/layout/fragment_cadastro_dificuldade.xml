@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar"
     tools:context=".Cadastro.CadastroDificuldadeFragment">
 
     <RelativeLayout
@@ -30,12 +31,12 @@
             android:layout_marginRight="30dp"
             app:counterEnabled="true"
             app:counterMaxLength="20"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             app:errorEnabled="true">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edit_tag_dificuldade"
                 android:layout_width="match_parent"
-                android:background="@drawable/edit_round"
                 android:layout_height="wrap_content"
                 android:hint="Algo que identifique sua dificuldade..."
                 android:inputType="text" />
@@ -62,6 +63,7 @@
             android:layout_marginRight="30dp"
             app:counterEnabled="true"
             app:counterMaxLength="255"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             app:errorEnabled="true">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -69,7 +71,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="top|left"
-                android:background="@drawable/edit_round"
                 android:hint="Descreva aqui sua dificuldade..."
                 android:inputType="textMultiLine"
                 android:lines="5" />
@@ -88,11 +89,11 @@
 
         <Spinner
             android:id="@+id/spinner_relatos"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_below="@+id/txtRelatoCorrespondente"
             android:layout_marginLeft="30dp"
-            android:background="@drawable/round_spinner"
             android:layout_marginTop="15dp" />
 
         <Button
