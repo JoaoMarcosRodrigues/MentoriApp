@@ -86,6 +86,7 @@
                     android:layout_marginTop="10dp"
                     app:counterEnabled="true"
                     app:counterMaxLength="15"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     app:errorEnabled="true"
                     app:startIconDrawable="@drawable/ic_contato">
 
@@ -94,7 +95,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:enabled="false"
-                        android:background="@drawable/edit_round"
                         android:gravity="center_vertical"
                         android:inputType="phone" />
                 </com.google.android.material.textfield.TextInputLayout>

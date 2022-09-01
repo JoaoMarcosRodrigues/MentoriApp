@@ -47,6 +47,7 @@
             <!-- Nome completo -->
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/input_nome_cadastro"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/btn_img_cadastro_mentor"
@@ -62,7 +63,6 @@
                     android:id="@+id/edit_nome_cadastro"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/edit_round"
                     android:hint="Nome completo"
                     android:inputType="text"
                     android:maxLines="1" />
@@ -71,6 +71,7 @@
             <!-- Email -->
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/input_email_cadastro"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/input_nome_cadastro"
@@ -86,7 +87,6 @@
                     android:id="@+id/edit_email_cadastro"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/edit_round"
                     android:hint="Email"
                     android:inputType="textEmailAddress"
                     android:maxLines="1" />
@@ -95,6 +95,7 @@
             <!-- Área de Atuação -->
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/input_atuacao_cadastro"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="210dp"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/input_email_cadastro"
@@ -110,7 +111,6 @@
                     android:id="@+id/edit_atuacao_cadastro"
                     android:layout_width="210dp"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/edit_round"
                     android:hint="Área de atuação"
                     android:inputType="text"
                     android:maxLines="1" />
@@ -130,17 +130,19 @@
             <!-- Formação -->
             <Spinner
                 android:id="@+id/spinnerTempoExperiencia"
-                android:layout_width="120dp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/txtTempoAtuacao"
                 android:layout_marginTop="10dp"
+                android:layout_marginRight="20dp"
                 android:layout_marginBottom="5dp"
-                android:background="@drawable/round_spinner"
                 android:layout_toRightOf="@+id/input_atuacao_cadastro"
                 android:entries="@array/tempoAtuacao" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/input_formacao"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/input_atuacao_cadastro"
@@ -156,7 +158,6 @@
                     android:id="@+id/edit_formacao"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/edit_round"
                     android:hint="Formação"
                     android:inputType="text"
                     android:maxLines="1" />
@@ -166,6 +167,7 @@
             <!-- Currículo -->
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/input_curriculo"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/input_formacao"
@@ -181,7 +183,6 @@
                     android:id="@+id/edit_curriculo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/edit_round"
                     android:gravity="top|left"
                     android:hint="Currículo"
                     android:inputType="textMultiLine"
@@ -193,6 +194,7 @@
             <!-- Telefone -->
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/input_telefone_cadastro"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/input_curriculo"
@@ -208,7 +210,6 @@
                     android:id="@+id/edit_telefone_cadastro"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/edit_round"
                     android:hint="Telefone"
                     android:inputType="phone"
                     android:maxLines="1" />
@@ -216,6 +217,7 @@
             <!-- Senha -->
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/input_senha_cadastro"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/input_telefone_cadastro"
@@ -232,7 +234,6 @@
                     android:id="@+id/edit_senha_cadastro"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/edit_round"
                     android:hint="Senha"
                     android:inputType="textWebPassword"
                     android:maxLines="1" />

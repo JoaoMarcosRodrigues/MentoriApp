@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -136,7 +137,7 @@ public class ListaTarefasMentoradoFragment extends Fragment {
         public void bind(@NonNull GroupieViewHolder viewHolder, int position) {
             TextView tituloTarefa = viewHolder.itemView.findViewById(R.id.txt_titulo_tarefa);
             TextView descricaoTarefa = viewHolder.itemView.findViewById(R.id.txt_descricao_tarefa);
-            Switch statusTarefa = viewHolder.itemView.findViewById(R.id.status_tarefa);
+            CheckBox statusTarefa = viewHolder.itemView.findViewById(R.id.status_tarefa);
 
             tituloTarefa.setText(tarefa.getTitulo());
             descricaoTarefa.setText(tarefa.getDescricao());

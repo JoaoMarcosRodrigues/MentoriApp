@@ -84,9 +84,9 @@
                     android:id="@+id/layout_telefone_perfil_mentor"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/layout_nome_perfil_mentor"
                     android:layout_marginTop="10dp"
                     app:counterEnabled="true"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     app:counterMaxLength="15"
                     app:startIconDrawable="@drawable/ic_contato"
                     app:errorEnabled="true">
@@ -94,7 +94,6 @@
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/edit_telefone_perfil_mentor"
                         android:layout_width="match_parent"
-                        android:background="@drawable/edit_round"
                         android:layout_height="wrap_content"
                         android:inputType="phone"/>
                 </com.google.android.material.textfield.TextInputLayout>
@@ -107,13 +106,13 @@
                     android:layout_marginTop="10dp"
                     app:counterEnabled="true"
                     app:counterMaxLength="15"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     app:startIconDrawable="@drawable/ic_formacao"
                     app:errorEnabled="true">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/edit_formacao_perfil_mentor"
                         android:layout_width="match_parent"
-                        android:background="@drawable/edit_round"
                         android:layout_height="wrap_content"
                         android:inputType="phone"/>
                 </com.google.android.material.textfield.TextInputLayout>
@@ -127,6 +126,7 @@
                     android:layout_marginTop="10dp"
                     app:counterEnabled="true"
                     app:counterMaxLength="255"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     app:startIconDrawable="@drawable/ic_curriculo"
                     app:errorEnabled="true">
 
@@ -136,7 +136,6 @@
                         android:layout_height="wrap_content"
                         android:lines="4"
                         android:maxLines="4"
-                        android:background="@drawable/edit_round"
                         android:gravity="top|left"
                         android:inputType="textMultiLine"/>
                 </com.google.android.material.textfield.TextInputLayout>
@@ -154,13 +153,13 @@
                 <TextView
                     android:id="@+id/txt_tempo_experiencia"
                     android:layout_width="wrap_content"
-                    android:layout_toRightOf="@+id/txt_titulo_tempo_experiencia"
-                    android:layout_below="@+id/layout_curriculo_perfil_mentor"
                     android:layout_height="wrap_content"
+                    android:layout_below="@+id/layout_curriculo_perfil_mentor"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_toRightOf="@+id/txt_titulo_tempo_experiencia"
                     android:text="5 anos"
                     android:textSize="16sp"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginLeft="15dp"
                     android:textStyle="italic" />
 
             </RelativeLayout>
