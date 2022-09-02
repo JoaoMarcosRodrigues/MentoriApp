@@ -72,7 +72,7 @@ public class ListaMentoresFragment extends Fragment {
             public void onItemClick(@NonNull Item item, @NonNull View view) {
                 Intent intent = new Intent(getContext(), MentorPerfilVisitaActivity.class);
                 UserItem userItem = (UserItem) item;
-                intent.putExtra("mentor",userItem.mentor);
+                intent.putExtra("mentorParcelable",userItem.mentor);
 
                 startActivity(intent);
             }

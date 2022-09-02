@@ -40,19 +40,17 @@ public class MentorPerfilVisitaActivity extends AppCompatActivity {
         editCurriculo = findViewById(R.id.edit_curriculo_perfil_mentor);
 
         Bundle bundle = getIntent().getExtras();
-        mentor = bundle.getParcelable("mentor");
+        mentor = bundle.getParcelable("mentorParcelable");
 
-        String nome = mentor.getSenha(); // OK!
+        String nome = mentor.getNome(); // OK!
         getSupportActionBar().setTitle(nome);
         String email = mentor.getEmail(); // OK!
-        String area = mentor.getProfileUrl(); // OK!
-        String telefone = mentor.getNome(); // OK!
-        String profileUrl = mentor.getTelefone(); // OK!
-        String curriulo = mentor.getFormacao(); // OK!
-        String formacao = mentor.getCurriculo();
+        String area = mentor.getAreaAtuacao(); // OK!
+        String telefone = mentor.getTelefone(); // OK!
+        String profileUrl = mentor.getProfileUrl(); // OK!
+        String curriulo = mentor.getCurriculo(); // OK!
+        String formacao = mentor.getFormacao();
         String tempoExperiencia = mentor.getTempoAtuacao();
-
-        Toast.makeText(this,"Formação: "+formacao+"\nTempo: "+tempoExperiencia,Toast.LENGTH_SHORT).show();
 
         txtNome.setText(nome); // OK!
         txtEmail.setText(email); // OK!

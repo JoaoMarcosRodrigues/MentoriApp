@@ -88,6 +88,8 @@
                     app:counterEnabled="true"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     app:counterMaxLength="15"
+                    android:hint="Telefone"
+                    android:enabled="false"
                     app:startIconDrawable="@drawable/ic_contato"
                     app:errorEnabled="true">
 
@@ -106,6 +108,8 @@
                     android:layout_marginTop="10dp"
                     app:counterEnabled="true"
                     app:counterMaxLength="15"
+                    android:hint="Formação"
+                    android:enabled="false"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     app:startIconDrawable="@drawable/ic_formacao"
                     app:errorEnabled="true">
@@ -126,6 +130,8 @@
                     android:layout_marginTop="10dp"
                     app:counterEnabled="true"
                     app:counterMaxLength="255"
+                    android:hint="Currículo"
+                    android:enabled="false"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     app:startIconDrawable="@drawable/ic_curriculo"
                     app:errorEnabled="true">

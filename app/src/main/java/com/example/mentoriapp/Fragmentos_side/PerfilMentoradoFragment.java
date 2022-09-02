@@ -129,7 +129,7 @@ public class PerfilMentoradoFragment extends Fragment {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 nomePerfil.setText(document.getData().get("nome").toString());
-                                areaAtuacao.setText("Área de atuação: " + document.getData().get("areaAtuacao").toString());
+                                areaAtuacao.setText(document.getData().get("areaAtuacao").toString());
                                 editNome.setText(document.getData().get("nome").toString());
                                 editTelefone.setText(document.getData().get("telefone").toString());
                                 editArea.setText(document.getData().get("areaAtuacao").toString());
