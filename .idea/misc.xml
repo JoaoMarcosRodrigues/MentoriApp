@@ -3,8 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Android_Projetos/MentoriApp/app/src/main/res/drawable/background_foto_cadastro.xml" value="0.1735" />
         <entry key="..\:/Android_Projetos/MentoriApp/app/src/main/res/drawable/background_meeting_invitation_user_icon.xml" value="0.1735" />
         <entry key="..\:/Android_Projetos/MentoriApp/app/src/main/res/drawable/edit_round.xml" value="0.1735" />
+        <entry key="..\:/Android_Projetos/MentoriApp/app/src/main/res/drawable/round_opcao.xml" value="0.1735" />
         <entry key="..\:/Android_Projetos/MentoriApp/app/src/main/res/drawable/round_spinner.xml" value="0.1735" />
         <entry key="..\:/Android_Projetos/MentoriApp/app/src/main/res/layout/act_chat.xml" value="0.26871794871794874" />
         <entry key="..\:/Android_Projetos/MentoriApp/app/src/main/res/layout/act_contatos.xml" value="0.26871794871794874" />

@@ -42,11 +42,13 @@ import com.google.firebase.storage.UploadTask;
 import java.io.IOException;
 import java.util.UUID;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class CadastroMentorActivity extends AppCompatActivity {
 
     private TextInputEditText edit_email,edit_nome,edit_telefone,edit_senha,edit_area_atuacao,edit_formacao,edit_curriculo;
     private Button botao_next, mBtnFotoMentor;
-    private ImageView mImgPhoto;
+    private CircleImageView mImgPhoto;
     private Toolbar toolbar;
     private Uri mSelectedUri = null;
     private Spinner spinnerTempoAtuacao;

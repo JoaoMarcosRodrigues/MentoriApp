@@ -58,7 +58,7 @@ public class RecuperarSenhaActivity extends AppCompatActivity {
             @Override
             public void updateDrawState(@NonNull TextPaint ds) {
                 super.updateDrawState(ds);
-                ds.setColor(Color.BLUE);
+                ds.setColor(Color.rgb(34,182,148));
             }
         };
 

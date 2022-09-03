@@ -11,7 +11,9 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@android:color/darker_gray" />
+        android:background="#8015B18D"
+        app:subtitleTextColor="@color/white"
+        app:titleTextColor="@color/white" />
 
     <ScrollView
         android:id="@+id/scrollView"
@@ -249,8 +251,8 @@
                 android:layout_marginTop="50dp"
                 android:layout_marginRight="20dp"
                 android:layout_marginBottom="35dp"
-                android:backgroundTint="#4CAF50"
-                android:text="Cadastrar"
+                android:backgroundTint="#8015B18D"
+                android:text="Criar Conta"
                 android:textColor="@color/white"
                 android:textStyle="bold" />
 
