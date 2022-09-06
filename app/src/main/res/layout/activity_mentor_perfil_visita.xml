@@ -6,8 +6,9 @@
     android:layout_height="match_parent"
     tools:context=".Detalhes.MentorPerfilVisitaActivity">
 
-    <include android:id="@+id/toolbar"
-        layout="@layout/toolbar"/>
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -33,38 +34,44 @@
 
                 <TextView
                     android:id="@+id/txt_nome_perfil_mentor"
-                    android:layout_width="230dp"
-                    android:gravity="center"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/img_photo_perfil"
                     android:layout_centerHorizontal="true"
-                    android:ellipsize="end"
+                    android:layout_marginLeft="30dp"
                     android:layout_marginTop="20dp"
+                    android:layout_marginRight="30dp"
+                    android:ellipsize="end"
+                    android:gravity="center"
                     android:text="Brendan Moore"
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/txt_email_perfil_mentor"
-                    android:layout_width="230dp"
-                    android:ellipsize="end"
-                    android:gravity="center"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/txt_nome_perfil_mentor"
                     android:layout_centerHorizontal="true"
+                    android:layout_marginLeft="30dp"
                     android:layout_marginTop="8dp"
+                    android:layout_marginRight="30dp"
+                    android:ellipsize="end"
+                    android:gravity="center"
                     android:text="Email"
                     android:textSize="15sp" />
 
                 <TextView
                     android:id="@+id/txt_area_atuacao_perfil_mentor"
-                    android:layout_width="230dp"
-                    android:ellipsize="end"
-                    android:gravity="center"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/txt_email_perfil_mentor"
                     android:layout_centerHorizontal="true"
+                    android:layout_marginLeft="30dp"
                     android:layout_marginTop="8dp"
+                    android:layout_marginRight="30dp"
+                    android:ellipsize="end"
+                    android:gravity="center"
                     android:text="Área de atuação"
                     android:textSize="15sp" />
 
@@ -82,68 +89,68 @@
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/layout_telefone_perfil_mentor"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    app:counterEnabled="true"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    app:counterMaxLength="15"
-                    android:hint="Telefone"
                     android:enabled="false"
-                    app:startIconDrawable="@drawable/ic_contato"
-                    app:errorEnabled="true">
+                    android:hint="Telefone"
+                    app:counterEnabled="true"
+                    app:counterMaxLength="15"
+                    app:errorEnabled="true"
+                    app:startIconDrawable="@drawable/ic_contato">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/edit_telefone_perfil_mentor"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="phone"/>
+                        android:inputType="phone" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/layout_formacao_perfil_mentor"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/layout_telefone_perfil_mentor"
                     android:layout_marginTop="10dp"
+                    android:enabled="false"
+                    android:hint="Formação"
                     app:counterEnabled="true"
                     app:counterMaxLength="15"
-                    android:hint="Formação"
-                    android:enabled="false"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    app:startIconDrawable="@drawable/ic_formacao"
-                    app:errorEnabled="true">
+                    app:errorEnabled="true"
+                    app:startIconDrawable="@drawable/ic_formacao">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/edit_formacao_perfil_mentor"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="phone"/>
+                        android:inputType="phone" />
                 </com.google.android.material.textfield.TextInputLayout>
 
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/layout_curriculo_perfil_mentor"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/layout_formacao_perfil_mentor"
                     android:layout_marginTop="10dp"
+                    android:enabled="false"
+                    android:hint="Currículo"
                     app:counterEnabled="true"
                     app:counterMaxLength="255"
-                    android:hint="Currículo"
-                    android:enabled="false"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    app:startIconDrawable="@drawable/ic_curriculo"
-                    app:errorEnabled="true">
+                    app:errorEnabled="true"
+                    app:startIconDrawable="@drawable/ic_curriculo">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/edit_curriculo_perfil_mentor"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:lines="4"
-                        android:maxLines="4"
                         android:gravity="top|left"
-                        android:inputType="textMultiLine"/>
+                        android:inputType="textMultiLine"
+                        android:lines="4"
+                        android:maxLines="4" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <TextView

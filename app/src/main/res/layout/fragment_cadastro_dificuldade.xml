@@ -102,11 +102,11 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/layout_dificuldade"
             android:layout_centerHorizontal="true"
-            android:backgroundTint="#4CAF50"
-            android:layout_marginRight="30dp"
             android:layout_marginLeft="30dp"
             android:layout_marginTop="250dp"
+            android:layout_marginRight="30dp"
             android:layout_marginBottom="40dp"
+            android:backgroundTint="#8015B18D"
             android:text="Salvar" />
 
     </RelativeLayout>

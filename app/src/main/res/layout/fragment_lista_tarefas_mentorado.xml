@@ -21,6 +21,7 @@
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
             android:layout_margin="16dp"
+            android:backgroundTint="#15B18D"
             android:src="@drawable/ic_add"
             android:text="Salvar" />
 

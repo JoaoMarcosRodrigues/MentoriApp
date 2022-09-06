@@ -11,6 +11,8 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
+        app:titleTextColor="@color/white"
+        app:subtitleTextColor="@color/white"
         android:background="#8015B18D" />
 
     <ScrollView

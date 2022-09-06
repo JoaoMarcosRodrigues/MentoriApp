@@ -14,10 +14,13 @@
         android:id="@+id/btnAdicionarAprendizado"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:backgroundTint="#AEACAC"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:layout_margin="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:backgroundTint="#15B18D"
         android:src="@drawable/ic_add" />
 
 </RelativeLayout>

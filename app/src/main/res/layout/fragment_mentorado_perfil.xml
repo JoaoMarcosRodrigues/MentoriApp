@@ -33,12 +33,12 @@
                     android:id="@+id/btn_img_perfil"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:background="@drawable/round_opcao"
                     android:layout_below="@+id/img_photo_perfil"
                     android:layout_marginLeft="-40dp"
                     android:layout_marginTop="-35dp"
-                    android:backgroundTint="#C1BEBE"
                     android:layout_toRightOf="@+id/img_photo_perfil"
+                    android:background="@drawable/round_opcao"
+                    android:backgroundTint="#C1BEBE"
                     android:src="@drawable/ic_edit" />
 
                 <TextView
@@ -91,51 +91,51 @@
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/layout_nome_perfil_mentorado"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:counterEnabled="true"
                     app:counterMaxLength="255"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    app:startIconDrawable="@drawable/ic_nome"
-                    app:errorEnabled="true">
+                    app:errorEnabled="true"
+                    app:startIconDrawable="@drawable/ic_nome">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/edit_nome_perfil_mentorado"
                         android:layout_width="match_parent"
-                        android:ellipsize="end"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/layout_telefone_perfil_mentorado"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/layout_nome_perfil_mentorado"
                     android:layout_marginTop="10dp"
                     app:counterEnabled="true"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     app:counterMaxLength="15"
-                    app:startIconDrawable="@drawable/ic_contato"
-                    app:errorEnabled="true">
+                    app:errorEnabled="true"
+                    app:startIconDrawable="@drawable/ic_contato">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/edit_telefone_perfil_mentorado"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="phone"/>
+                        android:inputType="phone" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/layout_area_perfil_mentorado"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/layout_telefone_perfil_mentorado"
                     android:layout_marginTop="10dp"
                     app:counterEnabled="true"
                     app:counterMaxLength="50"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    app:startIconDrawable="@drawable/ic_area_interesse"
-                    app:errorEnabled="true">
+                    app:errorEnabled="true"
+                    app:startIconDrawable="@drawable/ic_area_interesse">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/edit_area_perfil_mentorado"
@@ -148,13 +148,13 @@
             <Button
                 android:id="@+id/btn_salvar_perfil_mentorado"
                 android:layout_width="match_parent"
-                android:layout_marginRight="30dp"
-                android:layout_marginLeft="30dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:backgroundTint="#4CAF50"
+                android:layout_marginLeft="30dp"
                 android:layout_marginTop="70dp"
+                android:layout_marginRight="30dp"
                 android:layout_marginBottom="30dp"
+                android:backgroundTint="#8015B18D"
                 android:text="Salvar" />
         </LinearLayout>
 

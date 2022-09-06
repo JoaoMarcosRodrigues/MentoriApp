@@ -89,12 +89,12 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@id/layout_descricao_tarefa"
                     android:layout_centerHorizontal="true"
-                    android:layout_marginTop="100dp"
                     android:layout_marginLeft="30dp"
+                    android:layout_marginTop="100dp"
                     android:layout_marginRight="30dp"
-                    android:textColor="@color/white"
-                    android:backgroundTint="#4CAF50"
-                    android:text="Cadastrar" />
+                    android:backgroundTint="#8015B18D"
+                    android:text="Cadastrar"
+                    android:textColor="@color/white" />
 
             </RelativeLayout>
 
