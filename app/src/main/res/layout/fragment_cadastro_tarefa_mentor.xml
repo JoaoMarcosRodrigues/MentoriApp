@@ -96,9 +96,9 @@
 
                 <Spinner
                     android:id="@+id/spinner_mentorados"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
                     android:layout_width="300dp"
                     android:layout_height="wrap_content"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
                     android:layout_below="@+id/txtMentoradoAssociado"
                     android:layout_marginLeft="40dp"
                     android:layout_marginTop="15dp" />

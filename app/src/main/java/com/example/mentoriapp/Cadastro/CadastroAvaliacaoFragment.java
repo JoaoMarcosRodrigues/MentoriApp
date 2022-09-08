@@ -29,6 +29,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
@@ -45,6 +46,7 @@ public class CadastroAvaliacaoFragment extends Fragment {
 
     View view;
     TextInputEditText editDescricao,editTitulo;
+    TextInputEditText layout_titulo_avaliacao,layout_descricao_avaliacao;
     Button btnCadastroAvaliacao;
     Spinner spinnerRelatos;
     private ProgressDialog progressDialog;
@@ -64,6 +66,8 @@ public class CadastroAvaliacaoFragment extends Fragment {
         editDescricao = view.findViewById(R.id.edit_descricao_avaliacao);
         spinnerRelatos = view.findViewById(R.id.spinner_relatos);
         btnCadastroAvaliacao = view.findViewById(R.id.btn_cadastrar_avaliacao);
+        layout_titulo_avaliacao = view.findViewById(R.id.layout_titulo_avaliacao);
+        layout_descricao_avaliacao = view.findViewById(R.id.layout_descricao_avaliacao);
         progressDialog = new ProgressDialog(getContext());
 
         auth = FirebaseAuth.getInstance();
@@ -157,68 +161,70 @@ public class CadastroAvaliacaoFragment extends Fragment {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
-        if(titulo == null || titulo.isEmpty() || descricao == null || descricao.isEmpty()){
-            builder.setTitle("Campos obrigatórios")
-                    .setMessage("Todos os campos são obrigatórios!")
-                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-
-                        }
-                    });
-
-            builder.create();
-            builder.show();
-            //Toast.makeText(getContext(),"Título e Descrição obrigatória!",Toast.LENGTH_SHORT).show();
-            return;
+        if(titulo.isEmpty()){
+            layout_titulo_avaliacao.setError("Título obrigatório!");
+        }else{
+            layout_titulo_avaliacao.setError("");
         }
 
-        progressDialog.setMessage("Cadastrando avaliação...");
-        progressDialog.show();
+        if(descricao.isEmpty()){
+            layout_descricao_avaliacao.setError("Descrição obrigatória!");
+        }else{
+            layout_descricao_avaliacao.setError("");
+        }
 
-        Avaliacao avaliacao = new Avaliacao(maxid,mentoradoSelecionado,titulo,descricao,emailMentorado);
+        if(mentoradoSelecionado.equals("Selecione...")){
+            Toast.makeText(getContext(),"Selecione um mentorado para continuar.",Toast.LENGTH_SHORT).show();
+        }
 
-        FirebaseFirestore.getInstance().collection("mentores").document(user.getUid()).collection("avaliacoes")
-                .add(avaliacao)
-                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                    @Override
-                    public void onSuccess(DocumentReference documentReference) {
-                        progressDialog.dismiss();
-                        builder.setTitle("Cadastro de avaliação")
-                                .setMessage("Avaliação cadastrada com sucesso!")
-                                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
+        if(!titulo.isEmpty() && !descricao.isEmpty() && !mentoradoSelecionado.equals("Selecione...")){
+            progressDialog.setMessage("Cadastrando avaliação...");
+            progressDialog.show();
 
-                                    }
-                                });
+            Avaliacao avaliacao = new Avaliacao(maxid,mentoradoSelecionado,titulo,descricao,emailMentorado);
 
-                        builder.create();
-                        builder.show();
-                        //Toast.makeText(getContext(),"Avaliação cadastrada com sucesso!",Toast.LENGTH_SHORT).show();
-                        getActivity().getSupportFragmentManager()
-                                .beginTransaction()
-                                .replace(R.id.fragment_mentor, new ListaAvaliacoesFragment())
-                                .commit();
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        progressDialog.dismiss();
-                        builder.setTitle("Cadastro de avaliação")
-                                .setMessage("Avaliação cadastrada com sucesso!")
-                                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
+            FirebaseFirestore.getInstance().collection("mentores").document(user.getUid()).collection("avaliacoes")
+                    .add(avaliacao)
+                    .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                        @Override
+                        public void onSuccess(DocumentReference documentReference) {
+                            progressDialog.dismiss();
+                            builder.setTitle("Cadastro de avaliação")
+                                    .setMessage("Avaliação cadastrada com sucesso!")
+                                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
 
-                                    }
-                                });
+                                        }
+                                    });
 
-                        builder.create();
-                        builder.show();
-                        //Toast.makeText(getContext(),"Ops, houve um erro no cadastro da avaliação! Tente novamente.",Toast.LENGTH_SHORT).show();
-                    }
-                });
+                            builder.create();
+                            builder.show();
+                            //Toast.makeText(getContext(),"Avaliação cadastrada com sucesso!",Toast.LENGTH_SHORT).show();
+                            getActivity().getSupportFragmentManager()
+                                    .beginTransaction()
+                                    .replace(R.id.fragment_mentor, new ListaAvaliacoesFragment())
+                                    .commit();
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            progressDialog.dismiss();
+                            builder.setTitle("Cadastro de avaliação")
+                                    .setMessage("Avaliação cadastrada com sucesso!")
+                                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+
+                                        }
+                                    });
+
+                            builder.create();
+                            builder.show();
+                            //Toast.makeText(getContext(),"Ops, houve um erro no cadastro da avaliação! Tente novamente.",Toast.LENGTH_SHORT).show();
+                        }
+                    });
+        }
     }
 }

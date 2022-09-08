@@ -47,6 +47,7 @@ public class CadastroAprendizadoFragment extends Fragment {
 
     TextInputEditText descricaoAprendizado;
     TextInputEditText tituloAprendizado;
+    TextInputEditText layout_titulo_aprendizado,layout_descricao_aprendizado;
     Button btnCadastroAprendizado;
     ProgressDialog progressDialog;
     Spinner spinnerRelatos;
@@ -77,6 +78,8 @@ public class CadastroAprendizadoFragment extends Fragment {
         descricaoAprendizado = view.findViewById(R.id.edit_descricao_aprendizado);
         btnCadastroAprendizado = view.findViewById(R.id.btn_cadastrar_aprendizado);
         tituloAprendizado = view.findViewById(R.id.edit_titulo_aprendizado);
+        layout_titulo_aprendizado = view.findViewById(R.id.layout_titulo_aprendizado);
+        layout_descricao_aprendizado = view.findViewById(R.id.layout_descricao_aprendizado);
         progressDialog = new ProgressDialog(getContext());
         spinnerRelatos = view.findViewById(R.id.spinner_relatos);
 
@@ -163,69 +166,71 @@ public class CadastroAprendizadoFragment extends Fragment {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
-        if(titulo == null || titulo.isEmpty() || descricao == null || descricao.isEmpty()){
-            builder.setTitle("Campos obrigatórios")
-                    .setMessage("Todos os campos são obrigatórios!")
-                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-
-                        }
-                    });
-
-            builder.create();
-            builder.show();
-            //Toast.makeText(getContext(),"Campo título e descrição obrigatórios!",Toast.LENGTH_SHORT).show();
-            return;
+        if(titulo.isEmpty()){
+            layout_titulo_aprendizado.setError("Título obrigatório!");
+        }else{
+            layout_titulo_aprendizado.setError("");
         }
 
-        progressDialog.setMessage("Cadastrando aprendizado...");
-        progressDialog.show();
+        if(descricao.isEmpty()){
+            layout_descricao_aprendizado.setError("Descrição obrigatória!");
+        }else{
+            layout_descricao_aprendizado.setError("");
+        }
 
-        Aprendizado aprendizado = new Aprendizado(maxid,relatoSelecionado,titulo,descricao,emailMentorado);
+        if(relatoSelecionado.equals("Selecione...")){
+            Toast.makeText(getContext(),"Selecione um relato para continuar.",Toast.LENGTH_SHORT).show();
+        }
 
-        FirebaseFirestore.getInstance().collection("mentorados").document(user.getUid()).collection("aprendizados")
-                .add(aprendizado)
-                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                    @Override
-                    public void onSuccess(DocumentReference documentReference) {
-                        progressDialog.dismiss();
-                        builder.setTitle("Cadastro do aprendizado")
-                                .setMessage("Aprendizado cadastrado com sucesso!")
-                                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
+        if(!titulo.isEmpty() && !descricao.isEmpty() && !relatoSelecionado.equals("Selecione...")){
+            progressDialog.setMessage("Cadastrando aprendizado...");
+            progressDialog.show();
 
-                                    }
-                                });
+            Aprendizado aprendizado = new Aprendizado(maxid,relatoSelecionado,titulo,descricao,emailMentorado);
 
-                        builder.create();
-                        builder.show();
-                        //Toast.makeText(getContext(),"Aprendizado cadastrado com sucesso!",Toast.LENGTH_SHORT).show();
+            FirebaseFirestore.getInstance().collection("mentorados").document(user.getUid()).collection("aprendizados")
+                    .add(aprendizado)
+                    .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                        @Override
+                        public void onSuccess(DocumentReference documentReference) {
+                            progressDialog.dismiss();
+                            builder.setTitle("Cadastro do aprendizado")
+                                    .setMessage("Aprendizado cadastrado com sucesso!")
+                                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
 
-                        getActivity().getSupportFragmentManager()
-                                .beginTransaction()
-                                .replace(R.id.fragment_mentorado, new ListaAprendizadosFragment())
-                                .commit();
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        progressDialog.dismiss();
-                        builder.setTitle("Cadastro do aprendizado")
-                                .setMessage("Ops, houve um erro no cadastro do aprendizado! Tente novamente.")
-                                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
+                                        }
+                                    });
 
-                                    }
-                                });
+                            builder.create();
+                            builder.show();
+                            //Toast.makeText(getContext(),"Aprendizado cadastrado com sucesso!",Toast.LENGTH_SHORT).show();
 
-                        builder.create();
-                        builder.show();
-                        //Toast.makeText(getContext(),"Ops, houve um erro no cadastro do aprendizado! Tente novamente.",Toast.LENGTH_SHORT).show();
-                    }
-                });
+                            getActivity().getSupportFragmentManager()
+                                    .beginTransaction()
+                                    .replace(R.id.fragment_mentorado, new ListaAprendizadosFragment())
+                                    .commit();
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            progressDialog.dismiss();
+                            builder.setTitle("Cadastro do aprendizado")
+                                    .setMessage("Ops, houve um erro no cadastro do aprendizado! Tente novamente.")
+                                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+
+                                        }
+                                    });
+
+                            builder.create();
+                            builder.show();
+                            //Toast.makeText(getContext(),"Ops, houve um erro no cadastro do aprendizado! Tente novamente.",Toast.LENGTH_SHORT).show();
+                        }
+                    });
+        }
     }
 }
