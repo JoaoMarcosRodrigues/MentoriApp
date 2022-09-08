@@ -28,6 +28,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
@@ -43,6 +44,7 @@ import java.util.List;
 public class CadastroDificuldadeFragment extends Fragment {
 
     TextInputEditText editTag, editDescricao;
+    TextInputLayout inputTag,inputDescricao;
     ProgressDialog progressDialog;
     Button btnSalvar;
     Spinner spinnerRelatos;
@@ -72,6 +74,8 @@ public class CadastroDificuldadeFragment extends Fragment {
 
         editTag = view.findViewById(R.id.edit_tag_dificuldade);
         editDescricao = view.findViewById(R.id.edit_dificuldade);
+        inputTag = view.findViewById(R.id.layout_tag_dificuldade);
+        inputDescricao = view.findViewById(R.id.layout_dificuldade);
         progressDialog = new ProgressDialog(getContext());
         btnSalvar = view.findViewById(R.id.btn_cadastrar_dificuldade);
         spinnerRelatos = view.findViewById(R.id.spinner_relatos);
@@ -159,75 +163,77 @@ public class CadastroDificuldadeFragment extends Fragment {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
-        if(tag == null || tag.isEmpty() || descricao.isEmpty() || descricao == null){
-            builder.setTitle("Campos obrigatórios")
-                    .setMessage("Todos os campos são obrigatórios!")
-                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-
-                        }
-                    });
-
-            builder.create();
-            builder.show();
-            //Toast.makeText(getContext(),"Tag e descrição obrigatórios!",Toast.LENGTH_SHORT).show();
-            return;
+        if(tag.isEmpty()){
+            inputTag.setError("Tag obrigatório!");
+        }else{
+            inputTag.setError("");
         }
 
-        progressDialog.setMessage("Cadastrando dificuldade...");
-        progressDialog.show();
+        if(descricao.isEmpty()){
+            inputDescricao.setError("Descrição obrigatória!");
+        }else{
+            inputDescricao.setError("");
+        }
 
-        String email = user.getEmail();
+        if(relatoSelecionado.equals("Selecione...")){
+            Toast.makeText(getContext(),"Selecione um relato para continuar.",Toast.LENGTH_SHORT).show();
+        }
 
-        Dificuldade dificuldade = new Dificuldade();
-        dificuldade.setId(maxid);
-        dificuldade.setTituloRelato(relatoSelecionado);
-        dificuldade.setTagDificuldade(tag);
-        dificuldade.setEmailMentorado(email);
-        dificuldade.setFavorito(false);
-        dificuldade.setDescricaoDificuldade(descricao);
+        if(!tag.isEmpty() && !descricao.isEmpty() && !relatoSelecionado.equals("Selecione...")){
+            progressDialog.setMessage("Cadastrando dificuldade...");
+            progressDialog.show();
 
-        FirebaseFirestore.getInstance().collection("mentorados").document(user.getUid()).collection("dificuldades")
-                .add(dificuldade)
-                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                    @Override
-                    public void onSuccess(DocumentReference documentReference) {
-                        progressDialog.dismiss();
-                        builder.setTitle("Cadastro da dificuldade")
-                                .setMessage("Dificuldade cadastrada com sucesso!")
-                                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
+            String email = user.getEmail();
 
-                                    }
-                                });
+            Dificuldade dificuldade = new Dificuldade();
+            dificuldade.setId(maxid);
+            dificuldade.setTituloRelato(relatoSelecionado);
+            dificuldade.setTagDificuldade(tag);
+            dificuldade.setEmailMentorado(email);
+            dificuldade.setFavorito(false);
+            dificuldade.setDescricaoDificuldade(descricao);
 
-                        builder.create();
-                        builder.show();
-                        //Toast.makeText(getContext(),"Dificuldade cadastrada com sucesso!",Toast.LENGTH_SHORT).show();
-                        getActivity().getSupportFragmentManager().beginTransaction()
-                                .replace(R.id.fragment_mentorado,new ListaDificuldadesFragment())
-                                .commit();
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        progressDialog.dismiss();
-                        builder.setTitle("Cadastro da dificuldade")
-                                .setMessage("Ops, houve um erro no cadastro da dificuldade! Tente novamente.")
-                                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
+            FirebaseFirestore.getInstance().collection("mentorados").document(user.getUid()).collection("dificuldades")
+                    .add(dificuldade)
+                    .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                        @Override
+                        public void onSuccess(DocumentReference documentReference) {
+                            progressDialog.dismiss();
+                            builder.setTitle("Cadastro da dificuldade")
+                                    .setMessage("Dificuldade cadastrada com sucesso!")
+                                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
 
-                                    }
-                                });
+                                        }
+                                    });
 
-                        builder.create();
-                        builder.show();
-                        //Toast.makeText(getContext(),"Ops, houve um erro no cadastro da dificuldade! Tente novamente.",Toast.LENGTH_SHORT).show();
-                    }
-                });
+                            builder.create();
+                            builder.show();
+                            //Toast.makeText(getContext(),"Dificuldade cadastrada com sucesso!",Toast.LENGTH_SHORT).show();
+                            getActivity().getSupportFragmentManager().beginTransaction()
+                                    .replace(R.id.fragment_mentorado,new ListaDificuldadesFragment())
+                                    .commit();
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            progressDialog.dismiss();
+                            builder.setTitle("Cadastro da dificuldade")
+                                    .setMessage("Ops, houve um erro no cadastro da dificuldade! Tente novamente.")
+                                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+
+                                        }
+                                    });
+
+                            builder.create();
+                            builder.show();
+                            //Toast.makeText(getContext(),"Ops, houve um erro no cadastro da dificuldade! Tente novamente.",Toast.LENGTH_SHORT).show();
+                        }
+                    });
+        }
     }
 }

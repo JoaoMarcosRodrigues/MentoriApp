@@ -136,7 +136,7 @@ public class CadastroRelatoFragment extends Fragment implements AdapterView.OnIt
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(arrayAdapter);
 
-        ref.whereEqualTo("emailAutor",mUser.getEmail()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        ref.whereEqualTo("emailDestinatario",mUser.getEmail()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if(task.isSuccessful()){

@@ -33,6 +33,7 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -52,6 +53,7 @@ public class CadastroTarefaMentorFragment extends Fragment {
     private FirebaseFirestore mFirestore;
     private CollectionReference ref;
     String mentoradoSelecionado = "";
+    String emailMentoradoSelecionado = "";
     int maxid;
 
     @Override
@@ -133,6 +135,25 @@ public class CadastroTarefaMentorFragment extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 mentoradoSelecionado = spinnerMentorado.getSelectedItem().toString();
+                if(!mentoradoSelecionado.equals("Selecione...")){
+                    CollectionReference usuariosRef = mFirestore.collection("usuarios");
+                    usuariosRef
+                            .whereEqualTo("nome", mentoradoSelecionado)
+                            .get()
+                            .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if(!task.getResult().isEmpty() || task.isSuccessful()){
+                                for(QueryDocumentSnapshot document : task.getResult()){
+                                    emailMentoradoSelecionado = document.getString("email");
+                                }
+                            }else{
+                                Toast.makeText(getContext(),task.getException().toString(),Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+
+                }
             }
 
             @Override
@@ -180,7 +201,7 @@ public class CadastroTarefaMentorFragment extends Fragment {
             progressDialog.show();
 
 
-            Tarefa tarefa = new Tarefa(maxid,titulo,descricao,email,mentoradoSelecionado,status);
+            Tarefa tarefa = new Tarefa(maxid,titulo,descricao,email,emailMentoradoSelecionado,status);
 
             FirebaseFirestore.getInstance().collection("tarefas")
                     .document(Integer.toString(maxid))

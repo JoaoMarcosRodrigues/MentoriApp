@@ -29,6 +29,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
@@ -45,9 +46,8 @@ import java.util.List;
 
 public class CadastroAprendizadoFragment extends Fragment {
 
-    TextInputEditText descricaoAprendizado;
-    TextInputEditText tituloAprendizado;
-    TextInputEditText layout_titulo_aprendizado,layout_descricao_aprendizado;
+    TextInputEditText descricaoAprendizado,tituloAprendizado;
+    TextInputLayout layout_titulo_aprendizado,layout_descricao_aprendizado;
     Button btnCadastroAprendizado;
     ProgressDialog progressDialog;
     Spinner spinnerRelatos;
