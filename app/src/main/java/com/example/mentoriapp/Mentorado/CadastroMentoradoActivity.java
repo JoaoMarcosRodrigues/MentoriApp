@@ -31,6 +31,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
@@ -47,6 +48,7 @@ import java.util.UUID;
 public class CadastroMentoradoActivity extends AppCompatActivity {
 
     private TextInputEditText mEditNomeMentorado, mEditEmailMentorado, mEditTelefoneMentorado, mEditSenhaMentorado, mEditAreaMentorado;
+    private TextInputLayout inputNome,inputEmail,inputSenha,inputArea;
     private Button mBtnCadastroMentorado, mBtnFotoMentorado;
     private Uri mSelectedUri = null;
     private ImageView mImgPhoto;
@@ -72,6 +74,10 @@ public class CadastroMentoradoActivity extends AppCompatActivity {
         mEditSenhaMentorado = findViewById(R.id.edit_senha_cadastro);
         mEditTelefoneMentorado = findViewById(R.id.edit_telefone_cadastro);
         mEditAreaMentorado = findViewById(R.id.edit_area_interesse_cadastro);
+        inputEmail = findViewById(R.id.input_email_cadastro);
+        inputNome = findViewById(R.id.input_nome_cadastro);
+        inputArea = findViewById(R.id.input_area_interesse_cadastro);
+        inputSenha = findViewById(R.id.input_senha_cadastro);
         mBtnCadastroMentorado = findViewById(R.id.btn_cadastrar);
         mImgPhoto = findViewById(R.id.img_photo);
 
@@ -123,40 +129,63 @@ public class CadastroMentoradoActivity extends AppCompatActivity {
         String telefone = mEditTelefoneMentorado.getText().toString();
         String areaAtuacao = mEditAreaMentorado.getText().toString();
 
-        if(nome == null || nome.isEmpty() || email == null || email.isEmpty() ||
-           senha == null || senha.isEmpty() || areaAtuacao == null || areaAtuacao.isEmpty()) {
-            Toast.makeText(this,"Nome Completo, Email, Senha e Área de atuação devem ser preenchidos!",Toast.LENGTH_SHORT).show();
-            return;
+        if(email.isEmpty()){
+            inputEmail.setError("Email obrigatório!");
+        }else{
+            inputEmail.setError("");
         }
+
+        if(senha.isEmpty()){
+            inputSenha.setError("Senha obrigatória!");
+        }else{
+            inputSenha.setError("");
+        }
+
+        if(nome.isEmpty()){
+            inputNome.setError("Nome obrigatório!");
+        }else{
+            inputNome.setError("");
+        }
+
+        if(areaAtuacao.isEmpty()){
+            inputArea.setError("Área de Interesse obrigatória!");
+        }else{
+            inputArea.setError("");
+        }
+
         if(senha.length() < 6)
-            Toast.makeText(getApplicationContext(),"Senha deve conter no mínimo 6 caracteres!",Toast.LENGTH_SHORT).show();
+            inputSenha.setError("Senha deve conter no mínimo 6 caracteres!");
+        else
+            inputSenha.setError("");
 
-        progressDialog.setMessage("Cadastrando mentorado...");
-        progressDialog.show();
+        if(!nome.isEmpty() && !email.isEmpty() && !senha.isEmpty() && !areaAtuacao.isEmpty() && senha.length() >= 6) {
+            progressDialog.setMessage("Cadastrando mentorado...");
+            progressDialog.show();
 
-        FirebaseAuth.getInstance().createUserWithEmailAndPassword(email,senha)
-                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(task.isSuccessful()) {
-                            Log.i("Teste", task.getResult().getUser().getUid());
-                            saveMentoradoInFirebase();
-                            saveUserInFirebase();
-                            //progressDialog.dismiss();
-                            //Toast.makeText(getApplicationContext(),"Mentorado cadastrado com sucesso!",Toast.LENGTH_SHORT).show();
+            FirebaseAuth.getInstance().createUserWithEmailAndPassword(email,senha)
+                    .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if(task.isSuccessful()) {
+                                Log.i("Teste", task.getResult().getUser().getUid());
+                                saveMentoradoInFirebase();
+                                saveUserInFirebase();
+                                //progressDialog.dismiss();
+                                //Toast.makeText(getApplicationContext(),"Mentorado cadastrado com sucesso!",Toast.LENGTH_SHORT).show();
+                            }
                         }
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        progressDialog.dismiss();
-                        if(e.getMessage().equals("The email address is badly formatted."))
-                            Toast.makeText(getApplicationContext(),"Email inválido! Tente novamente.",Toast.LENGTH_SHORT).show();
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            progressDialog.dismiss();
+                            if(e.getMessage().equals("The email address is badly formatted."))
+                                Toast.makeText(getApplicationContext(),"Email inválido! Tente novamente.",Toast.LENGTH_SHORT).show();
 
-                        Log.i("Teste",e.getMessage());
-                    }
-                });
+                            Log.i("Teste",e.getMessage());
+                        }
+                    });
+        }
     }
 
     private void saveMentoradoInFirebase() {

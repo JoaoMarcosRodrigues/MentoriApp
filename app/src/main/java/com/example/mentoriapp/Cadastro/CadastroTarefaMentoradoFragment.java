@@ -23,6 +23,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
@@ -32,9 +33,9 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 public class CadastroTarefaMentoradoFragment extends Fragment {
 
-    TextInputEditText descricaoTarefa;
-    TextInputEditText tituloTarefa;
-    Button btnCadastroTarefa;
+    private TextInputEditText descricaoTarefa,tituloTarefa;
+    private TextInputLayout inputDescricao,inputTitulo;
+    private Button btnCadastroTarefa;
     ProgressDialog progressDialog;
     private FirebaseAuth auth;
     private FirebaseUser user;
@@ -48,6 +49,8 @@ public class CadastroTarefaMentoradoFragment extends Fragment {
 
         descricaoTarefa = view.findViewById(R.id.edit_descricao_tarefa);
         btnCadastroTarefa = view.findViewById(R.id.btn_cadastrar_tarefa);
+        inputTitulo = view.findViewById(R.id.layout_titulo_tarefa);
+        inputDescricao = view.findViewById(R.id.layout_descricao_tarefa);
         tituloTarefa = view.findViewById(R.id.edit_titulo_tarefa);
         progressDialog = new ProgressDialog(getContext());
 
@@ -84,71 +87,67 @@ public class CadastroTarefaMentoradoFragment extends Fragment {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
-        if(titulo == null || titulo.isEmpty() || descricao == null || descricao.isEmpty()){
-            builder.setTitle("Campos obrigatórios")
-                    .setMessage("Campos título e descrição obrigatórios!")
-                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-
-                        }
-                    });
-
-            builder.create();
-            builder.show();
-
-            //Toast.makeText(getContext(),"Campo título e descrição obrigatórios!",Toast.LENGTH_SHORT).show();
-            return;
+        if(titulo.isEmpty()){
+            inputTitulo.setError("Título obrigatório!");
+        }else{
+            inputTitulo.setError("");
         }
 
-        progressDialog.setMessage("Cadastrando tarefa...");
-        progressDialog.show();
+        if(descricao.isEmpty()){
+            inputDescricao.setError("Descrição obrigatória!");
+        }else{
+            inputDescricao.setError("");
+        }
 
-        Tarefa tarefa = new Tarefa(maxid,titulo,descricao,email,email,status);
+        if(!titulo.isEmpty() && !descricao.isEmpty()){
+            progressDialog.setMessage("Cadastrando tarefa...");
+            progressDialog.show();
 
-        FirebaseFirestore.getInstance().collection("tarefas")
-                .document(Integer.toString(maxid))
-                .set(tarefa)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        progressDialog.dismiss();
-                        builder.setTitle("Cadastro da tarefa")
-                                .setMessage("Tarefa cadastrada!")
-                                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
+            Tarefa tarefa = new Tarefa(maxid,titulo,descricao,email,email,status);
 
-                                    }
-                                });
+            FirebaseFirestore.getInstance().collection("tarefas")
+                    .document(Integer.toString(maxid))
+                    .set(tarefa)
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            progressDialog.dismiss();
+                            builder.setTitle("Cadastro da tarefa")
+                                    .setMessage("Tarefa cadastrada!")
+                                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
 
-                        builder.create();
-                        builder.show();
-                        //Toast.makeText(getContext(),"Tarefa cadastrada com sucesso!",Toast.LENGTH_SHORT).show();
-                        getActivity().getSupportFragmentManager()
-                                .beginTransaction()
-                                .replace(R.id.fragment_mentorado, new ListaTarefasMentoradoFragment())
-                                .commit();
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        progressDialog.dismiss();
-                        builder.setTitle("Cadastro da tarefa")
-                                .setMessage("Ops, houve um erro no cadastro da tarefa! Tente novamente.")
-                                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
+                                        }
+                                    });
 
-                                    }
-                                });
+                            builder.create();
+                            builder.show();
+                            //Toast.makeText(getContext(),"Tarefa cadastrada com sucesso!",Toast.LENGTH_SHORT).show();
+                            getActivity().getSupportFragmentManager()
+                                    .beginTransaction()
+                                    .replace(R.id.fragment_mentorado, new ListaTarefasMentoradoFragment())
+                                    .commit();
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            progressDialog.dismiss();
+                            builder.setTitle("Cadastro da tarefa")
+                                    .setMessage("Ops, houve um erro no cadastro da tarefa! Tente novamente.")
+                                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
 
-                        builder.create();
-                        builder.show();
-                        //Toast.makeText(getContext(),"Ops, houve um erro no cadastro da tarefa! Tente novamente.",Toast.LENGTH_SHORT).show();
-                    }
-                });
+                                        }
+                                    });
 
+                            builder.create();
+                            builder.show();
+                            //Toast.makeText(getContext(),"Ops, houve um erro no cadastro da tarefa! Tente novamente.",Toast.LENGTH_SHORT).show();
+                        }
+                    });
+        }
     }
 }

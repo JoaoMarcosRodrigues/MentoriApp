@@ -32,6 +32,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -47,6 +48,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class CadastroMentorActivity extends AppCompatActivity {
 
     private TextInputEditText edit_email,edit_nome,edit_telefone,edit_senha,edit_area_atuacao,edit_formacao,edit_curriculo;
+    private TextInputLayout input_email,input_nome,input_senha,input_area_atuacao,input_formacao,input_curriculo;
     private Button botao_next, mBtnFotoMentor;
     private CircleImageView mImgPhoto;
     private Toolbar toolbar;
@@ -75,6 +77,12 @@ public class CadastroMentorActivity extends AppCompatActivity {
         edit_area_atuacao = findViewById(R.id.edit_atuacao_cadastro);
         edit_formacao = findViewById(R.id.edit_formacao);
         edit_curriculo = findViewById(R.id.edit_curriculo);
+        input_senha = findViewById(R.id.input_senha_cadastro);
+        input_curriculo = findViewById(R.id.input_curriculo);
+        input_nome = findViewById(R.id.input_nome_cadastro);
+        input_formacao = findViewById(R.id.input_formacao);
+        input_area_atuacao = findViewById(R.id.input_atuacao_cadastro);
+        input_email = findViewById(R.id.input_email_cadastro);
         mBtnFotoMentor = findViewById(R.id.btn_img_cadastro_mentor);
         spinnerTempoAtuacao = findViewById(R.id.spinnerTempoExperiencia);
         mImgPhoto = findViewById(R.id.img_photo);
@@ -145,41 +153,75 @@ public class CadastroMentorActivity extends AppCompatActivity {
         String formacao = edit_formacao.getText().toString();
         String curriculo = edit_curriculo.getText().toString();
 
-        if(nome == null || nome.isEmpty() || email == null || email.isEmpty() ||
-                senha == null || senha.isEmpty() || area_atuacao == null || area_atuacao.isEmpty()
-                || formacao == null || formacao.isEmpty() || curriculo == null || curriculo.isEmpty()) {
-            Toast.makeText(this,"Nome Completo, Email, Área de atuação, Formação, Currículo e Senha devem ser preenchidos!",Toast.LENGTH_SHORT).show();
-            return;
+        if(email.isEmpty()){
+            input_email.setError("Email obrigatório!");
+        }else{
+            input_email.setError("");
         }
+
+        if(senha.isEmpty()){
+            input_senha.setError("Senha obrigatória!");
+        }else{
+            input_senha.setError("");
+        }
+
+        if(nome.isEmpty()){
+            input_nome.setError("Nome obrigatório!");
+        }else{
+            input_nome.setError("");
+        }
+
+        if(area_atuacao.isEmpty()){
+            input_area_atuacao.setError("Área de Atuação obrigatória!");
+        }else{
+            input_area_atuacao.setError("");
+        }
+
+        if(formacao.isEmpty()){
+            input_formacao.setError("Formação obrigatória!");
+        }else{
+            input_formacao.setError("");
+        }
+
+        if(curriculo.isEmpty()){
+            input_curriculo.setError("Currículo obrigatório!");
+        }else{
+            input_curriculo.setError("");
+        }
+
         if(senha.length() < 6)
-            Toast.makeText(getApplicationContext(),"Senha deve conter no mínimo 6 caracteres!",Toast.LENGTH_SHORT).show();
+            input_senha.setError("Senha deve conter no mínimo 6 caracteres");
+        else
+            input_senha.setError("");
 
-        progressDialog.setMessage("Cadastrando mentor...");
-        progressDialog.show();
+        if(!nome.isEmpty() && !email.isEmpty() && !senha.isEmpty() && !area_atuacao.isEmpty() && !formacao.isEmpty() && !curriculo.isEmpty() && senha.length() >= 6) {
+            progressDialog.setMessage("Cadastrando mentor...");
+            progressDialog.show();
 
-        FirebaseAuth.getInstance().createUserWithEmailAndPassword(email,senha)
-                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(task.isSuccessful()) {
-                            Log.i("Teste", task.getResult().getUser().getUid());
-                            saveMentorInFirebase();
-                            saveUserInFirebase();
-                            //progressDialog.dismiss();
-                            //Toast.makeText(getApplicationContext(),"Mentor cadastrado com sucesso!",Toast.LENGTH_SHORT).show();
+            FirebaseAuth.getInstance().createUserWithEmailAndPassword(email,senha)
+                    .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if(task.isSuccessful()) {
+                                Log.i("Teste", task.getResult().getUser().getUid());
+                                saveMentorInFirebase();
+                                saveUserInFirebase();
+                                //progressDialog.dismiss();
+                                //Toast.makeText(getApplicationContext(),"Mentor cadastrado com sucesso!",Toast.LENGTH_SHORT).show();
+                            }
                         }
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        progressDialog.dismiss();
-                        if(e.getMessage().equals("The email address is badly formatted."))
-                            Toast.makeText(getApplicationContext(),"Email inválido! Tente novamente.",Toast.LENGTH_SHORT).show();
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            progressDialog.dismiss();
+                            if(e.getMessage().equals("The email address is badly formatted."))
+                                Toast.makeText(getApplicationContext(),"Email inválido! Tente novamente.",Toast.LENGTH_SHORT).show();
 
-                        Log.i("Teste",e.getMessage());
-                    }
-                });
+                            Log.i("Teste",e.getMessage());
+                        }
+                    });
+        }
     }
 
     private void saveMentorInFirebase() {
