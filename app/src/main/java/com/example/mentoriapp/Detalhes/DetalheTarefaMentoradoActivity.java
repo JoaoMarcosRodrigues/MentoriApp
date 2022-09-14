@@ -5,6 +5,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.os.Bundle;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -12,6 +13,10 @@ import android.widget.Toast;
 import com.example.mentoriapp.Classes.Feedback;
 import com.example.mentoriapp.Classes.Tarefa;
 import com.example.mentoriapp.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class DetalheTarefaMentoradoActivity extends AppCompatActivity {
 
@@ -19,11 +24,21 @@ public class DetalheTarefaMentoradoActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private TextView txtDescricao;
     private CheckBox switchStatus;
+    private FirebaseFirestore db;
+    private CollectionReference ref;
+    private FirebaseAuth auth;
+    private FirebaseUser user;
+    private int idTarefa;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detalhe_tarefa_mentorado);
+
+        db = FirebaseFirestore.getInstance();
+        auth = FirebaseAuth.getInstance();
+        user = auth.getCurrentUser();
+        ref = db.collection("tarefas");
 
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -32,6 +47,8 @@ public class DetalheTarefaMentoradoActivity extends AppCompatActivity {
 
         Bundle bundle = getIntent().getExtras();
         tarefa = bundle.getParcelable("tarefa");
+
+        idTarefa = tarefa.getId();
 
         String titulo = tarefa.getTitulo();
         getSupportActionBar().setTitle(titulo);
@@ -44,6 +61,18 @@ public class DetalheTarefaMentoradoActivity extends AppCompatActivity {
         }else{
             switchStatus.setChecked(false);
         }
+
+        // MUDAR STATUS DA TAREFA AO MUDAR O SWITCH
+        switchStatus.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    db.collection("tarefas").document(String.valueOf(idTarefa)).update("status",true);
+                }else{
+                    db.collection("tarefas").document(String.valueOf(idTarefa)).update("status",false);
+                }
+            }
+        });
 
         //Toast.makeText(this,titulo+"-"+descricao+"-"+status,Toast.LENGTH_SHORT).show();
     }
