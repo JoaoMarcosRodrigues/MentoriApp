@@ -20,6 +20,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
@@ -37,12 +38,14 @@ public class DetalhesRelatoMentoradoActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private TextView txtTema,txtDescricao,txtPresencial,txtTarefa,txtData;
     private TextInputEditText editFeedback;
+    private TextInputLayout inputFeedback;
     private Button btnFeedback;
     private FirebaseAuth auth;
     private ProgressDialog progressDialog;
     private FirebaseUser user;
     private FirebaseFirestore db;
     String tituloRelato;
+    int idRelato;
     int maxid;
 
     @Override
@@ -60,6 +63,7 @@ public class DetalhesRelatoMentoradoActivity extends AppCompatActivity {
         txtData = findViewById(R.id.txtData);
         btnFeedback = findViewById(R.id.btnFeedback);
         editFeedback = findViewById(R.id.edit_descricao_feedback);
+        inputFeedback = findViewById(R.id.layout_descricao_feedback);
         progressDialog = new ProgressDialog(this);
 
         auth = FirebaseAuth.getInstance();
@@ -70,6 +74,7 @@ public class DetalhesRelatoMentoradoActivity extends AppCompatActivity {
         relato = bundle.getParcelable("relato");
 
         tituloRelato = relato.getTitulo();
+        idRelato = relato.getId();
         getSupportActionBar().setTitle(tituloRelato);
 
         String tema = relato.getTema();
@@ -99,18 +104,7 @@ public class DetalhesRelatoMentoradoActivity extends AppCompatActivity {
             }
         });
 
-        db.collection("feedbacks").whereEqualTo("relatoAssociado",tituloRelato).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if(task.isSuccessful()){
-                    for (QueryDocumentSnapshot document : task.getResult()) {
-                        editFeedback.setText(document.getData().get("descricao").toString());
-                    }
-                }
-            }
-        });
-
-        db.collection("feedbacks").whereEqualTo("relatoAssociado",tituloRelato).get()
+        db.collection("feedbacks").whereEqualTo("id",idRelato).get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -118,6 +112,7 @@ public class DetalhesRelatoMentoradoActivity extends AppCompatActivity {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 String descricaoFeedback = document.getData().get("descricao").toString();
                                 if(!descricaoFeedback.isEmpty() || descricaoFeedback != null){
+                                    editFeedback.setText(document.getData().get("descricao").toString());
                                     Toast.makeText(getApplicationContext(),"Feedback já cadastrado!",Toast.LENGTH_SHORT).show();
                                     editFeedback.setEnabled(false);
                                     btnFeedback.setEnabled(false);
@@ -138,42 +133,45 @@ public class DetalhesRelatoMentoradoActivity extends AppCompatActivity {
                 String dataFeedback = DateFormat.getDateInstance(DateFormat.MEDIUM).format(d);
 
                 if(descricaoFeedback == null || descricaoFeedback.isEmpty()){
-                    Toast.makeText(getApplicationContext(),"Campo Descrição obrigatório!",Toast.LENGTH_SHORT).show();
-                    return;
+                    inputFeedback.setError("Descrição do feedback obrigatória!");
+                }else{
+                    inputFeedback.setError("");
                 }
 
-                progressDialog.setMessage("Verificando dados...");
-                progressDialog.show();
+                if(!descricaoFeedback.isEmpty()){
+                    progressDialog.setMessage("Verificando dados...");
+                    progressDialog.show();
 
-                Feedback feedback = new Feedback();
-                feedback.setId(maxid);
-                feedback.setTitulo(titulo);
-                feedback.setData(dataFeedback);
-                feedback.setEmailMentor(emailMentor);
-                feedback.setDescricao(descricaoFeedback);
-                feedback.setRelatoAssociado(tituloRelato);
+                    Feedback feedback = new Feedback();
+                    feedback.setId(maxid);
+                    feedback.setTitulo(titulo);
+                    feedback.setData(dataFeedback);
+                    feedback.setEmailMentor(emailMentor);
+                    feedback.setDescricao(descricaoFeedback);
+                    feedback.setRelatoAssociado(tituloRelato);
 
-                db.collection("feedbacks")
-                        .add(feedback)
-                        .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                            @Override
-                            public void onSuccess(DocumentReference documentReference) {
-                                progressDialog.dismiss();
-                                Toast.makeText(getApplicationContext(),"Feedback cadastrado com sucesso!",Toast.LENGTH_SHORT).show();
-                                editFeedback.setEnabled(false);
-                                btnFeedback.setEnabled(false);
-                            }
-                        })
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                progressDialog.dismiss();
-                                Toast.makeText(getApplicationContext(),"Ops, houve um erro no cadastro do feedback. Tente novamente!",Toast.LENGTH_SHORT).show();
-                            }
-                        });
+                    db.collection("feedbacks")
+                            .add(feedback)
+                            .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                @Override
+                                public void onSuccess(DocumentReference documentReference) {
+                                    progressDialog.dismiss();
+                                    Toast.makeText(getApplicationContext(),"Feedback cadastrado com sucesso!",Toast.LENGTH_SHORT).show();
+                                    editFeedback.setEnabled(false);
+                                    btnFeedback.setEnabled(false);
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    progressDialog.dismiss();
+                                    Toast.makeText(getApplicationContext(),"Ops, houve um erro no cadastro do feedback. Tente novamente!",Toast.LENGTH_SHORT).show();
+                                }
+                            });
 
-                // ATUALIZAR RELATO DO MENTORADO COM O FEEDBACK DO MENTOR
-                //db.collection("relatos").whereEqualTo("titulo",).
+                    // ATUALIZAR RELATO DO MENTORADO COM O FEEDBACK DO MENTOR
+                    //db.collection("relatos").whereEqualTo("titulo",).
+                }
             }
         });
     }

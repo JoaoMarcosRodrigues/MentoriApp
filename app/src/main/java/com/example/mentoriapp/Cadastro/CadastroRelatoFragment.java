@@ -37,6 +37,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
@@ -60,6 +61,7 @@ public class CadastroRelatoFragment extends Fragment implements AdapterView.OnIt
     private Spinner spinner;
     private Button botao_pronto_relato;
     private TextInputEditText editTema, editTitulo, editDescricao;
+    private TextInputLayout inputTema,inputTitulo,inputDescricao;
     private TextView txtData;
     private ImageView imgData;
     private RadioGroup radioGroup;
@@ -94,6 +96,9 @@ public class CadastroRelatoFragment extends Fragment implements AdapterView.OnIt
         editTitulo = view.findViewById(R.id.edit_titulo_relato);
         editTema = view.findViewById(R.id.edit_tema_relato);
         editDescricao = view.findViewById(R.id.edit_descricao_relato);
+        inputDescricao = view.findViewById(R.id.layout_descricao_relato);
+        inputTitulo = view.findViewById(R.id.layout_titulo_relato);
+        inputTema = view.findViewById(R.id.layout_tema_relato);
         radioGroup = view.findViewById(R.id.radio_group_presencial);
         radioBtnSim = view.findViewById(R.id.radio_btn_sim);
         radioBtnNao = view.findViewById(R.id.radio_btn_nao);
@@ -234,80 +239,90 @@ public class CadastroRelatoFragment extends Fragment implements AdapterView.OnIt
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
-        if(titulo == null || titulo.isEmpty() || tema == null || tema.equals("") || descricao == null || descricao.equals("") ||
-                data == null || data.equals("")) {
-
-            builder.setTitle("Campos obrigatórios")
-                    .setMessage("Campos título, tema, descrição e data do relato obrigatórios")
-                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-
-                        }
-                    });
-
-            builder.create();
-            builder.show();
-            //Toast.makeText(getActivity(),"Título, Tema, descrição e data do relato obrigatórios!",Toast.LENGTH_SHORT).show();
-            return;
+        if(titulo.isEmpty()){
+            inputTitulo.setError("Título obrigatório!");
+        }else{
+            inputTitulo.setError("");
         }
 
-        if(radioBtnSim.isChecked())
-            presencial = "Sim";
-        else
-            presencial = "Não";
+        if(tema.isEmpty()){
+            inputTema.setError("Tema obrigatório!");
+        }else{
+            inputTema.setError("");
+        }
 
-        progressDialog.setMessage("Cadastrando relato...");
-        progressDialog.show();
+        if(descricao.isEmpty()){
+            inputDescricao.setError("Descricação obrigatória!");
+        }else{
+            inputDescricao.setError("");
+        }
 
-        Relato relato = new Relato(maxid,titulo,tema,descricao,data,presencial,tarefa_associada,emailMentorado);
-        FirebaseFirestore.getInstance().collection("relatos")
-                .add(relato)
-                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                    @Override
-                    public void onSuccess(DocumentReference documentReference) {
-                        progressDialog.dismiss();
-                        Log.i("Teste",documentReference.getId());
-                        Bundle bundle = new Bundle();
-                        bundle.putInt("idRelato",maxid);
+        if(data.isEmpty()){
+            Toast.makeText(getContext(),"Data do Relato obrigatória!",Toast.LENGTH_SHORT).show();
+        }
 
-                        builder.setTitle("Cadastro do relato")
-                                .setMessage("Relato cadastrado!")
-                                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
+        if(tarefa_associada.equals("Selecione...")){
+            Toast.makeText(getContext(),"Selecione uma Tarefa para continuar!",Toast.LENGTH_SHORT).show();
+        }
 
-                                    }
-                                });
+        if(!titulo.isEmpty() && !tema.isEmpty() && !descricao.isEmpty() && !data.isEmpty() && !tarefa_associada.equals("Selecione...")) {
+            if(radioBtnSim.isChecked())
+                presencial = "Sim";
+            else
+                presencial = "Não";
 
-                        builder.create();
-                        builder.show();
-                        //Toast.makeText(getContext(),"Relato cadastrado!",Toast.LENGTH_SHORT).show();
-                        getActivity().getSupportFragmentManager()
-                                .beginTransaction()
-                                .replace(R.id.fragment_mentorado, new ListaRelatosFragment(),null)
-                                .commit();
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        progressDialog.dismiss();
-                        builder.setTitle("Cadastro do relato")
-                                .setMessage("Ops, houve um erro no cadastro do relato! Tente novamente.")
-                                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
+            progressDialog.setMessage("Cadastrando relato...");
+            progressDialog.show();
 
-                                    }
-                                });
+            Relato relato = new Relato(maxid,titulo,tema,descricao,data,presencial,tarefa_associada,emailMentorado);
+            FirebaseFirestore.getInstance().collection("relatos")
+                    .add(relato)
+                    .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                        @Override
+                        public void onSuccess(DocumentReference documentReference) {
+                            progressDialog.dismiss();
+                            Log.i("Teste",documentReference.getId());
+                            Bundle bundle = new Bundle();
+                            bundle.putInt("idRelato",maxid);
 
-                        builder.create();
-                        builder.show();
-                        //Toast.makeText(getContext(),"Ops, houve um erro no cadastro do relato! Tente novamente.",Toast.LENGTH_SHORT).show();
-                        Log.i("Teste",e.getMessage());
-                    }
-                });
+                            builder.setTitle("Cadastro do relato")
+                                    .setMessage("Relato cadastrado!")
+                                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+
+                                        }
+                                    });
+
+                            builder.create();
+                            builder.show();
+                            //Toast.makeText(getContext(),"Relato cadastrado!",Toast.LENGTH_SHORT).show();
+                            getActivity().getSupportFragmentManager()
+                                    .beginTransaction()
+                                    .replace(R.id.fragment_mentorado, new ListaRelatosFragment(),null)
+                                    .commit();
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            progressDialog.dismiss();
+                            builder.setTitle("Cadastro do relato")
+                                    .setMessage("Ops, houve um erro no cadastro do relato! Tente novamente.")
+                                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+
+                                        }
+                                    });
+
+                            builder.create();
+                            builder.show();
+                            //Toast.makeText(getContext(),"Ops, houve um erro no cadastro do relato! Tente novamente.",Toast.LENGTH_SHORT).show();
+                            Log.i("Teste",e.getMessage());
+                        }
+                    });
+        }
     }
 
     @Override
