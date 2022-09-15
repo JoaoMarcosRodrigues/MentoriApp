@@ -46,6 +46,7 @@ import com.xwray.groupie.GroupieViewHolder;
 import com.xwray.groupie.Item;
 import com.xwray.groupie.OnItemClickListener;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ListaTarefasMentoradoFragment extends Fragment {
@@ -55,6 +56,7 @@ public class ListaTarefasMentoradoFragment extends Fragment {
     private FirebaseAuth auth;
     private FirebaseUser user;
     private GroupieAdapter adapter;
+    private List<Tarefa> listaTarefas = new ArrayList<>();
     View view;
 
     //private TarefaAdapter adapter;
@@ -121,6 +123,7 @@ public class ListaTarefasMentoradoFragment extends Fragment {
 
                             adapter.add(new TarefaItem(tarefa));
                         }
+                        recycler_tarefas.setAdapter(adapter);
                     }
                 });
     }
@@ -135,6 +138,7 @@ public class ListaTarefasMentoradoFragment extends Fragment {
 
         @Override
         public void bind(@NonNull GroupieViewHolder viewHolder, int position) {
+            listaTarefas.add(tarefa);
             TextView tituloTarefa = viewHolder.itemView.findViewById(R.id.txt_titulo_tarefa);
             TextView descricaoTarefa = viewHolder.itemView.findViewById(R.id.txt_descricao_tarefa);
             CheckBox statusTarefa = viewHolder.itemView.findViewById(R.id.status_tarefa);
@@ -149,13 +153,13 @@ public class ListaTarefasMentoradoFragment extends Fragment {
             statusTarefa.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    adapter.clear();
+                    //adapter.clear();
                     if(isChecked){
                         db.collection("tarefas").document(idTarefa).update("status",true);
                     }else{
                         db.collection("tarefas").document(idTarefa).update("status",false);
                     }
-                    adapter.notifyDataSetChanged();
+                    //adapter.notifyDataSetChanged();
                 }
             });
         }
