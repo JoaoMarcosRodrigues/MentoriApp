@@ -5,6 +5,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.PowerManager;
 import android.provider.Settings;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,14 +24,18 @@ import com.example.mentoriapp.OutgoingInvitationActivity;
 import com.example.mentoriapp.R;
 import com.example.mentoriapp.listeners.UsersListener;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.installations.FirebaseInstallations;
 import com.google.firebase.messaging.FirebaseMessaging;
+import com.squareup.picasso.Picasso;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -41,6 +46,7 @@ import java.util.Objects;
 public class ReuniaoActivity extends AppCompatActivity implements UsersListener {
     private FirebaseFirestore db;
     private FirebaseUser user;
+    private FirebaseAuth auth;
     private List<Usuario> users;
     private UsersAdapter usersAdapter;
     private TextView textError;
@@ -58,9 +64,26 @@ public class ReuniaoActivity extends AppCompatActivity implements UsersListener 
         textError = findViewById(R.id.textError);
 
         db = FirebaseFirestore.getInstance();
-        FirebaseAuth auth = FirebaseAuth.getInstance();
+        if (auth == null) {
+            auth = FirebaseAuth.getInstance();
+        }
+
         user = auth.getCurrentUser();
-        Objects.requireNonNull(getSupportActionBar()).setTitle(user.getEmail());
+
+        db.collection("usuarios").whereEqualTo("email",user.getEmail())
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if(task.isSuccessful()){
+                            for(QueryDocumentSnapshot document : task.getResult()){
+                                Objects.requireNonNull(getSupportActionBar()).setTitle(document.getData().get("nome").toString());
+                            }
+                        }else{
+                            Log.d("mentorados","Error: "+task.getException());
+                        }
+                    }
+                });
 
         FirebaseMessaging.getInstance().getToken().addOnCompleteListener(task -> {
             if(task.isSuccessful() && task.getResult() != null){
