@@ -13,8 +13,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -44,6 +46,8 @@ import com.squareup.picasso.Picasso;
 import org.w3c.dom.Text;
 
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
 import java.util.UUID;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -56,6 +60,7 @@ public class PerfilMentorFragment extends Fragment {
     ProgressDialog progressDialog;
     private Uri mSelectedUri = null;
     private CircleImageView fotoPerfil;
+    private Spinner spinnerTempoAtuacao;
     private Button btnSalvarPerfil;
     private ImageButton btnFotoPerfil;
     private TextInputEditText editTelefone,editNome,editFormacao,editArea,editCurriculo;
@@ -79,7 +84,9 @@ public class PerfilMentorFragment extends Fragment {
         editArea = view.findViewById(R.id.edit_area_perfil_mentor);
         editCurriculo = view.findViewById(R.id.edit_curriculo_perfil_mentor);
         fotoPerfil = view.findViewById(R.id.img_photo_perfil);
+        spinnerTempoAtuacao = view.findViewById(R.id.spinnerTempoExperiencia);
 
+        ArrayAdapter<CharSequence> adapterSpinner = ArrayAdapter.createFromResource(getContext(),R.array.tempoAtuacao, android.R.layout.simple_spinner_item);
         SimpleMaskFormatter smf = new SimpleMaskFormatter("(NN)NNNNN-NNNN");
         MaskTextWatcher mtw = new MaskTextWatcher(editTelefone, smf);
         editTelefone.addTextChangedListener(mtw);
@@ -100,6 +107,8 @@ public class PerfilMentorFragment extends Fragment {
             }
         });
 
+        spinnerTempoAtuacao.setAdapter(adapterSpinner);
+
         if(firebaseUser != null) {
             atualizarPerfil();
         }
@@ -113,10 +122,11 @@ public class PerfilMentorFragment extends Fragment {
         String formacao = editFormacao.getText().toString();
         String area = editArea.getText().toString();
         String curriculo = editCurriculo.getText().toString();
+        String tempoAtuacao = spinnerTempoAtuacao.getSelectedItem().toString();
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
-        if(nome.isEmpty() || telefone.isEmpty() || formacao.isEmpty() || area.isEmpty() || curriculo.isEmpty()){
+        if(nome.isEmpty() || telefone.isEmpty() || formacao.isEmpty() || area.isEmpty() || curriculo.isEmpty() || tempoAtuacao.isEmpty()){
             builder.setTitle("Campos obrigatórios")
                     .setMessage("Todos os campos são obrigatórios!")
                     .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
@@ -135,7 +145,7 @@ public class PerfilMentorFragment extends Fragment {
             progressDialog.show();
 
             firebaseFirestore.collection("mentores").document(firebaseUser.getUid())
-                    .update("nome",nome,"telefone",telefone,"formacao",formacao,"areaAtuacao",area,"curriculo",curriculo)
+                    .update("nome",nome,"telefone",telefone,"formacao",formacao,"areaAtuacao",area,"curriculo",curriculo,"tempoAtuacao",tempoAtuacao)
                     .addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
@@ -196,7 +206,8 @@ public class PerfilMentorFragment extends Fragment {
         TextView nomePerfil = view.findViewById(R.id.txt_nome_perfil_mentor);
         TextView areaAtuacao = view.findViewById(R.id.txt_area_atuacao_perfil_mentor);
         TextView email = view.findViewById(R.id.txt_email_perfil_mentor);
-        TextView tempoAtuacao = view.findViewById(R.id.txt_tempo_experiencia);
+        Spinner spinnerTempoAtuacao = view.findViewById(R.id.spinnerTempoExperiencia);
+        //TextView tempoAtuacao = view.findViewById(R.id.txt_tempo_experiencia);
 
         email.setText(firebaseUser.getEmail());
 
@@ -206,10 +217,13 @@ public class PerfilMentorFragment extends Fragment {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
+                            List<String> listaTempoAtuacao = Arrays.asList(getResources().getStringArray(R.array.tempoAtuacao));
                             for (QueryDocumentSnapshot document : task.getResult()) {
+                                int index = listaTempoAtuacao.indexOf(document.getData().get("tempoAtuacao").toString());
                                 nomePerfil.setText(document.getData().get("nome").toString());
                                 areaAtuacao.setText("Área de atuação: " + document.getData().get("areaAtuacao").toString());
-                                tempoAtuacao.setText(document.getData().get("tempoAtuacao").toString());
+                                //tempoAtuacao.setText(document.getData().get("tempoAtuacao").toString());
+                                spinnerTempoAtuacao.setSelection(index);
                                 editNome.setText(document.getData().get("nome").toString());
                                 editTelefone.setText(document.getData().get("telefone").toString());
                                 editFormacao.setText(document.getData().get("formacao").toString());

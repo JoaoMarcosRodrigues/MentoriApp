@@ -196,17 +196,18 @@
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/txt_tempo_experiencia"
-                    android:layout_width="wrap_content"
-                    android:layout_toRightOf="@+id/txt_titulo_tempo_experiencia"
-                    android:layout_below="@+id/layout_curriculo_perfil_mentor"
+                <Spinner
+                    android:id="@+id/spinnerTempoExperiencia"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="5 anos"
-                    android:textSize="16sp"
-                    android:layout_marginTop="20dp"
+                    android:layout_below="@+id/layout_curriculo_perfil_mentor"
                     android:layout_marginLeft="15dp"
-                    android:textStyle="italic" />
+                    android:layout_marginTop="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_toRightOf="@+id/txt_titulo_tempo_experiencia"
+                    android:entries="@array/tempoAtuacao" />
 
             </RelativeLayout>
 
