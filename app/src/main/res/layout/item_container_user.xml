@@ -38,7 +38,7 @@
         app:layout_constraintBottom_toTopOf="@id/viewDivider"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:tint="@color/design_default_color_primary" />
+        app:tint="#8015B18D" />
 
     <ImageView
         android:id="@+id/imageAudioMeeting"
@@ -50,7 +50,7 @@
         app:layout_constraintBottom_toTopOf="@id/viewDivider"
         app:layout_constraintEnd_toStartOf="@+id/imageVideoMeeting"
         app:layout_constraintTop_toTopOf="parent"
-        app:tint="@color/design_default_color_primary" />
+        app:tint="#8015B18D" />
 
     <TextView
         android:id="@+id/textUserName"
@@ -61,7 +61,8 @@
         android:ellipsize="end"
         android:includeFontPadding="false"
         android:maxLines="1"
-        android:textColor="@color/design_default_color_primary"
+        android:textStyle="bold"
+        android:textColor="#800C6752"
         android:textSize="16sp"
         app:layout_constraintBottom_toTopOf="@id/viewSupporter"
         app:layout_constraintEnd_toStartOf="@id/imageAudioMeeting"
@@ -76,7 +77,7 @@
         android:ellipsize="end"
         android:includeFontPadding="false"
         android:maxLines="1"
-        android:textColor="@color/design_default_color_primary"
+        android:textColor="#800C6752"
         android:textSize="13sp"
         app:layout_constraintEnd_toStartOf="@id/imageAudioMeeting"
         app:layout_constraintStart_toEndOf="@id/textFirstChar"

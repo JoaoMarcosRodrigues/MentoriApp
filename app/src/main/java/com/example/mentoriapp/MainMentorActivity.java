@@ -188,7 +188,7 @@ public class MainMentorActivity extends AppCompatActivity implements NavigationV
                 alertDialog.setNegativeButton("Não", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Toast.makeText(MainMentorActivity.this,"Ok!",Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(MainMentorActivity.this,"Ok!",Toast.LENGTH_SHORT).show();
                     }
                 });
                 alertDialog.create().show();

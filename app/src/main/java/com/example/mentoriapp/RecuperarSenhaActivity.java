@@ -25,6 +25,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -34,6 +35,7 @@ public class RecuperarSenhaActivity extends AppCompatActivity {
     TextView link_cadastro;
     Button btnRecuperar;
     TextInputEditText editEmail;
+    TextInputLayout input_email;
     FirebaseAuth firebaseAuth;
     ProgressDialog progressDialog;
 
@@ -64,25 +66,29 @@ public class RecuperarSenhaActivity extends AppCompatActivity {
 
         link_cadastro = findViewById(R.id.txt_ainda_nao_possui_cadastro);
         btnRecuperar = findViewById(R.id.btn_recuperar);
+        input_email = findViewById(R.id.input_email);
 
         btnRecuperar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String email = editEmail.getText().toString();
 
-                if(TextUtils.isEmpty(email)){
-                    Toast.makeText(RecuperarSenhaActivity.this,"Campo email e senha obrigatórios!",Toast.LENGTH_SHORT).show();
-                    return;
+                if(email.isEmpty()){
+                    input_email.setError("Email obrigatório!");
+                }else{
+                    input_email.setError("");
                 }
+
                 if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
-                    Toast.makeText(RecuperarSenhaActivity.this,"Por favor, insira um email válido!",Toast.LENGTH_SHORT).show();
-                    return;
+                    input_email.setError("Por favor, insira um email válido!");
                 }
 
-                progressDialog.setMessage("Verificando os dados...");
-                progressDialog.show();
+                if(!email.isEmpty() && Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+                    progressDialog.setMessage("Verificando os dados...");
+                    progressDialog.show();
 
-                atualizarSenha(email);
+                    atualizarSenha(email);
+                }
             }
         });
 

@@ -48,14 +48,16 @@
                         android:layout_width="60dp"
                         android:layout_height="60dp"
                         android:layout_gravity="center"
-                        android:src="@drawable/relato" />
+                        android:src="@drawable/ic_relato" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="20dp"
                         android:layout_gravity="center"
+                        android:layout_marginTop="20dp"
                         android:text="Relatos"
+                        android:textColor="#800C634F"
+                        android:textStyle="bold"
                         android:textSize="18sp" />
                 </LinearLayout>
 
@@ -83,16 +85,18 @@
                         android:layout_width="60dp"
                         android:layout_height="60dp"
                         android:layout_gravity="center"
-                        android:src="@drawable/tarefa" />
+                        android:src="@drawable/ic_minhas_tarefas" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="20dp"
                         android:layout_gravity="center"
+                        android:layout_marginTop="20dp"
+                        android:textStyle="bold"
+                        android:gravity="center_horizontal"
                         android:text="Minhas\nTarefas"
-                        android:textSize="18sp"
-                        android:gravity="center_horizontal" />
+                        android:textColor="#800C634F"
+                        android:textSize="18sp" />
                 </LinearLayout>
 
             </androidx.cardview.widget.CardView>
@@ -116,18 +120,20 @@
                     android:orientation="vertical">
 
                     <ImageView
-                        android:layout_width="60dp"
-                        android:layout_height="60dp"
+                        android:layout_width="110dp"
+                        android:layout_height="110dp"
                         android:layout_gravity="center"
-                        android:src="@drawable/contato_mentor" />
+                        android:src="@drawable/ic_contato_mentor" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="20dp"
                         android:layout_gravity="center"
+                        android:layout_marginTop="0dp"
                         android:gravity="center"
                         android:text="Contato\nMentor"
+                        android:textColor="#800C634F"
+                        android:textStyle="bold"
                         android:textSize="18sp" />
                 </LinearLayout>
 
@@ -152,18 +158,20 @@
                     android:orientation="vertical">
 
                     <ImageView
-                        android:layout_width="60dp"
-                        android:layout_height="60dp"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
                         android:layout_gravity="center"
-                        android:src="@drawable/reuniao" />
+                        android:src="@drawable/ic_reunioes" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="20dp"
                         android:layout_gravity="center"
-                        android:text="Reuniões"
+                        android:layout_marginTop="20dp"
                         android:gravity="center"
+                        android:textStyle="bold"
+                        android:text="Reuniões"
+                        android:textColor="#800C634F"
                         android:textSize="18sp" />
                 </LinearLayout>
 
@@ -188,18 +196,20 @@
                     android:orientation="vertical">
 
                     <ImageView
-                        android:layout_width="60dp"
-                        android:layout_height="60dp"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
                         android:layout_gravity="center"
-                        android:src="@drawable/aprendizado" />
+                        android:src="@drawable/ic_aprendizados_solucoes" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="20dp"
-                        android:text="Aprendizados e\nSoluções"
                         android:layout_gravity="center"
+                        android:layout_marginTop="10dp"
                         android:gravity="center"
+                        android:text="Aprendizados e\nSoluções"
+                        android:textColor="#800C634F"
+                        android:textStyle="bold"
                         android:textSize="18sp" />
                 </LinearLayout>
 
@@ -233,15 +243,16 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="20dp"
-                        android:text="Dificuldades"
                         android:layout_gravity="center"
+                        android:layout_marginTop="20dp"
                         android:gravity="center"
+                        android:text="Dificuldades"
+                        android:textColor="#800C634F"
+                        android:textStyle="bold"
                         android:textSize="18sp" />
                 </LinearLayout>
 
             </androidx.cardview.widget.CardView>
-
 
 
         </GridLayout>

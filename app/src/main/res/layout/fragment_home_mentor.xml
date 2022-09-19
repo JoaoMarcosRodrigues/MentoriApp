@@ -48,13 +48,15 @@
                         android:layout_width="60dp"
                         android:layout_height="60dp"
                         android:layout_gravity="center"
-                        android:src="@drawable/notificacao" />
+                        android:src="@drawable/ic_notificacao" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginTop="20dp"
+                        android:textColor="#800C634F"
+                        android:textStyle="bold"
                         android:text="Notificações"
                         android:textSize="18sp" />
                 </LinearLayout>
@@ -83,13 +85,15 @@
                         android:layout_width="60dp"
                         android:layout_height="60dp"
                         android:layout_gravity="center"
-                        android:src="@drawable/cadastrar_tarefa" />
+                        android:src="@drawable/ic_cadastrar_tarefa" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginTop="20dp"
+                        android:textColor="#800C634F"
+                        android:textStyle="bold"
                         android:gravity="center_horizontal"
                         android:text="Cadastrar\nTarefa"
                         android:textSize="18sp" />
@@ -128,6 +132,8 @@
                         android:layout_marginTop="20dp"
                         android:gravity="center"
                         android:text="Avaliações"
+                        android:textColor="#800C634F"
+                        android:textStyle="bold"
                         android:textSize="18sp" />
                 </LinearLayout>
 
@@ -155,7 +161,7 @@
                         android:layout_width="60dp"
                         android:layout_height="60dp"
                         android:layout_gravity="center"
-                        android:src="@drawable/meus_mentorados" />
+                        android:src="@drawable/ic_meus_mentorados" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -163,6 +169,8 @@
                         android:layout_gravity="center"
                         android:layout_marginTop="20dp"
                         android:gravity="center"
+                        android:textColor="#800C634F"
+                        android:textStyle="bold"
                         android:text="Meus\nMentorados"
                         android:textSize="18sp" />
                 </LinearLayout>
@@ -188,10 +196,10 @@
                     android:orientation="vertical">
 
                     <ImageView
-                        android:layout_width="60dp"
-                        android:layout_height="60dp"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
                         android:layout_gravity="center"
-                        android:src="@drawable/reuniao" />
+                        android:src="@drawable/ic_reunioes" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -199,6 +207,8 @@
                         android:layout_gravity="center"
                         android:layout_marginTop="20dp"
                         android:gravity="center"
+                        android:textColor="#800C634F"
+                        android:textStyle="bold"
                         android:text="Reuniões"
                         android:textSize="18sp" />
                 </LinearLayout>
@@ -236,6 +246,8 @@
                         android:layout_gravity="center"
                         android:layout_marginTop="20dp"
                         android:gravity="center"
+                        android:textColor="#800C634F"
+                        android:textStyle="bold"
                         android:text="Feedbacks"
                         android:textSize="18sp" />
                 </LinearLayout>
