@@ -168,61 +168,88 @@ public class PerfilMentoradoFragment extends Fragment {
             progressDialog.setMessage("Atualizando perfil...");
             progressDialog.show();
 
-            firebaseFirestore.collection("mentorados").document(firebaseUser.getUid())
-                    .update("nome", nome, "telefone", telefone,"areaAtuacao",area)
-                    .addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            //progressDialog.dismiss();
-                            //Toast.makeText(getContext(),"Perfil atualizado!",Toast.LENGTH_SHORT).show();
-                        }
-                    })
-                    .addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            progressDialog.dismiss();
-                            Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
-                        }
-                    });
+            String filename = UUID.randomUUID().toString();
+            final StorageReference ref = FirebaseStorage.getInstance().getReference("mentorado/"+filename);
+            if(mSelectedUri == null){
+                progressDialog.dismiss();
+                Toast.makeText(getContext(),"Selecione uma foto de perfil",Toast.LENGTH_SHORT).show();
+                return;
+            }else {
+                ref.putFile(mSelectedUri)
+                        .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                            @Override
+                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                ref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                    @Override
+                                    public void onSuccess(Uri uri) {
+                                        String profileUrl = uri.toString();
 
-            firebaseFirestore.collection("usuarios").document(firebaseUser.getUid())
-                    .update("nome", nome, "telefone", telefone,"areaAtuacao",area)
-                    .addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            progressDialog.dismiss();
-                            builder.setTitle("Atualização do perfil")
-                                    .setMessage("Perfil atualizado!")
-                                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialog, int which) {
+                                        firebaseFirestore.collection("mentorados").document(firebaseUser.getUid())
+                                                .update("nome", nome, "telefone", telefone, "areaAtuacao", area, "profileUrl", profileUrl)
+                                                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                    @Override
+                                                    public void onComplete(@NonNull Task<Void> task) {
+                                                        //progressDialog.dismiss();
+                                                        //Toast.makeText(getContext(),"Perfil atualizado!",Toast.LENGTH_SHORT).show();
+                                                    }
+                                                })
+                                                .addOnFailureListener(new OnFailureListener() {
+                                                    @Override
+                                                    public void onFailure(@NonNull Exception e) {
+                                                        progressDialog.dismiss();
+                                                        Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                                                    }
+                                                });
 
-                                        }
-                                    });
+                                        firebaseFirestore.collection("usuarios").document(firebaseUser.getUid())
+                                                .update("nome", nome, "telefone", telefone, "areaAtuacao", area, "photoUrl", profileUrl)
+                                                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                    @Override
+                                                    public void onComplete(@NonNull Task<Void> task) {
+                                                        progressDialog.dismiss();
+                                                        builder.setTitle("Atualização do perfil")
+                                                                .setMessage("Perfil atualizado!")
+                                                                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                                                    @Override
+                                                                    public void onClick(DialogInterface dialog, int which) {
 
-                            builder.create();
-                            builder.show();
-                            //Toast.makeText(getContext(),"Perfil atualizado!",Toast.LENGTH_SHORT).show();
-                        }
-                    })
-                    .addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            progressDialog.dismiss();
-                            builder.setTitle("Atualização do perfil")
-                                    .setMessage("Ops, houve um erro ao atualizar seu perfil. Tente novamente.")
-                                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialog, int which) {
+                                                                    }
+                                                                });
 
-                                        }
-                                    });
+                                                        builder.create();
+                                                        builder.show();
+                                                        //Toast.makeText(getContext(),"Perfil atualizado!",Toast.LENGTH_SHORT).show();
+                                                    }
+                                                })
+                                                .addOnFailureListener(new OnFailureListener() {
+                                                    @Override
+                                                    public void onFailure(@NonNull Exception e) {
+                                                        progressDialog.dismiss();
+                                                        builder.setTitle("Atualização do perfil")
+                                                                .setMessage("Ops, houve um erro ao atualizar seu perfil. Tente novamente.")
+                                                                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                                                    @Override
+                                                                    public void onClick(DialogInterface dialog, int which) {
 
-                            builder.create();
-                            builder.show();
-                            //Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
-                        }
-                    });
+                                                                    }
+                                                                });
+
+                                                        builder.create();
+                                                        builder.show();
+                                                        //Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                                                    }
+                                                });
+                                    }
+                                });
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Log.i("Teste", e.getMessage(), e);
+                            }
+                        });
+            }
         }
     }
 
