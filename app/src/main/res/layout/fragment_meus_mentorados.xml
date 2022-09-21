@@ -5,30 +5,37 @@
     android:layout_height="match_parent"
     tools:context=".Listas.MeusMentoradosFragment">
 
-    <RelativeLayout
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swiperefresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_meus_mentorados"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/btnVerTodosMentorados"
-            android:layout_alignParentTop="true" />
+            android:layout_height="match_parent">
 
-        <Button
-            android:id="@+id/btnVerTodosMentorados"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginEnd="15dp"
-            android:backgroundTint="#8015B18D"
-            android:layout_marginBottom="15dp"
-            android:text="Ver todos os Mentorados" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_meus_mentorados"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/btnVerTodosMentorados"
+                android:layout_alignParentTop="true" />
+
+            <Button
+                android:id="@+id/btnVerTodosMentorados"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="15dp"
+                android:backgroundTint="#8015B18D"
+                android:layout_marginBottom="15dp"
+                android:text="Ver todos os Mentorados" />
 
 
-    </RelativeLayout>
+        </RelativeLayout>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+
 
 </FrameLayout>

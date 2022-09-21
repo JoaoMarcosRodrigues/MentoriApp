@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -48,6 +49,7 @@ public class ListaRelatosMentoradoActivity extends AppCompatActivity {
     private FirebaseUser user;
     private GroupieAdapter adapter;
     private String emailMentorado;
+    private SwipeRefreshLayout swipeRefreshLayout;
     private Toolbar toolbar;
 
     @Override
@@ -63,6 +65,7 @@ public class ListaRelatosMentoradoActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("Relatos de "+nomeMentorado);
 
         recycler_relatos = findViewById(R.id.recycler_relatos_mentorado);
+        swipeRefreshLayout = findViewById(R.id.swiperefresh);
         btnFeedback = findViewById(R.id.btnFeedback);
 
         auth = FirebaseAuth.getInstance();
@@ -82,6 +85,14 @@ public class ListaRelatosMentoradoActivity extends AppCompatActivity {
                 intent.putExtra("relato",relatoItem.relato);
 
                 startActivity(intent);
+            }
+        });
+
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                adapter.notifyDataSetChanged();
+                swipeRefreshLayout.setRefreshing(false);
             }
         });
 

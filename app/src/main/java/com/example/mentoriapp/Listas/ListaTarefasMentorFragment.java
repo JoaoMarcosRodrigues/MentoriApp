@@ -15,6 +15,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.mentoriapp.Adapters.TarefaAdapter;
 import com.example.mentoriapp.Cadastro.CadastroTarefaMentorFragment;
@@ -47,6 +48,7 @@ public class ListaTarefasMentorFragment extends Fragment {
     private FirebaseAuth auth;
     private FirebaseUser user;
     private GroupieAdapter adapter;
+    private SwipeRefreshLayout swipeRefreshLayout;
     View view;
 
     @Override
@@ -62,6 +64,7 @@ public class ListaTarefasMentorFragment extends Fragment {
         ref = db.collection("tarefas");
 
         recycler_tarefas = view.findViewById(R.id.listaTarefas);
+        swipeRefreshLayout = view.findViewById(R.id.swiperefresh);
         adapter = new GroupieAdapter();
         recycler_tarefas.setAdapter(adapter);
         recycler_tarefas.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -74,6 +77,14 @@ public class ListaTarefasMentorFragment extends Fragment {
                         .beginTransaction()
                         .replace(R.id.fragment_mentor, new CadastroTarefaMentorFragment()).addToBackStack(null)
                         .commit();
+            }
+        });
+
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                adapter.notifyDataSetChanged();
+                swipeRefreshLayout.setRefreshing(false);
             }
         });
 

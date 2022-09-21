@@ -6,14 +6,25 @@
     android:layout_height="match_parent"
     tools:context=".Listas.ListaRelatosMentoradoActivity">
 
-    <include android:id="@+id/toolbar"
-        layout="@layout/toolbar"/>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_relatos_mentorado"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swiperefresh"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentBottom="true"
-        android:layout_below="@+id/toolbar"/>
+        android:layout_height="match_parent">
 
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <include android:id="@+id/toolbar"
+            layout="@layout/toolbar"/>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_relatos_mentorado"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentBottom="true"
+                android:layout_below="@+id/toolbar"/>
+        </RelativeLayout>
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </RelativeLayout>

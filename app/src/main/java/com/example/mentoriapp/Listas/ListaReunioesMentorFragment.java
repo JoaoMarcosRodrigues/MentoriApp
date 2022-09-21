@@ -16,6 +16,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.mentoriapp.Adapters.ReuniaoAdapter;
 import com.example.mentoriapp.Adapters.ReuniaoMentorAdapter;
@@ -52,6 +53,7 @@ public class ListaReunioesMentorFragment extends Fragment {
     private FirebaseUser user;
     private FirebaseFirestore db;
     private GroupieAdapter adapter;
+    private SwipeRefreshLayout swipeRefreshLayout;
     View view;
 
     //private ReuniaoMentorAdapter adapter;
@@ -64,6 +66,7 @@ public class ListaReunioesMentorFragment extends Fragment {
         FloatingActionButton addReuniao = view.findViewById(R.id.btnAdicionarReuniao);
 
         recycler_reunioes = view.findViewById(R.id.listaReunioes);
+        swipeRefreshLayout = view.findViewById(R.id.swiperefresh);
         adapter = new GroupieAdapter();
         recycler_reunioes.setAdapter(adapter);
         recycler_reunioes.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -81,6 +84,14 @@ public class ListaReunioesMentorFragment extends Fragment {
                         .beginTransaction()
                         .replace(R.id.fragment_mentor, new CadastroReuniaoMentorFragment()).addToBackStack(null)
                         .commit();
+            }
+        });
+
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                adapter.notifyDataSetChanged();
+                swipeRefreshLayout.setRefreshing(false);
             }
         });
 

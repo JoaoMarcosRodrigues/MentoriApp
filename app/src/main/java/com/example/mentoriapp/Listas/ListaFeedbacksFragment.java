@@ -8,6 +8,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -54,6 +55,7 @@ public class ListaFeedbacksFragment extends Fragment {
     private FirebaseAuth auth;
     private FirebaseUser user;
     private GroupieAdapter adapter;
+    private SwipeRefreshLayout swipeRefreshLayout;
     View view;
 
     //private FeedbackAdapter adapter;
@@ -64,6 +66,7 @@ public class ListaFeedbacksFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_lista_feedbacks, container, false);
 
         recycler_feedbacks = view.findViewById(R.id.recycler_feedbacks);
+        swipeRefreshLayout = view.findViewById(R.id.swiperefresh);
         adapter = new GroupieAdapter();
         recycler_feedbacks.setAdapter(adapter);
         recycler_feedbacks.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -82,6 +85,14 @@ public class ListaFeedbacksFragment extends Fragment {
                 intent.putExtra("feedback",feedbackItemItem.feedback);
 
                 startActivity(intent);
+            }
+        });
+
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                adapter.notifyDataSetChanged();
+                swipeRefreshLayout.setRefreshing(false);
             }
         });
 

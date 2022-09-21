@@ -8,6 +8,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -56,6 +57,7 @@ public class ListaTarefasMentoradoFragment extends Fragment {
     private FirebaseAuth auth;
     private FirebaseUser user;
     private GroupieAdapter adapter;
+    private SwipeRefreshLayout swipeRefreshLayout;
     private List<Tarefa> listaTarefas = new ArrayList<>();
     View view;
 
@@ -69,6 +71,7 @@ public class ListaTarefasMentoradoFragment extends Fragment {
         FloatingActionButton addTarefa = view.findViewById(R.id.btnAdicionarTarefa);
 
         recycler_tarefas = view.findViewById(R.id.listaTarefas);
+        swipeRefreshLayout = view.findViewById(R.id.swiperefresh);
         adapter = new GroupieAdapter();
         recycler_tarefas.setAdapter(adapter);
         recycler_tarefas.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -87,6 +90,14 @@ public class ListaTarefasMentoradoFragment extends Fragment {
                 intent.putExtra("tarefa",tarefaItem.tarefa);
 
                 startActivity(intent);
+            }
+        });
+
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                adapter.notifyDataSetChanged();
+                swipeRefreshLayout.setRefreshing(false);
             }
         });
 

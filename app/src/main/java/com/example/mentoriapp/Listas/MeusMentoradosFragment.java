@@ -13,6 +13,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -71,6 +72,7 @@ public class MeusMentoradosFragment extends Fragment {
     private FirebaseAuth auth;
     private FirebaseUser user;
     final String[] email = new String[1];
+    private SwipeRefreshLayout swipeRefreshLayout;
     ProgressDialog progressDialog;
     Button btnVerTodosMentorados;
     View view;
@@ -89,6 +91,7 @@ public class MeusMentoradosFragment extends Fragment {
         user = auth.getCurrentUser();
         progressDialog = new ProgressDialog(getContext());
         //user = auth.getCurrentUser();
+        swipeRefreshLayout = view.findViewById(R.id.swiperefresh);
 
         db.collection("mentorias").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
@@ -110,6 +113,14 @@ public class MeusMentoradosFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 verTodosMentorados();
+            }
+        });
+
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                adapter.notifyDataSetChanged();
+                swipeRefreshLayout.setRefreshing(false);
             }
         });
 

@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.mentoriapp.Cadastro.CadastroRelatoFragment;
 import com.example.mentoriapp.Classes.Relato;
@@ -44,6 +45,7 @@ public class ListaRelatosFragment extends Fragment {
     private FirebaseAuth auth;
     private FirebaseUser user;
     private GroupieAdapter adapter;
+    private SwipeRefreshLayout swipeRefreshLayout;
     View view;
 
     //private RelatoAdapter adapter;
@@ -54,6 +56,7 @@ public class ListaRelatosFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_lista_relatos, container, false);
 
         recycler_relatos = view.findViewById(R.id.listaRelatos);
+        swipeRefreshLayout = view.findViewById(R.id.swiperefresh);
 
         adapter = new GroupieAdapter();
         recycler_relatos.setAdapter(adapter);
@@ -73,6 +76,14 @@ public class ListaRelatosFragment extends Fragment {
                 intent.putExtra("relato",relatoItem.relato);
 
                 startActivity(intent);
+            }
+        });
+
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                adapter.notifyDataSetChanged();
+                swipeRefreshLayout.setRefreshing(false);
             }
         });
 

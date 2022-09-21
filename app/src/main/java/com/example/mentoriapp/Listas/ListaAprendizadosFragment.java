@@ -22,6 +22,7 @@ import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.mentoriapp.Adapters.AprendizadoAdapter;
 import com.example.mentoriapp.Adapters.ExemploAprendizadoAdapter;
@@ -62,6 +63,7 @@ public class ListaAprendizadosFragment extends Fragment {
     private FirebaseUser user;
     private Aprendizado aprendizado;
     private GroupieAdapter adapter;
+    private SwipeRefreshLayout swipeRefreshLayout;
     View view;
 
     //private AprendizadoAdapter adapter;
@@ -72,6 +74,7 @@ public class ListaAprendizadosFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_lista_aprendizados, container, false);
 
         FloatingActionButton addAprendizado = view.findViewById(R.id.btnAdicionarAprendizado);
+        swipeRefreshLayout = view.findViewById(R.id.swiperefresh);
 
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
@@ -103,6 +106,14 @@ public class ListaAprendizadosFragment extends Fragment {
                         .beginTransaction()
                         .replace(R.id.fragment_mentorado, new CadastroAprendizadoFragment()).addToBackStack(null)
                         .commit();
+            }
+        });
+
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                adapter.notifyDataSetChanged();
+                swipeRefreshLayout.setRefreshing(false);
             }
         });
 

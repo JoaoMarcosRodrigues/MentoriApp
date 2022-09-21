@@ -16,6 +16,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.mentoriapp.Adapters.AprendizadoAdapter;
 import com.example.mentoriapp.Adapters.DificuldadeAdapter;
@@ -55,6 +56,7 @@ public class ListaDificuldadesFragment extends Fragment {
     private FirebaseUser user;
     private FirebaseFirestore db;
     private Dificuldade dificuldade;
+    private SwipeRefreshLayout swipeRefreshLayout;
     private GroupieAdapter adapter;
     View view;
 
@@ -66,6 +68,7 @@ public class ListaDificuldadesFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_lista_dificuldades, container, false);
 
         recycler_dificuldades = view.findViewById(R.id.listaDificuldades);
+        swipeRefreshLayout = view.findViewById(R.id.swiperefresh);
 
         adapter = new GroupieAdapter();
         recycler_dificuldades.setAdapter(adapter);
@@ -88,6 +91,14 @@ public class ListaDificuldadesFragment extends Fragment {
                 intent.putExtra("dificuldade",relatoItem.dificuldade);
 
                 startActivity(intent);
+            }
+        });
+
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                adapter.notifyDataSetChanged();
+                swipeRefreshLayout.setRefreshing(false);
             }
         });
 

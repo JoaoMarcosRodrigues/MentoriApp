@@ -59,6 +59,7 @@ public class ListaReunioesMentoradoFragment extends Fragment{
     private FirebaseUser user;
     private FirebaseFirestore db;
     private GroupieAdapter adapter;
+    private SwipeRefreshLayout swipeRefreshLayout;
     View view;
 
     //private ReuniaoAdapter adapter;
@@ -71,6 +72,7 @@ public class ListaReunioesMentoradoFragment extends Fragment{
         FloatingActionButton addReuniao = view.findViewById(R.id.btnAdicionarReuniao);
 
         recycler_reunioes = view.findViewById(R.id.listaReunioes);
+        swipeRefreshLayout = view.findViewById(R.id.swiperefresh);
         adapter = new GroupieAdapter();
         recycler_reunioes.setAdapter(adapter);
         recycler_reunioes.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -88,6 +90,14 @@ public class ListaReunioesMentoradoFragment extends Fragment{
                         .beginTransaction()
                         .replace(R.id.fragment_mentorado, new CadastroReuniaoMentoradoFragment()).addToBackStack(null)
                         .commit();
+            }
+        });
+
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                adapter.notifyDataSetChanged();
+                swipeRefreshLayout.setRefreshing(false);
             }
         });
 

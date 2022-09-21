@@ -8,6 +8,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -45,6 +46,7 @@ public class ListaMentoresFragment extends Fragment {
     private FirebaseFirestore db;
     private CollectionReference ref;
     private FirebaseAuth auth;
+    private SwipeRefreshLayout swipeRefreshLayout;
     //private FirebaseUser user;
     View view;
 
@@ -55,6 +57,7 @@ public class ListaMentoresFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         view = inflater.inflate(R.layout.fragment_lista_mentores, container, false);
+        swipeRefreshLayout = view.findViewById(R.id.swiperefresh);
 
         db = FirebaseFirestore.getInstance();
         ref = db.collection("mentores");
@@ -75,6 +78,14 @@ public class ListaMentoresFragment extends Fragment {
                 intent.putExtra("mentorParcelable",userItem.mentor);
 
                 startActivity(intent);
+            }
+        });
+
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                adapter.notifyDataSetChanged();
+                swipeRefreshLayout.setRefreshing(false);
             }
         });
 
