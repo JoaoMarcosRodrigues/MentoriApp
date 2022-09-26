@@ -73,6 +73,7 @@ public class MeusMentoradosFragment extends Fragment {
     private FirebaseUser user;
     final String[] email = new String[1];
     private SwipeRefreshLayout swipeRefreshLayout;
+    private TextView txtListaVazia;
     ProgressDialog progressDialog;
     Button btnVerTodosMentorados;
     View view;
@@ -92,6 +93,7 @@ public class MeusMentoradosFragment extends Fragment {
         progressDialog = new ProgressDialog(getContext());
         //user = auth.getCurrentUser();
         swipeRefreshLayout = view.findViewById(R.id.swiperefresh);
+        txtListaVazia = view.findViewById(R.id.txtListaVazia);
 
         db.collection("mentorias").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
@@ -223,6 +225,12 @@ public class MeusMentoradosFragment extends Fragment {
 
             nome.setText(mentorado.getNome());
             areaAtuacao.setText(mentorado.getAreaAtuacao());
+
+            if(adapter.getItemCount() == 0){
+                txtListaVazia.setVisibility(View.VISIBLE);
+            }else{
+                txtListaVazia.setVisibility(View.INVISIBLE);
+            }
 
             Picasso.get()
                     .load(mentorado.getProfileUrl())

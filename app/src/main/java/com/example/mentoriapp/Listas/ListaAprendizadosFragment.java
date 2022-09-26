@@ -64,6 +64,7 @@ public class ListaAprendizadosFragment extends Fragment {
     private Aprendizado aprendizado;
     private GroupieAdapter adapter;
     private SwipeRefreshLayout swipeRefreshLayout;
+    private TextView txtListaVazia;
     View view;
 
     //private AprendizadoAdapter adapter;
@@ -80,6 +81,7 @@ public class ListaAprendizadosFragment extends Fragment {
         user = auth.getCurrentUser();
 
         recycler_aprendizados = view.findViewById(R.id.listaAprendizados);
+        txtListaVazia = view.findViewById(R.id.txtListaVazia);
         adapter = new GroupieAdapter();
         recycler_aprendizados.setAdapter(adapter);
         recycler_aprendizados.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -160,6 +162,12 @@ public class ListaAprendizadosFragment extends Fragment {
 
             tituloAprendizado.setText(aprendizado.getTituloAprendizado());
             descricaoAprendizado.setText(aprendizado.getDescricaoAprendizado());
+
+            if(adapter.getItemCount() == 0){
+                txtListaVazia.setVisibility(View.VISIBLE);
+            }else{
+                txtListaVazia.setVisibility(View.INVISIBLE);
+            }
         }
 
         @Override

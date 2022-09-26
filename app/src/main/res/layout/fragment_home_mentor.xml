@@ -95,7 +95,7 @@
                         android:textColor="#800C634F"
                         android:textStyle="bold"
                         android:gravity="center_horizontal"
-                        android:text="Cadastrar\nTarefa"
+                        android:text="Tarefas\nCadastradas"
                         android:textSize="18sp" />
                 </LinearLayout>
 

@@ -56,6 +56,7 @@ public class ListaFeedbacksFragment extends Fragment {
     private FirebaseUser user;
     private GroupieAdapter adapter;
     private SwipeRefreshLayout swipeRefreshLayout;
+    private TextView txtListaVazia;
     View view;
 
     //private FeedbackAdapter adapter;
@@ -67,6 +68,7 @@ public class ListaFeedbacksFragment extends Fragment {
 
         recycler_feedbacks = view.findViewById(R.id.recycler_feedbacks);
         swipeRefreshLayout = view.findViewById(R.id.swiperefresh);
+        txtListaVazia = view.findViewById(R.id.txtListaVazia);
         adapter = new GroupieAdapter();
         recycler_feedbacks.setAdapter(adapter);
         recycler_feedbacks.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -96,6 +98,12 @@ public class ListaFeedbacksFragment extends Fragment {
             }
         });
 
+        if(adapter.getItemCount() != 0){
+            txtListaVazia.setVisibility(View.INVISIBLE);
+        }else{
+            txtListaVazia.setVisibility(View.VISIBLE);
+        }
+
         fetchFeedbacks();
 
         return view;
@@ -113,9 +121,9 @@ public class ListaFeedbacksFragment extends Fragment {
 
                         adapter.clear();
                         List<DocumentSnapshot> docs = value.getDocuments();
-                        for(DocumentSnapshot doc : docs){
+                        for (DocumentSnapshot doc : docs) {
                             Feedback feedback = doc.toObject(Feedback.class);
-                            Log.d("Teste",feedback.getTitulo());
+                            Log.d("Teste", feedback.getTitulo());
 
                             adapter.add(new FeedbackItem(feedback));
                         }
@@ -140,6 +148,12 @@ public class ListaFeedbacksFragment extends Fragment {
             tituloRelato.setText(feedback.getTitulo());
             temaRelato.setText(feedback.getDescricao());
             dataRelato.setText(feedback.getData());
+
+            if(adapter.getItemCount() == 0){
+                txtListaVazia.setVisibility(View.VISIBLE);
+            }else{
+                txtListaVazia.setVisibility(View.INVISIBLE);
+            }
         }
 
         @Override

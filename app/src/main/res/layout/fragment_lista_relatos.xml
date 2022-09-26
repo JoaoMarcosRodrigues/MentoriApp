@@ -30,6 +30,13 @@
                 android:layout_marginBottom="16dp"
                 android:backgroundTint="#15B18D"
                 android:src="@drawable/ic_add" />
+            <TextView
+                android:id="@+id/txtListaVazia"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="Lista Vazia"
+                android:textSize="18sp" />
         </RelativeLayout>
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

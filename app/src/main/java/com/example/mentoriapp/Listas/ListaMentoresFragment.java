@@ -47,6 +47,7 @@ public class ListaMentoresFragment extends Fragment {
     private CollectionReference ref;
     private FirebaseAuth auth;
     private SwipeRefreshLayout swipeRefreshLayout;
+    private TextView txtListaVazia;
     //private FirebaseUser user;
     View view;
 
@@ -58,6 +59,7 @@ public class ListaMentoresFragment extends Fragment {
 
         view = inflater.inflate(R.layout.fragment_lista_mentores, container, false);
         swipeRefreshLayout = view.findViewById(R.id.swiperefresh);
+        txtListaVazia = view.findViewById(R.id.txtListaVazia);
 
         db = FirebaseFirestore.getInstance();
         ref = db.collection("mentores");
@@ -137,6 +139,12 @@ public class ListaMentoresFragment extends Fragment {
             Picasso.get()
                     .load(mentor.getProfileUrl())
                     .into(imagePhoto);
+
+            if(adapter.getItemCount() == 0){
+                txtListaVazia.setVisibility(View.VISIBLE);
+            }else{
+                txtListaVazia.setVisibility(View.INVISIBLE);
+            }
         }
 
         @Override

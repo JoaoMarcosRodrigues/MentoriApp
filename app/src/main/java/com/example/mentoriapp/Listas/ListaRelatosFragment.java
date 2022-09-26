@@ -46,6 +46,7 @@ public class ListaRelatosFragment extends Fragment {
     private FirebaseUser user;
     private GroupieAdapter adapter;
     private SwipeRefreshLayout swipeRefreshLayout;
+    private TextView txtListaVazia;
     View view;
 
     //private RelatoAdapter adapter;
@@ -57,6 +58,7 @@ public class ListaRelatosFragment extends Fragment {
 
         recycler_relatos = view.findViewById(R.id.listaRelatos);
         swipeRefreshLayout = view.findViewById(R.id.swiperefresh);
+        txtListaVazia = view.findViewById(R.id.txtListaVazia);
 
         adapter = new GroupieAdapter();
         recycler_relatos.setAdapter(adapter);
@@ -143,6 +145,12 @@ public class ListaRelatosFragment extends Fragment {
             tituloRelato.setText(relato.getTitulo());
             temaRelato.setText(relato.getTema());
             dataRelato.setText(relato.getData());
+
+            if(adapter.getItemCount() == 0){
+                txtListaVazia.setVisibility(View.VISIBLE);
+            }else{
+                txtListaVazia.setVisibility(View.INVISIBLE);
+            }
         }
 
         @Override

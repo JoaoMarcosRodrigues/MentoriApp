@@ -59,6 +59,7 @@ public class ListaTarefasMentoradoFragment extends Fragment {
     private GroupieAdapter adapter;
     private SwipeRefreshLayout swipeRefreshLayout;
     private List<Tarefa> listaTarefas = new ArrayList<>();
+    private TextView txtListaVazia;
     View view;
 
     //private TarefaAdapter adapter;
@@ -72,6 +73,7 @@ public class ListaTarefasMentoradoFragment extends Fragment {
 
         recycler_tarefas = view.findViewById(R.id.listaTarefas);
         swipeRefreshLayout = view.findViewById(R.id.swiperefresh);
+        txtListaVazia = view.findViewById(R.id.txtListaVazia);
         adapter = new GroupieAdapter();
         recycler_tarefas.setAdapter(adapter);
         recycler_tarefas.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -173,6 +175,12 @@ public class ListaTarefasMentoradoFragment extends Fragment {
                     //adapter.notifyDataSetChanged();
                 }
             });
+
+            if(adapter.getItemCount() == 0){
+                txtListaVazia.setVisibility(View.VISIBLE);
+            }else{
+                txtListaVazia.setVisibility(View.INVISIBLE);
+            }
         }
 
         @Override

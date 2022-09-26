@@ -16,6 +16,7 @@ import com.example.mentoriapp.Cadastro.CadastroTarefaMentorFragment;
 import com.example.mentoriapp.Listas.ListaAvaliacoesFragment;
 import com.example.mentoriapp.Listas.ListaFeedbacksFragment;
 import com.example.mentoriapp.Listas.ListaReunioesMentorFragment;
+import com.example.mentoriapp.Listas.ListaTarefasMentorFragment;
 import com.example.mentoriapp.Listas.ListaTarefasMentoradoFragment;
 import com.example.mentoriapp.Listas.MeusMentoradosFragment;
 import com.example.mentoriapp.R;
@@ -55,7 +56,7 @@ public class MentorHomeFragment extends Fragment {
                         case 1:
                             getActivity().getSupportFragmentManager()
                                     .beginTransaction()
-                                    .replace(R.id.fragment_mentor, new CadastroTarefaMentorFragment()).addToBackStack(null)
+                                    .replace(R.id.fragment_mentor, new ListaTarefasMentorFragment()).addToBackStack(null)
                                     .commit();
                             break;
                         case 2:

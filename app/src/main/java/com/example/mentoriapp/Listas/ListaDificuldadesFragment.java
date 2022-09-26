@@ -58,6 +58,7 @@ public class ListaDificuldadesFragment extends Fragment {
     private Dificuldade dificuldade;
     private SwipeRefreshLayout swipeRefreshLayout;
     private GroupieAdapter adapter;
+    private TextView txtListaVazia;
     View view;
 
     //private DificuldadeAdapter adapter;
@@ -69,6 +70,7 @@ public class ListaDificuldadesFragment extends Fragment {
 
         recycler_dificuldades = view.findViewById(R.id.listaDificuldades);
         swipeRefreshLayout = view.findViewById(R.id.swiperefresh);
+        txtListaVazia = view.findViewById(R.id.txtListaVazia);
 
         adapter = new GroupieAdapter();
         recycler_dificuldades.setAdapter(adapter);
@@ -155,6 +157,12 @@ public class ListaDificuldadesFragment extends Fragment {
 
             tagDificuldade.setText(dificuldade.getTagDificuldade());
             descricaoDificuldade.setText(dificuldade.getDescricaoDificuldade());
+
+            if(adapter.getItemCount() == 0){
+                txtListaVazia.setVisibility(View.VISIBLE);
+            }else{
+                txtListaVazia.setVisibility(View.INVISIBLE);
+            }
         }
 
         @Override

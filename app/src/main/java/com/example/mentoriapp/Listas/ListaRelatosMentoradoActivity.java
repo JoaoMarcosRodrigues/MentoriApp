@@ -51,6 +51,7 @@ public class ListaRelatosMentoradoActivity extends AppCompatActivity {
     private String emailMentorado;
     private SwipeRefreshLayout swipeRefreshLayout;
     private Toolbar toolbar;
+    private TextView txtListaVazia;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +68,7 @@ public class ListaRelatosMentoradoActivity extends AppCompatActivity {
         recycler_relatos = findViewById(R.id.recycler_relatos_mentorado);
         swipeRefreshLayout = findViewById(R.id.swiperefresh);
         btnFeedback = findViewById(R.id.btnFeedback);
+        txtListaVazia = findViewById(R.id.txtListaVazia);
 
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
@@ -140,6 +142,12 @@ public class ListaRelatosMentoradoActivity extends AppCompatActivity {
             tituloRelato.setText(relato.getTitulo());
             temaRelato.setText(relato.getTema());
             dataRelato.setText(relato.getData());
+
+            if(adapter.getItemCount() == 0){
+                txtListaVazia.setVisibility(View.VISIBLE);
+            }else{
+                txtListaVazia.setVisibility(View.INVISIBLE);
+            }
         }
 
         @Override

@@ -49,6 +49,7 @@ public class ListaTarefasMentorFragment extends Fragment {
     private FirebaseUser user;
     private GroupieAdapter adapter;
     private SwipeRefreshLayout swipeRefreshLayout;
+    private TextView txtListaVazia;
     View view;
 
     @Override
@@ -65,6 +66,7 @@ public class ListaTarefasMentorFragment extends Fragment {
 
         recycler_tarefas = view.findViewById(R.id.listaTarefas);
         swipeRefreshLayout = view.findViewById(R.id.swiperefresh);
+        txtListaVazia = view.findViewById(R.id.txtListaVazia);
         adapter = new GroupieAdapter();
         recycler_tarefas.setAdapter(adapter);
         recycler_tarefas.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -142,6 +144,11 @@ public class ListaTarefasMentorFragment extends Fragment {
             tituloTarefa.setText(tarefa.getTitulo());
             descricaoTarefa.setText(tarefa.getDescricao());
 
+            if(adapter.getItemCount() == 0){
+                txtListaVazia.setVisibility(View.VISIBLE);
+            }else{
+                txtListaVazia.setVisibility(View.INVISIBLE);
+            }
         }
 
         @Override

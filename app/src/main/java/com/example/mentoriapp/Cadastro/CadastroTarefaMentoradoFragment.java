@@ -127,6 +127,7 @@ public class CadastroTarefaMentoradoFragment extends Fragment {
                             getActivity().getSupportFragmentManager()
                                     .beginTransaction()
                                     .replace(R.id.fragment_mentorado, new ListaTarefasMentoradoFragment())
+                                    .addToBackStack(null)
                                     .commit();
                         }
                     })
