@@ -204,7 +204,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="20dp"
                 app:counterEnabled="true"
-                app:counterMaxLength="15"
+                app:counterMaxLength="14"
                 app:errorEnabled="true"
                 app:startIconDrawable="@drawable/ic_contato">
 

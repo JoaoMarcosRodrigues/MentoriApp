@@ -217,7 +217,8 @@ public class CadastroMentorActivity extends AppCompatActivity {
                             progressDialog.dismiss();
                             if(e.getMessage().equals("The email address is badly formatted."))
                                 Toast.makeText(getApplicationContext(),"Email inválido! Tente novamente.",Toast.LENGTH_SHORT).show();
-
+                            if(e.getMessage().equals("The email address is already in use by another account."))
+                                Toast.makeText(getApplicationContext(),"Email já utilizado por outro usuário!",Toast.LENGTH_SHORT).show();
                             Log.i("Teste",e.getMessage());
                         }
                     });
