@@ -284,7 +284,6 @@ public class PerfilMentorFragment extends Fragment {
 
     private void atualizarPerfil() {
         TextView nomePerfil = view.findViewById(R.id.txt_nome_perfil_mentor);
-        TextView areaAtuacao = view.findViewById(R.id.txt_area_atuacao_perfil_mentor);
         TextView email = view.findViewById(R.id.txt_email_perfil_mentor);
         Spinner spinnerTempoAtuacao = view.findViewById(R.id.spinnerTempoExperiencia);
         //TextView tempoAtuacao = view.findViewById(R.id.txt_tempo_experiencia);
@@ -301,7 +300,6 @@ public class PerfilMentorFragment extends Fragment {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 int index = listaTempoAtuacao.indexOf(document.getData().get("tempoAtuacao").toString());
                                 nomePerfil.setText(document.getData().get("nome").toString());
-                                areaAtuacao.setText("Área de atuação: " + document.getData().get("areaAtuacao").toString());
                                 //tempoAtuacao.setText(document.getData().get("tempoAtuacao").toString());
                                 spinnerTempoAtuacao.setSelection(index);
                                 editNome.setText(document.getData().get("nome").toString());

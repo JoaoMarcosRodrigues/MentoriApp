@@ -71,8 +71,7 @@ public class ContatoFragment extends Fragment {
         txtWhatsapp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                goToUrl("https://api.whatsapp.com/send?phone=5579996090622");
-
+                goToUrl("https://api.whatsapp.com/send?phone=5579996751725");
             }
         });
 

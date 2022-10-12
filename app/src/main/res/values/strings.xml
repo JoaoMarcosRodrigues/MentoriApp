@@ -24,10 +24,14 @@
     <string name="title_activity_settings">SettingsActivity</string>
     <string name="entre_em_contato">Fique a vontade para nos escrever</string>
     <string name="telefone_contato">(79) 99675-1725</string>
-    <string name="email_contato">mentoriapp@gmail.com</string>
+    <string name="email_contato">mentoriapplication@gmail.com</string>
     <string name="txt_formacao1">Aluno graduado em Ciência da Computação pela Universidade Federal de Sergipe - UFS</string>
     <string name="txt_formacao2">Técnico em Informática pelo Instituto Federal de Sergipe - IFS</string>
     <string name="txt_formacao3">Desenvolvedor Júnior pela Influir - Automatização de Processos</string>
+    <string name="txt_formacao4">De 1997 a 2000: Mestrado em Educação - Universidade Federal de Sergipe, UFS, Brasil.</string>
+    <string name="txt_formacao5">De 1992 a 1995: Graduação em Ciência da Computação - Universidade Federal de Sergipe, UFS, Brasil.</string>
+    <string name="txt_formacao6">De 2019 a 2021: Doutorado em Ciência da Propriedade Intelectual, UFS, Brasil.</string>
+    <string name="txt_formacao7">De 2002 - atual: Professora Adjunta na Universidade Federal de Sergipe - UFS, Brasil.</string>
     <string name="title_activity_reunioes">ReunioesActivity</string>
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>

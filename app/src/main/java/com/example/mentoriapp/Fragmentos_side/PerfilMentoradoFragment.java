@@ -117,7 +117,6 @@ public class PerfilMentoradoFragment extends Fragment {
 
     private void atualizarPerfil() {
         TextView nomePerfil = view.findViewById(R.id.txt_nome_perfil_mentorado);
-        TextView areaAtuacao = view.findViewById(R.id.txt_area_atuacao_perfil_mentorado);
         TextView email = view.findViewById(R.id.txt_email_perfil_mentorado);
         email.setText(firebaseUser.getEmail());
 
@@ -129,7 +128,6 @@ public class PerfilMentoradoFragment extends Fragment {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 nomePerfil.setText(document.getData().get("nome").toString());
-                                areaAtuacao.setText(document.getData().get("areaAtuacao").toString());
                                 editNome.setText(document.getData().get("nome").toString());
                                 editTelefone.setText(document.getData().get("telefone").toString());
                                 editArea.setText(document.getData().get("areaAtuacao").toString());

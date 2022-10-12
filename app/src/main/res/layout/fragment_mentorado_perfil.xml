@@ -65,18 +65,6 @@
                     android:text="Email"
                     android:textSize="15sp" />
 
-                <TextView
-                    android:id="@+id/txt_area_atuacao_perfil_mentorado"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/txt_email_perfil_mentorado"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginRight="125dp"
-                    android:gravity="center"
-                    android:text="Área de atuação"
-                    android:textSize="15sp" />
-
             </RelativeLayout>
 
             <RelativeLayout
@@ -103,6 +91,7 @@
                         android:id="@+id/edit_nome_perfil_mentorado"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:hint="Nome"
                         android:ellipsize="end" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -111,6 +100,7 @@
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:hint="Telefone"
                     android:layout_below="@+id/layout_nome_perfil_mentorado"
                     android:layout_marginTop="10dp"
                     app:counterEnabled="true"
@@ -140,6 +130,7 @@
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/edit_area_perfil_mentorado"
                         android:layout_width="match_parent"
+                        android:hint="Área de Atuação"
                         android:layout_height="wrap_content" />
                 </com.google.android.material.textfield.TextInputLayout>
 

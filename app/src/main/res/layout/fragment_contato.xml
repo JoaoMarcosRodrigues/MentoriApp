@@ -61,15 +61,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
+                android:layout_marginStart="20dp"
                 android:layout_marginLeft="20dp"
+                android:layout_toEndOf="@+id/icon_email"
                 android:layout_toRightOf="@+id/icon_email"
-                android:textColorLink="#0140FF"
+                android:autoLink="email"
                 android:text="@string/email_contato"
                 android:textColor="#0140FF"
-                android:autoLink="email"
-                android:textSize="16sp"
-                android:layout_marginStart="20dp"
-                android:layout_toEndOf="@+id/icon_email" />
+                android:textColorLink="#0140FF"
+                android:textSize="16sp" />
 
         </RelativeLayout>
 
