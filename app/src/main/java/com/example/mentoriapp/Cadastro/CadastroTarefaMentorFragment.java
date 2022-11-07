@@ -224,7 +224,7 @@ public class CadastroTarefaMentorFragment extends Fragment {
                             //Toast.makeText(getContext(),"Tarefa cadastrada com sucesso!",Toast.LENGTH_SHORT).show();
                             getActivity().getSupportFragmentManager()
                                     .beginTransaction()
-                                    .replace(R.id.fragment_mentor, new ListaTarefasMentorFragment())
+                                    .replace(R.id.fragment_mentor, new ListaTarefasMentorFragment()).addToBackStack(null)
                                     .commit();
                         }
                     })

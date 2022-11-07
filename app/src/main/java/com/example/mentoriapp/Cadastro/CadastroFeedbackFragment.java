@@ -204,7 +204,7 @@ public class CadastroFeedbackFragment extends Fragment {
                         //Toast.makeText(getContext(),"Feedback cadastrado com sucesso!",Toast.LENGTH_SHORT).show();
                         getActivity().getSupportFragmentManager()
                                 .beginTransaction()
-                                .replace(R.id.fragment_mentor, new ListaFeedbacksFragment())
+                                .replace(R.id.fragment_mentor, new ListaFeedbacksFragment()).addToBackStack(null)
                                 .commit();
                     }
                 })

@@ -299,7 +299,7 @@ public class CadastroRelatoFragment extends Fragment implements AdapterView.OnIt
                             //Toast.makeText(getContext(),"Relato cadastrado!",Toast.LENGTH_SHORT).show();
                             getActivity().getSupportFragmentManager()
                                     .beginTransaction()
-                                    .replace(R.id.fragment_mentorado, new ListaRelatosFragment(),null)
+                                    .replace(R.id.fragment_mentorado, new ListaRelatosFragment()).addToBackStack(null)
                                     .commit();
                         }
                     })

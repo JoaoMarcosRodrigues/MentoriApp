@@ -285,7 +285,7 @@ public class CadastroReuniaoMentoradoFragment extends Fragment {
                         builder.show();
                         //Toast.makeText(getContext(),"Reunião cadastrada com sucesso!",Toast.LENGTH_SHORT).show();
                         getActivity().getSupportFragmentManager().beginTransaction()
-                                .replace(R.id.fragment_mentorado, new ListaReunioesMentoradoFragment())
+                                .replace(R.id.fragment_mentorado, new ListaReunioesMentoradoFragment()).addToBackStack(null)
                                 .commit();
                     }
                 })

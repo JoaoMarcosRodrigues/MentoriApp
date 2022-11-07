@@ -209,7 +209,7 @@ public class CadastroAprendizadoFragment extends Fragment {
 
                             getActivity().getSupportFragmentManager()
                                     .beginTransaction()
-                                    .replace(R.id.fragment_mentorado, new ListaAprendizadosFragment())
+                                    .replace(R.id.fragment_mentorado, new ListaAprendizadosFragment()).addToBackStack(null)
                                     .commit();
                         }
                     })

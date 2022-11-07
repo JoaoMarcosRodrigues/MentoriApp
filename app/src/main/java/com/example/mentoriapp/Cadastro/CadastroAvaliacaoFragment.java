@@ -203,7 +203,7 @@ public class CadastroAvaliacaoFragment extends Fragment {
                             //Toast.makeText(getContext(),"Avaliação cadastrada com sucesso!",Toast.LENGTH_SHORT).show();
                             getActivity().getSupportFragmentManager()
                                     .beginTransaction()
-                                    .replace(R.id.fragment_mentor, new ListaAvaliacoesFragment())
+                                    .replace(R.id.fragment_mentor, new ListaAvaliacoesFragment()).addToBackStack(null)
                                     .commit();
                         }
                     })

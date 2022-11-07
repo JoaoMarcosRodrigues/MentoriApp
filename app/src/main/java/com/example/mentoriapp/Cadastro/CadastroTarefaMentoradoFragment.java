@@ -126,7 +126,7 @@ public class CadastroTarefaMentoradoFragment extends Fragment {
                             //Toast.makeText(getContext(),"Tarefa cadastrada com sucesso!",Toast.LENGTH_SHORT).show();
                             getActivity().getSupportFragmentManager()
                                     .beginTransaction()
-                                    .replace(R.id.fragment_mentorado, new ListaTarefasMentoradoFragment())
+                                    .replace(R.id.fragment_mentorado, new ListaTarefasMentoradoFragment()).addToBackStack(null)
                                     .addToBackStack(null)
                                     .commit();
                         }

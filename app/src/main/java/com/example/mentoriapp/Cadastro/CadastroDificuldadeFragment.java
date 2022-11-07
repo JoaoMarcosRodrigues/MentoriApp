@@ -212,7 +212,7 @@ public class CadastroDificuldadeFragment extends Fragment {
                             builder.show();
                             //Toast.makeText(getContext(),"Dificuldade cadastrada com sucesso!",Toast.LENGTH_SHORT).show();
                             getActivity().getSupportFragmentManager().beginTransaction()
-                                    .replace(R.id.fragment_mentorado,new ListaDificuldadesFragment())
+                                    .replace(R.id.fragment_mentorado,new ListaDificuldadesFragment()).addToBackStack(null)
                                     .commit();
                         }
                     })
