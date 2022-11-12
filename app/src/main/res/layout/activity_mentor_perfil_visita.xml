@@ -6,10 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".Detalhes.MentorPerfilVisitaActivity">
 
-    <include
-        android:id="@+id/toolbar"
-        layout="@layout/toolbar" />
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -104,6 +100,7 @@
                         android:id="@+id/edit_telefone_perfil_mentor"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:textColor="@color/sub_text_color"
                         android:inputType="phone" />
                 </com.google.android.material.textfield.TextInputLayout>
 

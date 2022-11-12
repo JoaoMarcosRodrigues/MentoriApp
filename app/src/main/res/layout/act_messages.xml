@@ -6,15 +6,11 @@
     android:layout_height="match_parent"
     tools:context=".Fragmentos_side.MessagesActivity">
 
-    <include
-        android:id="@+id/toolbar"
-        layout="@layout/toolbar"/>
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_messages"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/toolbar" />
+        />
 
 
 </RelativeLayout>

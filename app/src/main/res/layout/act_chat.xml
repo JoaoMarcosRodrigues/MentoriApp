@@ -7,10 +7,6 @@
     android:background="@color/gray"
     tools:context=".ChatActivity">
 
-    <include
-        android:id="@+id/toolbar"
-        layout="@layout/toolbar" />
-
     <EditText
         android:id="@+id/edit_chat"
         android:layout_width="0dp"
@@ -23,6 +19,7 @@
         android:background="@drawable/edit_round"
         android:ems="10"
         android:hint="Digite sua mensagem..."
+        android:textColorHint="@color/hint_color"
         android:inputType="textPersonName"
         android:padding="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -46,12 +43,10 @@
         android:id="@+id/recycler_chat"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="10dp"
         android:padding="10dp"
         app:layout_constraintBottom_toTopOf="@+id/edit_chat"
-        app:layout_constraintEnd_toEndOf="@+id/toolbar"
-        app:layout_constraintStart_toStartOf="@+id/edit_chat"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

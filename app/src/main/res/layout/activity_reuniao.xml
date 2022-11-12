@@ -6,9 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".Fragmentos_side.ReuniaoActivity">
 
-    <include android:id="@+id/toolbar"
-        layout="@layout/toolbar"/>
-
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipeRefreshLayout"
         android:layout_width="match_parent"

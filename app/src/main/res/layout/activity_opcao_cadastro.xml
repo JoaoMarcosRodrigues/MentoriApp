@@ -41,8 +41,8 @@
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/round_opcao"
                 android:layout_gravity="center_horizontal|center_vertical"
+                android:background="@drawable/round_opcao"
                 android:padding="25dp">
 
                 <TextView
@@ -70,6 +70,7 @@
                     android:layout_below="@+id/img_mentor"
                     android:layout_marginTop="20dp"
                     android:text="Pessoa que inspira, estimula, cria ou orienta"
+                    android:textColor="@color/textView_color"
                     android:textSize="16sp" />
 
             </RelativeLayout>
@@ -88,8 +89,8 @@
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/round_opcao"
                 android:layout_gravity="center_horizontal|center_vertical"
+                android:background="@drawable/round_opcao"
                 android:padding="25dp">
 
                 <TextView
@@ -117,6 +118,7 @@
                     android:layout_below="@+id/img_mentorado"
                     android:layout_marginTop="20dp"
                     android:text="Quem é guiado ou aconselhado por um mentor"
+                    android:textColor="@color/textView_color"
                     android:textSize="16sp" />
 
             </RelativeLayout>

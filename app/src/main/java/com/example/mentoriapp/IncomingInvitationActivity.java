@@ -62,7 +62,7 @@ public class IncomingInvitationActivity extends AppCompatActivity {
         }
 
         textUserName.setText(userName);
-        textUserEmail.setText(userEmail+"AQUI!!");
+        textUserEmail.setText(userEmail);
 
         ImageView imageAcceptInvitation = findViewById(R.id.imageAccept);
         imageAcceptInvitation.setOnClickListener(v -> sendInvitationResponse("accepted",getIntent().getStringExtra("inviterToken")));

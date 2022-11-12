@@ -52,8 +52,8 @@ public class MessagesActivity extends AppCompatActivity {
 
         getApplication().registerActivityLifecycleCallbacks(application);
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        //Toolbar toolbar = findViewById(R.id.toolbar);
+        //setSupportActionBar(toolbar);
 
         RecyclerView rv = findViewById(R.id.recycler_messages);
         rv.setLayoutManager(new LinearLayoutManager(this));

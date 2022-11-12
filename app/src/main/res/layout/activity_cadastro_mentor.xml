@@ -7,19 +7,10 @@
     android:orientation="vertical"
     tools:context=".Mentor.CadastroMentorActivity">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="#8015B18D"
-        app:subtitleTextColor="@color/white"
-        app:titleTextColor="@color/white" />
-
     <ScrollView
         android:id="@+id/scrollView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/toolbar">
+        android:layout_height="match_parent">
 
         <RelativeLayout
             android:layout_width="match_parent"

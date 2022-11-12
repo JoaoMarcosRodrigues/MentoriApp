@@ -22,13 +22,16 @@
         <activity
             android:name=".IncomingInvitationActivity"
             android:screenOrientation="fullSensor" />
-        <activity android:name=".Fragmentos_side.ReuniaoActivity" />
+        <activity android:name=".Fragmentos_side.ReuniaoActivity"
+            android:theme="@style/Theme.MaterialComponents.DayNight.DarkActionBar"/>
         <activity android:name=".Detalhes.DetalhesRelatoMentoradoActivity" />
         <activity android:name=".Detalhes.DetalheTarefaMentorActivity" />
         <activity android:name=".Listas.ListaRelatosMentoradoActivity" />
         <activity android:name=".Detalhes.DetalheAvaliacaoActivity" />
-        <activity android:name=".Detalhes.MentorPerfilVisitaActivity" />
-        <activity android:name=".Detalhes.MentoradoPerfilVisitaActivity" />
+        <activity android:name=".Detalhes.MentorPerfilVisitaActivity"
+            android:theme="@style/Theme.MaterialComponents.DayNight.DarkActionBar"/>
+        <activity android:name=".Detalhes.MentoradoPerfilVisitaActivity"
+            android:theme="@style/Theme.MaterialComponents.DayNight.DarkActionBar"/>
         <activity android:name=".Detalhes.DetalheTarefaMentoradoActivity" />
         <activity android:name=".Detalhes.DetalheFeedbackActivity" />
         <activity android:name=".Detalhes.DetalheDificuldadeActivity" />
@@ -36,14 +39,17 @@
         <activity android:name=".Detalhes.DetalheRelatoActivity" />
         <activity
             android:name=".ChatActivity"
-            android:parentActivityName=".Fragmentos_side.ContatosActivity" />
+            android:parentActivityName=".Fragmentos_side.ContatosActivity"
+            android:theme="@style/Theme.MaterialComponents.DayNight.DarkActionBar"/>
         <activity
             android:name=".Fragmentos_side.ContatosActivity"
             android:label="Contatos"
-            android:parentActivityName=".Fragmentos_side.MessagesActivity" />
+            android:parentActivityName=".Fragmentos_side.MessagesActivity"
+            android:theme="@style/Theme.MaterialComponents.DayNight.DarkActionBar"/>
         <activity
             android:name=".Fragmentos_side.MessagesActivity"
-            android:label="Mensagens" />
+            android:label="Mensagens"
+            android:theme="@style/Theme.MaterialComponents.DayNight.DarkActionBar"/>
         <activity android:name=".SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -56,9 +62,11 @@
         <activity android:name=".OpcaoCadastroActivity" />
         <activity
             android:name=".Mentor.CadastroMentorActivity"
-            android:parentActivityName=".OpcaoCadastroActivity" />
+            android:parentActivityName=".OpcaoCadastroActivity"
+            android:theme="@style/Theme.MaterialComponents.DayNight.DarkActionBar"/>
         <activity
             android:name=".Mentorado.CadastroMentoradoActivity"
+            android:theme="@style/Theme.MaterialComponents.DayNight"
             android:parentActivityName=".OpcaoCadastroActivity" />
         <activity
             android:name=".MainMentoradoActivity"

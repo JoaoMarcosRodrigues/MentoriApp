@@ -59,8 +59,8 @@ public class ReuniaoActivity extends AppCompatActivity implements UsersListener 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reuniao);
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        //Toolbar toolbar = findViewById(R.id.toolbar);
+        //setSupportActionBar(toolbar);
         textError = findViewById(R.id.textError);
 
         db = FirebaseFirestore.getInstance();

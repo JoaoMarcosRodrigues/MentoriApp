@@ -60,9 +60,9 @@ public class CadastroMentoradoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cadastro_mentorado);
 
-        toolbar = findViewById(R.id.toolbar);
+        //toolbar = findViewById(R.id.toolbar);
 
-        setSupportActionBar(toolbar);
+        //setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Cadastro do Mentorado");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 

@@ -51,8 +51,8 @@ public class MentoradoPerfilVisitaActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mentorado_perfil_visita);
 
-        toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        //toolbar = findViewById(R.id.toolbar);
+        //setSupportActionBar(toolbar);
         txtNome = findViewById(R.id.txt_nome_perfil_mentorado);
         txtEmail = findViewById(R.id.txt_email_perfil_mentorado);
         txtAreaAtuacao = findViewById(R.id.txt_area_atuacao_perfil_mentorado);

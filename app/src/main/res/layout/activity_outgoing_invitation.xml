@@ -47,7 +47,7 @@
             android:includeFontPadding="false"
             android:textAllCaps="true"
             android:textStyle="bold"
-            android:textColor="@color/design_default_color_primary"
+            android:textColor="@color/black"
             android:textSize="30sp"/>
 
         <TextView
