@@ -47,6 +47,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/btn_img_perfil"
                     android:layout_centerHorizontal="true"
+                    android:textColor="@color/sub_text_color"
                     android:layout_marginTop="20dp"
                     android:ellipsize="end"
                     android:gravity="center"
@@ -61,6 +62,7 @@
                     android:layout_below="@+id/txt_nome_perfil_mentor"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="8dp"
+                    android:textColor="@color/sub_text_color"
                     android:ellipsize="end"
                     android:gravity="center"
                     android:text="Email"
@@ -93,6 +95,8 @@
                         android:inputType="textEmailAddress"
                         android:ellipsize="end"
                         android:hint="Nome"
+                        android:textColor="@color/sub_text_color"
+                        android:textColorHint="@color/hint_color"
                         android:layout_height="wrap_content" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -113,6 +117,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Telefone"
+                        android:textColor="@color/sub_text_color"
+                        android:textColorHint="@color/hint_color"
                         android:inputType="phone"/>
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -134,6 +140,8 @@
                         android:layout_height="wrap_content"
                         android:hint="Área de Atuação"
                         android:maxLines="5"
+                        android:textColor="@color/sub_text_color"
+                        android:textColorHint="@color/hint_color"
                         android:inputType="text"/>
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -154,6 +162,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Formação"
+                        android:textColor="@color/sub_text_color"
+                        android:textColorHint="@color/hint_color"
                         android:inputType="text"/>
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -175,6 +185,8 @@
                         android:layout_height="wrap_content"
                         android:lines="4"
                         android:maxLines="4"
+                        android:textColor="@color/sub_text_color"
+                        android:textColorHint="@color/hint_color"
                         android:gravity="top|left"
                         android:hint="Currículo"
                         android:inputType="textMultiLine"/>
@@ -188,6 +200,7 @@
                     android:layout_marginTop="20dp"
                     android:text="Tempo de exeperiência:"
                     android:textSize="16sp"
+                    android:textColor="@color/sub_text_color"
                     android:textStyle="bold" />
 
                 <Spinner
@@ -199,6 +212,7 @@
                     android:layout_marginLeft="15dp"
                     android:layout_marginTop="20dp"
                     android:layout_marginRight="20dp"
+                    android:textColor="@color/sub_text_color"
                     android:layout_marginBottom="5dp"
                     android:layout_toRightOf="@+id/txt_titulo_tempo_experiencia"
                     android:entries="@array/tempoAtuacao" />
@@ -214,6 +228,7 @@
                 android:layout_marginRight="30dp"
                 android:backgroundTint="#8015B18D"
                 android:layout_marginTop="70dp"
+                android:textColor="@color/sub_text_color"
                 android:layout_marginBottom="40dp"
                 android:text="Salvar" />
         </LinearLayout>

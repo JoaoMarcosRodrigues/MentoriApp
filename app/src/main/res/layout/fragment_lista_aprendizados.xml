@@ -6,7 +6,6 @@
     tools:context=".Listas.ListaAprendizadosFragment">
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/swiperefresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -17,6 +16,7 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/listaAprendizados"
                 android:layout_width="match_parent"
+                android:backgroundTint="@color/sub_text_color"
                 android:layout_height="match_parent"/>
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -31,10 +31,12 @@
                 android:layout_marginBottom="16dp"
                 android:backgroundTint="#15B18D"
                 android:src="@drawable/ic_add" />
+
             <TextView
                 android:id="@+id/txtListaVazia"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/sub_text_color"
                 android:layout_centerInParent="true"
                 android:text="Lista Vazia"
                 android:textSize="18sp" />

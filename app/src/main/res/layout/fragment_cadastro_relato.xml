@@ -34,6 +34,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Título"
+                    android:textColor="@color/sub_text_color"
+                    android:textColorHint="@color/hint_color"
                     android:maxLines="1"
                     android:inputType="text" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -56,6 +58,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Tema"
+                    android:textColor="@color/sub_text_color"
+                    android:textColorHint="@color/hint_color"
                     android:inputType="text" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -76,6 +80,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="left|top"
+                    android:textColor="@color/sub_text_color"
+                    android:textColorHint="@color/hint_color"
                     android:hint="Descrição"
                     android:inputType="textMultiLine"
                     android:lines="3" />
@@ -89,6 +95,7 @@
                 android:layout_marginLeft="30dp"
                 android:layout_marginTop="20dp"
                 android:text="Presencial?"
+                android:textColor="@color/sub_text_color"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
@@ -106,6 +113,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:checked="true"
+                    android:textColor="@color/sub_text_color"
                     android:text="Sim" />
 
                 <RadioButton
@@ -113,6 +121,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="15dp"
+                    android:textColor="@color/sub_text_color"
                     android:text="Não" />
             </RadioGroup>
 
@@ -123,6 +132,7 @@
                 android:layout_below="@+id/layout_descricao_relato"
                 android:layout_marginLeft="75dp"
                 android:layout_marginTop="21dp"
+                android:textColor="@color/sub_text_color"
                 android:layout_toRightOf="@+id/txt_presencial"
                 android:text="Tarefa Associada?"
                 android:textSize="18sp"
@@ -146,6 +156,7 @@
                 android:layout_below="@+id/radio_group_presencial"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
+                android:textColor="@color/sub_text_color"
                 android:layout_marginTop="30dp"
                 android:layout_marginEnd="341dp"
                 android:layout_marginRight="341dp"
@@ -170,6 +181,7 @@
                 android:layout_marginLeft="15dp"
                 android:layout_marginTop="27dp"
                 android:layout_marginRight="20dp"
+                android:textColor="@color/sub_text_color"
                 android:layout_toRightOf="@+id/img_data_relato"
                 android:hint="Data do relato (clique no ícone ao lado)"
                 android:textSize="15sp" />
@@ -187,7 +199,7 @@
                 android:layout_marginBottom="30dp"
                 android:backgroundTint="#8015B18D"
                 android:text="Pronto"
-                android:textColor="@color/white" />
+                android:textColor="@color/sub_text_color" />
 
         </RelativeLayout>
 

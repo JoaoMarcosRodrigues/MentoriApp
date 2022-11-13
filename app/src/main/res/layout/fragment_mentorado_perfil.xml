@@ -49,6 +49,7 @@
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="40dp"
                     android:gravity="center"
+                    android:textColor="@color/sub_text_color"
                     android:text="Brendan Moore"
                     android:textSize="20sp"
                     android:textStyle="bold" />
@@ -61,6 +62,7 @@
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="8dp"
                     android:layout_marginRight="125dp"
+                    android:textColor="@color/sub_text_color"
                     android:gravity="center"
                     android:text="Email"
                     android:textSize="15sp" />
@@ -92,6 +94,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Nome"
+                        android:textColor="@color/sub_text_color"
+                        android:textColorHint="@color/hint_color"
                         android:ellipsize="end" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -112,6 +116,9 @@
                         android:id="@+id/edit_telefone_perfil_mentorado"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:hint="Telefone"
+                        android:textColorHint="@color/hint_color"
+                        android:textColor="@color/sub_text_color"
                         android:inputType="phone" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -131,6 +138,8 @@
                         android:id="@+id/edit_area_perfil_mentorado"
                         android:layout_width="match_parent"
                         android:hint="Área de Atuação"
+                        android:textColor="@color/sub_text_color"
+                        android:textColorHint="@color/hint_color"
                         android:layout_height="wrap_content" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -146,6 +155,7 @@
                 android:layout_marginRight="30dp"
                 android:layout_marginBottom="30dp"
                 android:backgroundTint="#8015B18D"
+                android:textColor="@color/sub_text_color"
                 android:text="Salvar" />
         </LinearLayout>
 

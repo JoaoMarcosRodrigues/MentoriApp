@@ -29,6 +29,7 @@
                 android:layout_below="@+id/img_cadastro_mentorado"
                 android:layout_centerHorizontal="true"
                 android:text="Feedback"
+                android:textColor="@color/sub_text_color"
                 android:textSize="28sp"
                 android:textStyle="bold" />
 
@@ -50,6 +51,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Título do feedback"
+                    android:textColor="@color/sub_text_color"
+                    android:textColorHint="@color/hint_color"
                     android:inputType="text" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -71,6 +74,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="top|left"
+                    android:textColor="@color/sub_text_color"
+                    android:textColorHint="@color/hint_color"
                     android:hint="Descreva aqui seu feedback..."
                     android:inputType="textMultiLine"
                     android:lines="5" />
@@ -84,6 +89,7 @@
                 android:layout_marginLeft="30dp"
                 android:layout_marginTop="20dp"
                 android:text="Relatos"
+                android:textColor="@color/sub_text_color"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
@@ -94,6 +100,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/txtRelatos"
                 android:layout_marginLeft="30dp"
+                android:textColor="@color/sub_text_color"
                 android:layout_marginTop="15dp" />
 
             <Button
@@ -104,6 +111,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginLeft="30dp"
                 android:layout_marginTop="60dp"
+                android:textColor="@color/sub_text_color"
                 android:layout_marginRight="30dp"
                 android:layout_marginBottom="30dp"
                 android:backgroundTint="#8015B18D"

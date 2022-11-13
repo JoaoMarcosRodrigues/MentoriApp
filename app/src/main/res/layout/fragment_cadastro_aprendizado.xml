@@ -18,11 +18,13 @@
             android:layout_marginLeft="30dp"
             android:layout_marginTop="40dp"
             android:text="Aprendizado"
+            android:textColor="@color/sub_text_color"
             android:textSize="20sp"
             android:textStyle="bold" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/layout_titulo_aprendizado"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/txt_aprendizado"
@@ -30,7 +32,6 @@
             android:layout_marginTop="20dp"
             android:layout_marginRight="30dp"
             app:counterEnabled="true"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             app:counterMaxLength="255"
             app:errorEnabled="true">
 
@@ -38,11 +39,14 @@
                 android:id="@+id/edit_titulo_aprendizado"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Título do aprendizado" />
+                android:hint="Título do aprendizado"
+                android:textColor="@color/sub_text_color"
+                android:textColorHint="@color/hint_color" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/layout_descricao_aprendizado"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/layout_titulo_aprendizado"
@@ -51,7 +55,6 @@
             android:layout_marginRight="30dp"
             app:counterEnabled="true"
             app:counterMaxLength="255"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             app:errorEnabled="true">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -61,7 +64,9 @@
                 android:gravity="top|left"
                 android:hint="Descreva aqui seu aprendizado..."
                 android:inputType="textMultiLine"
-                android:lines="5" />
+                android:lines="5"
+                android:textColor="@color/sub_text_color"
+                android:textColorHint="@color/hint_color" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
@@ -72,6 +77,7 @@
             android:layout_marginLeft="30dp"
             android:layout_marginTop="40dp"
             android:text="Relato associado"
+            android:textColor="@color/sub_text_color"
             android:textSize="18sp"
             android:textStyle="bold" />
 
@@ -82,7 +88,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/txtRelatoCorrespondente"
             android:layout_marginLeft="30dp"
-            android:layout_marginTop="15dp" />
+            android:layout_marginTop="15dp"
+            android:textColor="@color/sub_text_color" />
 
         <Button
             android:id="@+id/btn_cadastrar_aprendizado"
@@ -95,7 +102,8 @@
             android:layout_marginRight="30dp"
             android:layout_marginBottom="40dp"
             android:backgroundTint="#8015B18D"
-            android:text="Salvar" />
+            android:text="Salvar"
+            android:textColor="@color/sub_text_color" />
 
     </RelativeLayout>
 

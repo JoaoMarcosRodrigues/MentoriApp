@@ -17,6 +17,7 @@
                 android:id="@+id/recycler_meus_mentorados"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:backgroundTint="@color/sub_text_color"
                 android:layout_above="@+id/btnVerTodosMentorados"
                 android:layout_alignParentTop="true" />
 
@@ -28,6 +29,7 @@
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="15dp"
                 android:layout_marginEnd="15dp"
+                android:textColor="@color/sub_text_color"
                 android:backgroundTint="#8015B18D"
                 android:layout_marginBottom="15dp"
                 android:text="Ver todos os Mentorados" />
@@ -36,6 +38,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
+                android:textColor="@color/sub_text_color"
                 android:text="Lista Vazia"
                 android:textSize="18sp" />
 

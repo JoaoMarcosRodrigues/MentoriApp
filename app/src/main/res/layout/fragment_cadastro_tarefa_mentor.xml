@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar"
     tools:context=".Cadastro.CadastroTarefaMentorFragment">
 
@@ -35,11 +35,13 @@
                     android:layout_below="@+id/img_cadastro_mentorado"
                     android:layout_centerHorizontal="true"
                     android:text="Tarefa"
+                    android:textColor="@color/sub_text_color"
                     android:textSize="28sp"
                     android:textStyle="bold" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/layout_titulo_tarefa"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/txt_titulo_cadastro_tarefa"
@@ -48,20 +50,22 @@
                     android:layout_marginRight="40dp"
                     app:counterEnabled="true"
                     app:counterMaxLength="100"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     app:errorEnabled="true">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/edit_titulo_tarefa"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="text"
                         android:hint="Título da tarefa..."
-                        android:lines="1" />
+                        android:inputType="text"
+                        android:lines="1"
+                        android:textColor="@color/sub_text_color"
+                        android:textColorHint="@color/hint_color" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/layout_descricao_tarefa"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/layout_titulo_tarefa"
@@ -70,29 +74,31 @@
                     android:layout_marginRight="40dp"
                     app:counterEnabled="true"
                     app:counterMaxLength="255"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     app:errorEnabled="true">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/edit_descricao_tarefa"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="textMultiLine"
                         android:gravity="top|left"
                         android:hint="Descreva aqui a tarefa..."
-                        android:lines="5" />
+                        android:inputType="textMultiLine"
+                        android:lines="5"
+                        android:textColor="@color/sub_text_color"
+                        android:textColorHint="@color/hint_color" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <TextView
                     android:id="@+id/txtMentoradoAssociado"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Mentorado"
-                    android:textStyle="bold"
-                    android:textSize="18sp"
                     android:layout_below="@+id/layout_descricao_tarefa"
                     android:layout_marginLeft="40dp"
-                    android:layout_marginTop="20dp"/>
+                    android:layout_marginTop="20dp"
+                    android:text="Mentorado"
+                    android:textColor="@color/sub_text_color"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
                 <Spinner
                     android:id="@+id/spinner_mentorados"
@@ -101,7 +107,8 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/txtMentoradoAssociado"
                     android:layout_marginLeft="40dp"
-                    android:layout_marginTop="15dp" />
+                    android:layout_marginTop="15dp"
+                    android:textColor="@color/sub_text_color" />
 
                 <Button
                     android:id="@+id/btn_cadastrar_tarefa"
@@ -114,7 +121,8 @@
                     android:layout_marginRight="30dp"
                     android:layout_marginBottom="30dp"
                     android:backgroundTint="#8015B18D"
-                    android:text="Cadastrar" />
+                    android:text="Cadastrar"
+                    android:textColor="@color/sub_text_color" />
 
             </RelativeLayout>
 
