@@ -9,8 +9,7 @@
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipeRefreshLayout"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_below="@+id/toolbar"
+        android:layout_height="match_parent"
         android:layout_alignParentBottom="true">
 
         <androidx.recyclerview.widget.RecyclerView
@@ -32,7 +31,6 @@
         android:includeFontPadding="false"
         android:textSize="15sp"
         android:visibility="gone"
-        android:textColor="#F33636"
-        android:layout_below="@+id/toolbar"/>
+        android:textColor="#F33636" />
 
 </RelativeLayout>
